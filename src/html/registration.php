@@ -146,6 +146,8 @@
     </footer>
 
     <script>
+        // JavaScript Code
+
         "use strict"
 
         const password = document.querySelector(".password")

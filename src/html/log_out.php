@@ -12,5 +12,11 @@
 
     deleteSession();
 
+    session_start();
+
+    $_SESSION["log_out_successful_message"] = "Úspešne odhlásený.";
+
+    session_write_close();
+
     redirectURL("/src/html/index.php");
 ?>

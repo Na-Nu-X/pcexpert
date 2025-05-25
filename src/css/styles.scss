@@ -157,6 +157,20 @@ header
     animation: fade_out_animation 5s ease-out;
 }
 
+.log_out_successful_message
+{
+    visibility: hidden;
+    position: fixed;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    color: rgb(250, 50, 50);
+    user-select: none;
+    z-index: 100;
+    animation: fade_out_animation 5s ease-out;
+}
+
 .account ul
 {
     position: absolute;
@@ -676,6 +690,14 @@ footer a img:hover
     }
 }
 
+@media only screen and (min-width: 988px)
+{
+    .navigation_bar ul li
+    {
+        display: inline-block !important;
+    }
+}
+
 @media only screen and (max-width: 987px)
 {
     .navigation_bar ul li
@@ -723,19 +745,6 @@ footer a img:hover
     // .account ul
     // {
     //     top: 60px;
-    // }
-
-    // .header_buttons
-    // {
-    //     top: 55%;
-    // }
-
-    // .header_buttons a
-    // {
-    //     display: block;
-    //     width: 350px;
-    //     margin: 10px auto;
-    //     font-size: 18px;
     // }
 
     .image h2

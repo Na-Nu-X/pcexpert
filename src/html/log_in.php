@@ -133,9 +133,9 @@
         <?php require "../assets/footer.php"; ?>
     </footer>
 
-    <!-- JavaScript Code -->
-
     <script>
+        // JavaScript Code
+
         "use strict"
 
         // Toggle Show / Hide Password

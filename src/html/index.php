@@ -84,6 +84,12 @@
             <?php $_SESSION["log_in_successful_message"] = ""; ?>
 
         <?php endif; ?>
+
+        <?php if(isset($_SESSION["log_out_successful_message"]) and !empty($_SESSION["log_out_successful_message"])): ?>
+            <p class="log_out_successful_message"><?php echo $_SESSION["log_out_successful_message"]; ?></p>
+            <?php $_SESSION["log_out_successful_message"] = ""; ?>
+
+        <?php endif; ?>
         
         <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true): ?>
             <div class="account">
@@ -317,10 +323,10 @@
     <footer>
         <?php require "../assets/footer.php"; ?>
     </footer>
-    
-    <!-- JavaScript Code -->
 
     <script>
+        // JavaScript Code
+
         "use strict"
         
         console.log("%c PC Expert by Patrik Behul", "color: rgb(170, 255, 50); background-color: rgb(0, 0, 0)")

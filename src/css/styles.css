@@ -136,6 +136,21 @@ header {
   animation: fade_out_animation 5s ease-out;
 }
 
+.log_out_successful_message {
+  visibility: hidden;
+  position: fixed;
+  top: 75%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  color: rgb(250, 50, 50);
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  z-index: 100;
+  animation: fade_out_animation 5s ease-out;
+}
+
 .account ul {
   position: absolute;
   top: 100px;
@@ -567,6 +582,11 @@ footer a img:hover {
   .image.active {
     min-width: 50%;
     height: 300px;
+  }
+}
+@media only screen and (min-width: 988px) {
+  .navigation_bar ul li {
+    display: inline-block !important;
   }
 }
 @media only screen and (max-width: 987px) {
