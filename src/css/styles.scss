@@ -676,15 +676,7 @@ footer a img:hover
     }
 }
 
-@media only screen and (min-width: 801px)
-{
-    .navigation_bar ul li
-    {
-        display: inline-block !important;
-    }
-}
-
-@media only screen and (max-width: 800px)
+@media only screen and (max-width: 987px)
 {
     .navigation_bar ul li
     {
@@ -703,6 +695,35 @@ footer a img:hover
     {
         top: 60px;
     }
+}
+
+// @media only screen and (min-width: 801px)
+// {
+//     .navigation_bar ul li
+//     {
+//         display: inline-block !important;
+//     }
+// }
+
+@media only screen and (max-width: 800px)
+{
+    // .navigation_bar ul li
+    // {
+    //     // display: block;
+    //     display: none;
+    //     margin: 5px auto 0px;
+    //     width: 225px;
+    // }
+
+    // .navigation_icon
+    // {
+    //     display: block;
+    // }
+
+    // .account ul
+    // {
+    //     top: 60px;
+    // }
 
     // .header_buttons
     // {
