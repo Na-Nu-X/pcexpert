@@ -129,6 +129,9 @@ header {
   transform: translate(-50%, -50%);
   font-size: 20px;
   color: rgb(170, 255, 50);
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
   z-index: 100;
   animation: fade_out_animation 5s ease-out;
 }

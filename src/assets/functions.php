@@ -313,27 +313,55 @@ function insertRememberMeToken($connection, $id, $remember_me_token) {
 }
 
 function getUserIdByRememberMeToken($connection, $remember_me_token_cookie) {
-    $sql = "SELECT id, remember_me_token FROM users WHERE remember_me_token IS NOT NULL";
+    $sql = "SELECT id, remember_me_token 
+            FROM users 
+            WHERE remember_me_token IS NOT NULL";
 
     $stmt = mysqli_prepare($connection, $sql);
 
-    if ($stmt) {
-        if (mysqli_stmt_execute($stmt)) {
+    if($stmt) {
+        if(mysqli_stmt_execute($stmt)) {
             $result = mysqli_stmt_get_result($stmt);
 
-            while ($row = mysqli_fetch_assoc($result)) {
-                $user_id = $row["id"];
-                $hashed_token = $row["remember_me_token"];
+            while($row = mysqli_fetch_assoc($result)) {
+                $id = $row["id"];
+                $remember_me_token_database = $row["remember_me_token"];
 
-                if (password_verify($remember_me_token_cookie, $hashed_token)) {
-                    return $user_id;
+                if(password_verify($remember_me_token_cookie, $remember_me_token_database)) {
+                    return $id;
                 }
             }
         }
-    } else {
+    } 
+    
+    else {
         echo mysqli_error($connection);
     }
 
     return false;
+}
+
+function getUserRole($connection, $id) {
+    $sql = "SELECT role
+            FROM users
+            WHERE id = ?";
+
+    $stmt = mysqli_prepare($connection, $sql);
+
+    if($stmt) {
+        mysqli_stmt_bind_param($stmt, "i", $id);
+
+        if(mysqli_stmt_execute($stmt)) {
+            $result = mysqli_stmt_get_result($stmt);
+            $role_database = mysqli_fetch_row($result); // pole
+            $user_role = $role_database[0];
+
+            return $user_role;
+        }
+    }
+
+    else {
+        echo mysqli_error($connection);
+    }
 }
 ?>

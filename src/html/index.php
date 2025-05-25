@@ -7,10 +7,12 @@
     
     $connection = connectionDB();
 
-    if (isset($_COOKIE["remember_me_token"]) and !isset($_SESSION["is_logged_in"])) {
+    // Auto Log In To Account If remember_me_token Cookie Is Setted And User Is Not Logged In Yet
+
+    if(isset($_COOKIE["remember_me_token"]) and !isset($_SESSION["is_logged_in"])) {
         $id = getUserIdByRememberMeToken($connection, $_COOKIE["remember_me_token"]);
 
-        if ($id !== false) {
+        if($id !== false) {
             session_regenerate_id(true); // Protection For Fixation Attack
 
             $_SESSION["is_logged_in"] = true;
@@ -18,8 +20,6 @@
             $_SESSION["log_in_successful_message"] = "Prihlásený ako " . htmlspecialchars(getUserName($connection, $id), ENT_QUOTES, "UTF-8");
         }
     }
-
-    // echo $_SESSION["log_in_successful_message"];
 ?>
 
 <!DOCTYPE html>
@@ -57,6 +57,13 @@
                 <li class="navigation_bar_item scroll_contact">
                     <a href="#">KONTAKT</a>
                 </li>
+
+                <?php if(isset($_SESSION["logged_in_user_id"]) and getUserRole($connection, $_SESSION["logged_in_user_id"]) === "admin"): ?>
+                    <li class="navigation_bar_item">
+                        <a href="./administration.php">ADMINISTRÁCIA</a>
+                    </li>
+
+                <?php endif; ?>
                 
                 <div class="navigation_icon">
                     <i class="fa-solid fa-bars"></i>
@@ -74,7 +81,7 @@
 
         <?php if(isset($_SESSION["log_in_successful_message"]) and !empty($_SESSION["log_in_successful_message"])): ?>
             <p class="log_in_successful_message"><?php echo $_SESSION["log_in_successful_message"]; ?></p>
-            <?php $_SESSION["log_in_successful_message"] = null ?>
+            <?php $_SESSION["log_in_successful_message"] = ""; ?>
 
         <?php endif; ?>
         
