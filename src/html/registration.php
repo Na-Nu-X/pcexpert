@@ -20,14 +20,13 @@
         $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
         $news = isset($_POST["news"]) ? "yes" : "no";
         $role = "user";
-        $remember_me_token = password_hash(bin2hex(random_bytes(30)), PASSWORD_DEFAULT);
 
         if(!empty(emailAuthentication($connection, $email_address))) {
             $message = "Tento email už je zaregistrovaný.";
         }
 
         else {
-            $id = createUser($connection, $first_name, $last_name, $email_address, $phone_number, $password, $news, $role, $remember_me_token);
+            $id = createUser($connection, $first_name, $last_name, $email_address, $phone_number, $password, $news, $role);
     
             if(!empty($id)) {
                 session_regenerate_id(true); // Protection For Fixation Attack

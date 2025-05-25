@@ -24,15 +24,11 @@
             $_SESSION["log_in_successful_message"] = "Prihlásený&nbsp;ako " . htmlspecialchars(getUserName($connection, $_SESSION["logged_in_user_id"]), ENT_QUOTES, "UTF-8");
 
             if($remember_me === "yes") {
-                $remember_me_token = getRememberMeToken($connection, $id); // remember_me_token From DB
-
-                setcookie("remember_me_token", $remember_me_token, time() + (86400 * 30), "/"); // 1 Day
+                
             }
 
             else {
-                if(isset($_COOKIE["remember_me_token"]) and !empty($_COOKIE["remember_me_token"])) {
-                    setcookie("remember_me_token", "", time() + (86400 * 30), "/"); // 1 Day
-                }
+                
             }
     
             redirectURL("/src/html/index.php");

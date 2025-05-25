@@ -6,19 +6,6 @@
     session_start();
     
     $connection = connectionDB();
-
-    // Code For Auth remember_me_token Cookie And remember_me_token From DB (IF True, Then Log In)
-    if(isset($_COOKIE["remember_me_token"]) and !empty($_COOKIE["remember_me_token"])) {
-        if(rememberMeTokenAuthentication($connection, $_COOKIE["remember_me_token"])) {
-            $id = getUserIdByRememberMeToken($connection, $_COOKIE["remember_me_token"]);
-
-            session_regenerate_id(true); // Protection For Fixation Attack
-
-            $_SESSION["is_logged_in"] = true;
-            $_SESSION["logged_in_user_id"] = $id;
-            $_SESSION["log_in_successful_message"] = "Prihlásený&nbsp;ako " . htmlspecialchars(getUserName($connection, $_SESSION["logged_in_user_id"]), ENT_QUOTES, "UTF-8");
-        }
-    }
 ?>
 
 <!DOCTYPE html>

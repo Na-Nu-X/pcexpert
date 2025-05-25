@@ -49,8 +49,8 @@ function redirectURL($path) {
  * @return integer $id - ID Of User.
 **/
 
-function createUser($connection, $first_name, $last_name, $email_address, $phone_number, $password, $news, $role, $remember_me_token) {
-    $sql = "INSERT INTO users (first_name, last_name, email_address, phone_number, password, news, role, remember_me_token, creation_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
+function createUser($connection, $first_name, $last_name, $email_address, $phone_number, $password, $news, $role) {
+    $sql = "INSERT INTO users (first_name, last_name, email_address, phone_number, password, news, role, creation_time) VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
 
     $statement = mysqli_prepare($connection, $sql);
 
@@ -59,7 +59,7 @@ function createUser($connection, $first_name, $last_name, $email_address, $phone
     }
 
     else {
-        mysqli_stmt_bind_param($statement, "ssssssss", $first_name, $last_name, $email_address, $phone_number, $password, $news, $role, $remember_me_token);
+        mysqli_stmt_bind_param($statement, "ssssssss", $first_name, $last_name, $email_address, $phone_number, $password, $news, $role);
 
         mysqli_stmt_execute($statement);
         $id = mysqli_insert_id($connection);
@@ -123,31 +123,6 @@ function authentication($connection, $email_address, $password) {
     }
 }
 
-
-function getRememberMeToken($connection, $id) {
-    $sql = "SELECT remember_me_token
-            FROM users
-            WHERE id = ?";
-
-    $stmt = mysqli_prepare($connection, $sql);
-
-    if($stmt) {
-        mysqli_stmt_bind_param($stmt, "i", $id);
-
-        if(mysqli_stmt_execute($stmt)) {
-            $result = mysqli_stmt_get_result($stmt);
-            $remember_me_token_database = mysqli_fetch_row($result); // pole
-            $user_remember_me_token = $remember_me_token_database[0];
-
-            return $user_remember_me_token;
-        }
-    }
-
-    else {
-        echo mysqli_error($connection);
-    }
-}
-
 /**
  *
  * Získání ID uživatele
@@ -168,30 +143,6 @@ function getUserId($connection, $email_address) {
 
     if($stmt) {
         mysqli_stmt_bind_param($stmt, "s", $email_address);
-
-        if(mysqli_stmt_execute($stmt)) {
-            $result = mysqli_stmt_get_result($stmt);
-            $id_database = mysqli_fetch_row($result); // pole
-            $user_id = $id_database[0];
-
-            return $user_id;
-        }
-    } 
-    
-    else {
-        echo mysqli_error($connection);
-    }
-}
-
-function getUserIdByRememberMeToken($connection, $remember_me_token) {
-    $sql = "SELECT id 
-            FROM users
-            WHERE remember_me_token = ?";
-
-    $stmt = mysqli_prepare($connection, $sql);
-
-    if($stmt) {
-        mysqli_stmt_bind_param($stmt, "s", $remember_me_token);
 
         if(mysqli_stmt_execute($stmt)) {
             $result = mysqli_stmt_get_result($stmt);
@@ -303,22 +254,6 @@ function passwordAuthentication($connection, $password) {
 
     else {
         echo mysqli_error($connection);
-    }
-}
-
-function rememberMeTokenAuthentication($connection, $remember_me_token) {
-    $sql = "SELECT remember_me_token
-            FROM users
-            WHERE remember_me_token = ?";
-
-    $stmt = mysqli_prepare($connection, $sql);
-
-    if($stmt) {
-        mysqli_stmt_bind_param($stmt, "s", $remember_me_token);
-
-        if(mysqli_stmt_execute($stmt)) {
-            return password_verify($remember_me_token, mysqli_fetch_column(mysqli_stmt_get_result($stmt)));
-        }
     }
 }
 
