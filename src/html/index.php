@@ -1,0 +1,325 @@
+<?php
+    // PHP Code
+
+    require "../assets/functions.php";
+
+    session_start();
+    
+    $connection = connectionDB();
+
+    // Code For Auth remember_me_token Cookie And remember_me_token From DB (IF True, Then Log In)
+    if(isset($_COOKIE["remember_me_token"]) and !empty($_COOKIE["remember_me_token"])) {
+        if(rememberMeTokenAuthentication($connection, $_COOKIE["remember_me_token"])) {
+            $id = getUserIdByRememberMeToken($connection, $_COOKIE["remember_me_token"]);
+
+            session_regenerate_id(true); // Protection For Fixation Attack
+
+            $_SESSION["is_logged_in"] = true;
+            $_SESSION["logged_in_user_id"] = $id;
+            $_SESSION["log_in_successful_message"] = "Prihlásený&nbsp;ako " . htmlspecialchars(getUserName($connection, $_SESSION["logged_in_user_id"]), ENT_QUOTES, "UTF-8");
+        }
+    }
+?>
+
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Profesionálna stavba, údržba a čistenie počítačov. Kontaktujte nás a prenechajte Váš počítač profesionálom.">
+    <meta name="keywords" content="PC, Stavba počítačov, Údržba počítačov, Čistenie počítačov, Servis, IT, Kontakt">
+
+    <title>PC Expert - Stavba, údržba a čistenie počítačov</title>
+    <!-- <link rel="icon" type="image/png" href=""> -->
+
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/lightbox.min.css"> <!-- https://github.com/lokesh/lightbox2/tree/dev -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins"> <!-- Poppins Font Style -->
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script> <!-- https://releases.jquery.com/ -->
+    <script src="/src/js/lightbox-plus-jquery.min.js"></script> <!-- https://github.com/lokesh/lightbox2/tree/dev -->
+    <script src="https://kit.fontawesome.com/069c0938a1.js" crossorigin="anonymous"></script> <!-- Icons -->
+</head>
+
+<body>
+    <header>
+        <nav class="navigation_bar">
+            <ul>
+                <li class="navigation_bar_item scroll_about_us">
+                    <a href="#">O NÁS</a>
+                </li>
+
+                <li class="navigation_bar_item scroll_our_services">
+                    <a href="#">NAŠE SLUŽBY</a>
+                </li>
+
+                <li class="navigation_bar_item scroll_contact">
+                    <a href="#">KONTAKT</a>
+                </li>
+                
+                <div class="navigation_icon">
+                    <i class="fa-solid fa-bars"></i>
+                    <!-- <i class="fa-solid fa-xmark"></i> -->
+                </div>
+            </ul>
+        </nav>
+
+        <div class="cookie_policy">
+            <img src="/content/images/cookie.png"> <!-- https://www.flaticon.com/free-icon/cookie_1047711 -->
+            <h2>Cookie Policy</h2>
+            <p>Táto&nbsp;stránka&nbsp;používa&nbsp;súbory&nbsp;cookies.</p>
+            <button class="cookie_policy_button">ROZUMIEM</button>
+        </div>
+
+        <?php if(isset($_SESSION["log_in_successful_message"]) and !empty($_SESSION["log_in_successful_message"])): ?>
+            <p class="log_in_successful_message"><?php echo $_SESSION["log_in_successful_message"]; ?></p>
+            <?php $_SESSION["log_in_successful_message"] = null ?>
+
+        <?php endif; ?>
+        
+        <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true): ?>
+            <div class="account">
+                <ul>
+                    <li>
+                        <a href="./account.php" title="Môj účet">
+                            <?php echo htmlspecialchars(getUserName($connection, $_SESSION["logged_in_user_id"]), ENT_QUOTES, "UTF-8"); ?>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="./log_out.php" title="Odhlásiť sa z účtu <?php echo htmlspecialchars(getUserName($connection, $_SESSION["logged_in_user_id"]), ENT_QUOTES, "UTF-8"); ?>">Odhlásiť</a>
+                    </li>
+                </ul>
+            </div>
+
+        <?php else: ?>
+            <div class="account">
+                <ul>
+                    <li>
+                        <a href="./log_in.php" title="Prihlásiť sa">
+                            <?php echo "Neprihlásený" ?>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        <?php endif; ?>
+
+        <div class="header_box">
+            <div class="logo">
+                <img src="/content/images/test_logo.png">
+            </div>
+
+            <h1><a href="./index.php">PC&nbsp;Expert</a></h1>
+
+            <div class="buttons"> <!-- https://codepen.io/hilwat/pen/BeemVX -->
+                <a class="blob-btn first_button" href="./log_in.php" target="_self">
+                    Prihlásiť
+                    <span class="blob-btn__inner">
+                    <span class="blob-btn__blobs">
+                        <span class="blob-btn__blob"></span>
+                        <span class="blob-btn__blob"></span>
+                        <span class="blob-btn__blob"></span>
+                        <span class="blob-btn__blob"></span>
+                    </span>
+                    </span>
+                </a>
+
+                <a class="blob-btn second_button" href="./registration.php" target="_self">
+                    Zaregistrovať
+                    <span class="blob-btn__inner">
+                    <span class="blob-btn__blobs">
+                        <span class="blob-btn__blob"></span>
+                        <span class="blob-btn__blob"></span>
+                        <span class="blob-btn__blob"></span>
+                        <span class="blob-btn__blob"></span>
+                    </span>
+                    </span>
+                </a>
+                <br/>
+
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+                    <defs>
+                        <filter id="goo">
+                        <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10"></feGaussianBlur>
+                        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 21 -7" result="goo"></feColorMatrix>
+                        <feBlend in2="goo" in="SourceGraphic" result="mix"></feBlend>
+                        </filter>
+                    </defs>
+                </svg>
+            </div>
+        </div>
+        
+        <!-- <div class="header_text">
+            <p class="header_text_paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, ut. Repellendus iusto cumque, impedit modi amet, voluptatem sunt atque dignissimos nihil, aperiam quaerat. Placeat ducimus at magnam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate minus quam ut quis non, velit molestias. Voluptate esse optio consequatur dolor! Facilis debitis voluptatibus neque dolor fuga cupiditate repellendus sunt?</p>
+        </div> -->
+    </header>
+
+    <section class="photo_gallery">
+        <div class="image image_1 active">
+            <h2>Procesor</h2>
+        </div>
+
+        <div class="image image_2">
+            <h2>Základná doska</h2>
+        </div>
+
+        <div class="image image_3">
+            <h2>Grafická karta</h2>
+        </div>
+
+        <div class="image image_4">
+            <h2>2. Grafická karta</h2>
+        </div>
+
+        <div class="image image_5">
+            <h2>RAM</h2>
+        </div>
+    </section>
+
+    <main>
+        <section class="about_us">
+            <h2>O&nbsp;nás</h2>
+            <p>Sme tím nadšencov a odborníkov na počítačový hardvér, ktorí sa venujú profesionálnej stavbe, servisu a upgradu počítačov. Našim cieľom je poskytovať spoľahlivé a kvalitné služby, vďaka ktorým si môžete užívať bezproblémový a výkonný počítač, či už na prácu, hranie hier alebo kreatívnu tvorbu.<br>
+            Či už potrebujete nový počítač na mieru, odbornú diagnostiku, výmenu komponentov, čistenie alebo zrýchlenie vášho zariadenia, sme tu pre vás. Ku každému zákazníkovi pristupujeme individuálne a hľadáme riešenia, ktoré najlepšie vyhovujú jeho potrebám a rozpočtu.<br>
+            Dôverujte odborníkom a nechajte si poradiť od ľudí, ktorí počítačom skutočne rozumejú. S nami získate nielen profesionálnu službu, ale aj cenné rady, ktoré vám pomôžu naplno využiť potenciál vášho zariadenia.<br>
+            Kontaktujte nás ešte dnes a nechajte svoj počítač v rukách profesionálov!</p>
+        </section>
+        
+        <section class="main_content">
+            <section class="our_services">
+                <h2>Stavba&nbsp;počítača</h2>
+                <p>Nechajte si u nás zostaviť a nakonfigurovať počítač na mieru – rýchlo, profesionálne a za výhodnú cenu. Ak už máte vhodné komponenty a hľadáte spoľahlivých odborníkov na ich správnu montáž, sme tu pre vás. A ak si ešte nie ste istí výberom, radi vám pomôžeme vybrať tie najlepšie komponenty podľa vašich potrieb a zabezpečíme ich odborné zostavenie. S nami získate počítač, ktorý bude pripravený na použitie bez starostí!<br>
+                len za: <span class="price">30€</span></p>
+            </section>
+    
+            <section>
+                <h2>Údržba&nbsp;počítača</h2>
+                <p>Ak vás trápi hardvérový problém, nefunkčné alebo poškodené komponenty, sme tu, aby sme vám pomohli. Diagnostikujeme váš počítač, navrhneme najlepšie riešenie a postaráme sa o opravu alebo výmenu nefunkčných komponentov. Okrem toho vám radi poradíme s upgradom – či už ide o zrýchlenie systému, rozšírenie kapacity alebo zvýšenie výkonu staršieho alebo nového počítača, pomôžeme vám z neho vyťažiť maximum!<br>
+                len za: <span class="price">15€</span></p>
+            </section>
+    
+            <section>
+                <h2>Čistenie&nbsp;počítača</h2>
+                <p>Ak váš počítač alebo notebook spomaľuje nahromadený prach a nečistoty, postaráme sa o jeho dôkladné vyčistenie. Odborne vyčistíme vnútro zariadenia, odstránime prach a nečistoty a zabezpečíme optimálne chladenie výmenou teplovodivej pasty na procesore či grafickej karte, čím výrazne znížime prevádzkové teploty. S nami váš počítač opäť získa maximálny výkon, stabilitu a dlhšiu životnosť!<br>
+                len za: <span class="price">10€</span></p>
+            </section>
+    
+            <section>
+                <div class="slider">
+                    <div class="slides">
+                        <input type="radio" name="r" id="r1" checked>
+                        <input type="radio" name="r" id="r2">
+                        <input type="radio" name="r" id="r3">
+                        <input type="radio" name="r" id="r4">
+                        <input type="radio" name="r" id="r5">
+    
+                        <div class="slide s1">
+                            <a href="/content/images/processor.jpg" title="Klikni pre zobrazenie" data-lightbox="mygallery" data-title="Procesor">
+                                <img src="/content/images/processor.jpg" alt="processor.jpg">
+                            </a>
+                        </div>
+                        <div class="slide">
+                            <a href="/content/images/motherboard.jpg" title="Klikni pre zobrazenie" data-lightbox="mygallery" data-title="Základná doska">
+                                <img src="/content/images/motherboard.jpg" alt="motherboard.jpg">
+                            </a>
+                        </div>
+                        <div class="slide">
+                            <a href="/content/images/graphics-card.jpg" title="Klikni pre zobrazenie" data-lightbox="mygallery" data-title="Grafická karta">
+                                <img src="/content/images/graphics-card.jpg" alt="graphics-card.jpg">
+                            </a>
+                        </div>
+                        <div class="slide">
+                            <a href="/content/images/graphics-card-2.jpg" title="Klikni pre zobrazenie" data-lightbox="mygallery" data-title="2. Grafická karta">
+                                <img src="/content/images/graphics-card-2.jpg" alt="graphics-card-2.jpg">
+                            </a>
+                        </div>
+                        <div class="slide">
+                            <a href="/content/images/ram.jpg" title="Klikni pre zobrazenie" data-lightbox="mygallery" data-title="RAM">
+                                <img src="/content/images/ram.jpg" alt="ram.jpg">
+                            </a>
+                        </div>
+                    </div>
+    
+                    <div class="navigation">
+                        <label for="r1" class="bar"></label>
+                        <label for="r2" class="bar"></label>
+                        <label for="r3" class="bar"></label>
+                        <label for="r4" class="bar"></label>
+                        <label for="r5" class="bar"></label>
+                    </div>
+                </div>
+            </section>
+    
+            <section>
+                <div class="map">
+                    <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2606.766288777082!2d18.764998876951566!3d49.20499297138131!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471459414e15928d%3A0x565bca562c7ff67c!2zMSwgS2FycGF0c2vDoSAzMTA2LCAwMTAgMDggxb1pbGluYS1WbMSNaW5jZQ!5e0!3m2!1ssk!2ssk!4v1740590369995!5m2!1ssk!2ssk" allowfullscreen="yes" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </section>
+
+            <section>
+                <h2>Obchod</h2>
+                <div>
+                    <h3>GeForce GTX 1660 Ti VENTUS XS 6G OC - 100€</h3>
+                    <img src="/content/images/GTX-1660-Ti.png">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe unde ipsa voluptatum! Esse, provident debitis est placeat suscipit, reiciendis, ratione iste laborum odio inventore similique exercitationem minima quas delectus fugit.</p>
+                </div>
+            </section>
+    
+            <section class="faq">
+                <h2>Časté&nbsp;otázky&nbsp;(FAQ)</h2>
+                <h3>Ako dlho trvá zostavenie počítača?</h3>
+                <p>Závisí to podľa dostupnosti komponentov a zložitosti zostavy. Ak máte všetky komponenty pripravené, zostavenie zvyčajne trvá 1 – 2 dni. Ak vám pomáhame aj s výberom komponentov, môže to trvať niekoľko dní až týždeň.</p>
+                <h3>Ako to je s dopravou?</h3>
+                <p>Po vašom schválení a objednaní potrebných komponentov pre vaše zariadenie, alebo pri odoslaní vašich komponentov či zariadenia, cenu dopravy dopravnou spoločnosťou do 5 € hradíme my. Ak bude cena dopravy vyššia, rozdiel hradíte vy. O všetkých nákladoch vás budeme vopred informovať.</p>
+                <h3>Ako to je s detailnou dohodou ohľadom danej služby?</h3>
+                <p>Stačí nás kontaktovať, ideálne telefonicky, aby sme mohli rýchlo a efektívne prediskutovať vaše požiadavky. Či už ide o výber komponentov, údržbu, čistenie alebo inú službu, radi vám poradíme a spoločne nájdeme najlepšie riešenie. Po dohode zabezpečíme objednanie potrebných komponentov, dohodneme sa na termíne realizácie a spôsobe prevzatia vášho zariadenia.</p>
+                <h3>Ako to je s platbou?</h3>
+                <p>Pred objednaním komponentov na stavbu počítača alebo pred odovzdaním vášho zariadenia na údržbu či čistenie je platba za službu a zakúpené komponenty potrebná vopred. Po dokončení práce vám odovzdáme všetky faktúry, doklady o kúpe a originálne balenia komponentov.</p>
+            </section>
+
+            <section class="reviews">
+                <h2>Recenzie</h2>
+
+                <p style="text-align: center">Zanechajte nám vaše hodnotenie. <a href="./reviews.php">Napíšte prvú recenziu.</a></p>
+            </section>
+        </section>
+
+        <section class="contact">
+            <h2>Kontakt</h2>
+            <p>V prípade akýchkoľvek otázok, či upozornení nás kontaktujte a my sa vám pokúsime v krátkom čase odpovedať.</p>
+            <form class="contact_form" action="">
+                <input name="full_name" type="text" placeholder="Zadajte vaše celé meno" autocomplete="off">
+                <input name="email_address" type="email" placeholder="Zadajte vašu e-mailovú adresu" autocomplete="off">
+                <select name="subject">
+                    <option value="empty_option">Zadajte predmet vašej správy</option>
+                    <option>Otázka</option>
+                    <option>Návrh na zlepšenie</option>
+                    <option>Nahlásenie chyby</option>
+                </select>
+                <textarea name="message_content" type="textarea" placeholder="Zadajte vašu správu"></textarea>
+                <input type="hidden" name="sent_info" value="home_page"> <!-- From Which Page Is This Form Sent -->
+                <button type="submit">Odoslať</button>
+            </form>
+
+            <script src="/src/js/contact_form.js"></script>
+        </section>
+    </main>
+    
+    <footer>
+        <?php require "../assets/footer.php"; ?>
+    </footer>
+    
+    <!-- JavaScript Code -->
+
+    <script>
+        "use strict"
+        
+        console.log("%c PC Expert by Patrik Behul", "color: rgb(170, 255, 50); background-color: rgb(0, 0, 0)")
+    </script>
+
+    <script src="/src/js/navigation_bar.js"></script>
+    <script src="/src/js/cookie_policy.js"></script>
+    <script src="/src/js/photo_gallery.js"></script>
+</body>
+</html>
