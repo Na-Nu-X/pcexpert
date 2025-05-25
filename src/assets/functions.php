@@ -292,4 +292,48 @@ function deleteSession() {
 
     session_destroy();
 }
+
+function insertRememberMeToken($connection, $id, $remember_me_token) {
+    $sql = "UPDATE users
+            SET remember_me_token = ?
+            WHERE id = ?";
+
+    $stmt = mysqli_prepare($connection, $sql);
+
+    if($stmt) {
+        $hashed_remember_me_token = password_hash($remember_me_token, PASSWORD_DEFAULT);
+
+        mysqli_stmt_bind_param($stmt, "si", $hashed_remember_me_token, $id);
+        mysqli_stmt_execute($stmt);
+    }
+
+    else {
+        echo mysqli_error($connection);
+    }
+}
+
+function getUserIdByRememberMeToken($connection, $remember_me_token_cookie) {
+    $sql = "SELECT id, remember_me_token FROM users WHERE remember_me_token IS NOT NULL";
+
+    $stmt = mysqli_prepare($connection, $sql);
+
+    if ($stmt) {
+        if (mysqli_stmt_execute($stmt)) {
+            $result = mysqli_stmt_get_result($stmt);
+
+            while ($row = mysqli_fetch_assoc($result)) {
+                $user_id = $row["id"];
+                $hashed_token = $row["remember_me_token"];
+
+                if (password_verify($remember_me_token_cookie, $hashed_token)) {
+                    return $user_id;
+                }
+            }
+        }
+    } else {
+        echo mysqli_error($connection);
+    }
+
+    return false;
+}
 ?>

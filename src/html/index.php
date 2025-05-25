@@ -6,6 +6,20 @@
     session_start();
     
     $connection = connectionDB();
+
+    if (isset($_COOKIE["remember_me_token"]) and !isset($_SESSION["is_logged_in"])) {
+        $id = getUserIdByRememberMeToken($connection, $_COOKIE["remember_me_token"]);
+
+        if ($id !== false) {
+            session_regenerate_id(true); // Protection For Fixation Attack
+
+            $_SESSION["is_logged_in"] = true;
+            $_SESSION["logged_in_user_id"] = $id;
+            $_SESSION["log_in_successful_message"] = "Prihlásený ako " . htmlspecialchars(getUserName($connection, $id), ENT_QUOTES, "UTF-8");
+        }
+    }
+
+    // echo $_SESSION["log_in_successful_message"];
 ?>
 
 <!DOCTYPE html>
