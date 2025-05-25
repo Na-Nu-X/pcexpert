@@ -59,7 +59,7 @@ function createUser($connection, $first_name, $last_name, $email_address, $phone
     }
 
     else {
-        mysqli_stmt_bind_param($statement, "ssssssss", $first_name, $last_name, $email_address, $phone_number, $password, $news, $role);
+        mysqli_stmt_bind_param($statement, "sssssss", $first_name, $last_name, $email_address, $phone_number, $password, $news, $role);
 
         mysqli_stmt_execute($statement);
         $id = mysqli_insert_id($connection);

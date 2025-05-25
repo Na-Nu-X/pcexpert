@@ -108,8 +108,8 @@
                 </div>
 
                 <div class="agree">
-                    <input type="checkbox" class="remember_me" name="remember_me" id="remember" value="yes" checked>
-                    <label for="remember">Ostať prihlásený</label>
+                    <input type="checkbox" class="remember_me" name="remember_me" id="remember_me" value="yes" checked>
+                    <label for="remember_me">Ostať prihlásený</label>
                 </div>
 
                 <div class="login_method">
@@ -147,23 +147,6 @@
                 password_icon.classList.add("fa-eye-slash")
 
                 password.style.webkitTextSecurity = "disc"
-            }
-        })
-
-        // Set Cookie When Stay Logged In Option Is Checked
-
-        const log_in_form = document.querySelector(".log_in_form")
-        const remember_me = document.querySelector(".remember_me")
-
-        log_in_form.addEventListener("submit", function(event) {
-            if(remember_me.checked) {
-                document.cookie = "remember_me=yes; max-age=" + 60 * 60 * 24 * 30 + "; path=/"; // 30 Days
-
-                // Sprav ak bude value cookie remember_me yes, tak ostaneš prihlásený
-            }
-
-            else {
-                document.cookie = "remember_me=no; max-age=" + 60 * 60 * 24 * 30 + "; path=/"; // 30 Days
             }
         })
     </script>
