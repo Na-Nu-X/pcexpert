@@ -12,11 +12,11 @@
 
     deleteSession();
 
+    // Create Session For Log Out Message
+
     session_start();
-
-    $_SESSION["log_out_successful_message"] = "Úspešne odhlásený.";
-
-    session_write_close();
+    session_regenerate_id(true); // Protection For Fixation Attack
+    $_SESSION["log_out_successful_message"] = "Úspešne odhlásený";
 
     redirectURL("/src/html/index.php");
 ?>
