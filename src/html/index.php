@@ -1,6 +1,10 @@
 <?php
     // PHP Code
 
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
+    require "../phpmailer/vendor/autoload.php";
+
     require "../assets/functions.php";
 
     session_start();
@@ -18,6 +22,61 @@
             $_SESSION["is_logged_in"] = true;
             $_SESSION["logged_in_user_id"] = $id;
             $_SESSION["log_in_successful_message"] = "Prihlásený ako " . htmlspecialchars(getUserName($connection, $id), ENT_QUOTES, "UTF-8");
+        }
+    }
+
+    // Contact Form
+
+    $first_name = "";
+    $last_name = "";
+    $email_address = "";
+    $subject = "";
+    $message = "";
+
+    if($_SERVER["REQUEST_METHOD"] === "POST") {
+        $first_name = $_POST["first_name"];
+        $last_name = $_POST["last_name"];
+        $email_address = $_POST["email_address"];
+        $subject = $_POST["subject"];
+        $message = $_POST["message"];
+
+        $mail = new PHPMailer(true);
+
+        try {
+            //Server settings
+
+            $mail->isSMTP(); //Send using SMTP
+            $mail->Host = "smtp.gmail.com"; //Set the SMTP server to send through
+            $mail->SMTPAuth = true; //Enable SMTP authentication
+            $mail->Username = "behulpatrik@gmail.com"; //SMTP username
+            $mail->Password = "ogqxkmwxfpfwjeel"; //SMTP password (Generated On myaccount.google.com/apppasswords With behulpatrik@gmail.com Account For PC Expert Application)
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; //Enable implicit TLS encryption
+            $mail->Port = 465; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+            //Recipients
+
+            $mail->setFrom("behulpatrik@gmail.com", "PC Expert");
+            $mail->addAddress("behulpatrik@gmail.com"); //Add a recipient
+
+            //Content
+
+            $mail->isHTML(true); //Set email format to HTML
+            $mail->Subject = $subject;
+            $mail->Body = "
+                <strong>$first_name $last_name</strong><br>
+                $email_address<br><br>
+                $message<br><br>
+                <strong>IP adresa:</strong> {$_SERVER['REMOTE_ADDR']}
+            ";
+
+            $mail->send();
+            // echo "Správa bola odoslaná.";
+            $_SESSION["contact_successful_message"] = "Správa bola odoslaná";
+        } 
+        
+        catch(Exception $e) {
+            // echo "Pri odosielaní správy došlo k chybe: {$mail->ErrorInfo}";
+            $_SESSION["contact_error_message"] = "Správu sa nepodarilo odoslať";
         }
     }
 ?>
@@ -44,6 +103,30 @@
 
 <body>
     <header>
+        <?php if(isset($_SESSION["log_in_successful_message"]) and !empty($_SESSION["log_in_successful_message"])): ?>
+            <p class="log_in_successful_message"><?php echo $_SESSION["log_in_successful_message"]; ?></p>
+            <?php $_SESSION["log_in_successful_message"] = ""; ?>
+
+        <?php endif; ?>
+
+        <?php if(isset($_SESSION["log_out_successful_message"]) and !empty($_SESSION["log_out_successful_message"])): ?>
+            <p class="log_out_successful_message"><?php echo $_SESSION["log_out_successful_message"]; ?></p>
+            <?php $_SESSION["log_out_successful_message"] = ""; ?>
+
+        <?php endif; ?>
+
+        <?php if(isset($_SESSION["contact_successful_message"]) and !empty($_SESSION["contact_successful_message"])): ?>
+            <p class="contact_successful_message"><?php echo $_SESSION["contact_successful_message"]; ?></p>
+            <?php $_SESSION["contact_successful_message"] = ""; ?>
+
+        <?php endif; ?>
+
+        <?php if(isset($_SESSION["contact_error_message"]) and !empty($_SESSION["contact_error_message"])): ?>
+            <p class="contact_error_message"><?php echo $_SESSION["contact_error_message"]; ?></p>
+            <?php $_SESSION["contact_error_message"] = ""; ?>
+
+        <?php endif; ?>
+
         <nav class="navigation_bar">
             <ul>
                 <li class="navigation_bar_item scroll_about_us">
@@ -59,8 +142,8 @@
                 </li>
 
                 <?php if(isset($_SESSION["logged_in_user_id"]) and getUserRole($connection, $_SESSION["logged_in_user_id"]) === "admin"): ?>
-                    <li class="navigation_bar_item">
-                        <a style="color: rgb(250, 50, 50)" href="./administration.php">ADMINISTRÁCIA</a>
+                    <li style="border: 1px solid rgb(250, 50, 50)" class="navigation_bar_item">
+                        <a href="./administration.php">ADMINISTRÁCIA</a>
                     </li>
 
                 <?php endif; ?>
@@ -78,18 +161,6 @@
             <p>Táto&nbsp;stránka&nbsp;používa&nbsp;súbory&nbsp;cookies.</p>
             <button class="cookie_policy_button">ROZUMIEM</button>
         </div>
-
-        <?php if(isset($_SESSION["log_in_successful_message"]) and !empty($_SESSION["log_in_successful_message"])): ?>
-            <p class="log_in_successful_message"><?php echo $_SESSION["log_in_successful_message"]; ?></p>
-            <?php $_SESSION["log_in_successful_message"] = ""; ?>
-
-        <?php endif; ?>
-
-        <?php if(isset($_SESSION["log_out_successful_message"]) and !empty($_SESSION["log_out_successful_message"])): ?>
-            <p class="log_out_successful_message"><?php echo $_SESSION["log_out_successful_message"]; ?></p>
-            <?php $_SESSION["log_out_successful_message"] = ""; ?>
-
-        <?php endif; ?>
         
         <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true): ?>
             <div class="account">
@@ -302,21 +373,46 @@
         <section class="contact">
             <h2>Kontakt</h2>
             <p>V prípade akýchkoľvek otázok, či upozornení nás kontaktujte a my sa vám pokúsime v krátkom čase odpovedať.</p>
-            <form class="contact_form" action="">
-                <input name="full_name" type="text" placeholder="Zadajte vaše celé meno" autocomplete="off">
-                <input name="email_address" type="email" placeholder="Zadajte vašu e-mailovú adresu" autocomplete="off">
+
+            <form class="contact_form" action="index.php" method="POST">
+                <input 
+                    type="text"
+                    name="first_name"
+                    placeholder="Zadajte vaše meno"
+                    autocomplete="given-name"
+                    value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'first_name'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($first_name, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                    required
+                >
+
+                <input 
+                    type="text"
+                    name="last_name"
+                    placeholder="Zadajte vaše priezvisko"
+                    autocomplete="family-name"
+                    value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'last_name'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($last_name, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                    required
+                >
+
+                <input 
+                    type="email"
+                    name="email_address"
+                    placeholder="Zadajte váš e-mail"
+                    autocomplete="email"
+                    value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'email_address'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($email_address, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                    required
+                >
+
                 <select name="subject">
-                    <option value="empty_option">Zadajte predmet vašej správy</option>
+                    <option value="">Zadajte predmet vašej správy</option>
                     <option>Otázka</option>
                     <option>Návrh na zlepšenie</option>
                     <option>Nahlásenie chyby</option>
                 </select>
-                <textarea name="message_content" type="textarea" placeholder="Zadajte vašu správu"></textarea>
-                <input type="hidden" name="sent_info" value="home_page"> <!-- From Which Page Is This Form Sent -->
-                <button type="submit">Odoslať</button>
-            </form>
 
-            <script src="/src/js/contact_form.js"></script>
+                <textarea type="textarea" name="message" placeholder="Zadajte vašu správu" required><?php echo htmlspecialchars($message, ENT_QUOTES, "UTF-8"); ?></textarea>
+
+                <button class="contact_form_submit" type="submit">Poslať správu</button>
+            </form>
         </section>
     </main>
     
@@ -332,8 +428,8 @@
         console.log("%c PC Expert by Patrik Behul", "color: rgb(170, 255, 50); background-color: rgb(0, 0, 0)")
     </script>
 
-    <script src="/src/js/navigation_bar.js"></script>
     <script src="/src/js/cookie_policy.js"></script>
+    <script src="/src/js/navigation_bar.js"></script>
     <script src="/src/js/photo_gallery.js"></script>
 </body>
 </html>

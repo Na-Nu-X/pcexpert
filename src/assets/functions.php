@@ -188,7 +188,7 @@ function getUserName($connection, $id) {
 }
 
 function getUserInformations($connection, $id, $database_field) {
-    $allowed_fields = ["email_address", "phone_number"];
+    $allowed_fields = ["first_name", "last_name", "email_address", "phone_number"];
 
     if(!in_array($database_field, $allowed_fields)) {
         echo "K týmto informáciam nie je možný prístup.";

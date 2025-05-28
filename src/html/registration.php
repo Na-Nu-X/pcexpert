@@ -124,7 +124,7 @@
                     </p>
                 </article>
 
-                <button class="registration_form_submit" type="submit">Zaregistrovať</button>
+                <button class="registration_form_submit" type="submit">Zaregistrovať sa</button>
 
                 <div class="have_account">
                     <p>Už máte účet? <a href="./log_in.php">Prihlásiť</a></p>
