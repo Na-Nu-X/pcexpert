@@ -155,6 +155,10 @@
             </ul>
         </nav>
 
+        <div class="move_up_icon">
+            <img src="/content/images/up-arrow.png" title="Posunúť nahor"> <!-- https://www.flaticon.com/free-icon/up-arrow_271239 -->
+        </div>
+
         <div class="cookie_policy">
             <img src="/content/images/cookie.png"> <!-- https://www.flaticon.com/free-icon/cookie_1047711 -->
             <h2>Cookie Policy</h2>
@@ -372,7 +376,13 @@
 
         <section class="contact">
             <h2>Kontakt</h2>
-            <p>V prípade akýchkoľvek otázok, či upozornení nás kontaktujte a my sa vám pokúsime v krátkom čase odpovedať.</p>
+            <p>
+                V prípade akýchkoľvek otázok, či upozornení nás kontaktujte a my sa vám pokúsime v krátkom čase odpovedať. Budeme radi za akúkoľvek spätnú väzbu od Vás.
+                <?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?>
+                    <?php echo "Údaje vo formulári boli automaticky vyplnené na základe údajov vášho účtu."; ?>
+
+                <?php endif; ?>
+            </p>
 
             <form class="contact_form" action="index.php" method="POST">
                 <input 
@@ -428,8 +438,9 @@
         console.log("%c PC Expert by Patrik Behul", "color: rgb(170, 255, 50); background-color: rgb(0, 0, 0)")
     </script>
 
-    <script src="/src/js/cookie_policy.js"></script>
     <script src="/src/js/navigation_bar.js"></script>
+    <script src="/src/js/move_up_icon.js"></script>
+    <script src="/src/js/cookie_policy.js"></script>
     <script src="/src/js/photo_gallery.js"></script>
 </body>
 </html>
