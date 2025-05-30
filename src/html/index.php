@@ -1,15 +1,19 @@
 <?php
     // PHP Code
 
-    use PHPMailer\PHPMailer\PHPMailer;
-    use PHPMailer\PHPMailer\Exception;
-    require "../phpmailer/vendor/autoload.php";
-
     require "../assets/functions.php";
 
     session_start();
     
     $connection = connectionDB();
+
+    // Theme
+
+    $theme = "light"; // Default Theme
+
+    if(isset($_COOKIE["theme"])) {
+        $theme = $_COOKIE["theme"];
+    }
 
     // Auto Log In To Account If remember_me_token Cookie Is Setted And User Is Not Logged In Yet
 
@@ -26,6 +30,11 @@
     }
 
     // Contact Form
+
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
+    
+    require "../phpmailer/vendor/autoload.php";
 
     $first_name = "";
     $last_name = "";
@@ -101,7 +110,7 @@
     <script src="https://kit.fontawesome.com/069c0938a1.js" crossorigin="anonymous"></script> <!-- Icons -->
 </head>
 
-<body>
+<body class="<?php echo $theme; ?>">
     <header>
         <?php if(isset($_SESSION["log_in_successful_message"]) and !empty($_SESSION["log_in_successful_message"])): ?>
             <p class="log_in_successful_message"><?php echo $_SESSION["log_in_successful_message"]; ?></p>
@@ -164,6 +173,11 @@
             <h2>Cookie Policy</h2>
             <p>Táto&nbsp;stránka&nbsp;používa&nbsp;súbory&nbsp;cookies.</p>
             <button class="cookie_policy_button">ROZUMIEM</button>
+        </div>
+
+        <div class="theme_selection">
+            <img class="light_theme" src="/content/images/sun.png" title="Svetlé zobrazenie"> <!-- https://www.flaticon.com/free-icon/sun_1004519 -->
+            <img class="dark_theme" src="/content/images/moon.png" title="Tmavé zobrazenie"> <!-- https://www.flaticon.com/free-icon/moon_606807 -->
         </div>
         
         <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true): ?>
@@ -441,6 +455,7 @@
     <script src="/src/js/navigation_bar.js"></script>
     <script src="/src/js/move_up_icon.js"></script>
     <script src="/src/js/cookie_policy.js"></script>
+    <script src="/src/js/theme_selection.js"></script>
     <script src="/src/js/photo_gallery.js"></script>
 </body>
 </html>
