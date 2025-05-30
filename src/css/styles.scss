@@ -11,10 +11,15 @@
     // cursor: default;
 }
 
-body
+body, body.light
 {
     line-height: 1.6;
     background-color: rgb(245, 245, 245);
+}
+
+body.dark
+{
+    background-color: rgb(50, 50, 50);
 }
 
 /**************
@@ -150,7 +155,7 @@ header
 .cookie_policy_button
 {
     width: 200px;
-    height: 48px;
+    height: 50px;
     background-color: rgb(50, 125, 200);
     color: rgb(255, 255, 255);
     border: 1px solid rgb(0, 0, 0);
@@ -191,6 +196,32 @@ header
 .log_out_successful_message, .contact_error_message
 {
     color: rgb(250, 50, 50);
+}
+
+.theme_selection
+{
+    position: absolute;
+    top: 100px;
+    left: 20px;
+    z-index: 90;
+}
+
+.theme_selection img
+{
+    width: 50px;
+    height: 50px;
+    margin: 0px 5px;
+    padding: 5px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgb(150, 150, 150);
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+.theme_selection img:hover
+{
+    transform: scale(1.1);
+    cursor: pointer;
 }
 
 .account ul
@@ -344,7 +375,7 @@ header h1 a:active
     overflow: hidden;
 }
 
-.image 
+.image
 {
     background-size: cover;
     background-repeat: no-repeat;
@@ -359,6 +390,11 @@ header h1 a:active
     min-width: 0px;
     width: 100%;
     transition: min-width 0.5s ease-in-out;
+}
+
+.image.dark
+{
+    border: 1px solid rgb(255, 255, 255);
 }
 
 .image h2 
@@ -385,36 +421,58 @@ header h1 a:active
  Main Styles
 ************/
 
-main
+main, main.light
 {
     max-width: 800px;
     margin: 0px auto;
     border: 1px solid rgb(150, 150, 150);
     border-radius: 5px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    color: rgb(0, 0, 0);
 }
 
-.about_us
+main.dark
+{
+    color: rgb(255, 255, 255);
+    border: 1px solid rgb(255, 255, 255);
+}
+
+.about_us, .about_us.light
 {
     padding: 10px 20px;
     border-radius: 5px 5px 0px 0px;
     background-image: linear-gradient(rgb(235, 235, 235), rgb(255, 255, 255));
 }
 
-.contact
+.about_us.dark
+{
+    background-image: linear-gradient(rgb(40, 40, 40), rgb(60, 60, 60));
+}
+
+.contact, .contact.light
 {
     padding: 10px 20px;
     border-radius: 0px 0px 5px 5px;
     background-image: linear-gradient(rgb(255, 255, 255), rgb(235, 235, 235));
 }
 
-.main_content
+.contact.dark
+{
+    background-image: linear-gradient(rgb(60, 60, 60), rgb(40, 40, 40));
+}
+
+.main_content, .main_content.light
 {
     padding: 10px 20px;
     max-width: 800px;
     margin: 0px auto;
     border-radius: 0px 0px 5px 5px;
     background-color: rgb(255, 255, 255);
+}
+
+.main_content.dark
+{
+    background-color: rgb(60, 60, 60);
 }
 
 main h2
@@ -563,7 +621,8 @@ input[name="r"]
 
 // Contact Form
 
-.contact_form input, .contact_form button[type="submit"], .contact_form select, .contact_form textarea
+.contact_form input, .contact_form button[type="submit"], .contact_form select, .contact_form textarea,
+.contact_form.light input, .contact_form.light button[type="submit"], .contact_form.light select, .contact_form.light textarea
 {
     display: block;
     width: 70%;
@@ -574,6 +633,13 @@ input[name="r"]
     border: 1px solid rgb(0, 0, 0);
     border-radius: 5px;
     transition: width 0.3s ease;
+}
+
+.contact_form.dark input, .contact_form.dark button[type="submit"], .contact_form.dark select, .contact_form.dark textarea
+{
+    color: rgb(255, 255, 255);
+    background-color: rgb(60, 60, 60);
+    border: 1px solid rgb(255, 255, 255);
 }
 
 .contact_form select
@@ -591,20 +657,25 @@ input[name="r"]
     width: 80%;
 }
 
-.contact_form input, .contact_form button[type="submit"], .contact_form select
+.contact_form input, .contact_form button[type="submit"], .contact_form select, .contact_form.light input, .contact_form.light button[type="submit"], .contact_form.light select
 {
     margin-bottom: 10px;
     height: 50px;
 }
 
-.contact_form textarea
+.contact_form textarea, .contact_form.light textarea
 {
     margin-bottom: 20px;
     height: 100px;
     resize: none;
 }
 
-.contact_form button[type="submit"]
+.contact_form input::placeholder, .contact_form textarea::placeholder
+{
+    color: rgb(180, 180, 180);
+}
+
+.contact_form button[type="submit"], .contact_form.light button[type="submit"]
 {
     margin-bottom: 10px;
     cursor: pointer;
@@ -613,11 +684,21 @@ input[name="r"]
     transition: width 0.3s ease, letter-spacing 0.3s ease, background-color 0.3s ease;
 }
 
-.contact_form button[type="submit"]:hover
+.contact_form button[type="submit"]:hover, .contact_form.light button[type="submit"]:hover
 {
     width: 80%;
     letter-spacing: 1px;
     background-color: rgb(245, 245, 245);
+}
+
+.contact_form.dark button[type="submit"]
+{
+    background-color: rgb(35, 35, 35);
+}
+
+.contact_form.dark button[type="submit"]:hover
+{
+    background-color: rgb(50, 50, 50);
 }
 
 /**************
@@ -733,6 +814,11 @@ footer a img:hover
     .navigation_icon
     {
         display: block;
+    }
+
+    .theme_selection
+    {
+        top: 60px;
     }
 
     .account ul

@@ -1,15 +1,19 @@
 <?php
     // PHP Code
 
-    use PHPMailer\PHPMailer\PHPMailer;
-    use PHPMailer\PHPMailer\Exception;
-    require "../phpmailer/vendor/autoload.php";
-
     require "../assets/functions.php";
 
     session_start();
     
     $connection = connectionDB();
+
+    // Theme
+
+    $theme = "light"; // Default Theme
+
+    if(isset($_COOKIE["theme"])) {
+        $theme = $_COOKIE["theme"];
+    }
 
     // Auto Log In To Account If remember_me_token Cookie Is Setted And User Is Not Logged In Yet
 
@@ -26,6 +30,11 @@
     }
 
     // Contact Form
+
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
+    
+    require "../phpmailer/vendor/autoload.php";
 
     $first_name = "";
     $last_name = "";
@@ -101,7 +110,7 @@
     <script src="https://kit.fontawesome.com/069c0938a1.js" crossorigin="anonymous"></script> <!-- Icons -->
 </head>
 
-<body>
+<body class="<?php echo $theme; ?>">
     <header>
         <?php if(isset($_SESSION["log_in_successful_message"]) and !empty($_SESSION["log_in_successful_message"])): ?>
             <p class="log_in_successful_message"><?php echo $_SESSION["log_in_successful_message"]; ?></p>
@@ -164,6 +173,11 @@
             <h2>Cookie Policy</h2>
             <p>Táto&nbsp;stránka&nbsp;používa&nbsp;súbory&nbsp;cookies.</p>
             <button class="cookie_policy_button">ROZUMIEM</button>
+        </div>
+
+        <div class="theme_selection">
+            <img class="light_theme" src="/content/images/sun.png" title="Svetlé zobrazenie"> <!-- https://www.flaticon.com/free-icon/sun_1004519 -->
+            <img class="dark_theme" src="/content/images/moon.png" title="Tmavé zobrazenie"> <!-- https://www.flaticon.com/free-icon/moon_606807 -->
         </div>
         
         <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true): ?>
@@ -245,29 +259,29 @@
     </header>
 
     <section class="photo_gallery">
-        <div class="image image_1 active">
+        <div class="image image_1 active <?php echo $theme; ?>">
             <h2>Procesor</h2>
         </div>
 
-        <div class="image image_2">
+        <div class="image image_2 <?php echo $theme; ?>">
             <h2>Základná doska</h2>
         </div>
 
-        <div class="image image_3">
+        <div class="image image_3 <?php echo $theme; ?>">
             <h2>Grafická karta</h2>
         </div>
 
-        <div class="image image_4">
+        <div class="image image_4 <?php echo $theme; ?>">
             <h2>2. Grafická karta</h2>
         </div>
 
-        <div class="image image_5">
+        <div class="image image_5 <?php echo $theme; ?>">
             <h2>RAM</h2>
         </div>
     </section>
 
-    <main>
-        <section class="about_us">
+    <main class="<?php echo $theme; ?>">
+        <section class="about_us <?php echo $theme; ?>">
             <h2>O&nbsp;nás</h2>
             <p>Sme tím nadšencov a odborníkov na počítačový hardvér, ktorí sa venujú profesionálnej stavbe, servisu a upgradu počítačov. Našim cieľom je poskytovať spoľahlivé a kvalitné služby, vďaka ktorým si môžete užívať bezproblémový a výkonný počítač, či už na prácu, hranie hier alebo kreatívnu tvorbu.<br>
             Či už potrebujete nový počítač na mieru, odbornú diagnostiku, výmenu komponentov, čistenie alebo zrýchlenie vášho zariadenia, sme tu pre vás. Ku každému zákazníkovi pristupujeme individuálne a hľadáme riešenia, ktoré najlepšie vyhovujú jeho potrebám a rozpočtu.<br>
@@ -275,7 +289,7 @@
             Kontaktujte nás ešte dnes a nechajte svoj počítač v rukách profesionálov!</p>
         </section>
         
-        <section class="main_content">
+        <section class="main_content <?php echo $theme; ?>">
             <section class="our_services">
                 <h2>Stavba&nbsp;počítača</h2>
                 <p>Nechajte si u nás zostaviť a nakonfigurovať počítač na mieru – rýchlo, profesionálne a za výhodnú cenu. Ak už máte vhodné komponenty a hľadáte spoľahlivých odborníkov na ich správnu montáž, sme tu pre vás. A ak si ešte nie ste istí výberom, radi vám pomôžeme vybrať tie najlepšie komponenty podľa vašich potrieb a zabezpečíme ich odborné zostavenie. S nami získate počítač, ktorý bude pripravený na použitie bez starostí!<br>
@@ -374,7 +388,7 @@
             </section>
         </section>
 
-        <section class="contact">
+        <section class="contact <?php echo $theme; ?>">
             <h2>Kontakt</h2>
             <p>
                 V prípade akýchkoľvek otázok, či upozornení nás kontaktujte a my sa vám pokúsime v krátkom čase odpovedať. Budeme radi za akúkoľvek spätnú väzbu od Vás.
@@ -384,7 +398,7 @@
                 <?php endif; ?>
             </p>
 
-            <form class="contact_form" action="index.php" method="POST">
+            <form class="contact_form <?php echo $theme; ?>" action="index.php" method="POST">
                 <input 
                     type="text"
                     name="first_name"
@@ -441,6 +455,7 @@
     <script src="/src/js/navigation_bar.js"></script>
     <script src="/src/js/move_up_icon.js"></script>
     <script src="/src/js/cookie_policy.js"></script>
+    <script src="/src/js/theme_selection.js"></script>
     <script src="/src/js/photo_gallery.js"></script>
 </body>
 </html>
