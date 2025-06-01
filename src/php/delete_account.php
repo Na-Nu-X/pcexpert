@@ -8,7 +8,7 @@ $connection = connectionDB();
 if(deleteUser($connection, $_SESSION["logged_in_user_id"])) {
     deleteSession();
 
-    redirectURL("/src/html/index.php");
+    redirectURL("/src/php/index.php");
 }
 
 else {

@@ -54,22 +54,26 @@
         try {
             //Server settings
 
-            $mail->isSMTP(); //Send using SMTP
-            $mail->Host = "smtp.gmail.com"; //Set the SMTP server to send through
-            $mail->SMTPAuth = true; //Enable SMTP authentication
-            $mail->Username = "behulpatrik@gmail.com"; //SMTP username
-            $mail->Password = "ogqxkmwxfpfwjeel"; //SMTP password (Generated On myaccount.google.com/apppasswords With behulpatrik@gmail.com Account For PC Expert Application)
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; //Enable implicit TLS encryption
-            $mail->Port = 465; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+            $mail->isSMTP();
+            $mail->Host = "smtp.gmail.com";
+            $mail->SMTPAuth = true;
+
+            $mail->CharSet = "UTF-8";
+            $mail->Encoding = "base64";
+
+            $mail->Username = "behulpatrik@gmail.com";
+            $mail->Password = "ogqxkmwxfpfwjeel";
+            $mail->SMTPSecure = "ssl";
+            $mail->Port = 465;
 
             //Recipients
 
             $mail->setFrom("behulpatrik@gmail.com", "PC Expert");
-            $mail->addAddress("behulpatrik@gmail.com"); //Add a recipient
+            $mail->addAddress("behulpatrik@gmail.com");
 
             //Content
 
-            $mail->isHTML(true); //Set email format to HTML
+            $mail->isHTML(true);
             $mail->Subject = $subject;
             $mail->Body = "
                 <strong>$first_name $last_name</strong><br>
@@ -79,12 +83,12 @@
             ";
 
             $mail->send();
-            // echo "Správa bola odoslaná.";
+
             $_SESSION["contact_successful_message"] = "Správa bola odoslaná";
         } 
         
         catch(Exception $e) {
-            // echo "Pri odosielaní správy došlo k chybe: {$mail->ErrorInfo}";
+            // echo "Správu sa nepodarilo odoslať: {$mail->ErrorInfo}";
             $_SESSION["contact_error_message"] = "Správu sa nepodarilo odoslať";
         }
     }
@@ -309,7 +313,7 @@
             </section>
     
             <section>
-                <div class="slider">
+                <div class="slider <?php echo $theme; ?>">
                     <div class="slides">
                         <input type="radio" name="r" id="r1" checked>
                         <input type="radio" name="r" id="r2">
@@ -355,19 +359,19 @@
             </section>
     
             <section>
-                <div class="map">
+                <div class="map <?php echo $theme; ?>">
                     <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2606.766288777082!2d18.764998876951566!3d49.20499297138131!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471459414e15928d%3A0x565bca562c7ff67c!2zMSwgS2FycGF0c2vDoSAzMTA2LCAwMTAgMDggxb1pbGluYS1WbMSNaW5jZQ!5e0!3m2!1ssk!2ssk!4v1740590369995!5m2!1ssk!2ssk" allowfullscreen="yes" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </section>
 
-            <section>
+            <!-- <section>
                 <h2>Obchod</h2>
                 <div>
                     <h3>GeForce GTX 1660 Ti VENTUS XS 6G OC - 100€</h3>
                     <img src="/content/images/GTX-1660-Ti.png">
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe unde ipsa voluptatum! Esse, provident debitis est placeat suscipit, reiciendis, ratione iste laborum odio inventore similique exercitationem minima quas delectus fugit.</p>
                 </div>
-            </section>
+            </section> -->
     
             <section class="faq">
                 <h2>Časté&nbsp;otázky&nbsp;(FAQ)</h2>
@@ -381,11 +385,11 @@
                 <p>Pred objednaním komponentov na stavbu počítača alebo pred odovzdaním vášho zariadenia na údržbu či čistenie je platba za službu a zakúpené komponenty potrebná vopred. Po dokončení práce vám odovzdáme všetky faktúry, doklady o kúpe a originálne balenia komponentov.</p>
             </section>
 
-            <section class="reviews">
+            <!-- <section class="reviews">
                 <h2>Recenzie</h2>
 
                 <p style="text-align: center">Zanechajte nám vaše hodnotenie. <a href="./reviews.php">Napíšte prvú recenziu.</a></p>
-            </section>
+            </section> -->
         </section>
 
         <section class="contact <?php echo $theme; ?>">

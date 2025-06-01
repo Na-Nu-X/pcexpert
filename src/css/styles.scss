@@ -19,7 +19,7 @@ body, body.light
 
 body.dark
 {
-    background-color: rgb(50, 50, 50);
+    background-color: rgb(30, 30, 30);
 }
 
 /**************
@@ -394,7 +394,7 @@ header h1 a:active
 
 .image.dark
 {
-    border: 1px solid rgb(255, 255, 255);
+    border: 2px solid rgb(255, 255, 255);
 }
 
 .image h2 
@@ -446,7 +446,7 @@ main.dark
 
 .about_us.dark
 {
-    background-image: linear-gradient(rgb(40, 40, 40), rgb(60, 60, 60));
+    background-image: linear-gradient(rgb(20, 20, 20), rgb(40, 40, 40));
 }
 
 .contact, .contact.light
@@ -458,7 +458,7 @@ main.dark
 
 .contact.dark
 {
-    background-image: linear-gradient(rgb(60, 60, 60), rgb(40, 40, 40));
+    background-image: linear-gradient(rgb(40, 40, 40), rgb(20, 20, 20));
 }
 
 .main_content, .main_content.light
@@ -472,7 +472,7 @@ main.dark
 
 .main_content.dark
 {
-    background-color: rgb(60, 60, 60);
+    background-color: rgb(40, 40, 40);
 }
 
 main h2
@@ -502,7 +502,7 @@ main p
 
 // Slider
 
-.slider
+.slider, .slider.light
 {
     margin: 30px auto;
     max-width: 800px;
@@ -513,6 +513,11 @@ main p
     transform: translate(0%, 0%);
     border: 1px solid rgb(0, 0, 0);
     border-radius: 5px;
+}
+
+.slider.dark
+{
+    border: 2px solid rgb(255, 255, 255);
 }
 
 .slide img
@@ -596,7 +601,7 @@ input[name="r"]
 
 // Google Map
 
-.map iframe
+.map iframe, .map.light iframe
 {
     border: 1px solid rgb(0, 0, 0);
     border-radius: 5px;
@@ -606,6 +611,11 @@ input[name="r"]
     overflow: hidden;
     opacity: 0.8;
     transition: transform 0.3s ease-in-out, opacity 0.3s ease;
+}
+
+.map.dark iframe
+{
+    border: 2px solid rgb(255, 255, 255);
 }
 
 .map iframe:hover
@@ -638,8 +648,8 @@ input[name="r"]
 .contact_form.dark input, .contact_form.dark button[type="submit"], .contact_form.dark select, .contact_form.dark textarea
 {
     color: rgb(255, 255, 255);
-    background-color: rgb(60, 60, 60);
-    border: 1px solid rgb(255, 255, 255);
+    background-color: rgb(40, 40, 40);
+    border: 2px solid rgb(255, 255, 255);
 }
 
 .contact_form select
@@ -693,12 +703,12 @@ input[name="r"]
 
 .contact_form.dark button[type="submit"]
 {
-    background-color: rgb(35, 35, 35);
+    background-color: rgb(15, 15, 15);
 }
 
 .contact_form.dark button[type="submit"]:hover
 {
-    background-color: rgb(50, 50, 50);
+    background-color: rgb(30, 30, 30);
 }
 
 /**************
@@ -885,7 +895,7 @@ footer a img:hover
 
 @media only screen and (max-width: 600px)
 {
-    .contact_form input, .contact_form select, .contact_form textarea
+    .contact_form input, .contact_form select, .contact_form textarea, .contact_form.light input, .contact_form.light select, .contact_form.light textarea
     {
         width: 100%;
     }
@@ -895,7 +905,7 @@ footer a img:hover
         width: 100%;
     }
 
-    .contact_form select:hover, .contact_form button[type="submit"]:hover
+    .contact_form select:hover, .contact_form button[type="submit"]:hover, .contact_form.light button[type="submit"], .contact_form.light button[type="submit"]:hover, .contact_form.dark button[type="submit"], .contact_form.dark button[type="submit"]:hover
     {
         width: 100%;
     }

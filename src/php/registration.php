@@ -35,7 +35,7 @@
                 $_SESSION["logged_in_user_id"] = $id;
                 $_SESSION["log_in_successful_message"] = "Prihlásený ako " . htmlspecialchars(getUserName($connection, $id), ENT_QUOTES, "UTF-8");
         
-                redirectURL("/src/html/index.php");
+                redirectURL("/src/php/index.php");
             }
         
             else {

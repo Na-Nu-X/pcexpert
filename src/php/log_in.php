@@ -40,7 +40,7 @@
                 }
             }
     
-            redirectURL("/src/html/index.php");
+            redirectURL("/src/php/index.php");
         }
     
         else {
