@@ -444,7 +444,7 @@
         </section>
     </main>
     
-    <footer>
+    <footer class="<?php echo $theme; ?>">
         <?php require "../assets/footer.php"; ?>
     </footer>
 
