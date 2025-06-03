@@ -608,6 +608,15 @@ input[name=r] {
   background-color: rgb(30, 30, 30);
 }
 
+.contact_form input:-webkit-autofill, .contact_form input:-webkit-autofill:hover, .contact_form input:-webkit-autofill:focus, .contact_form.light input:-webkit-autofill, .contact_form.light input:-webkit-autofill:hover, .contact_form.light input:-webkit-autofill:focus {
+  -webkit-transition: width 0.3s ease, background-color 9999s ease;
+  transition: width 0.3s ease, background-color 9999s ease;
+}
+
+.contact_form.dark input:-webkit-autofill, .contact_form.dark input:-webkit-autofill:hover, .contact_form.dark input:-webkit-autofill:focus {
+  -webkit-text-fill-color: rgb(255, 255, 255);
+}
+
 /**************
  Footer Styles
 **************/
