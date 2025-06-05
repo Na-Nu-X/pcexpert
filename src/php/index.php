@@ -156,7 +156,7 @@
 
                 <?php if(isset($_SESSION["logged_in_user_id"]) and getUserRole($connection, $_SESSION["logged_in_user_id"]) === "admin"): ?>
                     <li style="border: 1px solid rgb(250, 50, 50)" class="navigation_bar_item">
-                        <a href="./administration.php">ADMINISTRÁCIA</a>
+                        <a href="./admin/admin.php">ADMINISTRÁCIA</a>
                     </li>
 
                 <?php endif; ?>
