@@ -10,9 +10,15 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-body
+body, body.light
 {
     line-height: 1.6;
+    background-color: rgb(245, 245, 245);
+}
+
+body.dark
+{
+    background-color: rgb(30, 30, 30);
 }
 
 /**************
@@ -35,7 +41,6 @@ body
 {
     display: inline-block;
     margin: 20px;
-    padding: 10px;
     width: 200px;
     background-color: rgb(255, 255, 255);
     border: 2px solid rgb(0, 0, 0);
@@ -53,8 +58,12 @@ body
 
 .navigation_bar ul li a
 {
+    display: block;
+    padding: 10px;
     text-decoration: none;
     color: rgb(0, 0, 0);
+    font-family: Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
 }
 
 .navigation_icon
@@ -86,6 +95,8 @@ main
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border-bottom: 1px solid rgb(150, 150, 150);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
 // Forms
@@ -432,12 +443,20 @@ main
  Footer Styles
 **************/
 
-footer
+footer, footer.light
 {
+    margin-top: 25px;
     padding-top: 20px;
     text-align: center;
     background-color: rgb(230, 230, 230);
     border-top: 1px solid rgb(150, 150, 150);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+footer.dark
+{
+    color: rgb(255, 255, 255);
+    background-color: rgb(15, 15, 15);
 }
 
 footer p
@@ -447,13 +466,21 @@ footer p
 }
 
 footer a:link,
-footer a:visited
+footer a:visited,
+footer.light a:link,
+footer.light a:visited
 {
     font-size: 14px;
     font-weight: normal;
     font-style: italic;
     text-decoration: none;
     color: rgb(50, 50, 50);
+}
+
+footer.dark a:link,
+footer.dark a:visited
+{
+    color: rgb(150, 150, 150);
 }
 
 footer a:hover,
@@ -476,12 +503,17 @@ footer a img:hover
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.copywrite
+footer .copywrite, footer.light .copywrite
 {
     font-family: 'Courier New', Courier, monospace, sans-serif;
     margin-top: 20px;
     font-size: 12px;
     color: rgb(50, 50, 50);
+}
+
+footer.dark .copywrite
+{
+    color: rgb(150, 150, 150);
 }
 
 /**************

@@ -5,6 +5,14 @@
 
     session_start();
 
+    // Theme
+
+    $theme = "light"; // Default Theme
+
+    if(isset($_COOKIE["theme"])) {
+        $theme = $_COOKIE["theme"];
+    }
+
     $first_name = "";
     $last_name = "";
     $email_address = "";
@@ -58,7 +66,8 @@
 
     <script src="https://kit.fontawesome.com/069c0938a1.js" crossorigin="anonymous"></script> <!-- Icons -->
 </head>
-<body>
+
+<body class="<?php echo $theme; ?>">
     <header>
         <nav class="navigation_bar">
             <ul>
@@ -79,11 +88,32 @@
             <h2>Registrácia</h2>
 
             <form class="registration_form" action="registration.php" method="POST">
-                <input type="text" name="first_name" placeholder="Zadajte vaše meno" autocomplete="given-name" value="<?php echo htmlspecialchars($first_name, ENT_QUOTES, "UTF-8"); ?>" required>
+                <input 
+                    type="text"
+                    name="first_name"
+                    placeholder="Zadajte vaše meno"
+                    autocomplete="given-name"
+                    value="<?php echo htmlspecialchars($first_name, ENT_QUOTES, "UTF-8"); ?>"
+                    required
+                >
 
-                <input type="text" name="last_name" placeholder="Zadajte vaše priezvisko" autocomplete="family-name" value="<?php echo htmlspecialchars($last_name, ENT_QUOTES, "UTF-8"); ?>" required>
+                <input 
+                    type="text"
+                    name="last_name"
+                    placeholder="Zadajte vaše priezvisko"
+                    autocomplete="family-name"
+                    value="<?php echo htmlspecialchars($last_name, ENT_QUOTES, "UTF-8"); ?>"
+                    required
+                >
 
-                <input type="email" name="email_address" placeholder="Zadajte váš e-mail" autocomplete="email" value="<?php echo htmlspecialchars($email_address, ENT_QUOTES, "UTF-8"); ?>" required>
+                <input 
+                    type="email"
+                    name="email_address"
+                    placeholder="Zadajte váš e-mail"
+                    autocomplete="email"
+                    value="<?php echo htmlspecialchars($email_address, ENT_QUOTES, "UTF-8"); ?>"
+                    required
+                >
 
                 <div class="phone_number_container">
                     <div class="phone_number_icon">
@@ -96,7 +126,15 @@
                         <img class="united_states_icon" src="/content/images/united-states.png"> <!-- https://www.flaticon.com/free-icon/united-states_3013911 -->
                     </div>
 
-                    <input class="phone_number" type="text" name="phone_number" placeholder="Zadajte vaše telefónne číslo" autocomplete="tel" value="<?php echo htmlspecialchars($phone_number, ENT_QUOTES, "UTF-8"); ?>" required>
+                    <input 
+                        class="phone_number"
+                        type="text"
+                        name="phone_number"
+                        placeholder="Zadajte vaše telefónne číslo"
+                        autocomplete="tel"
+                        value="<?php echo htmlspecialchars($phone_number, ENT_QUOTES, "UTF-8"); ?>"
+                        required
+                    >
                 </div>
                 
                 <div class="password_container">
@@ -141,7 +179,7 @@
         </section>
     </main>
 
-    <footer>
+    <footer class="<?php echo $theme; ?>">
         <?php require "../assets/footer.php"; ?>
     </footer>
 

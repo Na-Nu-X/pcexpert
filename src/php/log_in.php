@@ -5,6 +5,14 @@
 
     session_start();
 
+    // Theme
+
+    $theme = "light"; // Default Theme
+
+    if(isset($_COOKIE["theme"])) {
+        $theme = $_COOKIE["theme"];
+    }
+
     $email_address = "";
     
     if($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -62,7 +70,8 @@
 
     <script src="https://kit.fontawesome.com/069c0938a1.js" crossorigin="anonymous"></script> <!-- Icons -->
 </head>
-<body>
+
+<body class="<?php echo $theme; ?>">
     <header>
         <nav class="navigation_bar">
             <ul>
@@ -83,7 +92,14 @@
             <h2>Prihlásenie</h2>
             
             <form class="log_in_form" action="log_in.php" method="POST">
-                <input type="email" name="email_address" placeholder="Zadajte váš e-mail" autocomplete="email" value="<?php echo htmlspecialchars($email_address, ENT_QUOTES, "UTF-8"); ?>" required>
+                <input 
+                    type="email"
+                    name="email_address"
+                    placeholder="Zadajte váš e-mail"
+                    autocomplete="email"
+                    value="<?php echo htmlspecialchars($email_address, ENT_QUOTES, "UTF-8"); ?>"
+                    required
+                >
 
                 <div class="password_container">
                     <div class="password_icon">
@@ -129,7 +145,7 @@
         </section>
     </main>
 
-    <footer>
+    <footer class="<?php echo $theme; ?>">
         <?php require "../assets/footer.php"; ?>
     </footer>
 
