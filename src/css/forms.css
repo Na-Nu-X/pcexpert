@@ -193,6 +193,22 @@ main {
   position: relative;
 }
 
+.copy_password {
+  position: absolute;
+  top: 50%;
+  left: -40px;
+  transform: translateY(-50%);
+  font-size: 16px;
+}
+
+.generate_password {
+  position: absolute;
+  top: 50%;
+  left: -20px;
+  transform: translateY(-50%);
+  font-size: 16px;
+}
+
 .password_icon {
   position: absolute;
   top: 50%;
@@ -201,11 +217,11 @@ main {
   font-size: 16px;
 }
 
-.password_icon i {
+.copy_password i, .generate_password i, .password_icon i {
   color: rgb(180, 180, 180);
 }
 
-.password_icon i:hover {
+.copy_password i:hover, .generate_password i:hover, .password_icon i:hover {
   color: rgb(200, 200, 200);
   cursor: pointer;
   transition: color 0.3s ease;

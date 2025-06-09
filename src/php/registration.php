@@ -138,6 +138,14 @@
                 </div>
                 
                 <div class="password_container">
+                    <div class="copy_password">
+                        <i class="fa-solid fa-copy"></i>
+                    </div>
+
+                    <div class="generate_password">
+                        <i class="fa-solid fa-key"></i>
+                    </div>
+
                     <div class="password_icon">
                         <i class="fa-regular fa-eye-slash"></i>
                         <!-- <i class="fa-regular fa-eye"></i> -->
