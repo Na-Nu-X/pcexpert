@@ -136,19 +136,35 @@
                         required
                     >
                 </div>
+
+                <?php 
+                    $alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+                    $numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+                    $special_chars = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', '[', ']', '{', '}', ';', ':', "'", '"', ',', '.', '<', '>', '/', '?', '\\', '|', '`', '~'];
+
+                    $generated_password = "";
+
+                    for($x = 0; $x < 5; $x++) {
+                        $generated_password .= $alphabet[rand(0, count($alphabet) - 1)] . $numbers[rand(0, count($numbers) - 1)] . $special_chars[rand(0, count($special_chars) - 1)];
+                    }
+
+                    $shuffled_generated_password = str_shuffle($generated_password);
+
+                    echo $shuffled_generated_password;
+                ?>
                 
                 <div class="password_container">
-                    <div class="copy_password">
-                        <i class="fa-solid fa-copy"></i>
-                    </div>
-
                     <div class="generate_password">
-                        <i class="fa-solid fa-key"></i>
+                        <i class="fa-solid fa-key" title="vygenerovať heslo..."></i>
                     </div>
 
                     <div class="password_icon">
-                        <i class="fa-regular fa-eye-slash"></i>
+                        <i class="fa-regular fa-eye-slash" title="zobraziť / skryť heslo..."></i>
                         <!-- <i class="fa-regular fa-eye"></i> -->
+                    </div>
+                    
+                    <div class="copy_password">
+                        <i class="fa-solid fa-copy" title="kopírovať heslo..."></i>
                     </div>
                     
                     <input class="password" type="text" name="password" placeholder="Vytvorte heslo" autocomplete="off" required>

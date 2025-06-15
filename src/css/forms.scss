@@ -227,7 +227,7 @@ main
 {
     position: absolute;
     top: 50%;
-    left: -40px;
+    right: 0px;
     transform: translateY(-50%);
     font-size: 16px;
 }
@@ -236,9 +236,15 @@ main
 {
     position: absolute;
     top: 50%;
-    left: -20px;
+    left: 0px;
     transform: translateY(-50%);
     font-size: 16px;
+    transition: left 0.3s ease;
+}
+
+.password_container:has(.password:focus) .generate_password
+{
+    left: -20px;
 }
 
 .password_icon

@@ -1,0 +1,211 @@
+/***************
+ General Styles
+***************/
+
+*
+{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: Poppins, Arial, sans-serif;
+    // cursor: default;
+}
+
+body, body.light
+{
+    line-height: 1.6;
+    background-color: rgb(245, 245, 245);
+}
+
+body.dark
+{
+    background-color: rgb(30, 30, 30);
+}
+
+/**************
+ Header Styles
+**************/
+
+header
+{
+    margin-bottom: 25px;
+    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5)), url(/content/images/background.jpg); // https://pixabay.com/sk/photos/cpu-procesor-%C4%8Dip-z%C3%A1kladn%C3%A9-dosky-4393376/
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    border-bottom: 1px solid rgb(150, 150, 150);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+// Navigation Bar
+
+.navigation_bar
+{
+    position: fixed;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-bottom: 1px solid rgb(150, 150, 150);
+    text-align: center;
+    z-index: 100;
+}
+
+.navigation_bar ul li
+{
+    display: inline-block;
+    margin: 20px;
+    width: 200px;
+    background-color: rgb(255, 255, 255);
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 5px;
+    font-size: 15px;
+    transition: letter-spacing 0.3s ease, transform 0.3s ease;
+}
+
+.navigation_bar ul li:hover
+{
+    letter-spacing: 1px;
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.navigation_bar ul li a
+{
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    font-family: Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
+}
+
+.navigation_icon
+{
+    display: none;
+    font-size: 30px;
+    color: rgb(255, 255, 255);
+}
+
+.navigation_icon:hover
+{
+    transform: scale(1.1);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+header h1 a:link,
+header h1 a:visited
+{
+    text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 80px;
+    letter-spacing: 1px;
+    color: rgb(255, 255, 255);
+    -webkit-text-stroke: 2px rgb(0, 0, 0);
+    transition: letter-spacing 0.3s ease;
+    animation: fade_in_animation 2s ease-out;
+}
+
+header h1 a:hover,
+header h1 a:active
+{
+    letter-spacing: 5px;
+}
+
+/************
+ Main Styles
+************/
+
+main, main.light
+{
+    max-width: 800px;
+    margin: 0px auto;
+    border: 1px solid rgb(150, 150, 150);
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    color: rgb(0, 0, 0);
+}
+
+main.dark
+{
+    color: rgb(255, 255, 255);
+    border: 1px solid rgb(255, 255, 255);
+}
+
+/**************
+ Footer Styles
+**************/
+
+footer, footer.light
+{
+    margin-top: 25px;
+    padding-top: 20px;
+    text-align: center;
+    background-color: rgb(230, 230, 230);
+    border-top: 1px solid rgb(150, 150, 150);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+footer.dark
+{
+    color: rgb(255, 255, 255);
+    background-color: rgb(15, 15, 15);
+}
+
+footer p
+{
+    font-weight: bold;
+    font-size: 16px;
+}
+
+footer a:link,
+footer a:visited,
+footer.light a:link,
+footer.light a:visited
+{
+    font-size: 14px;
+    font-weight: normal;
+    font-style: italic;
+    text-decoration: none;
+    color: rgb(50, 50, 50);
+}
+
+footer.dark a:link,
+footer.dark a:visited
+{
+    color: rgb(150, 150, 150);
+}
+
+footer a:hover,
+footer a:active
+{
+    text-decoration: underline;
+}
+
+footer a img
+{
+    margin: 0px 5px;
+    transform: scale(1);
+    opacity: 0.8;
+}
+
+footer a img:hover
+{
+    opacity: 1;
+    transform: scale(1.1);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+footer .copywrite, footer.light .copywrite
+{
+    font-family: 'Courier New', Courier, monospace, sans-serif;
+    margin-top: 20px;
+    font-size: 12px;
+    color: rgb(50, 50, 50);
+}
+
+footer.dark .copywrite
+{
+    color: rgb(150, 150, 150);
+}

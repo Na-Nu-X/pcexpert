@@ -35,19 +35,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>PC Expert - Administrácia</title>
+
+    <link rel="stylesheet" href="../../css/admin.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins"> <!-- Poppins Font Style -->
+
+    <script src="https://kit.fontawesome.com/069c0938a1.js" crossorigin="anonymous"></script> <!-- Icons -->
 </head>
 <body>
-    <?php if(isset($_SESSION["logged_in_user_id"]) and getUserRole($connection, $_SESSION["logged_in_user_id"]) === "admin"): ?>
-        <?php foreach($all_users as $one_user): ?>
-            <a href="?id=<?php echo $one_user[0]; ?>" title="Zobraziť viac" target="_self"><?php echo $one_user[1] . " " . $one_user[2]; ?></a>
-            <br>
+    <header>
+        <nav class="navigation_bar">
+            <ul>
+                <li class="navigation_bar_item home">
+                    <a href="../index.php">DOMOV</a>
+                </li>
 
-        <?php endforeach; ?>
+                <div class="navigation_icon">
+                    <i class="fa-solid fa-bars"></i>
+                    <!-- <i class="fa-solid fa-xmark"></i> -->
+                </div>
+            </ul>
+        </nav>
 
-    <?php else: ?>
-        <p>K obsahu tejto stránky nemáte povolený prístup.</p>
-        <a href="./index.php" title="Domov" target="_self">Späť na úvodnú stránku.</a>
+        <h1><a href="./admin.php">Administrácia</a></h1>
+    </header>
 
-    <?php endif; ?>
+    <main>
+        <?php if(isset($_SESSION["logged_in_user_id"]) and getUserRole($connection, $_SESSION["logged_in_user_id"]) === "admin"): ?>
+            <div class="users">
+                <?php foreach($all_users as $one_user): ?>
+                    <div class="user">
+                        <h2><?php echo $one_user[1] . " " . $one_user[2]; ?></h2>
+                        <p><strong>ID používateľa: </strong><?php echo $one_user[0]; ?></p>
+                        <p><strong>E-mailová adresa: </strong><?php echo $one_user[3]; ?></p>
+                        <p><strong>Telefónne číslo: </strong><?php echo $one_user[4]; ?></p>
+                        <p><strong>Rola: </strong><?php echo $one_user[7]; ?></p>
+                        <p><strong>Čas vytvorenia účtu: </strong><?php echo $one_user[8]; ?></p>
+                    </div>
+
+                <?php endforeach; ?>
+            </div>
+
+        <?php else: ?>
+            <p>K obsahu tejto stránky nemáte povolený prístup.</p>
+            <a href="./index.php" title="Domov" target="_self">Späť na úvodnú stránku.</a>
+
+        <?php endif; ?>
+    </main>
+
+    <footer>
+        <?php require "../../assets/footer.php"; ?>
+    </footer>
 </body>
 </html>
