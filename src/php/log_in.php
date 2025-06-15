@@ -103,7 +103,7 @@
 
                 <div class="password_container">
                     <div class="password_icon">
-                        <i class="fa-regular fa-eye-slash"></i>
+                        <i class="fa-regular fa-eye-slash" title="zobraziť / skryť heslo..."></i>
                         <!-- <i class="fa-regular fa-eye"></i> -->
                     </div>
                     

@@ -493,6 +493,9 @@ footer.dark .copywrite {
   .log_in_form input[type=text], .log_in_form input[type=email], .log_in_form button[type=submit] {
     width: 100%;
   }
+  .generate_password {
+    left: -20px;
+  }
   .agree input + label {
     padding-left: 14px;
   }

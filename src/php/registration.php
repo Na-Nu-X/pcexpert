@@ -136,22 +136,6 @@
                         required
                     >
                 </div>
-
-                <?php 
-                    $alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-                    $numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-                    $special_chars = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', '[', ']', '{', '}', ';', ':', "'", '"', ',', '.', '<', '>', '/', '?', '\\', '|', '`', '~'];
-
-                    $generated_password = "";
-
-                    for($x = 0; $x < 5; $x++) {
-                        $generated_password .= $alphabet[rand(0, count($alphabet) - 1)] . $numbers[rand(0, count($numbers) - 1)] . $special_chars[rand(0, count($special_chars) - 1)];
-                    }
-
-                    $shuffled_generated_password = str_shuffle($generated_password);
-
-                    echo $shuffled_generated_password;
-                ?>
                 
                 <div class="password_container">
                     <div class="generate_password">
@@ -276,6 +260,45 @@
 
                 password.style.webkitTextSecurity = "disc"
             }
+        })
+
+        // Random Password Generator
+
+        const generate_password = document.querySelector(".fa-key")
+
+        const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+        const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+        const special_chars = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', '[', ']', '{', '}', ';', ':', "'", '"', ',', '.', '<', '>', '/', '?', '\\', '|', '`', '~']
+
+        generate_password.addEventListener("click", function(event) {
+            function shuffleString(string) {
+                let array = string.split("")
+
+                for(let i = array.length - 1; i > 0; i--) {
+                    let j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]]
+                }
+
+                return array.join("");
+            }
+
+            let generated_password = ""
+
+            for(let x = 0; x < 5; x++) {
+                generated_password = generated_password + alphabet[Math.floor(Math.random() * alphabet.length)] + numbers[Math.floor(Math.random() * numbers.length)] + special_chars[Math.floor(Math.random() * special_chars.length)]
+            }
+
+            password.value = shuffleString(generated_password)
+        })
+
+        // Copy Password To Clipboard
+
+        const copy_password = document.querySelector(".fa-copy")
+
+        copy_password.addEventListener("click", function(event) {
+            password.select()
+            password.setSelectionRange(0, password.value.length)
+            document.execCommand("copy")
         })
 
 
