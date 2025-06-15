@@ -189,11 +189,11 @@ main {
   padding-right: 55px !important;
 }
 
-.password_container {
+.password_container, .password_check_container {
   position: relative;
 }
 
-.copy_password {
+.copy_password, .paste_password {
   position: absolute;
   top: 50%;
   right: 0px;
@@ -222,11 +222,11 @@ main {
   font-size: 16px;
 }
 
-.copy_password i, .generate_password i, .password_icon i {
+.copy_password i, .generate_password i, .password_icon i, .paste_password i {
   color: rgb(180, 180, 180);
 }
 
-.copy_password i:hover, .generate_password i:hover, .password_icon i:hover {
+.copy_password i:hover, .generate_password i:hover, .password_icon i:hover, .paste_password i:hover {
   color: rgb(200, 200, 200);
   cursor: pointer;
   transition: color 0.3s ease;

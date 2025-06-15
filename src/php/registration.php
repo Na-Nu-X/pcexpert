@@ -148,13 +148,19 @@
                     </div>
                     
                     <div class="copy_password">
-                        <i class="fa-solid fa-copy" title="kopírovať heslo..."></i>
+                        <i class="fa-solid fa-copy copy_password_icon" title="kopírovať heslo..."></i>
                     </div>
                     
                     <input class="password" type="text" name="password" placeholder="Vytvorte heslo" autocomplete="off" required>
                 </div>
 
-                <input class="password_check" type="text" placeholder="Overte heslo" autocomplete="off" required>
+                <div class="password_check_container">
+                    <div class="paste_password">
+                        <i class="fa-regular fa-copy paste_password_icon" title="prilepiť..."></i>
+                    </div>
+
+                    <input class="password_check" type="text" placeholder="Overte heslo" autocomplete="off" required>
+                </div>
 
                 <p class="form_report_paragraph"></p>
 
@@ -293,12 +299,21 @@
 
         // Copy Password To Clipboard
 
-        const copy_password = document.querySelector(".fa-copy")
+        const copy_password = document.querySelector(".copy_password_icon")
 
         copy_password.addEventListener("click", function(event) {
             password.select()
             password.setSelectionRange(0, password.value.length)
             document.execCommand("copy")
+            // navigator.clipboard.writeText(password.value) // Only HTTPS
+        })
+
+        // Paste From Clipboard
+
+        const paste_password = document.querySelector(".paste_password_icon")
+
+        paste_password.addEventListener("click", function(event) {
+            password_check.value = navigator.clipboard.readText() // Only HTTPS
         })
 
 
