@@ -313,7 +313,8 @@
         const paste_password = document.querySelector(".paste_password_icon")
 
         paste_password.addEventListener("click", function(event) {
-            password_check.value = navigator.clipboard.readText() // Only HTTPS
+            // password_check.value = navigator.clipboard.readText() // Only HTTPS
+            password_check.value = password.value
         })
 
 
