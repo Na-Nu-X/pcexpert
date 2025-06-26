@@ -247,7 +247,26 @@ header
 .account ul li
 {
     display: inline-block;
-    margin: 0px 10px;
+    margin: 5px 10px;
+}
+
+.account ul li img
+{
+    position: absolute;
+    top: 0px;
+    left: -40px;
+    width: 40px;
+    height: 40px;
+    padding: 3px;
+    border: 1px solid rgb(150, 150, 150);
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+.account ul li img:hover
+{
+    transform: scale(1.1);
+    cursor: pointer;
 }
 
 .account ul li a:link,
