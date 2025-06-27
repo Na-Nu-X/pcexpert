@@ -212,18 +212,21 @@ header {
 
 .account ul li {
   display: inline-block;
-  margin: 5px 10px;
+  margin: 7px 10px;
+}
+
+.profile_picture {
+  width: 40px;
+  height: 40px;
+  padding: 3px;
+  border: 1px solid rgb(150, 150, 150);
+  border-radius: 50%;
 }
 
 .account ul li img {
   position: absolute;
   top: 0px;
   left: -40px;
-  width: 40px;
-  height: 40px;
-  padding: 3px;
-  border: 1px solid rgb(150, 150, 150);
-  border-radius: 50%;
   transition: transform 0.3s ease;
 }
 
@@ -560,6 +563,52 @@ input[name=r] {
 
 .faq h3 {
   text-align: center;
+}
+
+.reviews textarea, .reviews.light textarea {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 30px;
+  padding: 10px;
+  resize: none;
+  outline: none;
+  font-size: 15px;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 5px;
+}
+
+.reviews.dark textarea {
+  color: rgb(255, 255, 255);
+  background-color: rgb(40, 40, 40);
+  border: 2px solid rgb(255, 255, 255);
+}
+
+.reviews textarea::-moz-placeholder {
+  color: rgb(180, 180, 180);
+}
+
+.reviews textarea::placeholder {
+  color: rgb(180, 180, 180);
+}
+
+.reviewer, .write_review {
+  position: relative;
+}
+
+.reviewer span, .write_review span {
+  position: absolute;
+  top: 7px;
+  left: 50px;
+}
+
+.stars img {
+  margin-right: 10px;
+  transition: transform 0.3s ease;
+}
+
+.stars img:hover {
+  transform: scale(1.1);
+  cursor: pointer;
 }
 
 .contact_form input, .contact_form button[type=submit], .contact_form select, .contact_form textarea,

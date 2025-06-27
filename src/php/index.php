@@ -188,7 +188,7 @@
             <div class="account">
                 <ul>
                     <li>
-                        <img src="/content/images/user.png"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
+                        <img class="profile_picture" src="/content/images/user.png"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
                         <a href="./account.php" title="Môj účet">
                             <?php echo htmlspecialchars(getUserName($connection, $_SESSION["logged_in_user_id"]), ENT_QUOTES, "UTF-8"); ?>
                         </a>
@@ -386,11 +386,41 @@
                 <p>Pred objednaním komponentov na stavbu počítača alebo pred odovzdaním vášho zariadenia na údržbu či čistenie je platba za službu a zakúpené komponenty potrebná vopred. Po dokončení práce vám odovzdáme všetky faktúry, doklady o kúpe a originálne balenia komponentov.</p>
             </section>
 
-            <!-- <section class="reviews">
+            <section class="reviews <?php echo $theme; ?>">
                 <h2>Recenzie</h2>
+                <div class="write_review">
+                    <img class="profile_picture" src="/content/images/user.png"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
+                    <span>Patrik Behul</span>
+                    <div class="stars">
+                        <img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/empty_star.png"> <!-- https://www.flaticon.com/free-icon/star_1828884 https://www.flaticon.com/free-icon/star_1828970 -->
+                    </div>
+                    <textarea placeholder="Zanechajte nám vaše hodnotenie"></textarea>
+                </div>
 
-                <p style="text-align: center">Zanechajte nám vaše hodnotenie. <a href="./reviews.php">Napíšte prvú recenziu.</a></p>
-            </section> -->
+                <div class="review">
+                    <div class="reviewer">
+                        <img class="profile_picture" src="/content/images/user.png"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
+                        <span>Patrik Behul</span>
+                        <div class="stars">
+                            <img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/empty_star.png"> <!-- https://www.flaticon.com/free-icon/star_1828884 https://www.flaticon.com/free-icon/star_1828970 -->
+                        </div>
+                    </div>
+                    
+                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quas velit facere veniam? Totam magnam doloribus, hic iste maiores non ipsam. Nisi autem cum saepe voluptas fuga tenetur neque ratione recusandae.</p>
+                </div>
+
+                <div class="review">
+                    <div class="reviewer">
+                        <img class="profile_picture" src="/content/images/user.png"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
+                        <span>Anonymný zákazník</span>
+                        <div class="stars">
+                            <img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/star.png"> <!-- https://www.flaticon.com/free-icon/star_1828884 https://www.flaticon.com/free-icon/star_1828970 -->
+                        </div>
+                    </div>
+                    
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere asperiores vel assumenda vitae, optio mollitia eos corrupti tempore deserunt quo. Reiciendis hic ab rerum sit a doloribus velit architecto debitis?</p>
+                </div>
+            </section>
         </section>
 
         <section class="contact <?php echo $theme; ?>">
