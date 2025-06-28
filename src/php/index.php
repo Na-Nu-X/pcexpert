@@ -189,6 +189,7 @@
                 <ul>
                     <li>
                         <img class="profile_picture" src="/content/images/user.png"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
+                        <img class="profile_picture" src="/content/images/user.png"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
                         <a href="./account.php" title="Môj účet">
                             <?php echo htmlspecialchars(getUserName($connection, $_SESSION["logged_in_user_id"]), ENT_QUOTES, "UTF-8"); ?>
                         </a>
@@ -395,6 +396,7 @@
                         <img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/empty_star.png"> <!-- https://www.flaticon.com/free-icon/star_1828884 https://www.flaticon.com/free-icon/star_1828970 -->
                     </div>
                     <textarea placeholder="Zanechajte nám vaše hodnotenie"></textarea>
+                    <button type="submit">Zverejniť recenziu</button>
                 </div>
 
                 <div class="review">

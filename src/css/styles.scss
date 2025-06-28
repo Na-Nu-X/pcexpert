@@ -670,7 +670,6 @@ input[name="r"]
 {
     width: 100%;
     height: 100px;
-    margin-bottom: 30px;
     padding: 10px;
     resize: none;
     outline: none;
@@ -689,6 +688,25 @@ input[name="r"]
 .reviews textarea::placeholder
 {
     color: rgb(180, 180, 180);
+}
+
+.write_review button
+{
+    width: 200px;
+    height: 50px;
+    margin-bottom: 30px;
+    font-size: 16px;
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 25px;
+    background-color: rgb(155, 230, 50);
+    transition: letter-spacing 0.3s ease, background-color 0.3s ease;
+}
+
+.write_review button:hover
+{
+    letter-spacing: 1px;
+    background-color: rgb(170, 255, 50);
+    cursor: pointer;
 }
 
 .reviewer, .write_review
