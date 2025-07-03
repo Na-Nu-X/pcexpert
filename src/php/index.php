@@ -189,7 +189,6 @@
                 <ul>
                     <li>
                         <img class="profile_picture" src="/content/images/user.png"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
-                        <img class="profile_picture" src="/content/images/user.png"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
                         <a href="./account.php" title="Môj účet">
                             <?php echo htmlspecialchars(getUserName($connection, $_SESSION["logged_in_user_id"]), ENT_QUOTES, "UTF-8"); ?>
                         </a>
@@ -390,19 +389,41 @@
             <section class="reviews <?php echo $theme; ?>">
                 <h2>Recenzie</h2>
                 <div class="write_review">
-                    <img class="profile_picture" src="/content/images/user.png"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
-                    <span>Patrik Behul</span>
+                    <!-- Profile Picture -->
+
+                    <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true): ?>
+                        <img class="profile_picture" src="/content/images/user.png"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
+
+                    <?php else: ?>
+                        <img class="profile_picture" src="/content/images/user.png"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
+
+                    <?php endif; ?>
+
+                    <!-- User Name -->
+
+                    <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true): ?>
+                        <span><?php echo htmlspecialchars(getUserName($connection, $_SESSION["logged_in_user_id"]), ENT_QUOTES, "UTF-8"); ?></span>
+                    
+                    <?php else: ?>
+                        <span>Anonymný zákaznik</span>
+
+                    <?php endif; ?>
+
                     <div class="stars">
                         <img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/empty_star.png"> <!-- https://www.flaticon.com/free-icon/star_1828884 https://www.flaticon.com/free-icon/star_1828970 -->
                     </div>
+
                     <textarea placeholder="Zanechajte nám vaše hodnotenie"></textarea>
+
                     <button type="submit">Zverejniť recenziu</button>
                 </div>
 
                 <div class="review">
                     <div class="reviewer">
                         <img class="profile_picture" src="/content/images/user.png"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
-                        <span>Patrik Behul</span>
+
+                        <span>Patrik Behul - pred 3 dňami</span>
+
                         <div class="stars">
                             <img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/empty_star.png"> <!-- https://www.flaticon.com/free-icon/star_1828884 https://www.flaticon.com/free-icon/star_1828970 -->
                         </div>
@@ -414,40 +435,9 @@
                 <div class="review">
                     <div class="reviewer">
                         <img class="profile_picture" src="/content/images/user.png"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
-                        <span>Anonymný zákazník</span>
-                        <div class="stars">
-                            <img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/star.png"> <!-- https://www.flaticon.com/free-icon/star_1828884 https://www.flaticon.com/free-icon/star_1828970 -->
-                        </div>
-                    </div>
-                    
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere asperiores vel assumenda vitae, optio mollitia eos corrupti tempore deserunt quo. Reiciendis hic ab rerum sit a doloribus velit architecto debitis?</p>
-                </div>
-            </section>
-                <div class="write_review">
-                    <img class="profile_picture" src="/content/images/user.png"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
-                    <span>Patrik Behul</span>
-                    <div class="stars">
-                        <img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/empty_star.png"> <!-- https://www.flaticon.com/free-icon/star_1828884 https://www.flaticon.com/free-icon/star_1828970 -->
-                    </div>
-                    <textarea placeholder="Zanechajte nám vaše hodnotenie"></textarea>
-                </div>
 
-                <div class="review">
-                    <div class="reviewer">
-                        <img class="profile_picture" src="/content/images/user.png"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
-                        <span>Patrik Behul</span>
-                        <div class="stars">
-                            <img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/empty_star.png"> <!-- https://www.flaticon.com/free-icon/star_1828884 https://www.flaticon.com/free-icon/star_1828970 -->
-                        </div>
-                    </div>
-                    
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quas velit facere veniam? Totam magnam doloribus, hic iste maiores non ipsam. Nisi autem cum saepe voluptas fuga tenetur neque ratione recusandae.</p>
-                </div>
-
-                <div class="review">
-                    <div class="reviewer">
-                        <img class="profile_picture" src="/content/images/user.png"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
-                        <span>Anonymný zákazník</span>
+                        <span>Anonymný zákazník - pred 5 týždňami</span>
+                        
                         <div class="stars">
                             <img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/star.png"> <!-- https://www.flaticon.com/free-icon/star_1828884 https://www.flaticon.com/free-icon/star_1828970 -->
                         </div>
