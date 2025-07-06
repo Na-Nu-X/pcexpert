@@ -188,7 +188,17 @@
             <div class="account">
                 <ul>
                     <li>
-                        <img class="profile_picture" src="/content/images/user.png"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
+                        <a href="./profile_picture.php" title="Upraviť profilový obrázok">
+                            <?php if(!empty(getProfilePictureName($connection, $_SESSION["logged_in_user_id"]))): ?>
+                                <img class="profile_picture" src="/content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo getProfilePictureName($connection, $_SESSION['logged_in_user_id']); ?>">
+
+                            <?php else: ?>
+                                <img class="profile_picture" src="/content/images/user.png"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
+
+                            <?php endif; ?>
+                        </a>
+                        
+
                         <a href="./account.php" title="Môj účet">
                             <?php echo htmlspecialchars(getUserName($connection, $_SESSION["logged_in_user_id"]), ENT_QUOTES, "UTF-8"); ?>
                         </a>
@@ -390,9 +400,8 @@
                 <h2>Recenzie</h2>
                 <div class="write_review">
                     <!-- Profile Picture -->
-
-                    <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true): ?>
-                        <img class="profile_picture" src="/content/images/user.png"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
+                    <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true and !empty(getProfilePictureName($connection, $_SESSION["logged_in_user_id"]))): ?>
+                        <img class="profile_picture" src="/content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo getProfilePictureName($connection, $_SESSION['logged_in_user_id']); ?>">
 
                     <?php else: ?>
                         <img class="profile_picture" src="/content/images/user.png"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
@@ -400,7 +409,6 @@
                     <?php endif; ?>
 
                     <!-- User Name -->
-
                     <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true): ?>
                         <span><?php echo htmlspecialchars(getUserName($connection, $_SESSION["logged_in_user_id"]), ENT_QUOTES, "UTF-8"); ?></span>
                     

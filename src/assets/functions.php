@@ -364,4 +364,48 @@ function getUserRole($connection, $id) {
         echo mysqli_error($connection);
     }
 }
+
+function insertProfilePicture($connection, $id, $image_name) {
+    $sql = "UPDATE users
+            SET profile_picture_name = ?
+            WHERE id = ?";
+
+    $stmt = mysqli_prepare($connection, $sql);
+
+    if($stmt === false) {
+        echo mysqli_error($connection);
+    }
+
+    else {
+        mysqli_stmt_bind_param($stmt, "si", $image_name, $id);
+
+        if(mysqli_stmt_execute($stmt)) {
+            return true;
+        }
+    }
+}
+
+function getProfilePictureName($connection, $id) {
+    $sql = "SELECT profile_picture_name
+            FROM users
+            WHERE id = ?";
+
+    $stmt = mysqli_prepare($connection, $sql);
+
+    if($stmt) {
+        mysqli_stmt_bind_param($stmt, "i", $id);
+
+        if(mysqli_stmt_execute($stmt)) {
+            $result = mysqli_stmt_get_result($stmt);
+            $profile_picture_name_database = mysqli_fetch_row($result); // pole
+            $user_profile_picture_name = $profile_picture_name_database[0];
+
+            return $user_profile_picture_name;
+        }
+    }
+
+    else {
+        echo mysqli_error($connection);
+    }
+}
 ?>
