@@ -188,9 +188,9 @@ function getUserName($connection, $id) {
 }
 
 function getUserInformations($connection, $id, $database_field) {
-    $allowed_fields = ["first_name", "last_name", "email_address", "phone_number"];
+    $not_allowed_fields = ["id", "password", "news", "remember_me_token", "profile_picture_name"];
 
-    if(!in_array($database_field, $allowed_fields)) {
+    if(in_array($database_field, $not_allowed_fields)) {
         echo "K týmto informáciam nie je možný prístup.";
     }
 

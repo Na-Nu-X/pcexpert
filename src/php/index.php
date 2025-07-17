@@ -188,7 +188,7 @@
             <div class="account">
                 <ul>
                     <li>
-                        <a href="./profile_picture.php" title="Upraviť profilový obrázok">
+                        <a href="./edit_account.php" title="Môj účet">
                             <?php if(!empty(getProfilePictureName($connection, $_SESSION["logged_in_user_id"]))): ?>
                                 <img class="profile_picture" src="/content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo getProfilePictureName($connection, $_SESSION['logged_in_user_id']); ?>">
 
@@ -197,7 +197,6 @@
 
                             <?php endif; ?>
                         </a>
-                        
 
                         <a href="./account.php" title="Môj účet">
                             <?php echo htmlspecialchars(getUserName($connection, $_SESSION["logged_in_user_id"]), ENT_QUOTES, "UTF-8"); ?>

@@ -103,6 +103,7 @@ main
 
 .registration, 
 .log_in,
+.edit_account,
 .account
 {
     width: 450px;
@@ -117,6 +118,7 @@ main
 
 .registration h2, 
 .log_in h2,
+.edit_account h2,
 .account h2
 {
     color: rgb(255, 255, 255);
@@ -125,7 +127,8 @@ main
 }
 
 .registration_form, 
-.log_in_form
+.log_in_form,
+.edit_account_form
 {
     position: relative;
 }
@@ -175,7 +178,8 @@ main
 }
 
 .registration_form input[type="text"], .registration_form input[type="email"], 
-.log_in_form input[type="text"], .log_in_form input[type="email"]
+.log_in_form input[type="text"], .log_in_form input[type="email"],
+.edit_account_form input[type="text"], .edit_account_form input[type="email"]
 {
     font-family: Poppins, Arial, sans-serif;
     color: rgb(255, 255, 255);
@@ -269,13 +273,15 @@ main
 }
 
 .registration_form input::placeholder,
-.log_in_form input::placeholder
+.log_in_form input::placeholder,
+.edit_account_form input::placeholder
 {
     color: rgb(180, 180, 180);
 }
 
 .registration_form button[type="submit"], 
-.log_in_form button[type="submit"]
+.log_in_form button[type="submit"],
+.edit_account_form button[type="submit"]
 {
     font-family: Poppins, Arial, sans-serif;
     margin: 50px auto 10px;
@@ -292,7 +298,8 @@ main
 }
 
 .registration_form button[type="submit"]:hover, .registration_form button[type="submit"]:focus, 
-.log_in_form button[type="submit"]:hover, .log_in_form button[type="submit"]:focus
+.log_in_form button[type="submit"]:hover, .log_in_form button[type="submit"]:focus,
+.edit_account_form button[type="submit"]:hover, .edit_account_form button[type="submit"]:focus
 {
     background-color: rgba(255, 255, 255, 0.8);
     color: rgb(0, 0, 0);
@@ -302,13 +309,15 @@ main
 }
 
 .registration_form input[type="text"]:focus, .registration_form input[type="email"]:focus, 
-.log_in_form input[type="text"]:focus, .log_in_form input[type="email"]:focus
+.log_in_form input[type="text"]:focus, .log_in_form input[type="email"]:focus,
+.edit_account_form input[type="text"]:focus, .edit_account_form input[type="email"]:focus
 {
     width: 100%;
 }
 
 .registration_form input[type="text"]:-webkit-autofill, .registration_form input[type="text"]:-webkit-autofill:hover, .registration_form input[type="text"]:-webkit-autofill:focus, .registration_form input[type="email"]:-webkit-autofill, .registration_form input[type="email"]:-webkit-autofill:hover, .registration_form input[type="email"]:-webkit-autofill:focus,
-.log_in_form input[type="text"]:-webkit-autofill, .log_in_form input[type="text"]:-webkit-autofill:hover, .log_in_form input[type="text"]:-webkit-autofill:focus, .log_in_form input[type="email"]:-webkit-autofill, .log_in_form input[type="email"]:-webkit-autofill:hover, .log_in_form input[type="email"]:-webkit-autofill:focus
+.log_in_form input[type="text"]:-webkit-autofill, .log_in_form input[type="text"]:-webkit-autofill:hover, .log_in_form input[type="text"]:-webkit-autofill:focus, .log_in_form input[type="email"]:-webkit-autofill, .log_in_form input[type="email"]:-webkit-autofill:hover, .log_in_form input[type="email"]:-webkit-autofill:focus,
+.edit_account_form input[type="text"]:-webkit-autofill, .edit_account_form input[type="text"]:-webkit-autofill:hover, .edit_account_form input[type="text"]:-webkit-autofill:focus, .edit_account_form input[type="email"]:-webkit-autofill, .edit_account_form input[type="email"]:-webkit-autofill:hover, .edit_account_form input[type="email"]:-webkit-autofill:focus
 {
     -webkit-text-fill-color: rgb(255, 255, 255);
     transition: width 0.3s ease, background-color 9999s ease;
@@ -463,7 +472,7 @@ main
     cursor: pointer;
 }
 
-// Edit Profile Picture
+// Edit Account
 
 .profile_picture
 {
@@ -472,63 +481,6 @@ main
     padding: 3px;
     border: 1px solid rgb(150, 150, 150);
     border-radius: 50%;
-}
-
-.edit_profile_picture
-{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100vh;
-}
-
-.edit_profile_picture input[type="file"]
-{
-    display: none;
-}
-
-.edit_profile_picture label, .edit_profile_picture button
-{
-    font-family: Poppins, Arial, sans-serif;
-    width: 200px;
-    height: 50px;
-    background-color: rgba(0, 0, 0, 0.2);
-    color: rgb(255, 255, 255);
-    text-align: center;
-    align-content: center;
-    border: 1px solid rgb(255, 255, 255);
-    border-radius: 25px;
-    outline: none;
-    font-size: 16px;
-}
-
-.edit_profile_picture label
-{
-    transition: letter-spacing 0.3s ease
-}
-
-.edit_profile_picture label:hover
-{
-    letter-spacing: 1px;
-    cursor: pointer;
-}
-
-.edit_profile_picture button
-{
-    margin-top: 10px;
-    background-color: rgb(155, 230, 50);
-    color: rgb(0, 0, 0);
-    border: 1px solid rgb(0, 0, 0);
-    transition: letter-spacing 0.3s ease, background-color 0.3s ease;
-}
-
-.edit_profile_picture button:hover
-{
-    letter-spacing: 1px;
-    background-color: rgb(170, 255, 50);
-    cursor: pointer;
 }
 
 /**************
@@ -628,7 +580,8 @@ footer.dark .copywrite
     }
 
     .registration_form input[type="text"], .registration_form input[type="email"], .registration_form button[type="submit"],
-    .log_in_form input[type="text"], .log_in_form input[type="email"], .log_in_form button[type="submit"]
+    .log_in_form input[type="text"], .log_in_form input[type="email"], .log_in_form button[type="submit"],
+    .edit_account_form input[type="text"], .edit_account_form input[type="email"], .edit_account_form button[type="submit"]
     {
         width: 100%;
     }
@@ -660,7 +613,8 @@ footer.dark .copywrite
 @media only screen and (max-width: 500px)
 {
     .registration,
-    .log_in
+    .log_in,
+    .edit_account
     {
         width: 90%;
     }
@@ -669,7 +623,8 @@ footer.dark .copywrite
 @media only screen and (max-width: 400px)
 {
     .registration,
-    .log_in
+    .log_in,
+    .edit_account
     {
         padding: 50px 20px;
     }
