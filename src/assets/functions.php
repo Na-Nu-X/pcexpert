@@ -67,6 +67,25 @@ function createUser($connection, $first_name, $last_name, $email_address, $phone
     }
 }
 
+function updateUser($connection, $id, $first_name, $last_name, $email_address, $phone_number, $profile_picture_name) {
+    $sql = "UPDATE users 
+            SET first_name = ?, last_name = ?, email_address = ?, phone_number = ?, profile_picture_name = ? 
+            WHERE id = ?";
+
+    $stmt = mysqli_prepare($connection, $sql);
+
+    if($stmt) {
+        mysqli_stmt_bind_param($stmt, "sssssi", $first_name, $last_name, $email_address, $phone_number, $profile_picture_name, $id);
+
+        if(mysqli_stmt_execute($stmt)) {
+            return true;
+        }
+    }
+
+    else {
+        echo mysqli_error($connection);
+    }
+}
 
 /**
  * Function For Check If User Is Logged In.

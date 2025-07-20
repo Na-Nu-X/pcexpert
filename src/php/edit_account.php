@@ -21,7 +21,7 @@
 
         if($image_error === 0) {
             if($image_size > 8000000) { // 8MB
-                echo "Vybraný súbor je príliš veľký. Maximálna veľkosť súboru je 8MB.";
+                $message = "Vybraný súbor je príliš veľký.\nSkúste vybrať iný súbor.";
             }
 
             else {
@@ -38,13 +38,11 @@
                     $image_upload_path = "../../content/uploads/" . $id . "/" . $new_image_name;
                     move_uploaded_file($image_tmp_name, $image_upload_path);
 
-                    if(insertProfilePicture($connection, $id, $new_image_name)) {
-                        redirectURL("/src/php/index.php");
-                    };
+                    insertProfilePicture($connection, $id, $new_image_name);
                 }
 
                 else {
-                    echo "Koncovka vybraného súboru nie je podporovaná. Skúste pridať obrázok s bežne používanými koncovkami ako png, jpg, jpeg.";
+                    $message = "Prípona vybraného súboru nie je podporovaná.\nSkúste vybrať iný súbor.";
                 }
             }
         }
@@ -55,7 +53,23 @@
         $last_name = $_POST["last_name"];
         $email_address = $_POST["email_address"];
         $phone_number = str_replace(" ", "", $_POST["phone_number"]);
-        $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
+        // $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
+
+        if(!empty(emailAuthentication($connection, $email_address)) and emailAuthentication($connection, $email_address) !== getUserInformations($connection, $id, 'email_address')) {
+            $message = "Tento email už je zaregistrovaný.";
+        }
+
+        else {
+            if(updateUser($connection, $id, $first_name, $last_name, $email_address, $phone_number)) {
+                $_SESSION["edit_account_successful_message"] = "Všetky zmeny boli uložené";
+
+                redirectURL("/src/php/index.php");
+            }
+
+            else {
+                $message = "Pri zmene vášho účtu došlo k chybe.\nSkúste to znovu.";
+            }
+        }
     }
 ?>
 
@@ -95,11 +109,11 @@
 
                 <form class="edit_account_form" action="edit_account.php" method="POST" enctype="multipart/form-data">
                     <div class="profile_picture_container">
-                        <p>Profilový obrázok:</p>
+                        <!-- <h3>Profilový obrázok</h3> -->
 
                         <?php if(!empty(getProfilePictureName($connection, $_SESSION["logged_in_user_id"]))): ?>
                             <label for="profile_picture">
-                                <img class="profile_picture" src="/content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo getProfilePictureName($connection, $_SESSION['logged_in_user_id']); ?>">
+                                <img class="profile_picture" title="Zmeniť profilový obrázok" src="/content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo getProfilePictureName($connection, $_SESSION['logged_in_user_id']); ?>">
                             </label>
 
                             <input id="profile_picture" type="file" name="profile_picture">
@@ -115,7 +129,7 @@
                     </div>
 
                     <div class="full_name_container">
-                        <p>Meno:</p>
+                        <!-- <h3>Meno</h3> -->
 
                         <input
                             type="text"
@@ -135,7 +149,7 @@
                     </div>
 
                     <div class="email_address_container">
-                        <p>E-mailová adresa:</p>
+                        <!-- <h3>E-mailová adresa</h3> -->
 
                         <input
                             type="email"
@@ -147,7 +161,7 @@
                     </div>
 
                     <div class="phone_number_container">
-                        <p>Telefónne číslo:</p>
+                        <!-- <h3>Telefónne číslo</h3> -->
 
                         <input
                             type="text"
@@ -159,10 +173,22 @@
                     </div>
 
                     <div class="password_container">
-                        <p>Heslo:</p>
+                        <!-- <h3>Heslo</h3> -->
                     </div>
 
-                    <button type="submit" name="submit">Hotovo</button>
+                    <article>
+                        <p class="dialogue_paragraph invalid">
+                            <?php if(!empty($message)): ?>
+                                <?php
+                                    echo $message; 
+                                    $message = "";
+                                ?>
+
+                            <?php endif; ?>
+                        </p>
+                    </article>
+
+                    <button type="submit" name="submit">Uložiť zmeny</button>
                 </form>
 
             <?php else: ?>

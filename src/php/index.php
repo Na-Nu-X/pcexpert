@@ -128,6 +128,12 @@
 
         <?php endif; ?>
 
+        <?php if(isset($_SESSION["edit_account_successful_message"]) and !empty($_SESSION["edit_account_successful_message"])): ?>
+            <p class="edit_account_successful_message"><?php echo $_SESSION["edit_account_successful_message"]; ?></p>
+            <?php $_SESSION["edit_account_successful_message"] = ""; ?>
+
+        <?php endif; ?>
+
         <?php if(isset($_SESSION["contact_successful_message"]) and !empty($_SESSION["contact_successful_message"])): ?>
             <p class="contact_successful_message"><?php echo $_SESSION["contact_successful_message"]; ?></p>
             <?php $_SESSION["contact_successful_message"] = ""; ?>
