@@ -404,6 +404,27 @@ function insertProfilePicture($connection, $id, $image_name) {
     }
 }
 
+function deleteProfilePicture($connection, $id) {
+    $sql = "UPDATE users
+            SET profile_picture_name = ''
+            WHERE id = ?";
+
+    $stmt = mysqli_prepare($connection, $sql);
+
+    if($stmt === false) {
+        echo mysqli_error($connection);
+        return false;
+    }
+
+    else {
+        mysqli_stmt_bind_param($stmt, "i", $id);
+
+        if(mysqli_stmt_execute($stmt)) {
+            return true;
+        }
+    }
+}
+
 function getProfilePictureName($connection, $id) {
     $sql = "SELECT profile_picture_name
             FROM users

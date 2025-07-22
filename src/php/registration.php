@@ -85,7 +85,11 @@
 
     <main>
         <section class="registration">
-            <h2>Registrácia</h2>
+            <a href="./index.php">
+                <img class="back_icon" title="Späť na domovskú stránku" src="/content/images/back.png"> <!-- https://www.flaticon.com/free-icon/back_2099190 -->
+            </a>
+
+            <h2><a href="./registration.php">Registrácia</a></h2>
 
             <form class="registration_form" action="registration.php" method="POST">
                 <input 

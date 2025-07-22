@@ -8,8 +8,6 @@
     $connection = connectionDB();
 
     if($_SERVER["REQUEST_METHOD"] === "POST") {
-        // Profile Picture
-
         $id = $_SESSION["logged_in_user_id"];
 
         $image_name = $_FILES["profile_picture"]["name"];
@@ -19,9 +17,22 @@
         $image_size = $_FILES["profile_picture"]["size"];
         $image_error = $_FILES["profile_picture"]["error"];
 
+        $new_image_name = getProfilePictureName($connection, $id);
+
+        $delete_profile_picture = isset($_POST["delete_profile_picture"]) ? "yes" : "no";
+        $delete_account = isset($_POST["delete_account"]) ? "yes" : "no";
+
+        $first_name = $_POST["first_name"];
+        $last_name = $_POST["last_name"];
+        $email_address = $_POST["email_address"];
+        $phone_number = str_replace(" ", "", $_POST["phone_number"]);
+        // $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
+
+        // Profile Picture
+
         if($image_error === 0) {
             if($image_size > 8000000) { // 8MB
-                $message = "Vybraný súbor je príliš veľký.\nSkúste vybrať iný súbor.";
+                $message = "Vybraný súbor je príliš veľký.";
             }
 
             else {
@@ -37,37 +48,47 @@
 
                     $image_upload_path = "../../content/uploads/" . $id . "/" . $new_image_name;
                     move_uploaded_file($image_tmp_name, $image_upload_path);
-
-                    insertProfilePicture($connection, $id, $new_image_name);
                 }
 
                 else {
-                    $message = "Prípona vybraného súboru nie je podporovaná.\nSkúste vybrať iný súbor.";
+                    $message = "Prípona súboru nie je podporovaná.";
                 }
             }
         }
 
-        // Other Post Data
+        // Delete Profile Picture
 
-        $first_name = $_POST["first_name"];
-        $last_name = $_POST["last_name"];
-        $email_address = $_POST["email_address"];
-        $phone_number = str_replace(" ", "", $_POST["phone_number"]);
-        // $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
+        if($delete_profile_picture === "yes") {
+            deleteProfilePicture($connection, $id);
+
+            $old_image_upload_path = "../../content/uploads/" . $id . "/" . $new_image_name;
+
+            if(file_exists($old_image_upload_path)) {
+                unlink($old_image_upload_path);
+            }
+
+            $new_image_name = "";
+        }
+
+        // Other Post Data
 
         if(!empty(emailAuthentication($connection, $email_address)) and emailAuthentication($connection, $email_address) !== getUserInformations($connection, $id, 'email_address')) {
             $message = "Tento email už je zaregistrovaný.";
         }
 
         else {
-            if(updateUser($connection, $id, $first_name, $last_name, $email_address, $phone_number)) {
-                $_SESSION["edit_account_successful_message"] = "Všetky zmeny boli uložené";
+            if(empty($message)) {
+                if(updateUser($connection, $id, $first_name, $last_name, $email_address, $phone_number, $new_image_name)) {
+                    $_SESSION["edit_account_successful_message"] = "Všetky zmeny boli uložené";
 
-                redirectURL("/src/php/index.php");
-            }
+                    redirectURL("/src/php/index.php");
 
-            else {
-                $message = "Pri zmene vášho účtu došlo k chybe.\nSkúste to znovu.";
+                    exit;
+                }
+
+                else {
+                    $message = "Pri úprave vášho účtu došlo k chybe.";
+                }
             }
         }
     }
@@ -104,12 +125,16 @@
 
     <main>
         <section class="edit_account">
+            <a href="./index.php">
+                <img class="back_icon" title="Späť na domovskú stránku" src="/content/images/back.png"> <!-- https://www.flaticon.com/free-icon/back_2099190 -->
+            </a>
+
             <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true): ?>
-                <h2>Môj účet</h2>
+                <h2><a href="./edit_account.php">Môj&nbsp;účet</a></h2>
 
                 <form class="edit_account_form" action="edit_account.php" method="POST" enctype="multipart/form-data">
                     <div class="profile_picture_container">
-                        <!-- <h3>Profilový obrázok</h3> -->
+                        <h3>Profilový obrázok</h3>
 
                         <?php if(!empty(getProfilePictureName($connection, $_SESSION["logged_in_user_id"]))): ?>
                             <label for="profile_picture">
@@ -117,6 +142,12 @@
                             </label>
 
                             <input id="profile_picture" type="file" name="profile_picture">
+
+                            <label for="delete_profile_picture">
+                                <img class="delete_profile_picture" title="Odstrániť profilový obrázok" src="/content/images/trash.png"> <!-- https://www.flaticon.com/free-icon/trash_8848798 -->
+                            </label>
+                            
+                            <input type="checkbox" name="delete_profile_picture" id="delete_profile_picture" value="yes">
 
                         <?php else: ?>
                             <label for="profile_picture">
@@ -127,6 +158,8 @@
 
                         <?php endif; ?>
                     </div>
+
+                    <h3>Osobné údaje</h3>
 
                     <div class="full_name_container">
                         <!-- <h3>Meno</h3> -->
@@ -174,6 +207,14 @@
 
                     <div class="password_container">
                         <!-- <h3>Heslo</h3> -->
+                    </div>
+
+                    <div class="delete_account_container">
+                        <label for="delete_account">
+                            <img class="delete_account" title="Odstrániť účet" src="/content/images/delete_account.png"> <!-- https://www.flaticon.com/free-icon/delete_11502978 -->
+                        </label>
+
+                        <input type="checkbox" name="delete_account" id="delete_account" value="yes">
                     </div>
 
                     <article>

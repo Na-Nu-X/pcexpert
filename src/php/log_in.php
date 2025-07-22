@@ -89,7 +89,11 @@
 
     <main>
         <section class="log_in">
-            <h2>Prihlásenie</h2>
+            <a href="./index.php">
+                <img class="back_icon" title="Späť na domovskú stránku" src="/content/images/back.png"> <!-- https://www.flaticon.com/free-icon/back_2099190 -->
+            </a>
+
+            <h2><a href="./log_in.php">Prihlásenie</a></h2>
             
             <form class="log_in_form" action="log_in.php" method="POST">
                 <input 
