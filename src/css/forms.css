@@ -455,13 +455,23 @@ main {
   text-align: center;
 }
 
-.profile_picture, .delete_profile_picture {
+.profile_picture {
   width: 40px;
   height: 40px;
   padding: 2px;
   border: 1px solid rgb(150, 150, 150);
   border-radius: 50%;
   transition: transform 0.3s ease;
+}
+
+.delete_profile_picture {
+  width: 40px;
+  height: 40px;
+  padding: 2px;
+  border: 1px solid rgb(150, 150, 150);
+  border-radius: 50%;
+  opacity: 0.8;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .delete_account {

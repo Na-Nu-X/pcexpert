@@ -294,15 +294,30 @@
 
         "use strict"
 
+        // Delete Profile Picture Warning
+
+        const delete_profile_picture_input = document.querySelector("#delete_profile_picture")
+        const delete_profile_picture_image = document.querySelector(".delete_profile_picture")
+
+        delete_profile_picture_input.addEventListener("click", function(event) {
+            if(delete_profile_picture_input.checked) {
+                delete_profile_picture_image.style.opacity = 1
+            }
+
+            else {
+                delete_profile_picture_image.style.opacity = 0.8
+            }
+        })
+
         // Delete Account Warning
 
-        const delete_account_label = document.querySelector("#delete_account")
+        const delete_account_input = document.querySelector("#delete_account")
         const delete_account_image = document.querySelector(".delete_account")
         const form_report_paragraph = document.querySelector(".form_report_paragraph")
         const dialogue_paragraph = document.querySelector(".dialogue_paragraph")
 
-        delete_account_label.addEventListener("click", function(event) {
-            if(delete_account_label.checked) {
+        delete_account_input.addEventListener("click", function(event) {
+            if(delete_account_input.checked) {
                 delete_account_image.style.opacity = 1
 
                 form_report_paragraph.textContent = "Váš účet bude odstránený"
