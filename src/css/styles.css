@@ -149,7 +149,7 @@ header {
   cursor: pointer;
 }
 
-.log_in_successful_message, .log_out_successful_message, .edit_account_successful_message, .contact_successful_message, .contact_error_message {
+.log_in_successful_message, .log_out_successful_message, .edit_account_successful_message, .delete_account_successful_message, .contact_successful_message, .contact_error_message {
   visibility: hidden;
   position: fixed;
   top: 75%;
@@ -167,7 +167,7 @@ header {
   color: rgb(170, 255, 50);
 }
 
-.log_out_successful_message, .contact_error_message {
+.log_out_successful_message, .delete_account_successful_message, .contact_error_message {
   color: rgb(250, 50, 50);
 }
 

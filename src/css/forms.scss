@@ -227,7 +227,7 @@ main
     transition: width 0.3s ease;
 }
 
-.password, .password_check
+.password, .password_check, .current_password, .new_password
 {
     -webkit-text-security: disc;
     padding-right: 55px !important;
@@ -253,7 +253,7 @@ main
     padding-right: 55px !important;
 }
 
-.password_container, .password_check_container
+.password_container, .password_check_container, .current_password_container, .new_password_container
 {
     position: relative;
 }
@@ -277,7 +277,7 @@ main
     transition: left 0.3s ease;
 }
 
-.password_container:has(.password:focus) .generate_password
+.password_container:has(.password:focus) .generate_password, .new_password_container:has(.new_password:focus) .generate_password
 {
     left: -20px;
 }

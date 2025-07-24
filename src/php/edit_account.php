@@ -28,6 +28,36 @@
         $phone_number = str_replace(" ", "", $_POST["phone_number"]);
         // $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
+        // Delete Account
+
+        if($delete_account === "yes") {
+            // Delete Profile Picture
+
+            deleteProfilePicture($connection, $id);
+
+            $old_image_upload_path = "../../content/uploads/" . $id . "/" . $new_image_name;
+
+            if(file_exists($old_image_upload_path)) {
+                unlink($old_image_upload_path);
+            }
+
+            // Delete Account
+
+            if(deleteUser($connection, $id)) {
+                session_destroy();
+
+                session_start();
+                $_SESSION["delete_account_successful_message"] = "Účet bol odstránený";
+
+                redirectURL("/src/php/index.php");
+                exit;
+            }
+
+            else {
+                $message = "Nepodarilo sa vymazať váš účet.";
+            }
+        }
+
         // Profile Picture
 
         if($image_error === 0) {
@@ -82,7 +112,6 @@
                     $_SESSION["edit_account_successful_message"] = "Všetky zmeny boli uložené";
 
                     redirectURL("/src/php/index.php");
-
                     exit;
                 }
 
@@ -205,8 +234,21 @@
                         >
                     </div>
 
-                    <div class="password_container">
-                        <!-- <h3>Heslo</h3> -->
+                    <div class="current_password_container">
+                        <input class="current_password" type="text" name="current_password" placeholder="Zadajte vaše heslo" autocomplete="off">
+                    </div>
+
+                    <div class="new_password_container">
+                        <div class="generate_password">
+                            <i class="fa-solid fa-key" title="vygenerovať heslo..."></i>
+                        </div>
+
+                        <div class="password_icon">
+                            <i class="fa-regular fa-eye-slash" title="zobraziť / skryť heslo..."></i>
+                            <!-- <i class="fa-regular fa-eye"></i> -->
+                        </div>
+
+                        <input class="new_password password" type="text" name="new_password" placeholder="Vytvorte nové heslo" autocomplete="off">
                     </div>
 
                     <div class="delete_account_container">
@@ -246,5 +288,6 @@
     </footer>
 
     <script src="/src/js/navigation_bar.js"></script>
+    <script src="/src/js/password.js"></script>
 </body>
 </html>

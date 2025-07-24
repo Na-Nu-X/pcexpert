@@ -134,6 +134,12 @@
 
         <?php endif; ?>
 
+        <?php if(isset($_SESSION["delete_account_successful_message"]) and !empty($_SESSION["delete_account_successful_message"])): ?>
+            <p class="delete_account_successful_message"><?php echo $_SESSION["delete_account_successful_message"]; ?></p>
+            <?php $_SESSION["delete_account_successful_message"] = ""; ?>
+
+        <?php endif; ?>
+
         <?php if(isset($_SESSION["contact_successful_message"]) and !empty($_SESSION["contact_successful_message"])): ?>
             <p class="contact_successful_message"><?php echo $_SESSION["contact_successful_message"]; ?></p>
             <?php $_SESSION["contact_successful_message"] = ""; ?>
