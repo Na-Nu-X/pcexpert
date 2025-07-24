@@ -527,7 +527,8 @@ main
 
 .delete_account
 {
-    transition: transform 0.3s ease;
+    opacity: 0.8;
+    transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .profile_picture:hover, .delete_profile_picture:hover, .delete_account:hover

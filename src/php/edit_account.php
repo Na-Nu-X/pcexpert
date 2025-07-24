@@ -259,6 +259,8 @@
                         <input type="checkbox" name="delete_account" id="delete_account" value="yes">
                     </div>
 
+                    <p class="form_report_paragraph"></p>
+
                     <article>
                         <p class="dialogue_paragraph invalid">
                             <?php if(!empty($message)): ?>
@@ -286,6 +288,34 @@
     <footer class="<?php echo $theme; ?>">
         <?php require "../assets/footer.php"; ?>
     </footer>
+
+    <script>
+        // JavaScript Code
+
+        "use strict"
+
+        // Delete Account Warning
+
+        const delete_account_label = document.querySelector("#delete_account")
+        const delete_account_image = document.querySelector(".delete_account")
+        const form_report_paragraph = document.querySelector(".form_report_paragraph")
+        const dialogue_paragraph = document.querySelector(".dialogue_paragraph")
+
+        delete_account_label.addEventListener("click", function(event) {
+            if(delete_account_label.checked) {
+                delete_account_image.style.opacity = 1
+
+                form_report_paragraph.textContent = "Váš účet bude odstránený"
+                form_report_paragraph.classList.add("invalid")
+            }
+
+            else {
+                delete_account_image.style.opacity = 0.8
+
+                form_report_paragraph.textContent = ""
+            }
+        })
+    </script>
 
     <script src="/src/js/navigation_bar.js"></script>
     <script src="/src/js/password.js"></script>
