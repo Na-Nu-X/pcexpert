@@ -153,7 +153,33 @@
         <?php require "../assets/footer.php"; ?>
     </footer>
 
+    <script>
+        // JavaScript Code
+
+        "use strict"
+        
+        // Toggle Show / Hide Password
+
+        const password = document.querySelector(".password")
+        const password_icon = document.querySelector(".fa-regular")
+
+        password_icon.addEventListener("click", function(event) {
+            if(password_icon.classList[1] === "fa-eye-slash") {
+                password_icon.classList.remove("fa-eye-slash")
+                password_icon.classList.add("fa-eye")
+
+                password.style.webkitTextSecurity = "none"
+            }
+
+            else if(password_icon.classList[1] === "fa-eye") {
+                password_icon.classList.remove("fa-eye")
+                password_icon.classList.add("fa-eye-slash")
+
+                password.style.webkitTextSecurity = "disc"
+            }
+        })
+    </script>
+
     <script src="/src/js/navigation_bar.js"></script>
-    <script src="/src/js/password.js"></script>
 </body>
 </html>

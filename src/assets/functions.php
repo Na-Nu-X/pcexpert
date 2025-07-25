@@ -117,7 +117,6 @@ function authentication($connection, $email_address, $password) {
    
     $stmt = mysqli_prepare($connection, $sql);
 
-
     if($stmt){
         mysqli_stmt_bind_param($stmt, "s", $email_address);
 
