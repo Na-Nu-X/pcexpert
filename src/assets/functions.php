@@ -67,15 +67,15 @@ function createUser($connection, $first_name, $last_name, $email_address, $phone
     }
 }
 
-function updateUser($connection, $id, $first_name, $last_name, $email_address, $phone_number, $profile_picture_name) {
+function updateUser($connection, $id, $first_name, $last_name, $email_address, $phone_number, $password, $profile_picture_name) {
     $sql = "UPDATE users 
-            SET first_name = ?, last_name = ?, email_address = ?, phone_number = ?, profile_picture_name = ? 
+            SET first_name = ?, last_name = ?, email_address = ?, phone_number = ?, password = ?, profile_picture_name = ? 
             WHERE id = ?";
 
     $stmt = mysqli_prepare($connection, $sql);
 
     if($stmt) {
-        mysqli_stmt_bind_param($stmt, "sssssi", $first_name, $last_name, $email_address, $phone_number, $profile_picture_name, $id);
+        mysqli_stmt_bind_param($stmt, "ssssssi", $first_name, $last_name, $email_address, $phone_number, $password, $profile_picture_name, $id);
 
         if(mysqli_stmt_execute($stmt)) {
             return true;
@@ -119,6 +119,37 @@ function authentication($connection, $email_address, $password) {
 
     if($stmt){
         mysqli_stmt_bind_param($stmt, "s", $email_address);
+
+
+        if (mysqli_stmt_execute($stmt)){
+            $result = mysqli_stmt_get_result($stmt);
+
+            if($result->num_rows != 0){
+                $password_database = mysqli_fetch_row($result);
+                $user_password_database = $password_database[0];
+
+
+                if($user_password_database) {
+                    return password_verify($password, $user_password_database);
+                }
+            }
+        }
+    }
+    
+    else {
+        echo mysqli_error($connection);
+    }
+}
+
+function passwordAuthenticationWithId($connection, $id, $password) {
+    $sql = "SELECT password
+            FROM users
+            WHERE id = ?";
+   
+    $stmt = mysqli_prepare($connection, $sql);
+
+    if($stmt){
+        mysqli_stmt_bind_param($stmt, "i", $id);
 
 
         if (mysqli_stmt_execute($stmt)){

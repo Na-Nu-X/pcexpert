@@ -19,6 +19,9 @@
 
         $new_image_name = getProfilePictureName($connection, $id);
 
+        $current_password = $_POST["current_password"];
+        $new_password = password_hash($_POST["new_password"], PASSWORD_DEFAULT);
+
         $delete_profile_picture = isset($_POST["delete_profile_picture"]) ? "yes" : "no";
         $delete_account = isset($_POST["delete_account"]) ? "yes" : "no";
 
@@ -49,8 +52,8 @@
                 session_start();
                 $_SESSION["delete_account_successful_message"] = "Účet bol odstránený";
 
-                // redirectURL("/src/php/index.php");
-                // exit;
+                redirectURL("/src/php/index.php");
+                exit;
             }
 
             else {
@@ -106,32 +109,23 @@
             $message = "Tento email už je zaregistrovaný.";
         }
 
+        if(empty(passwordAuthenticationWithId($connection, $id, $current_password))) {
+            $message = "Zadali ste nesprávne heslo";
+        }
+
         else {
             if(empty($message)) {
-                if(updateUser($connection, $id, $first_name, $last_name, $email_address, $phone_number, $new_image_name)) {
+                if(updateUser($connection, $id, $first_name, $last_name, $email_address, $phone_number, $new_password, $new_image_name)) {
                     $_SESSION["edit_account_successful_message"] = "Všetky zmeny boli uložené";
 
-                    // redirectURL("/src/php/index.php");
-                    // exit;
+                    redirectURL("/src/php/index.php");
+                    exit;
                 }
 
                 else {
                     $message = "Pri úprave vášho účtu došlo k chybe.";
                 }
             }
-        }
-
-        // Password Reset
-
-        $current_password = $_POST["current_password"];
-        $new_password = password_hash($_POST["new_password"], PASSWORD_DEFAULT);
-
-        if(authentication($connection, $email_address, $current_password)) {
-            echo "Heslá sa zhodujú";
-        }
-
-        else {
-            echo "Heslá sa nezhodujú";
         }
     }
 ?>
