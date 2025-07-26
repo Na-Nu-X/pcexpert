@@ -80,6 +80,10 @@ function updateUser($connection, $id, $first_name, $last_name, $email_address, $
         if(mysqli_stmt_execute($stmt)) {
             return true;
         }
+
+        else {
+            return false;
+        }
     }
 
     else {
@@ -319,6 +323,10 @@ function deleteUser($connection, $id) {
         if(mysqli_stmt_execute($stmt)) {
             return true;
         }
+
+        else {
+            return false;
+        }
     }
 
     else {
@@ -451,6 +459,10 @@ function deleteProfilePicture($connection, $id) {
 
         if(mysqli_stmt_execute($stmt)) {
             return true;
+        }
+
+        else {
+            return false;
         }
     }
 }

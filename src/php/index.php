@@ -192,8 +192,8 @@
         </div>
 
         <div class="theme_selection">
-            <img class="light_theme" src="/content/images/sun.png" title="Svetlé zobrazenie"> <!-- https://www.flaticon.com/free-icon/sun_1004519 -->
-            <img class="dark_theme" src="/content/images/moon.png" title="Tmavé zobrazenie"> <!-- https://www.flaticon.com/free-icon/moon_606807 -->
+            <img class="light_theme" src="/content/images/sun.png" title="Svetlé zobrazenie"> <!-- https://www.flaticon.com/free-icon/day-mode_11457488 -->
+            <img class="dark_theme" src="/content/images/moon.png" title="Tmavé zobrazenie"> <!-- https://www.flaticon.com/free-icon/moon_11735139 -->
         </div>
         
         <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true): ?>
@@ -210,7 +210,7 @@
                             <?php endif; ?>
                         </a>
 
-                        <a href="./account.php" title="Môj účet">
+                        <a href="./edit_account.php" title="Môj účet">
                             <?php echo htmlspecialchars(getUserName($connection, $_SESSION["logged_in_user_id"]), ENT_QUOTES, "UTF-8"); ?>
                         </a>
                     </li>

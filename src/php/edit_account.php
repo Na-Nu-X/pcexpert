@@ -16,37 +16,25 @@
         $image_tmp_name = $_FILES["profile_picture"]["tmp_name"];
         $image_size = $_FILES["profile_picture"]["size"];
         $image_error = $_FILES["profile_picture"]["error"];
-
         $new_image_name = getProfilePictureName($connection, $id);
-
-        $current_password = $_POST["current_password"];
-        $new_password = password_hash($_POST["new_password"], PASSWORD_DEFAULT);
-
         $delete_profile_picture = isset($_POST["delete_profile_picture"]) ? "yes" : "no";
-        $delete_account = isset($_POST["delete_account"]) ? "yes" : "no";
 
         $first_name = $_POST["first_name"];
         $last_name = $_POST["last_name"];
         $email_address = $_POST["email_address"];
         $phone_number = str_replace(" ", "", $_POST["phone_number"]);
-        // $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
+        $current_password = $_POST["current_password"];
+        $new_password = password_hash($_POST["new_password"], PASSWORD_DEFAULT);
 
-        // Delete Account
+        $delete_account = isset($_POST["delete_account"]) ? "yes" : "no";
 
-        if($delete_account === "yes") {
-            // Delete Profile Picture
+        if($delete_account === "yes" and !empty(passwordAuthenticationWithId($connection, $id, $current_password))) {
+            if(deleteUser($connection, $id) === true) {
+                $old_image_upload_path = "../../content/uploads/" . $id . "/" . $new_image_name;
+                if(file_exists($old_image_upload_path)) {
+                    unlink($old_image_upload_path);
+                }
 
-            deleteProfilePicture($connection, $id);
-
-            $old_image_upload_path = "../../content/uploads/" . $id . "/" . $new_image_name;
-
-            if(file_exists($old_image_upload_path)) {
-                unlink($old_image_upload_path);
-            }
-
-            // Delete Account
-
-            if(deleteUser($connection, $id)) {
                 session_destroy();
 
                 session_start();
@@ -54,6 +42,7 @@
 
                 redirectURL("/src/php/index.php");
                 exit;
+
             }
 
             else {
@@ -61,61 +50,68 @@
             }
         }
 
-        // Profile Picture
+        else if($delete_account === "yes" and empty(passwordAuthenticationWithId($connection, $id, $current_password) or empty($current_password))) {
+            $message = "Pre vymazanie účtu zadajte heslo.";
+        }
 
-        if($image_error === 0) {
-            if($image_size > 8000000) { // 8MB
-                $message = "Vybraný súbor je príliš veľký.";
-            }
-
-            else {
-                $image_extension = strtolower(pathinfo($image_name, PATHINFO_EXTENSION));
-                $supported_extensions = ["png", "jpg", "jpeg"];
-
-                if(in_array($image_extension, $supported_extensions)) {
-                    $new_image_name = uniqid("IMG-", true) . "." . $image_extension;
-
-                    if(!file_exists("../../content/uploads/" . $id)) {
-                        mkdir("../../content/uploads/" . $id, 0777, true);
+        else if($delete_account === "no") {
+            if($delete_profile_picture === "yes") {
+                if(deleteProfilePicture($connection, $id) === true) {
+                    $old_image_upload_path = "../../content/uploads/" . $id . "/" . $new_image_name;
+                    if(file_exists($old_image_upload_path)) {
+                        unlink($old_image_upload_path);
                     }
 
-                    $image_upload_path = "../../content/uploads/" . $id . "/" . $new_image_name;
-                    move_uploaded_file($image_tmp_name, $image_upload_path);
+                    $new_image_name = "";
                 }
 
                 else {
-                    $message = "Prípona súboru nie je podporovaná.";
+                    $message = "Obrázok sa nepodarilo vymazať.";
                 }
             }
-        }
 
-        // Delete Profile Picture
-
-        if($delete_profile_picture === "yes") {
-            deleteProfilePicture($connection, $id);
-
-            $old_image_upload_path = "../../content/uploads/" . $id . "/" . $new_image_name;
-
-            if(file_exists($old_image_upload_path)) {
-                unlink($old_image_upload_path);
+            if(!empty(emailAuthentication($connection, $email_address)) and emailAuthentication($connection, $email_address) !== getUserInformations($connection, $id, 'email_address')) {
+                $message = "Tento email už je zaregistrovaný.";
             }
 
-            $new_image_name = "";
-        }
+            if(empty(passwordAuthenticationWithId($connection, $id, $current_password)) and $current_password !== "" and $new_password !== "") {
+                $message = "Zadali ste nesprávne heslo";
+            }
 
-        // Other Post Data
+            if(isset($_FILES["profile_picture"]) and !empty($image_name)) {
+                if($image_error === 0) {
+                    if($image_size > 8000000) { // 8MB
+                        $message = "Vybraný súbor je príliš veľký.";
+                    }
 
-        if(!empty(emailAuthentication($connection, $email_address)) and emailAuthentication($connection, $email_address) !== getUserInformations($connection, $id, 'email_address')) {
-            $message = "Tento email už je zaregistrovaný.";
-        }
+                    else {
+                        $supported_extensions = ["png", "jpg", "jpeg"];
+                        $image_extension = strtolower(pathinfo($image_name, PATHINFO_EXTENSION));
 
-        if(empty(passwordAuthenticationWithId($connection, $id, $current_password))) {
-            $message = "Zadali ste nesprávne heslo";
-        }
+                        if(in_array($image_extension, $supported_extensions)) {
+                            $new_image_name = uniqid("IMG-", true) . "." . $image_extension;
 
-        else {
-            if(empty($message)) {
-                if(updateUser($connection, $id, $first_name, $last_name, $email_address, $phone_number, $new_password, $new_image_name)) {
+                            if(!file_exists("../../content/uploads/" . $id)) {
+                                mkdir("../../content/uploads/" . $id, 0777, true);
+                            }
+
+                            $image_upload_path = "../../content/uploads/" . $id . "/" . $new_image_name;
+                            move_uploaded_file($image_tmp_name, $image_upload_path);
+                        }
+
+                        else {
+                            $message = "Prípona súboru nie je podporovaná.";
+                        }
+                    }
+                }
+
+                else {
+                    $message = "Pri nahrávaní obrázku došlo k chybe.";
+                }
+            }
+
+            if(empty($message) and !empty($new_password)) {
+                if(updateUser($connection, $id, $first_name, $last_name, $email_address, $phone_number, $new_password, $new_image_name) === true) {
                     $_SESSION["edit_account_successful_message"] = "Všetky zmeny boli uložené";
 
                     redirectURL("/src/php/index.php");
@@ -301,21 +297,6 @@
 
         "use strict"
 
-        // Delete Profile Picture Warning
-
-        const delete_profile_picture_input = document.querySelector("#delete_profile_picture")
-        const delete_profile_picture_image = document.querySelector(".delete_profile_picture")
-
-        delete_profile_picture_input.addEventListener("click", function(event) {
-            if(delete_profile_picture_input.checked) {
-                delete_profile_picture_image.style.opacity = 1
-            }
-
-            else {
-                delete_profile_picture_image.style.opacity = 0.8
-            }
-        })
-
         // Delete Account Warning
 
         const delete_account_input = document.querySelector("#delete_account")
@@ -335,6 +316,21 @@
                 delete_account_image.style.opacity = 0.8
 
                 form_report_paragraph.textContent = ""
+            }
+        })
+
+        // Delete Profile Picture Warning
+
+        const delete_profile_picture_input = document.querySelector("#delete_profile_picture")
+        const delete_profile_picture_image = document.querySelector(".delete_profile_picture")
+
+        delete_profile_picture_input.addEventListener("click", function(event) {
+            if(delete_profile_picture_input.checked) {
+                delete_profile_picture_image.style.opacity = 1
+            }
+
+            else {
+                delete_profile_picture_image.style.opacity = 0.8
             }
         })
 
