@@ -265,6 +265,7 @@
                     </span>
                     </span>
                 </a>
+
                 <br/>
 
                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
@@ -318,20 +319,101 @@
         <section class="main_content <?php echo $theme; ?>">
             <section class="our_services">
                 <h2><img class="discount_icon" src="/content/images/free.png">Stavba&nbsp;počítača</h2> <!-- https://www.flaticon.com/free-icon/free_3706334 -->
+
                 <p>Nechajte si u nás zostaviť a nakonfigurovať počítač na mieru – rýchlo, profesionálne a za výhodnú cenu. Ak už máte vhodné komponenty a hľadáte spoľahlivých odborníkov na ich správnu montáž, sme tu pre vás. A ak si ešte nie ste istí výberom, radi vám pomôžeme vybrať tie najlepšie komponenty podľa vašich potrieb a zabezpečíme ich odborné zostavenie. S nami získate počítač, ktorý bude pripravený na použitie bez starostí!<br>
                 len za: <span class="price"><s>30€</s> ZADARMO</span></p>
+
+                <div class="buttons contact_us_buttons"> <!-- https://codepen.io/hilwat/pen/BeemVX -->
+                    <a class="blob-btn contact_us_button" href="#" target="_self">
+                        Mám záujem
+                        <span class="blob-btn__inner">
+                        <span class="blob-btn__blobs">
+                            <span class="blob-btn__blob"></span>
+                            <span class="blob-btn__blob"></span>
+                            <span class="blob-btn__blob"></span>
+                            <span class="blob-btn__blob"></span>
+                        </span>
+                        </span>
+                    </a>
+
+                    <br/>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+                        <defs>
+                            <filter id="goo">
+                            <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10"></feGaussianBlur>
+                            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 21 -7" result="goo"></feColorMatrix>
+                            <feBlend in2="goo" in="SourceGraphic" result="mix"></feBlend>
+                            </filter>
+                        </defs>
+                    </svg>
+                </div>
             </section>
     
             <section>
                 <h2><img class="discount_icon" src="/content/images/free.png">Údržba&nbsp;počítača</h2> <!-- https://www.flaticon.com/free-icon/free_3706334 -->
+
                 <p>Ak vás trápi hardvérový problém, nefunkčné alebo poškodené komponenty, sme tu, aby sme vám pomohli. Diagnostikujeme váš počítač, navrhneme najlepšie riešenie a postaráme sa o opravu alebo výmenu nefunkčných komponentov. Okrem toho vám radi poradíme s upgradom – či už ide o zrýchlenie systému, rozšírenie kapacity alebo zvýšenie výkonu staršieho alebo nového počítača, pomôžeme vám z neho vyťažiť maximum!<br>
                 len za: <span class="price"><s>15€</s> ZADARMO</span></p>
+
+                <div class="buttons contact_us_buttons"> <!-- https://codepen.io/hilwat/pen/BeemVX -->
+                    <a class="blob-btn contact_us_button" href="#" target="_self">
+                        Mám záujem
+                        <span class="blob-btn__inner">
+                        <span class="blob-btn__blobs">
+                            <span class="blob-btn__blob"></span>
+                            <span class="blob-btn__blob"></span>
+                            <span class="blob-btn__blob"></span>
+                            <span class="blob-btn__blob"></span>
+                        </span>
+                        </span>
+                    </a>
+
+                    <br/>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+                        <defs>
+                            <filter id="goo">
+                            <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10"></feGaussianBlur>
+                            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 21 -7" result="goo"></feColorMatrix>
+                            <feBlend in2="goo" in="SourceGraphic" result="mix"></feBlend>
+                            </filter>
+                        </defs>
+                    </svg>
+                </div>
             </section>
     
             <section>
                 <h2><img class="discount_icon" src="/content/images/free.png">Čistenie&nbsp;počítača</h2> <!-- https://www.flaticon.com/free-icon/free_3706334 -->
+
                 <p>Ak váš počítač alebo notebook spomaľuje nahromadený prach a nečistoty, postaráme sa o jeho dôkladné vyčistenie. Odborne vyčistíme vnútro zariadenia, odstránime prach a nečistoty a zabezpečíme optimálne chladenie výmenou teplovodivej pasty na procesore či grafickej karte, čím výrazne znížime prevádzkové teploty. S nami váš počítač opäť získa maximálny výkon, stabilitu a dlhšiu životnosť!<br>
                 len za: <span class="price"><s>10€</s> ZADARMO</span></p>
+
+                <div class="buttons contact_us_buttons"> <!-- https://codepen.io/hilwat/pen/BeemVX -->
+                    <a class="blob-btn contact_us_button" href="#" target="_self">
+                        Mám záujem
+                        <span class="blob-btn__inner">
+                        <span class="blob-btn__blobs">
+                            <span class="blob-btn__blob"></span>
+                            <span class="blob-btn__blob"></span>
+                            <span class="blob-btn__blob"></span>
+                            <span class="blob-btn__blob"></span>
+                        </span>
+                        </span>
+                    </a>
+
+                    <br/>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+                        <defs>
+                            <filter id="goo">
+                            <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10"></feGaussianBlur>
+                            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 21 -7" result="goo"></feColorMatrix>
+                            <feBlend in2="goo" in="SourceGraphic" result="mix"></feBlend>
+                            </filter>
+                        </defs>
+                    </svg>
+                </div>
             </section>
     
             <section>
@@ -507,9 +589,18 @@
 
                 <select name="subject">
                     <option value="">Zadajte predmet vašej správy</option>
-                    <option>Otázka</option>
-                    <option>Návrh na zlepšenie</option>
-                    <option>Nahlásenie chyby</option>
+
+                    <optgroup label="Naše služby">
+                        <option>Stavba počítača</option>
+                        <option>Údržba počítača</option>
+                        <option>Čistenie počítača</option>
+                    </optgroup>
+                    
+                    <optgroup label="Ostatné">
+                        <option>Otázka</option>
+                        <option>Návrh na zlepšenie</option>
+                        <option>Nahlásenie chyby</option>
+                    </optgroup>
                 </select>
 
                 <textarea type="textarea" name="message" placeholder="Zadajte vašu správu" required><?php echo htmlspecialchars($message, ENT_QUOTES, "UTF-8"); ?></textarea>

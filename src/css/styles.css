@@ -458,7 +458,6 @@ main h2:hover {
 main p {
   font-size: 16px;
   text-align: justify;
-  margin-bottom: 30px;
 }
 
 .price {
@@ -887,6 +886,13 @@ footer.dark .copywrite {
   animation: fade_in_animation 1s ease-out forwards;
 }
 
+.buttons.contact_us_buttons {
+  height: 50px;
+  margin-top: 8px;
+  text-align: left;
+  animation: none;
+}
+
 .blob-btn.first_button {
   background-color: rgba(255, 255, 255, 0.8);
   color: rgb(0, 0, 0);
@@ -895,6 +901,15 @@ footer.dark .copywrite {
 .blob-btn.second_button {
   background-color: rgba(0, 0, 0, 0.2);
   color: rgb(255, 255, 255);
+}
+
+.blob-btn.contact_us_button {
+  background-color: rgb(160, 229, 165);
+  color: rgb(0, 0, 0);
+  width: 150px;
+  height: 50px;
+  padding: 12.5px 0px;
+  margin: 0px;
 }
 
 *:before, *:after {
