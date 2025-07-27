@@ -7,6 +7,14 @@
     
     $connection = connectionDB();
 
+    // Theme
+
+    $theme = "light"; // Default Theme
+
+    if(isset($_COOKIE["theme"])) {
+        $theme = $_COOKIE["theme"];
+    }
+
     if($_SERVER["REQUEST_METHOD"] === "POST") {
         $id = $_SESSION["logged_in_user_id"];
 
@@ -148,7 +156,8 @@
 
     <script src="https://kit.fontawesome.com/069c0938a1.js" crossorigin="anonymous"></script> <!-- Icons -->
 </head>
-<body>
+
+<body class="<?php echo $theme; ?>">
     <header>
         <nav class="navigation_bar">
             <ul>
