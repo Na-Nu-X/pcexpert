@@ -272,14 +272,6 @@
                         <input class="new_password password" type="text" name="new_password" placeholder="Vytvorte nové heslo" autocomplete="off">
                     </div>
 
-                    <div class="delete_account_container">
-                        <label for="delete_account">
-                            <img class="delete_account" title="Odstrániť účet" src="/content/images/delete_account.png"> <!-- https://www.flaticon.com/free-icon/delete_11502978 -->
-                        </label>
-
-                        <input type="checkbox" name="delete_account" id="delete_account" value="yes">
-                    </div>
-
                     <p class="form_report_paragraph"></p>
 
                     <article>
@@ -295,6 +287,19 @@
                     </article>
 
                     <button type="submit" name="submit">Uložiť zmeny</button>
+
+                    <div class="forgot_password">
+                        <p>Zabudli ste heslo? <a href="#">Zmeniť heslo</a></p>
+                    </div>
+
+                    <div class="delete_account_container">
+                        <p>Chcete nenávratne odstrániť váš účet?</p>
+                        <label for="delete_account">
+                            <img class="delete_account" title="Odstrániť účet" src="/content/images/delete_account.png"> <!-- https://www.flaticon.com/free-icon/delete_11502978 -->
+                        </label>
+
+                        <input type="checkbox" name="delete_account" id="delete_account" value="yes">
+                    </div>
                 </form>
 
             <?php else: ?>

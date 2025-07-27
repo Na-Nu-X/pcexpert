@@ -141,20 +141,17 @@ main {
   position: relative;
 }
 
-.delete_account_dialogue_container {
-  position: relative;
-  margin-bottom: 50px;
-}
-
 .have_account,
-.forgot_password {
+.forgot_password,
+.delete_account_container {
   text-align: center;
   font-size: 14px;
 }
 
 .have_account p,
 .forgot_password p,
-.account p {
+.account p,
+.delete_account_container p {
   font-family: Poppins, Arial, sans-serif;
   color: rgb(255, 255, 255);
 }
@@ -314,23 +311,14 @@ main {
   transition: width 0.3s ease, background-color 9999s ease;
 }
 
-.delete_account_container {
-  text-align: center;
-}
-
 .form_report_paragraph,
-.dialogue_paragraph,
-.delete_account_dialogue {
+.dialogue_paragraph {
   position: absolute;
   width: 100%;
   text-align: center;
   transform: translateY(3px);
   font-size: 16px;
   font-family: Poppins, Arial, sans-serif;
-}
-
-.delete_account_dialogue a {
-  margin: 0px 5px;
 }
 
 .form_report_paragraph.valid {
