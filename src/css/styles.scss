@@ -227,13 +227,13 @@ header
 .theme_selection .light_theme
 {
     background-color: rgb(250, 250, 210);
-    border: 1px solid rgb(250, 250, 170)
+    border: 1px solid rgb(230, 230, 100)
 }
 
 .theme_selection .dark_theme
 {
-    background-color: rgb(225, 225, 250);
-    border: 1px solid rgb(180, 180, 255);
+    background-color: rgb(240, 240, 255);
+    border: 1px solid rgb(170, 170, 250);
 }
 
 .account ul
@@ -512,6 +512,7 @@ main.dark
 
 main h2
 {
+    margin-bottom: 5px;
     font-size: 30px;
     text-align: center;
     transition: letter-spacing 0.3s ease;
@@ -521,6 +522,12 @@ main h2:hover
 {
     letter-spacing: 1px;
     cursor: pointer;
+}
+
+.discount_icon
+{
+    position: absolute;
+    transform: translate(-26px, 26px);
 }
 
 main p

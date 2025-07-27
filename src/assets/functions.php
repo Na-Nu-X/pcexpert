@@ -67,15 +67,39 @@ function createUser($connection, $first_name, $last_name, $email_address, $phone
     }
 }
 
-function updateUser($connection, $id, $first_name, $last_name, $email_address, $phone_number, $password, $profile_picture_name) {
+function updateUser($connection, $id, $first_name, $last_name, $email_address, $phone_number, $profile_picture_name) {
     $sql = "UPDATE users 
-            SET first_name = ?, last_name = ?, email_address = ?, phone_number = ?, password = ?, profile_picture_name = ? 
+            SET first_name = ?, last_name = ?, email_address = ?, phone_number = ?, profile_picture_name = ? 
             WHERE id = ?";
 
     $stmt = mysqli_prepare($connection, $sql);
 
     if($stmt) {
-        mysqli_stmt_bind_param($stmt, "ssssssi", $first_name, $last_name, $email_address, $phone_number, $password, $profile_picture_name, $id);
+        mysqli_stmt_bind_param($stmt, "sssssi", $first_name, $last_name, $email_address, $phone_number, $profile_picture_name, $id);
+
+        if(mysqli_stmt_execute($stmt)) {
+            return true;
+        }
+
+        else {
+            return false;
+        }
+    }
+
+    else {
+        echo mysqli_error($connection);
+    }
+}
+
+function updatePassword($connection, $id, $password) {
+    $sql = "UPDATE users 
+            SET password = ?
+            WHERE id = ?";
+
+    $stmt = mysqli_prepare($connection, $sql);
+
+    if($stmt) {
+        mysqli_stmt_bind_param($stmt, "si", $password, $id);
 
         if(mysqli_stmt_execute($stmt)) {
             return true;
@@ -174,6 +198,8 @@ function passwordAuthenticationWithId($connection, $id, $password) {
     else {
         echo mysqli_error($connection);
     }
+
+    return false;
 }
 
 /**

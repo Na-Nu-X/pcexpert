@@ -28,30 +28,31 @@
 
         $delete_account = isset($_POST["delete_account"]) ? "yes" : "no";
 
-        if($delete_account === "yes" and !empty(passwordAuthenticationWithId($connection, $id, $current_password))) {
-            if(deleteUser($connection, $id) === true) {
-                $old_image_upload_path = "../../content/uploads/" . $id . "/" . $new_image_name;
-                if(file_exists($old_image_upload_path)) {
-                    unlink($old_image_upload_path);
+        if($delete_account === "yes") {
+            if(passwordAuthenticationWithId($connection, $id, $current_password)) {
+                if(deleteUser($connection, $id)) {
+                    $old_image_upload_path = "../../content/uploads/" . $id . "/" . $new_image_name;
+                    if(file_exists($old_image_upload_path)) {
+                        unlink($old_image_upload_path);
+                    }
+
+                    session_destroy();
+
+                    session_start();
+                    $_SESSION["delete_account_successful_message"] = "Účet bol odstránený";
+
+                    redirectURL("/src/php/index.php");
+                    exit;
                 }
 
-                session_destroy();
-
-                session_start();
-                $_SESSION["delete_account_successful_message"] = "Účet bol odstránený";
-
-                redirectURL("/src/php/index.php");
-                exit;
-
+                else {
+                    $message = "Nepodarilo sa vymazať váš účet.";
+                }
             }
 
             else {
-                $message = "Nepodarilo sa vymazať váš účet.";
+                $message = "Pre vymazanie účtu zadajte heslo.";
             }
-        }
-
-        else if($delete_account === "yes" and empty(passwordAuthenticationWithId($connection, $id, $current_password) or empty($current_password))) {
-            $message = "Pre vymazanie účtu zadajte heslo.";
         }
 
         else if($delete_account === "no") {
@@ -72,10 +73,6 @@
 
             if(!empty(emailAuthentication($connection, $email_address)) and emailAuthentication($connection, $email_address) !== getUserInformations($connection, $id, 'email_address')) {
                 $message = "Tento email už je zaregistrovaný.";
-            }
-
-            if(empty(passwordAuthenticationWithId($connection, $id, $current_password)) and $current_password !== "" and $new_password !== "") {
-                $message = "Zadali ste nesprávne heslo";
             }
 
             if(isset($_FILES["profile_picture"]) and !empty($image_name)) {
@@ -110,16 +107,28 @@
                 }
             }
 
-            if(empty($message) and !empty($new_password)) {
-                if(updateUser($connection, $id, $first_name, $last_name, $email_address, $phone_number, $new_password, $new_image_name) === true) {
-                    $_SESSION["edit_account_successful_message"] = "Všetky zmeny boli uložené";
-
-                    redirectURL("/src/php/index.php");
-                    exit;
-                }
-
+            if(empty($message)) {
+                if(updateUser($connection, $id, $first_name, $last_name, $email_address, $phone_number, $new_image_name) === true) {
+                    $_SESSION["edit_account_successful_message"] = "Zmeny boli uložené";
+                } 
+                
                 else {
                     $message = "Pri úprave vášho účtu došlo k chybe.";
+                }
+
+                if(!empty($current_password) and !empty($_POST["new_password"])) {
+                    if(passwordAuthenticationWithId($connection, $id, $current_password)) {
+                        updatePassword($connection, $id, $new_password);
+                    } 
+                    
+                    else {
+                        $message = "Zadali ste nesprávne aktuálne heslo";
+                    }
+                }
+
+                if(empty($message)) {
+                    redirectURL("/src/php/index.php");
+                    exit;
                 }
             }
         }

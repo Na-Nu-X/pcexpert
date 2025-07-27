@@ -317,21 +317,21 @@
         
         <section class="main_content <?php echo $theme; ?>">
             <section class="our_services">
-                <h2>Stavba&nbsp;počítača</h2>
+                <h2><img class="discount_icon" src="/content/images/free.png">Stavba&nbsp;počítača</h2> <!-- https://www.flaticon.com/free-icon/free_3706334 -->
                 <p>Nechajte si u nás zostaviť a nakonfigurovať počítač na mieru – rýchlo, profesionálne a za výhodnú cenu. Ak už máte vhodné komponenty a hľadáte spoľahlivých odborníkov na ich správnu montáž, sme tu pre vás. A ak si ešte nie ste istí výberom, radi vám pomôžeme vybrať tie najlepšie komponenty podľa vašich potrieb a zabezpečíme ich odborné zostavenie. S nami získate počítač, ktorý bude pripravený na použitie bez starostí!<br>
-                len za: <span class="price">30€</span></p>
+                len za: <span class="price"><s>30€</s> ZADARMO</span></p>
             </section>
     
             <section>
-                <h2>Údržba&nbsp;počítača</h2>
+                <h2><img class="discount_icon" src="/content/images/free.png">Údržba&nbsp;počítača</h2> <!-- https://www.flaticon.com/free-icon/free_3706334 -->
                 <p>Ak vás trápi hardvérový problém, nefunkčné alebo poškodené komponenty, sme tu, aby sme vám pomohli. Diagnostikujeme váš počítač, navrhneme najlepšie riešenie a postaráme sa o opravu alebo výmenu nefunkčných komponentov. Okrem toho vám radi poradíme s upgradom – či už ide o zrýchlenie systému, rozšírenie kapacity alebo zvýšenie výkonu staršieho alebo nového počítača, pomôžeme vám z neho vyťažiť maximum!<br>
-                len za: <span class="price">15€</span></p>
+                len za: <span class="price"><s>15€</s> ZADARMO</span></p>
             </section>
     
             <section>
-                <h2>Čistenie&nbsp;počítača</h2>
+                <h2><img class="discount_icon" src="/content/images/free.png">Čistenie&nbsp;počítača</h2> <!-- https://www.flaticon.com/free-icon/free_3706334 -->
                 <p>Ak váš počítač alebo notebook spomaľuje nahromadený prach a nečistoty, postaráme sa o jeho dôkladné vyčistenie. Odborne vyčistíme vnútro zariadenia, odstránime prach a nečistoty a zabezpečíme optimálne chladenie výmenou teplovodivej pasty na procesore či grafickej karte, čím výrazne znížime prevádzkové teploty. S nami váš počítač opäť získa maximálny výkon, stabilitu a dlhšiu životnosť!<br>
-                len za: <span class="price">10€</span></p>
+                len za: <span class="price"><s>10€</s> ZADARMO</span></p>
             </section>
     
             <section>
