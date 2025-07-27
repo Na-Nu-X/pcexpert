@@ -79,6 +79,10 @@
                     <a href="./index.php">DOMOV</a>
                 </li>
 
+                <li class="navigation_bar_item">
+                    <a href="./registration.php">REGISTRÁCIA</a>
+                </li>
+
                 <div class="navigation_icon">
                     <i class="fa-solid fa-bars"></i>
                     <!-- <i class="fa-solid fa-xmark"></i> -->

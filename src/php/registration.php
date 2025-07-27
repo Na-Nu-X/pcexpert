@@ -75,6 +75,10 @@
                     <a href="./index.php">DOMOV</a>
                 </li>
 
+                <li class="navigation_bar_item">
+                    <a href="./log_in.php">PRIHLÁSENIE</a>
+                </li>
+
                 <div class="navigation_icon">
                     <i class="fa-solid fa-bars"></i>
                     <!-- <i class="fa-solid fa-xmark"></i> -->
