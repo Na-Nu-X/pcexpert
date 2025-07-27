@@ -303,9 +303,11 @@
                 </form>
 
             <?php else: ?>
-                <h2>Môj účet</h2>
+                <div class="no_logged_in">
+                    <h2><a href="./edit_account.php">Môj&nbsp;účet</a></h2>
 
-                <p>Pre zobrazenie podrobností o vašom účte sa musíte najprv <a href="./log_in.php" title="Prihlásiť sa">prihlásiť</a> alebo <a href="./registration.php" title="Vytvoriť účet">zaregistrovať.</a></p>
+                    <p>Pre zobrazenie podrobností o vašom účte sa musíte najprv <a href="./log_in.php" title="Prihlásiť sa">prihlásiť</a> alebo <a href="./registration.php" title="Vytvoriť účet">zaregistrovať.</a></p>
+                </div>
 
             <?php endif; ?>
         </section>

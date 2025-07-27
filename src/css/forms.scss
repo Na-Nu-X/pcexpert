@@ -175,7 +175,8 @@ main
 .have_account p,
 .forgot_password p,
 .account p,
-.delete_account_container p
+.delete_account_container p,
+.no_logged_in p
 {
     font-family: Poppins, Arial, sans-serif;
     color: rgb(255, 255, 255);
@@ -185,20 +186,26 @@ main
 .have_account a:visited,
 .forgot_password a:link,
 .forgot_password a:visited,
-.account a:link,
-.account a:visited
+.no_logged_in p a:link,
+.no_logged_in p a:visited
 {
     font-family: Poppins, Arial, sans-serif;
     color: rgb(255, 255, 255);
     text-decoration: none;
 }
 
+.no_logged_in p a:link,
+.no_logged_in p a:visited
+{
+    font-style: italic;
+}
+
 .have_account a:hover,
 .have_account a:active,
 .forgot_password a:hover,
 .forgot_password a:active,
-.account a:hover,
-.account a:active
+.no_logged_in p a:hover,
+.no_logged_in p a:active
 {
     text-decoration: underline;
     cursor: pointer;
