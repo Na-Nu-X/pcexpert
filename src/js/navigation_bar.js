@@ -73,6 +73,7 @@ const scroll_contact = document.querySelector(".scroll_contact")
 
 scroll_about_us.addEventListener("click", function(event){
     event.preventDefault()
+
     window.scrollTo({
         top: about_us.offsetTop - 90,
         behavior: "smooth"
@@ -81,6 +82,7 @@ scroll_about_us.addEventListener("click", function(event){
 
 scroll_our_services.addEventListener("click", function(event){
     event.preventDefault()
+
     window.scrollTo({
         top: our_services.offsetTop -90,
         behavior: "smooth"
@@ -89,6 +91,7 @@ scroll_our_services.addEventListener("click", function(event){
 
 scroll_contact.addEventListener("click", function(event){
     event.preventDefault()
+    
     window.scrollTo({
         top: contact.offsetTop - 90,
         behavior: "smooth"

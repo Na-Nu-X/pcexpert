@@ -324,7 +324,7 @@
                 len za: <span class="price"><s>30€</s> ZADARMO</span></p>
 
                 <div class="buttons contact_us_buttons"> <!-- https://codepen.io/hilwat/pen/BeemVX -->
-                    <a class="blob-btn contact_us_button" href="#" target="_self">
+                    <a class="blob-btn contact_us_button build_computer_button" href="#" target="_self">
                         Mám záujem
                         <span class="blob-btn__inner">
                         <span class="blob-btn__blobs">
@@ -357,7 +357,7 @@
                 len za: <span class="price"><s>15€</s> ZADARMO</span></p>
 
                 <div class="buttons contact_us_buttons"> <!-- https://codepen.io/hilwat/pen/BeemVX -->
-                    <a class="blob-btn contact_us_button" href="#" target="_self">
+                    <a class="blob-btn contact_us_button computer_maintenance_button" href="#" target="_self">
                         Mám záujem
                         <span class="blob-btn__inner">
                         <span class="blob-btn__blobs">
@@ -390,7 +390,7 @@
                 len za: <span class="price"><s>10€</s> ZADARMO</span></p>
 
                 <div class="buttons contact_us_buttons"> <!-- https://codepen.io/hilwat/pen/BeemVX -->
-                    <a class="blob-btn contact_us_button" href="#" target="_self">
+                    <a class="blob-btn contact_us_button computer_cleaning_button" href="#" target="_self">
                         Mám záujem
                         <span class="blob-btn__inner">
                         <span class="blob-btn__blobs">
@@ -587,7 +587,7 @@
                     required
                 >
 
-                <select name="subject">
+                <select class="select_menu" name="subject">
                     <option value="">Zadajte predmet vašej správy</option>
 
                     <optgroup label="Naše služby">
@@ -620,6 +620,51 @@
         "use strict"
         
         console.log("%c PC Expert by Patrik Behul", "color: rgb(170, 255, 50); background-color: rgb(0, 0, 0)")
+
+        // Our Services Buttons
+
+        const select_menu = document.querySelector(".select_menu")
+
+        const contact = document.querySelector(".contact")
+
+        const build_computer_button = document.querySelector(".build_computer_button")
+        const computer_maintenance_button = document.querySelector(".computer_maintenance_button")
+        const computer_cleaning_button = document.querySelector(".computer_cleaning_button")
+
+        select_menu.selectedIndex = 0
+
+        build_computer_button.addEventListener("click", function(event) {
+            event.preventDefault()
+
+            window.scrollTo({
+                top: contact.offsetTop - 90,
+                behavior: "smooth"
+            })
+
+            select_menu.selectedIndex = 1
+        })
+
+        computer_maintenance_button.addEventListener("click", function(event) {
+            event.preventDefault()
+
+            window.scrollTo({
+                top: contact.offsetTop - 90,
+                behavior: "smooth"
+            })
+
+            select_menu.selectedIndex = 2
+        })
+
+        computer_cleaning_button.addEventListener("click", function(event) {
+            event.preventDefault()
+
+            window.scrollTo({
+                top: contact.offsetTop - 90,
+                behavior: "smooth"
+            })
+
+            select_menu.selectedIndex = 3
+        })
     </script>
 
     <script src="/src/js/navigation_bar.js"></script>
