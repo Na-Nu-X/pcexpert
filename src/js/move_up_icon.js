@@ -14,6 +14,7 @@ window.addEventListener("scroll", function(event) {
 
 move_up_icon.addEventListener("click", function(event) {
     event.preventDefault()
+    
     window.scrollTo({
         top: 0,
         behavior: "smooth"

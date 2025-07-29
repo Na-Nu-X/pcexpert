@@ -280,9 +280,9 @@
             </div>
         </div>
         
-        <!-- <div class="header_text">
-            <p class="header_text_paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, ut. Repellendus iusto cumque, impedit modi amet, voluptatem sunt atque dignissimos nihil, aperiam quaerat. Placeat ducimus at magnam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate minus quam ut quis non, velit molestias. Voluptate esse optio consequatur dolor! Facilis debitis voluptatibus neque dolor fuga cupiditate repellendus sunt?</p>
-        </div> -->
+        <div class="header_text">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa adipisci sed quam dolor quaerat laborum iste! Cum consectetur a exercitationem?</p>
+        </div>
     </header>
 
     <section class="photo_gallery">
@@ -631,40 +631,22 @@
         const computer_maintenance_button = document.querySelector(".computer_maintenance_button")
         const computer_cleaning_button = document.querySelector(".computer_cleaning_button")
 
-        select_menu.selectedIndex = 0
+        function ourServicesButtons(button, number) {
+            button.addEventListener("click", function(event) {
+                event.preventDefault()
 
-        build_computer_button.addEventListener("click", function(event) {
-            event.preventDefault()
+                window.scrollTo({
+                    top: contact.offsetTop - 90,
+                    behavior: "smooth"
+                })
 
-            window.scrollTo({
-                top: contact.offsetTop - 90,
-                behavior: "smooth"
+                select_menu.selectedIndex = number
             })
+        }
 
-            select_menu.selectedIndex = 1
-        })
-
-        computer_maintenance_button.addEventListener("click", function(event) {
-            event.preventDefault()
-
-            window.scrollTo({
-                top: contact.offsetTop - 90,
-                behavior: "smooth"
-            })
-
-            select_menu.selectedIndex = 2
-        })
-
-        computer_cleaning_button.addEventListener("click", function(event) {
-            event.preventDefault()
-
-            window.scrollTo({
-                top: contact.offsetTop - 90,
-                behavior: "smooth"
-            })
-
-            select_menu.selectedIndex = 3
-        })
+        ourServicesButtons(build_computer_button, 1)
+        ourServicesButtons(computer_maintenance_button, 2)
+        ourServicesButtons(computer_cleaning_button, 3)
     </script>
 
     <script src="/src/js/navigation_bar.js"></script>

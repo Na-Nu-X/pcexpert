@@ -65,35 +65,23 @@ navigation_icon.addEventListener("click", function(event) {
 
 const about_us = document.querySelector(".about_us")
 const our_services = document.querySelector(".our_services")
-const contact = document.querySelector(".contact")
+// const contact = document.querySelector(".contact") // Declared in index.php
 
 const scroll_about_us = document.querySelector(".scroll_about_us")
 const scroll_our_services = document.querySelector(".scroll_our_services")
 const scroll_contact = document.querySelector(".scroll_contact")
 
-scroll_about_us.addEventListener("click", function(event){
-    event.preventDefault()
+function autoScrollButtons(button, scroll_to) {
+    button.addEventListener("click", function(event){
+        event.preventDefault()
 
-    window.scrollTo({
-        top: about_us.offsetTop - 90,
-        behavior: "smooth"
+        window.scrollTo({
+            top: scroll_to.offsetTop - 90,
+            behavior: "smooth"
+        })
     })
-})
+}
 
-scroll_our_services.addEventListener("click", function(event){
-    event.preventDefault()
-
-    window.scrollTo({
-        top: our_services.offsetTop -90,
-        behavior: "smooth"
-    })
-})
-
-scroll_contact.addEventListener("click", function(event){
-    event.preventDefault()
-    
-    window.scrollTo({
-        top: contact.offsetTop - 90,
-        behavior: "smooth"
-    })
-})
+autoScrollButtons(scroll_about_us, about_us)
+autoScrollButtons(scroll_our_services, our_services)
+autoScrollButtons(scroll_contact, contact)
