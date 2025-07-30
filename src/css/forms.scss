@@ -357,7 +357,7 @@ main
     transition: width 0.3s ease, background-color 9999s ease;
 }
 
-.form_report_paragraph, 
+.form_report_paragraph,
 .dialogue_paragraph
 {
     position: absolute;
@@ -373,7 +373,7 @@ main
     color: rgb(170, 255, 50);
 }
 
-.form_report_paragraph.invalid, 
+.form_report_paragraph.invalid,
 .dialogue_paragraph.invalid
 {
     color: rgb(250, 50, 50);
@@ -521,6 +521,7 @@ main
 {
     width: 40px;
     height: 40px;
+    margin-left: 5px;
     padding: 2px;
     border: 1px solid rgb(150, 150, 150);
     border-radius: 50%;

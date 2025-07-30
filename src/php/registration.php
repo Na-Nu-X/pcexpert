@@ -95,7 +95,7 @@
 
             <h2><a href="./registration.php">Registrácia</a></h2>
 
-            <form class="registration_form" action="registration.php" method="POST">
+            <form class="registration_form" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
                 <input 
                     type="text"
                     name="first_name"

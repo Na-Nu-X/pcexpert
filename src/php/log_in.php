@@ -99,7 +99,7 @@
 
             <h2><a href="./log_in.php">Prihlásenie</a></h2>
             
-            <form class="log_in_form" action="log_in.php" method="POST">
+            <form class="log_in_form" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
                 <input 
                     type="email"
                     name="email_address"

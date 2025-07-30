@@ -182,7 +182,7 @@
             <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true): ?>
                 <h2><a href="./edit_account.php">Môj&nbsp;účet</a></h2>
 
-                <form class="edit_account_form" action="edit_account.php" method="POST" enctype="multipart/form-data">
+                <form class="edit_account_form" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data">
                     <div class="profile_picture_container">
                         <h3>Profilový obrázok</h3>
 

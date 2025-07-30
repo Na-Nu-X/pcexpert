@@ -42,7 +42,13 @@
     $subject = "";
     $message = "";
 
-    if($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Write Review
+
+    $review = "";
+
+    if($_SERVER["REQUEST_METHOD"] === "POST" and isset($_POST["contact_form_submit"])) {
+        // Contact Form
+        
         $first_name = $_POST["first_name"];
         $last_name = $_POST["last_name"];
         $email_address = $_POST["email_address"];
@@ -52,7 +58,7 @@
         $mail = new PHPMailer(true);
 
         try {
-            //Server settings
+            // Server settings
 
             $mail->isSMTP();
             $mail->Host = "smtp.gmail.com";
@@ -66,12 +72,12 @@
             $mail->SMTPSecure = "ssl";
             $mail->Port = 465;
 
-            //Recipients
+            // Recipients
 
             $mail->setFrom("behulpatrik@gmail.com", "PC Expert");
             $mail->addAddress("behulpatrik@gmail.com");
 
-            //Content
+            // Content
 
             $mail->isHTML(true);
             $mail->Subject = $subject;
@@ -85,12 +91,34 @@
             $mail->send();
 
             $_SESSION["contact_successful_message"] = "Správa bola odoslaná";
-        } 
+
+            redirectURL("/src/php/index.php");
+        }
         
         catch(Exception $e) {
             // echo "Správu sa nepodarilo odoslať: {$mail->ErrorInfo}";
             $_SESSION["contact_error_message"] = "Správu sa nepodarilo odoslať";
         }
+    }
+
+    // Write Review
+
+    if($_SERVER["REQUEST_METHOD"] === "POST" and isset($_POST["write_review_submit"])) {
+        $rating = $_POST["rating"];
+        $review = $_POST["review"];
+
+        if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true) {
+            sendReview($connection, $_SESSION["logged_in_user_id"], $rating, $review);
+        }
+
+        else {
+            sendReview($connection, null, $rating, $review);
+        }
+
+        $_SESSION["write_review_successful_message"] = "Ďakujeme za spätnú väzbu";
+        $review = "";
+
+        redirectURL("/src/php/index.php");
     }
 ?>
 
@@ -137,6 +165,12 @@
         <?php if(isset($_SESSION["delete_account_successful_message"]) and !empty($_SESSION["delete_account_successful_message"])): ?>
             <p class="delete_account_successful_message"><?php echo $_SESSION["delete_account_successful_message"]; ?></p>
             <?php $_SESSION["delete_account_successful_message"] = ""; ?>
+
+        <?php endif; ?>
+
+        <?php if(isset($_SESSION["write_review_successful_message"]) and !empty($_SESSION["write_review_successful_message"])): ?>
+            <p class="write_review_successful_message"><?php echo $_SESSION["write_review_successful_message"]; ?></p>
+            <?php $_SESSION["write_review_successful_message"] = ""; ?>
 
         <?php endif; ?>
 
@@ -281,7 +315,17 @@
         </div>
         
         <div class="header_text">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa adipisci sed quam dolor quaerat laborum iste! Cum consectetur a exercitationem?</p>
+            <div class="user_rating">
+                <p>4,7 / 5</p>
+
+                <img src="/content/images/star.png">
+                <img src="/content/images/star.png">
+                <img src="/content/images/star.png">
+                <img src="/content/images/star.png">
+                <img src="/content/images/empty_star.png"> <!-- https://www.flaticon.com/free-icon/star_1828884 https://www.flaticon.com/free-icon/star_1828970 -->
+            </div>
+
+            <p>Vážime si využívanie našich služieb. Ďakujeme!</p>
         </div>
     </header>
 
@@ -491,7 +535,8 @@
 
             <section class="reviews <?php echo $theme; ?>">
                 <h2>Recenzie</h2>
-                <div class="write_review">
+
+                <form class="write_review" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                     <!-- Profile Picture -->
                     <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true and !empty(getProfilePictureName($connection, $_SESSION["logged_in_user_id"]))): ?>
                         <img class="profile_picture" src="/content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo getProfilePictureName($connection, $_SESSION['logged_in_user_id']); ?>">
@@ -506,46 +551,92 @@
                         <span><?php echo htmlspecialchars(getUserName($connection, $_SESSION["logged_in_user_id"]), ENT_QUOTES, "UTF-8"); ?></span>
                     
                     <?php else: ?>
-                        <span>Anonymný zákaznik</span>
+                        <span>Anonymný zákazník</span>
 
                     <?php endif; ?>
 
+                    <!-- Rating -->
                     <div class="stars">
-                        <img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/empty_star.png"> <!-- https://www.flaticon.com/free-icon/star_1828884 https://www.flaticon.com/free-icon/star_1828970 -->
+                        <img src="/content/images/empty_star.png" data-rating="1">
+                        <img src="/content/images/empty_star.png" data-rating="2">
+                        <img src="/content/images/empty_star.png" data-rating="3">
+                        <img src="/content/images/empty_star.png" data-rating="4">
+                        <img src="/content/images/empty_star.png" data-rating="5"> <!-- https://www.flaticon.com/free-icon/star_1828884 https://www.flaticon.com/free-icon/star_1828970 -->
+
+                        <input class="rating" type="hidden" name="rating" value="">
                     </div>
 
-                    <textarea placeholder="Zanechajte nám vaše hodnotenie"></textarea>
+                    <p class="form_report_paragraph"></p>
 
-                    <button type="submit">Zverejniť recenziu</button>
-                </div>
+                    <textarea type="textarea" name="review" placeholder="Zanechajte nám vaše hodnotenie"><?php echo htmlspecialchars($review, ENT_QUOTES, "UTF-8"); ?></textarea>
 
-                <div class="review">
-                    <div class="reviewer">
-                        <img class="profile_picture" src="/content/images/user.png"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
+                    <button class="write_review_submit" type="submit" name="write_review_submit">Zverejniť recenziu</button>
+                </form>
+                
+                <?php for($review_id = 1; $review_id <= 10; $review_id++): ?> <!-- Renders a Maximum of 10 Reviews. -->
+                    <?php if(getReviewInformations($connection, $review_id, "user_id")): ?>
+                        <div class="review">
+                            <div class="reviewer">
+                                <img 
+                                    class="profile_picture" 
+                                    src="/content/uploads/<?php echo getReviewInformations($connection, $review_id, "user_id"); ?>/<?php echo getUserInformations($connection, getReviewInformations($connection, $review_id, "user_id"), "profile_picture_name"); ?>"
+                                >
 
-                        <span>Patrik Behul - pred 3 dňami</span>
+                                <span>
+                                    <?php echo getUserInformations($connection, getReviewInformations($connection, $review_id, "user_id"), "first_name"); ?>
+                                    <?php echo getUserInformations($connection, getReviewInformations($connection, $review_id, "user_id"), "last_name"); ?>
+                                    -
+                                    <?php echo date("j.n.Y", strtotime(getReviewInformations($connection, $review_id, "review_time"))) ; ?>
+                                </span>
+                            </div>
 
-                        <div class="stars">
-                            <img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/empty_star.png"> <!-- https://www.flaticon.com/free-icon/star_1828884 https://www.flaticon.com/free-icon/star_1828970 -->
+                            <div class="user_rating">
+                                <?php for($i = 1; $i <= 5; $i++): ?>
+                                    <?php if($i <= getReviewInformations($connection, $review_id, "rating")): ?>
+                                        <img src="/content/images/star.png"> <!-- https://www.flaticon.com/free-icon/star_1828884 -->
+
+                                    <?php else: ?>
+                                        <img src="/content/images/empty_star.png"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
+
+                                    <?php endif; ?>
+
+                                <?php endfor; ?>
+                            </div>
+                            
+                            <p><?php echo getReviewInformations($connection, $review_id, "review"); ?></p>
                         </div>
-                    </div>
-                    
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quas velit facere veniam? Totam magnam doloribus, hic iste maiores non ipsam. Nisi autem cum saepe voluptas fuga tenetur neque ratione recusandae.</p>
-                </div>
 
-                <div class="review">
-                    <div class="reviewer">
-                        <img class="profile_picture" src="/content/images/user.png"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
+                    <?php elseif(getReviewInformations($connection, $review_id, "user_id") === null): ?>
+                        <div class="review">
+                            <div class="reviewer">
+                                <img class="profile_picture" src="/content/images/user.png"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
 
-                        <span>Anonymný zákazník - pred 5 týždňami</span>
-                        
-                        <div class="stars">
-                            <img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/star.png"><img src="/content/images/star.png"> <!-- https://www.flaticon.com/free-icon/star_1828884 https://www.flaticon.com/free-icon/star_1828970 -->
+                                <span>
+                                    Anonymný zákazník 
+                                    - 
+                                    <?php echo date("j.n.Y", strtotime(getReviewInformations($connection, $review_id, "review_time"))) ; ?>
+                                </span>
+                            </div>
+
+                            <div class="user_rating">
+                                <?php for($i = 1; $i <= 5; $i++): ?>
+                                    <?php if($i <= getReviewInformations($connection, $review_id, "rating")): ?>
+                                        <img src="/content/images/star.png"> <!-- https://www.flaticon.com/free-icon/star_1828884 -->
+
+                                    <?php else: ?>
+                                        <img src="/content/images/empty_star.png"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
+
+                                    <?php endif; ?>
+
+                                <?php endfor; ?>
+                            </div>
+                                
+                            <p><?php echo getReviewInformations($connection, $review_id, "review"); ?></p>
                         </div>
-                    </div>
-                    
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere asperiores vel assumenda vitae, optio mollitia eos corrupti tempore deserunt quo. Reiciendis hic ab rerum sit a doloribus velit architecto debitis?</p>
-                </div>
+
+                    <?php endif; ?>
+
+                <?php endfor; ?>
             </section>
         </section>
 
@@ -559,7 +650,7 @@
                 <?php endif; ?>
             </p>
 
-            <form class="contact_form <?php echo $theme; ?>" action="index.php" method="POST">
+            <form class="contact_form <?php echo $theme; ?>" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
                 <input 
                     type="text"
                     name="first_name"
@@ -605,7 +696,7 @@
 
                 <textarea type="textarea" name="message" placeholder="Zadajte vašu správu" required><?php echo htmlspecialchars($message, ENT_QUOTES, "UTF-8"); ?></textarea>
 
-                <button class="contact_form_submit" type="submit">Poslať správu</button>
+                <button class="contact_form_submit" type="submit" name="contact_form_submit">Poslať správu</button>
             </form>
         </section>
     </main>
@@ -647,6 +738,71 @@
         ourServicesButtons(build_computer_button, 1)
         ourServicesButtons(computer_maintenance_button, 2)
         ourServicesButtons(computer_cleaning_button, 3)
+
+        // Write Review
+
+        const stars = document.querySelectorAll(".stars img")
+        const rating = document.querySelector(".rating")
+        let selected_rating = 0
+
+        function updateStars(hover_value = 0) {
+            stars.forEach(function(star, index) {
+                if(hover_value > 0) {
+                    if(index < hover_value) {
+                        star.src = "/content/images/star.png"
+                    }
+
+                    else {
+                        "/content/images/empty_star.png"
+                    }
+                }
+
+                else {
+                    if(index < selected_rating) {
+                        star.src = "/content/images/star.png"
+                    }
+
+                    else {
+                        star.src = "/content/images/empty_star.png"
+                    }
+                }
+            })
+        }
+
+        stars.forEach(function(star, index) {
+            const rating_number = index + 1
+
+            star.addEventListener("mouseover", function(event) {
+                updateStars(rating_number)
+            })
+
+            star.addEventListener("mouseout", function(event) {
+                updateStars()
+            })
+
+            star.addEventListener("click", function(event) {
+                selected_rating = rating_number
+                rating.value = rating_number
+                updateStars()
+            })
+        })
+
+        const form_report_paragraph = document.querySelector(".form_report_paragraph")
+        const write_review_submit = document.querySelector(".write_review_submit")
+
+        write_review_submit.addEventListener("click", function(event) {
+            if(rating.value === "") {
+                event.preventDefault()
+
+                form_report_paragraph.textContent = "Ukážte nám vašu spokojnosť."
+                form_report_paragraph.classList.add("invalid")
+            }
+
+            else {
+                form_report_paragraph.textContent = ""
+                form_report_paragraph.classList.remove("invalid")
+            }
+        })
     </script>
 
     <script src="/src/js/navigation_bar.js"></script>

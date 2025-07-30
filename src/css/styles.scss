@@ -176,7 +176,7 @@ header
     cursor: pointer;
 }
 
-.log_in_successful_message, .log_out_successful_message, .edit_account_successful_message, .delete_account_successful_message, .contact_successful_message, .contact_error_message
+.log_in_successful_message, .log_out_successful_message, .edit_account_successful_message, .delete_account_successful_message, .write_review_successful_message, .contact_successful_message, .contact_error_message
 {
     visibility: hidden;
     position: fixed;
@@ -189,7 +189,7 @@ header
     animation: fade_out_animation 5s ease-out;
 }
 
-.log_in_successful_message, .edit_account_successful_message, .contact_successful_message
+.log_in_successful_message, .edit_account_successful_message, .write_review_successful_message, .contact_successful_message
 {
     color: rgb(170, 255, 50);
 }
@@ -368,6 +368,20 @@ header h1 a:active
     background-color: rgba(0, 0, 0, 0.2);
 }
 
+.header_text .user_rating
+{
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+}
+
+.header_text .user_rating img
+{
+    width: 12px;
+    height: 12px;
+}
+
 .header_text p
 {
     text-align: center;
@@ -535,7 +549,7 @@ main p
 {
     font-size: 16px;
     text-align: justify;
-    // margin-bottom: 30px;
+    margin-bottom: 30px;
 }
 
 .price
@@ -731,7 +745,6 @@ input[name="r"]
 
 .stars img
 {
-    margin-right: 10px;
     transition: transform 0.3s ease;
 }
 
@@ -739,6 +752,21 @@ input[name="r"]
 {
     transform: scale(1.1);
     cursor: pointer;
+}
+
+.form_report_paragraph
+{
+    position: absolute;
+    top: 55px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 16px;
+    font-family: Poppins, Arial, sans-serif;
+}
+
+.form_report_paragraph.invalid
+{
+    color: rgb(250, 50, 50);
 }
 
 // Contact Form
@@ -1264,3 +1292,20 @@ footer.dark .copywrite
 {
     transform: scale(1.1);
 }
+
+// .select_menu option:first-of-type {
+//     border-radius: 5px 5px 0px 0px;
+// }
+
+// .select_menu option:last-of-type {
+//     border-radius: 0px 0px 5px 5px;
+// }
+
+// .select_menu option:not(option:last-of-type) {
+//     border-bottom: none;
+// }
+
+// .select_menu option:hover
+// {
+//     background-color: plum;
+// }
