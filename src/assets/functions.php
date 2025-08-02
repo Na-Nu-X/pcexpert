@@ -558,4 +558,28 @@
             echo mysqli_error($connection);
         }
     }
+
+    function averageRating($connection) {
+        $sql = "SELECT AVG(rating)
+                AS average_rating
+                FROM reviews";
+        
+        $stmt = mysqli_prepare($connection, $sql);
+
+        if($stmt) {
+            if(mysqli_stmt_execute($stmt)) {
+                $result = mysqli_stmt_get_result($stmt);
+
+                if($row = mysqli_fetch_assoc($result)) {
+                    return round($row["average_rating"], 1);
+                }
+            }
+        }
+
+        else {
+            echo mysqli_error($connection);
+        }
+
+        return false;
+    }
 ?>

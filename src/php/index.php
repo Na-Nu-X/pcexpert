@@ -316,16 +316,33 @@
         
         <div class="header_text">
             <div class="user_rating">
-                <p>4,7 / 5</p>
+                <?php if(averageRating($connection)): ?>
+                    <p><?php echo averageRating($connection); ?> / 5</p>
 
-                <img src="/content/images/star.png">
-                <img src="/content/images/star.png">
-                <img src="/content/images/star.png">
-                <img src="/content/images/star.png">
-                <img src="/content/images/empty_star.png"> <!-- https://www.flaticon.com/free-icon/star_1828884 https://www.flaticon.com/free-icon/star_1828970 -->
+                    <?php for($i = 1; $i <= 5; $i++): ?>
+                        <?php if($i <= round(averageRating($connection))): ?>
+                            <img src="/content/images/star.png"> <!-- https://www.flaticon.com/free-icon/star_1828884 -->
+
+                        <?php else: ?>
+                            <img src="/content/images/empty_star.png"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
+
+                        <?php endif; ?>
+
+                    <?php endfor; ?>
+
+                <?php else: ?>
+                    <p>0 / 5</p>
+
+                    <img src="/content/images/empty_star.png"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
+                    <img src="/content/images/empty_star.png"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
+                    <img src="/content/images/empty_star.png"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
+                    <img src="/content/images/empty_star.png"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
+                    <img src="/content/images/empty_star.png"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
+
+                <?php endif; ?>
             </div>
 
-            <p>Vážime si využívanie našich služieb. Ďakujeme!</p>
+            <p>Vážime si, že využívate naše služby. Ďakujeme!</p>
         </div>
     </header>
 
