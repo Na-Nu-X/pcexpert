@@ -582,4 +582,25 @@
 
         return false;
     }
+
+    function findUserReview($connection, $user_id) {
+        $sql = "SELECT * FROM reviews
+                WHERE user_id = ?";
+
+        $stmt = mysqli_prepare($connection, $sql);
+
+        if($stmt) {
+            mysqli_stmt_bind_param($stmt, "i", $user_id);
+
+            if(mysqli_stmt_execute($stmt)) {
+                return mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
+            }
+        }
+
+        else {
+            echo mysqli_error($connection);
+        }
+
+        return false;
+    }
 ?>

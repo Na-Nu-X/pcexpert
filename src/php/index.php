@@ -553,42 +553,49 @@
             <section class="reviews <?php echo $theme; ?>">
                 <h2>Recenzie</h2>
 
-                <form class="write_review" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-                    <!-- Profile Picture -->
-                    <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true and !empty(getProfilePictureName($connection, $_SESSION["logged_in_user_id"]))): ?>
-                        <img class="profile_picture" src="/content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo getProfilePictureName($connection, $_SESSION['logged_in_user_id']); ?>">
+                <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true and findUserReview($connection, $_SESSION["logged_in_user_id"]) and findUserReview($connection, $_SESSION["logged_in_user_id"])["user_id"] === $_SESSION["logged_in_user_id"]): ?>
+                    <h3>Moje hodnotenie</h3>
 
-                    <?php else: ?>
-                        <img class="profile_picture" src="/content/images/user.png"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
+                <?php else: ?>
+                    <!-- Write Review -->
+                    <form class="write_review" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                        <!-- Profile Picture -->
+                        <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true and !empty(getProfilePictureName($connection, $_SESSION["logged_in_user_id"]))): ?>
+                            <img class="profile_picture" src="/content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo getProfilePictureName($connection, $_SESSION['logged_in_user_id']); ?>">
 
-                    <?php endif; ?>
+                        <?php else: ?>
+                            <img class="profile_picture" src="/content/images/user.png"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
 
-                    <!-- User Name -->
-                    <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true): ?>
-                        <span><?php echo htmlspecialchars(getUserName($connection, $_SESSION["logged_in_user_id"]), ENT_QUOTES, "UTF-8"); ?></span>
-                    
-                    <?php else: ?>
-                        <span>Anonymný zákazník</span>
+                        <?php endif; ?>
 
-                    <?php endif; ?>
+                        <!-- User Name -->
+                        <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true): ?>
+                            <span><?php echo htmlspecialchars(getUserName($connection, $_SESSION["logged_in_user_id"]), ENT_QUOTES, "UTF-8"); ?></span>
+                        
+                        <?php else: ?>
+                            <span>Anonymný zákazník</span>
 
-                    <!-- Rating -->
-                    <div class="stars">
-                        <img src="/content/images/empty_star.png" data-rating="1">
-                        <img src="/content/images/empty_star.png" data-rating="2">
-                        <img src="/content/images/empty_star.png" data-rating="3">
-                        <img src="/content/images/empty_star.png" data-rating="4">
-                        <img src="/content/images/empty_star.png" data-rating="5"> <!-- https://www.flaticon.com/free-icon/star_1828884 https://www.flaticon.com/free-icon/star_1828970 -->
+                        <?php endif; ?>
 
-                        <input class="rating" type="hidden" name="rating" value="">
-                    </div>
+                        <!-- Rating -->
+                        <div class="stars">
+                            <img src="/content/images/empty_star.png" data-rating="1">
+                            <img src="/content/images/empty_star.png" data-rating="2">
+                            <img src="/content/images/empty_star.png" data-rating="3">
+                            <img src="/content/images/empty_star.png" data-rating="4">
+                            <img src="/content/images/empty_star.png" data-rating="5"> <!-- https://www.flaticon.com/free-icon/star_1828884 https://www.flaticon.com/free-icon/star_1828970 -->
 
-                    <p class="form_report_paragraph"></p>
+                            <input class="rating" type="hidden" name="rating" value="">
+                        </div>
 
-                    <textarea type="textarea" name="review" placeholder="Zanechajte nám vaše hodnotenie"><?php echo htmlspecialchars($review, ENT_QUOTES, "UTF-8"); ?></textarea>
+                        <p class="form_report_paragraph"></p>
 
-                    <button class="write_review_submit" type="submit" name="write_review_submit">Zverejniť recenziu</button>
-                </form>
+                        <textarea type="textarea" name="review" placeholder="Zanechajte nám vaše hodnotenie"><?php echo htmlspecialchars($review, ENT_QUOTES, "UTF-8"); ?></textarea>
+
+                        <button class="write_review_submit" type="submit" name="write_review_submit">Zverejniť recenziu</button>
+                    </form>
+                
+                <?php endif; ?>
                 
                 <?php for($review_id = 1; $review_id <= 10; $review_id++): ?> <!-- Renders a Maximum of 10 Reviews. -->
                     <?php if(getReviewInformations($connection, $review_id, "user_id")): ?>
@@ -621,6 +628,11 @@
                             </div>
                             
                             <p><?php echo getReviewInformations($connection, $review_id, "review"); ?></p>
+                            
+                            <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true and findUserReview($connection, $_SESSION["logged_in_user_id"]) and findUserReview($connection, $_SESSION["logged_in_user_id"])["user_id"] === getReviewInformations($connection, $review_id, "user_id")): ?>
+                                <a href="./edit_review.php" title="Upraviť recenziu">Upraviť recenziu</a>
+
+                            <?php endif; ?>
                         </div>
 
                     <?php elseif(getReviewInformations($connection, $review_id, "user_id") === null): ?>
