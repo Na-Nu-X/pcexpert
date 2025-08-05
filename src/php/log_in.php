@@ -94,7 +94,7 @@
     <main>
         <section class="log_in">
             <a href="./index.php">
-                <img class="back_icon" title="Späť na domovskú stránku" src="/content/images/back.png"> <!-- https://www.flaticon.com/free-icon/back_2099190 -->
+                <img class="back_icon" title="Späť na domovskú stránku" src="/content/images/back.png" alt="Späť na domovskú stránku"> <!-- https://www.flaticon.com/free-icon/back_2099190 -->
             </a>
 
             <h2><a href="./log_in.php">Prihlásenie</a></h2>
@@ -146,8 +146,8 @@
                 </div>
 
                 <div class="login_method">
-                    <img src="/content/images/google.png" title="Prihlásiť sa Google účtom"> <!-- https://www.flaticon.com/free-icon/search_281764 -->
-                    <img src="/content/images/facebook_2.png" title="Prihlásiť sa Facebook účtom"> <!-- https://www.flaticon.com/free-icon/facebook_5968764 -->
+                    <img src="/content/images/google.png" title="Prihlásiť sa Google účtom" alt="Prihlásiť sa Google účtom"> <!-- https://www.flaticon.com/free-icon/search_281764 -->
+                    <img src="/content/images/facebook_2.png" title="Prihlásiť sa Facebook účtom" alt="Prihlásiť sa Facebook účtom"> <!-- https://www.flaticon.com/free-icon/facebook_5968764 -->
                 </div>
             </form>
         </section>

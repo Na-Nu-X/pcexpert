@@ -176,7 +176,7 @@
     <main>
         <section class="edit_account">
             <a href="./index.php">
-                <img class="back_icon" title="Späť na domovskú stránku" src="/content/images/back.png"> <!-- https://www.flaticon.com/free-icon/back_2099190 -->
+                <img class="back_icon" title="Späť na domovskú stránku" src="/content/images/back.png" alt="Späť na domovskú stránku"> <!-- https://www.flaticon.com/free-icon/back_2099190 -->
             </a>
 
             <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true): ?>
@@ -188,20 +188,25 @@
 
                         <?php if(!empty(getProfilePictureName($connection, $_SESSION["logged_in_user_id"]))): ?>
                             <label for="profile_picture">
-                                <img class="profile_picture" title="Zmeniť profilový obrázok" src="/content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo getProfilePictureName($connection, $_SESSION['logged_in_user_id']); ?>">
+                                <img 
+                                    class="profile_picture" 
+                                    title="Zmeniť profilový obrázok" 
+                                    src="/content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo getProfilePictureName($connection, $_SESSION['logged_in_user_id']); ?>"
+                                    alt="Zmeniť profilový obrázok"
+                                >
                             </label>
 
                             <input id="profile_picture" type="file" name="profile_picture">
 
                             <label for="delete_profile_picture">
-                                <img class="delete_profile_picture" title="Odstrániť profilový obrázok" src="/content/images/trash.png"> <!-- https://www.flaticon.com/free-icon/trash_8848798 -->
+                                <img class="delete_profile_picture" title="Odstrániť profilový obrázok" src="/content/images/trash.png" alt="Odstrániť profilový obrázok"> <!-- https://www.flaticon.com/free-icon/trash_8848798 -->
                             </label>
                             
                             <input type="checkbox" name="delete_profile_picture" id="delete_profile_picture" value="yes">
 
                         <?php else: ?>
                             <label for="profile_picture">
-                                <img class="profile_picture" src="/content/images/user.png"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
+                                <img class="profile_picture" title="Zmeniť profilový obrázok" src="/content/images/user.png" alt="Zmeniť profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
                             </label>
                             
                             <input id="profile_picture" type="file" name="profile_picture">
@@ -295,7 +300,7 @@
                     <div class="delete_account_container">
                         <p>Chcete nenávratne odstrániť váš účet?</p>
                         <label for="delete_account">
-                            <img class="delete_account" title="Odstrániť účet" src="/content/images/delete_account.png"> <!-- https://www.flaticon.com/free-icon/delete_11502978 -->
+                            <img class="delete_account" title="Odstrániť účet" src="/content/images/delete_account.png" alt="Odstrániť účet"> <!-- https://www.flaticon.com/free-icon/delete_11502978 -->
                         </label>
 
                         <input type="checkbox" name="delete_account" id="delete_account" value="yes">

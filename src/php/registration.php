@@ -90,7 +90,7 @@
     <main>
         <section class="registration">
             <a href="./index.php">
-                <img class="back_icon" title="Späť na domovskú stránku" src="/content/images/back.png"> <!-- https://www.flaticon.com/free-icon/back_2099190 -->
+                <img class="back_icon" title="Späť na domovskú stránku" src="/content/images/back.png" alt="Späť na domovskú stránku"> <!-- https://www.flaticon.com/free-icon/back_2099190 -->
             </a>
 
             <h2><a href="./registration.php">Registrácia</a></h2>
@@ -125,13 +125,13 @@
 
                 <div class="phone_number_container">
                     <div class="phone_number_icon">
-                        <img class="slovakia_icon" src="/content/images/slovakia.png"> <!-- https://www.flaticon.com/free-icon/slovakia_330594 -->
+                        <img class="slovakia_icon" src="/content/images/slovakia.png" alt="SK"> <!-- https://www.flaticon.com/free-icon/slovakia_330594 -->
 
-                        <img class="czech_republic_icon" src="/content/images/czech-republic.png"> <!-- https://www.flaticon.com/free-icon/czech-republic_330536 -->
+                        <img class="czech_republic_icon" src="/content/images/czech-republic.png" alt="CZ"> <!-- https://www.flaticon.com/free-icon/czech-republic_330536 -->
 
-                        <img class="spain_icon" src="/content/images/spain.png"> <!-- https://www.flaticon.com/free-icon/spain_330557 -->
+                        <img class="spain_icon" src="/content/images/spain.png" alt="ES"> <!-- https://www.flaticon.com/free-icon/spain_330557 -->
 
-                        <img class="united_states_icon" src="/content/images/united-states.png"> <!-- https://www.flaticon.com/free-icon/united-states_3013911 -->
+                        <img class="united_states_icon" src="/content/images/united-states.png" alt="US"> <!-- https://www.flaticon.com/free-icon/united-states_3013911 -->
                     </div>
 
                     <input 

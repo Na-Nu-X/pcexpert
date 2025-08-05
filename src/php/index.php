@@ -215,19 +215,19 @@
         </nav>
 
         <div class="move_up_icon">
-            <img src="/content/images/up-arrow.png" title="Posunúť nahor"> <!-- https://www.flaticon.com/free-icon/up-arrow_271239 -->
+            <img src="/content/images/up-arrow.png" title="Posunúť nahor" alt="Posunúť nahor"> <!-- https://www.flaticon.com/free-icon/up-arrow_271239 -->
         </div>
 
         <div class="cookie_policy">
-            <img src="/content/images/cookie.png"> <!-- https://www.flaticon.com/free-icon/cookie_1047711 -->
+            <img src="/content/images/cookie.png" alt="Cookie"> <!-- https://www.flaticon.com/free-icon/cookie_1047711 -->
             <h2>Cookie Policy</h2>
             <p>Táto&nbsp;stránka&nbsp;používa&nbsp;súbory&nbsp;cookies.</p>
             <button class="cookie_policy_button">ROZUMIEM</button>
         </div>
 
         <div class="theme_selection">
-            <img class="light_theme" src="/content/images/sun.png" title="Svetlé zobrazenie"> <!-- https://www.flaticon.com/free-icon/day-mode_11457488 -->
-            <img class="dark_theme" src="/content/images/moon.png" title="Tmavé zobrazenie"> <!-- https://www.flaticon.com/free-icon/moon_11735139 -->
+            <img class="light_theme" src="/content/images/sun.png" title="Svetlé zobrazenie" alt="Svetlé zobrazenie"> <!-- https://www.flaticon.com/free-icon/day-mode_11457488 -->
+            <img class="dark_theme" src="/content/images/moon.png" title="Tmavé zobrazenie" alt="Tmavé zobrazenie"> <!-- https://www.flaticon.com/free-icon/moon_11735139 -->
         </div>
         
         <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true): ?>
@@ -236,10 +236,14 @@
                     <li>
                         <a href="./edit_account.php" title="Môj účet">
                             <?php if(!empty(getProfilePictureName($connection, $_SESSION["logged_in_user_id"]))): ?>
-                                <img class="profile_picture" src="/content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo getProfilePictureName($connection, $_SESSION['logged_in_user_id']); ?>">
+                                <img 
+                                    class="profile_picture" 
+                                    src="/content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo getProfilePictureName($connection, $_SESSION['logged_in_user_id']); ?>"
+                                    alt="Môj účet"
+                                >
 
                             <?php else: ?>
-                                <img class="profile_picture" src="/content/images/user.png"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
+                                <img class="profile_picture" src="/content/images/user.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
 
                             <?php endif; ?>
                         </a>
@@ -270,7 +274,7 @@
 
         <div class="header_box">
             <div class="logo">
-                <img src="/content/images/test_logo.png">
+                <img src="/content/images/test_logo.png" alt="Logo">
             </div>
 
             <h1><a href="./index.php">PC&nbsp;Expert</a></h1>
@@ -321,10 +325,10 @@
 
                     <?php for($i = 1; $i <= 5; $i++): ?>
                         <?php if($i <= round(averageRating($connection))): ?>
-                            <img src="/content/images/star.png"> <!-- https://www.flaticon.com/free-icon/star_1828884 -->
+                            <img src="/content/images/star.png" alt="Hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828884 -->
 
                         <?php else: ?>
-                            <img src="/content/images/empty_star.png"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
+                            <img src="/content/images/empty_star.png" alt="Prázdna hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
 
                         <?php endif; ?>
 
@@ -333,11 +337,11 @@
                 <?php else: ?>
                     <p>0 / 5</p>
 
-                    <img src="/content/images/empty_star.png"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
-                    <img src="/content/images/empty_star.png"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
-                    <img src="/content/images/empty_star.png"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
-                    <img src="/content/images/empty_star.png"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
-                    <img src="/content/images/empty_star.png"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
+                    <img src="/content/images/empty_star.png" alt="Prázdna hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
+                    <img src="/content/images/empty_star.png" alt="Prázdna hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
+                    <img src="/content/images/empty_star.png" alt="Prázdna hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
+                    <img src="/content/images/empty_star.png" alt="Prázdna hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
+                    <img src="/content/images/empty_star.png" alt="Prázdna hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
 
                 <?php endif; ?>
             </div>
@@ -379,7 +383,7 @@
         
         <section class="main_content <?php echo $theme; ?>">
             <section class="our_services">
-                <h2><img class="discount_icon" src="/content/images/free.png">Stavba&nbsp;počítača</h2> <!-- https://www.flaticon.com/free-icon/free_3706334 -->
+                <h2><img class="discount_icon" src="/content/images/free.png" alt="Zadarmo">Stavba&nbsp;počítača</h2> <!-- https://www.flaticon.com/free-icon/free_3706334 -->
 
                 <p>Nechajte si u nás zostaviť a nakonfigurovať počítač na mieru – rýchlo, profesionálne a za výhodnú cenu. Ak už máte vhodné komponenty a hľadáte spoľahlivých odborníkov na ich správnu montáž, sme tu pre vás. A ak si ešte nie ste istí výberom, radi vám pomôžeme vybrať tie najlepšie komponenty podľa vašich potrieb a zabezpečíme ich odborné zostavenie. S nami získate počítač, ktorý bude pripravený na použitie bez starostí!<br>
                 len za: <span class="price"><s>30€</s> ZADARMO</span></p>
@@ -412,7 +416,7 @@
             </section>
     
             <section>
-                <h2><img class="discount_icon" src="/content/images/free.png">Údržba&nbsp;počítača</h2> <!-- https://www.flaticon.com/free-icon/free_3706334 -->
+                <h2><img class="discount_icon" src="/content/images/free.png" alt="Zadarmo">Údržba&nbsp;počítača</h2> <!-- https://www.flaticon.com/free-icon/free_3706334 -->
 
                 <p>Ak vás trápi hardvérový problém, nefunkčné alebo poškodené komponenty, sme tu, aby sme vám pomohli. Diagnostikujeme váš počítač, navrhneme najlepšie riešenie a postaráme sa o opravu alebo výmenu nefunkčných komponentov. Okrem toho vám radi poradíme s upgradom – či už ide o zrýchlenie systému, rozšírenie kapacity alebo zvýšenie výkonu staršieho alebo nového počítača, pomôžeme vám z neho vyťažiť maximum!<br>
                 len za: <span class="price"><s>15€</s> ZADARMO</span></p>
@@ -445,7 +449,7 @@
             </section>
     
             <section>
-                <h2><img class="discount_icon" src="/content/images/free.png">Čistenie&nbsp;počítača</h2> <!-- https://www.flaticon.com/free-icon/free_3706334 -->
+                <h2><img class="discount_icon" src="/content/images/free.png" alt="Zadarmo">Čistenie&nbsp;počítača</h2> <!-- https://www.flaticon.com/free-icon/free_3706334 -->
 
                 <p>Ak váš počítač alebo notebook spomaľuje nahromadený prach a nečistoty, postaráme sa o jeho dôkladné vyčistenie. Odborne vyčistíme vnútro zariadenia, odstránime prach a nečistoty a zabezpečíme optimálne chladenie výmenou teplovodivej pasty na procesore či grafickej karte, čím výrazne znížime prevádzkové teploty. S nami váš počítač opäť získa maximálny výkon, stabilitu a dlhšiu životnosť!<br>
                 len za: <span class="price"><s>10€</s> ZADARMO</span></p>
@@ -488,27 +492,27 @@
     
                         <div class="slide s1">
                             <a href="/content/images/processor.jpg" title="Klikni pre zobrazenie" data-lightbox="mygallery" data-title="Procesor">
-                                <img src="/content/images/processor.jpg" alt="processor.jpg">
+                                <img src="/content/images/processor.jpg" alt="Procesor">
                             </a>
                         </div>
                         <div class="slide">
                             <a href="/content/images/motherboard.jpg" title="Klikni pre zobrazenie" data-lightbox="mygallery" data-title="Základná doska">
-                                <img src="/content/images/motherboard.jpg" alt="motherboard.jpg">
+                                <img src="/content/images/motherboard.jpg" alt="Základná doska">
                             </a>
                         </div>
                         <div class="slide">
                             <a href="/content/images/graphics-card.jpg" title="Klikni pre zobrazenie" data-lightbox="mygallery" data-title="Grafická karta">
-                                <img src="/content/images/graphics-card.jpg" alt="graphics-card.jpg">
+                                <img src="/content/images/graphics-card.jpg" alt="Grafická karta">
                             </a>
                         </div>
                         <div class="slide">
                             <a href="/content/images/graphics-card-2.jpg" title="Klikni pre zobrazenie" data-lightbox="mygallery" data-title="2. Grafická karta">
-                                <img src="/content/images/graphics-card-2.jpg" alt="graphics-card-2.jpg">
+                                <img src="/content/images/graphics-card-2.jpg" alt="2. Grafická karta">
                             </a>
                         </div>
                         <div class="slide">
                             <a href="/content/images/ram.jpg" title="Klikni pre zobrazenie" data-lightbox="mygallery" data-title="RAM">
-                                <img src="/content/images/ram.jpg" alt="ram.jpg">
+                                <img src="/content/images/ram.jpg" alt="RAM">
                             </a>
                         </div>
                     </div>
@@ -533,7 +537,7 @@
                 <h2>Obchod</h2>
                 <div>
                     <h3>GeForce GTX 1660 Ti VENTUS XS 6G OC - 100€</h3>
-                    <img src="/content/images/GTX-1660-Ti.png">
+                    <img src="/content/images/GTX-1660-Ti.png" alt="GTX 1660 Ti VENTUS XS 6G OC">
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe unde ipsa voluptatum! Esse, provident debitis est placeat suscipit, reiciendis, ratione iste laborum odio inventore similique exercitationem minima quas delectus fugit.</p>
                 </div>
             </section> -->
@@ -561,10 +565,14 @@
                     <form class="write_review" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                         <!-- Profile Picture -->
                         <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true and !empty(getProfilePictureName($connection, $_SESSION["logged_in_user_id"]))): ?>
-                            <img class="profile_picture" src="/content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo getProfilePictureName($connection, $_SESSION['logged_in_user_id']); ?>">
+                            <img 
+                                class="profile_picture" 
+                                src="/content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo getProfilePictureName($connection, $_SESSION['logged_in_user_id']); ?>"
+                                alt="Profilový obrázok"
+                            >
 
                         <?php else: ?>
-                            <img class="profile_picture" src="/content/images/user.png"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
+                            <img class="profile_picture" src="/content/images/user.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
 
                         <?php endif; ?>
 
@@ -579,11 +587,11 @@
 
                         <!-- Rating -->
                         <div class="stars">
-                            <img src="/content/images/empty_star.png" data-rating="1">
-                            <img src="/content/images/empty_star.png" data-rating="2">
-                            <img src="/content/images/empty_star.png" data-rating="3">
-                            <img src="/content/images/empty_star.png" data-rating="4">
-                            <img src="/content/images/empty_star.png" data-rating="5"> <!-- https://www.flaticon.com/free-icon/star_1828884 https://www.flaticon.com/free-icon/star_1828970 -->
+                            <img src="/content/images/empty_star.png" data-rating="1" alt="Prázdna hviezda">
+                            <img src="/content/images/empty_star.png" data-rating="2" alt="Prázdna hviezda">
+                            <img src="/content/images/empty_star.png" data-rating="3" alt="Prázdna hviezda">
+                            <img src="/content/images/empty_star.png" data-rating="4" alt="Prázdna hviezda">
+                            <img src="/content/images/empty_star.png" data-rating="5" alt="Prázdna hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828884 https://www.flaticon.com/free-icon/star_1828970 -->
 
                             <input class="rating" type="hidden" name="rating" value="">
                         </div>
@@ -604,6 +612,7 @@
                                 <img 
                                     class="profile_picture" 
                                     src="/content/uploads/<?php echo getReviewInformations($connection, $review_id, "user_id"); ?>/<?php echo getUserInformations($connection, getReviewInformations($connection, $review_id, "user_id"), "profile_picture_name"); ?>"
+                                    alt="Profilový obrázok"
                                 >
 
                                 <span>
@@ -617,10 +626,10 @@
                             <div class="user_rating">
                                 <?php for($i = 1; $i <= 5; $i++): ?>
                                     <?php if($i <= getReviewInformations($connection, $review_id, "rating")): ?>
-                                        <img src="/content/images/star.png"> <!-- https://www.flaticon.com/free-icon/star_1828884 -->
+                                        <img src="/content/images/star.png" alt="Hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828884 -->
 
                                     <?php else: ?>
-                                        <img src="/content/images/empty_star.png"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
+                                        <img src="/content/images/empty_star.png" alt="Prázdna hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
 
                                     <?php endif; ?>
 
@@ -638,7 +647,7 @@
                     <?php elseif(getReviewInformations($connection, $review_id, "user_id") === null): ?>
                         <div class="review">
                             <div class="reviewer">
-                                <img class="profile_picture" src="/content/images/user.png"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
+                                <img class="profile_picture" src="/content/images/user.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
 
                                 <span>
                                     Anonymný zákazník 
@@ -650,10 +659,10 @@
                             <div class="user_rating">
                                 <?php for($i = 1; $i <= 5; $i++): ?>
                                     <?php if($i <= getReviewInformations($connection, $review_id, "rating")): ?>
-                                        <img src="/content/images/star.png"> <!-- https://www.flaticon.com/free-icon/star_1828884 -->
+                                        <img src="/content/images/star.png" alt="Hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828884 -->
 
                                     <?php else: ?>
-                                        <img src="/content/images/empty_star.png"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
+                                        <img src="/content/images/empty_star.png" alt="Prázdna hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
 
                                     <?php endif; ?>
 
