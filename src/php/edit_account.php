@@ -178,10 +178,10 @@
             <a href="./index.php">
                 <img class="back_icon" title="Späť na domovskú stránku" src="/content/images/back.png" alt="Späť na domovskú stránku"> <!-- https://www.flaticon.com/free-icon/back_2099190 -->
             </a>
+            
+            <h2><a href="./edit_account.php">Môj&nbsp;účet</a></h2>
 
             <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true): ?>
-                <h2><a href="./edit_account.php">Môj&nbsp;účet</a></h2>
-
                 <form class="edit_account_form" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data">
                     <div class="profile_picture_container">
                         <h3>Profilový obrázok</h3>
@@ -309,8 +309,6 @@
 
             <?php else: ?>
                 <div class="no_logged_in">
-                    <h2><a href="./edit_account.php">Môj&nbsp;účet</a></h2>
-
                     <p>Pre zobrazenie podrobností o vašom účte sa musíte najprv <a href="./log_in.php" title="Prihlásiť sa">prihlásiť</a> alebo <a href="./registration.php" title="Vytvoriť účet">zaregistrovať.</a></p>
                 </div>
 
