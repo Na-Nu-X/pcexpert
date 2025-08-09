@@ -603,4 +603,28 @@
 
         return false;
     }
+
+    function updateReview($connection, $user_id, $rating, $review) {
+        $sql = "UPDATE reviews 
+                SET rating = ?, review = ?
+                WHERE user_id = ?";
+
+        $stmt = mysqli_prepare($connection, $sql);
+
+        if($stmt) {
+            mysqli_stmt_bind_param($stmt, "isi", $rating, $review, $user_id);
+
+            if(mysqli_stmt_execute($stmt)) {
+                return true;
+            }
+
+            else {
+                return false;
+            }
+        }
+
+        else {
+            echo mysqli_error($connection);
+        }
+    }
 ?>

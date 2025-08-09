@@ -619,7 +619,7 @@
                                     <?php echo getUserInformations($connection, getReviewInformations($connection, $review_id, "user_id"), "first_name"); ?>
                                     <?php echo getUserInformations($connection, getReviewInformations($connection, $review_id, "user_id"), "last_name"); ?>
                                     -
-                                    <?php echo date("j.n.Y", strtotime(getReviewInformations($connection, $review_id, "review_time"))) ; ?>
+                                    <?php echo date("j.n.Y", strtotime(getReviewInformations($connection, $review_id, "review_time"))); ?>
                                 </span>
                             </div>
 

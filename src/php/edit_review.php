@@ -19,7 +19,13 @@
         $rating = $_POST["rating"];
         $review = $_POST["review"];
 
-        // Code
+        if(updateReview($connection, $_SESSION["logged_in_user_id"], $rating, $review)) {
+            redirectURL("/src/php/index.php");
+        }
+
+        else {
+            
+        }
     }
 ?>
 
@@ -65,40 +71,44 @@
                 <form class="edit_review_form" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
                     <!-- Profile Picture -->
 
-                    <?php if(!empty(getProfilePictureName($connection, $_SESSION["logged_in_user_id"]))): ?>
-                        <img 
-                            class="profile_picture"
-                            src="/content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo getProfilePictureName($connection, $_SESSION['logged_in_user_id']); ?>"
-                            alt="Profilový obrázok"
-                        >
+                    <div class="review_container">
+                        <?php if(!empty(getProfilePictureName($connection, $_SESSION["logged_in_user_id"]))): ?>
+                            <img 
+                                class="profile_picture"
+                                src="/content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo getProfilePictureName($connection, $_SESSION['logged_in_user_id']); ?>"
+                                alt="Profilový obrázok"
+                            >
 
-                    <?php else: ?>
-                        <img class="profile_picture" src="/content/images/user.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
+                        <?php else: ?>
+                            <img class="profile_picture" src="/content/images/user.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
 
-                    <?php endif; ?>
+                        <?php endif; ?>
 
-                    <!-- Name -->
-                    
-                    <p>
-                        <?php echo htmlspecialchars(getUserInformations($connection, $_SESSION["logged_in_user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
-                        <?php echo htmlspecialchars(getUserInformations($connection, $_SESSION["logged_in_user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
-                    </p>
-                    
-                    <!-- Rating -->
-                    
-                    <div class="stars">
-                        <?php for($i = 1; $i <=5; $i++): ?>
-                            <?php if($i <= findUserReview($connection, $_SESSION["logged_in_user_id"])["rating"]): ?>
-                                <img src="/content/images/star.png" alt="Hviezda" data-rating="<?php echo $i; ?>"> <!-- https://www.flaticon.com/free-icon/star_1828884 -->
+                        <!-- User Name and Review Time -->
+                        
+                        <span>
+                            <?php echo htmlspecialchars(getUserInformations($connection, $_SESSION["logged_in_user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
+                            <?php echo htmlspecialchars(getUserInformations($connection, $_SESSION["logged_in_user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
+                            -
+                            <?php echo htmlspecialchars(date("j.n.Y", strtotime(findUserReview($connection, $_SESSION["logged_in_user_id"])["review_time"])), ENT_QUOTES, "UTF-8"); ?>
+                        </span>
+                        
+                        <!-- Rating -->
+                        
+                        <div class="stars">
+                            <?php for($i = 1; $i <=5; $i++): ?>
+                                <?php if($i <= findUserReview($connection, $_SESSION["logged_in_user_id"])["rating"]): ?>
+                                    <img src="/content/images/star.png" alt="Hviezda" data-rating="<?php echo $i; ?>"> <!-- https://www.flaticon.com/free-icon/star_1828884 -->
 
-                            <?php else: ?>
-                                <img src="/content/images/empty_star.png" alt="Prázdna hviezda" data-rating="<?php echo $i; ?>"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
+                                <?php else: ?>
+                                    <img src="/content/images/empty_star.png" alt="Prázdna hviezda" data-rating="<?php echo $i; ?>"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
 
-                            <?php endif; ?>
+                                <?php endif; ?>
 
-                        <?php endfor; ?>
+                            <?php endfor; ?>
 
-                        <input class="rating" type="hidden" name="rating" value="">
+                            <input class="rating" type="hidden" name="rating" value="">
+                        </div>
                     </div>
 
                     <p class="form_report_paragraph"></p>

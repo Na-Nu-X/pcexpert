@@ -229,7 +229,42 @@ main
     outline: none;
     font-size: 16px;
     border: none;
-    border-bottom: 1px solid rgb(255, 255, 255);;
+    border-bottom: 1px solid rgb(255, 255, 255);
+    background: none;
+    transition: width 0.3s ease;
+}
+
+.review_container
+{
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.review_container span
+{
+    font-family: Poppins, Arial, sans-serif;
+    display: inline-block;
+    position: relative;
+    bottom: 14px;
+    left: 6px;
+    color: rgb(255, 255, 255);
+}
+
+.edit_review_form textarea
+{
+    font-family: Poppins, Arial, sans-serif;
+    color: rgb(255, 255, 255);
+    display: block;
+    width: 90%;
+    margin: 0px auto;
+    height: 100px;
+    padding: 5px;
+    outline: none;
+    resize: none;
+    font-size: 16px;
+    border: 1px solid rgb(180, 180, 180);
+    border-radius: 5px;
+    border-bottom: 1px solid rgb(255, 255, 255);
     background: none;
     transition: width 0.3s ease;
 }
@@ -312,14 +347,16 @@ main
 
 .registration_form input::placeholder,
 .log_in_form input::placeholder,
-.edit_account_form input::placeholder
+.edit_account_form input::placeholder,
+.edit_review_form textarea::placeholder
 {
     color: rgb(180, 180, 180);
 }
 
 .registration_form button[type="submit"], 
 .log_in_form button[type="submit"],
-.edit_account_form button[type="submit"]
+.edit_account_form button[type="submit"],
+.edit_review_form button[type="submit"]
 {
     font-family: Poppins, Arial, sans-serif;
     margin: 50px auto 10px;
@@ -337,7 +374,8 @@ main
 
 .registration_form button[type="submit"]:hover, .registration_form button[type="submit"]:focus, 
 .log_in_form button[type="submit"]:hover, .log_in_form button[type="submit"]:focus,
-.edit_account_form button[type="submit"]:hover, .edit_account_form button[type="submit"]:focus
+.edit_account_form button[type="submit"]:hover, .edit_account_form button[type="submit"]:focus,
+.edit_review_form button[type="submit"]:hover, .edit_review_form button[type="submit"]:focus
 {
     background-color: rgba(255, 255, 255, 0.8);
     color: rgb(0, 0, 0);
@@ -348,7 +386,8 @@ main
 
 .registration_form input[type="text"]:focus, .registration_form input[type="email"]:focus, 
 .log_in_form input[type="text"]:focus, .log_in_form input[type="email"]:focus,
-.edit_account_form input[type="text"]:focus, .edit_account_form input[type="email"]:focus
+.edit_account_form input[type="text"]:focus, .edit_account_form input[type="email"]:focus,
+.edit_review_form textarea:focus
 {
     width: 100%;
 }
@@ -659,7 +698,8 @@ footer.dark .copywrite
 
     .registration_form input[type="text"], .registration_form input[type="email"], .registration_form button[type="submit"],
     .log_in_form input[type="text"], .log_in_form input[type="email"], .log_in_form button[type="submit"],
-    .edit_account_form input[type="text"], .edit_account_form input[type="email"], .edit_account_form button[type="submit"]
+    .edit_account_form input[type="text"], .edit_account_form input[type="email"], .edit_account_form button[type="submit"],
+    .edit_review_form textarea, .edit_review_form button[type="submit"]
     {
         width: 100%;
     }
