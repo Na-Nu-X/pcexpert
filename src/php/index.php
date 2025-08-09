@@ -615,12 +615,21 @@
                                     alt="Profilový obrázok"
                                 >
 
-                                <span>
+                                <div>
                                     <?php echo getUserInformations($connection, getReviewInformations($connection, $review_id, "user_id"), "first_name"); ?>
+
                                     <?php echo getUserInformations($connection, getReviewInformations($connection, $review_id, "user_id"), "last_name"); ?>
-                                    -
-                                    <?php echo date("j.n.Y", strtotime(getReviewInformations($connection, $review_id, "review_time"))) ; ?>
-                                </span>
+
+                                    <span class="date">
+                                        - 
+                                        <?php echo date("j.n.Y", strtotime(getReviewInformations($connection, $review_id, "review_time"))); ?>
+
+                                        <?php if(getReviewInformations($connection, $review_id, "edited") === "yes"): ?>
+                                            (upravená)
+
+                                        <?php endif; ?>
+                                    </span>
+                                </div>
                             </div>
 
                             <div class="user_rating">
@@ -636,12 +645,12 @@
                                 <?php endfor; ?>
                             </div>
                             
-                            <p><?php echo getReviewInformations($connection, $review_id, "review"); ?></p>
-                            
                             <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true and findUserReview($connection, $_SESSION["logged_in_user_id"]) and findUserReview($connection, $_SESSION["logged_in_user_id"])["user_id"] === getReviewInformations($connection, $review_id, "user_id")): ?>
-                                <a href="./edit_review.php" title="Upraviť recenziu">Upraviť recenziu</a>
+                                <a class="edit_review" href="./edit_review.php" title="Upraviť recenziu">Upraviť recenziu</a>
 
                             <?php endif; ?>
+
+                            <p><?php echo getReviewInformations($connection, $review_id, "review"); ?></p>
                         </div>
 
                     <?php elseif(getReviewInformations($connection, $review_id, "user_id") === null): ?>
@@ -649,11 +658,10 @@
                             <div class="reviewer">
                                 <img class="profile_picture" src="/content/images/user.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
 
-                                <span>
+                                <div>
                                     Anonymný zákazník 
-                                    - 
-                                    <?php echo date("j.n.Y", strtotime(getReviewInformations($connection, $review_id, "review_time"))) ; ?>
-                                </span>
+                                    <span class="date">- <?php echo date("j.n.Y", strtotime(getReviewInformations($connection, $review_id, "review_time"))) ; ?></span>
+                                </div>
                             </div>
 
                             <div class="user_rating">
@@ -791,7 +799,7 @@
                     }
 
                     else {
-                        "/content/images/empty_star.png"
+                        star.src = "/content/images/empty_star.png"
                     }
                 }
 

@@ -736,11 +736,17 @@ input[name="r"]
     position: relative;
 }
 
-.reviewer span, .write_review span
+.reviewer div, .write_review span
 {
     position: absolute;
     top: 7px;
     left: 50px;
+}
+
+.date
+{
+    font-style: italic;
+    color: rgb(150, 150, 150);
 }
 
 .stars img
@@ -752,6 +758,21 @@ input[name="r"]
 {
     transform: scale(1.1);
     cursor: pointer;
+}
+
+.edit_review:link,
+.edit_review:visited
+{
+    font-size: 14px;
+    font-style: italic;
+    text-decoration: none;
+    color: rgb(150, 150, 150);
+}
+
+.edit_review:hover,
+.edit_review:active
+{
+    text-decoration: underline;
 }
 
 .form_report_paragraph
