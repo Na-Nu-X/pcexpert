@@ -586,7 +586,7 @@ input[name=r] {
 .reviews textarea, .reviews.light textarea {
   width: 100%;
   height: 100px;
-  padding: 10px;
+  padding: 5px 10px;
   resize: none;
   outline: none;
   font-size: 15px;
@@ -625,17 +625,17 @@ input[name=r] {
   cursor: pointer;
 }
 
-.reviewer, .write_review {
+.reviewer {
   position: relative;
 }
 
-.reviewer div, .write_review span {
+.reviewer .user_name {
   position: absolute;
   top: 7px;
   left: 50px;
 }
 
-.date {
+.reviewer .user_name .date {
   font-style: italic;
   color: rgb(150, 150, 150);
 }

@@ -2,6 +2,7 @@
     // PHP Code
 
     require "../assets/functions.php";
+    require "../assets/reviews.php";
 
     session_start();
     
@@ -28,6 +29,8 @@
             $_SESSION["log_in_successful_message"] = "Prihlásený ako " . htmlspecialchars(getUserName($connection, $id), ENT_QUOTES, "UTF-8");
         }
     }
+
+    $user_id = $_SESSION["logged_in_user_id"] ?? null;
 
     // Contact Form
 
@@ -556,133 +559,167 @@
 
             <section class="reviews <?php echo $theme; ?>">
                 <h2>Recenzie</h2>
-
-                <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true and findUserReview($connection, $_SESSION["logged_in_user_id"]) and findUserReview($connection, $_SESSION["logged_in_user_id"])["user_id"] === $_SESSION["logged_in_user_id"]): ?>
-                    <h3>Moje hodnotenie</h3>
-
-                <?php else: ?>
-                    <!-- Write Review -->
-                    <form class="write_review" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-                        <!-- Profile Picture -->
-                        <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true and !empty(getProfilePictureName($connection, $_SESSION["logged_in_user_id"]))): ?>
-                            <img 
-                                class="profile_picture" 
-                                src="/content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo getProfilePictureName($connection, $_SESSION['logged_in_user_id']); ?>"
-                                alt="Profilový obrázok"
-                            >
-
-                        <?php else: ?>
-                            <img class="profile_picture" src="/content/images/user.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
-
-                        <?php endif; ?>
-
-                        <!-- User Name -->
-                        <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true): ?>
-                            <span><?php echo htmlspecialchars(getUserName($connection, $_SESSION["logged_in_user_id"]), ENT_QUOTES, "UTF-8"); ?></span>
-                        
-                        <?php else: ?>
-                            <span>Anonymný zákazník</span>
-
-                        <?php endif; ?>
-
-                        <!-- Rating -->
-                        <div class="stars">
-                            <img src="/content/images/empty_star.png" data-rating="1" alt="Prázdna hviezda">
-                            <img src="/content/images/empty_star.png" data-rating="2" alt="Prázdna hviezda">
-                            <img src="/content/images/empty_star.png" data-rating="3" alt="Prázdna hviezda">
-                            <img src="/content/images/empty_star.png" data-rating="4" alt="Prázdna hviezda">
-                            <img src="/content/images/empty_star.png" data-rating="5" alt="Prázdna hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828884 https://www.flaticon.com/free-icon/star_1828970 -->
-
-                            <input class="rating" type="hidden" name="rating" value="">
-                        </div>
-
-                        <p class="form_report_paragraph"></p>
-
-                        <textarea type="textarea" name="review" placeholder="Zanechajte nám vaše hodnotenie"><?php echo htmlspecialchars($review, ENT_QUOTES, "UTF-8"); ?></textarea>
-
-                        <button class="write_review_submit" type="submit" name="write_review_submit">Zverejniť recenziu</button>
-                    </form>
                 
-                <?php endif; ?>
-                
-                <?php for($review_id = 1; $review_id <= 10; $review_id++): ?> <!-- Renders a Maximum of 10 Reviews. -->
-                    <?php if(getReviewInformations($connection, $review_id, "user_id")): ?>
+                <div class="user_review">
+                    <h3>Moja recenzia</h3>
+                    
+                    <?php if(userReview($connection, $user_id) !== null and userReview($connection, $user_id) !== false): ?>
                         <div class="review">
                             <div class="reviewer">
-                                <img 
-                                    class="profile_picture" 
-                                    src="/content/uploads/<?php echo getReviewInformations($connection, $review_id, "user_id"); ?>/<?php echo getUserInformations($connection, getReviewInformations($connection, $review_id, "user_id"), "profile_picture_name"); ?>"
+                                <img
+                                    class = "profile_picture"
+                                    src="/content/uploads/<?php echo htmlspecialchars(userReview($connection, $user_id)['user_id'], ENT_QUOTES, 'UTF-8'); ?>/<?php echo htmlspecialchars(getProfilePictureName($connection, userReview($connection, $user_id)['user_id']), ENT_QUOTES, 'UTF-8'); ?>"
                                     alt="Profilový obrázok"
                                 >
 
-                                <div>
-                                    <?php echo getUserInformations($connection, getReviewInformations($connection, $review_id, "user_id"), "first_name"); ?>
+                                <p class="user_name">
+                                    <?php echo htmlspecialchars(getUserInformations($connection, userReview($connection, $user_id)["user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
 
-                                    <?php echo getUserInformations($connection, getReviewInformations($connection, $review_id, "user_id"), "last_name"); ?>
+                                    <?php echo htmlspecialchars(getUserInformations($connection, userReview($connection, $user_id)["user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
 
                                     <span class="date">
-                                        - 
-                                        <?php echo date("j.n.Y", strtotime(getReviewInformations($connection, $review_id, "review_time"))); ?>
+                                        -
 
-                                        <?php if(getReviewInformations($connection, $review_id, "edited") === "yes"): ?>
-                                            (upravená)
-
-                                        <?php endif; ?>
+                                        <?php echo htmlspecialchars(date("j.n.Y", strtotime(userReview($connection, $user_id)["review_time"])), ENT_QUOTES, "UTF-8"); ?>
                                     </span>
-                                </div>
+                                </p>
                             </div>
 
-                            <div class="user_rating">
-                                <?php for($i = 1; $i <= 5; $i++): ?>
-                                    <?php if($i <= getReviewInformations($connection, $review_id, "rating")): ?>
-                                        <img src="/content/images/star.png" alt="Hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828884 -->
+                            <?php for($i = 1; $i <= 5; $i++): ?>
+                                <?php if($i <= userReview($connection, $user_id)["rating"]): ?>
+                                    <img src="/content/images/star.png" alt="Hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828884 -->
 
-                                    <?php else: ?>
-                                        <img src="/content/images/empty_star.png" alt="Prázdna hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
+                                <?php else: ?>
+                                    <img src="/content/images/empty_star.png" alt="Prázdna hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
 
-                                    <?php endif; ?>
+                                <?php endif; ?>
 
-                                <?php endfor; ?>
-                            </div>
+                            <?php endfor; ?>
                             
-                            <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true and findUserReview($connection, $_SESSION["logged_in_user_id"]) and findUserReview($connection, $_SESSION["logged_in_user_id"])["user_id"] === getReviewInformations($connection, $review_id, "user_id")): ?>
-                                <a class="edit_review" href="./edit_review.php" title="Upraviť recenziu">Upraviť recenziu</a>
+                            <br>
+
+                            <a class="edit_review" href="./edit_review.php" title="Upraviť recenziu">Upraviť recenziu</a>
+
+                            <p><?php echo htmlspecialchars(userReview($connection, $user_id)["review"], ENT_QUOTES, "UTF-8"); ?></p>
+                        </div>
+
+                    <?php else: ?>
+                        <form class="write_review" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                            <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true): ?>
+                                <div class="reviewer">
+                                    <img 
+                                        class="profile_picture" 
+                                        src="/content/uploads/<?php echo htmlspecialchars($_SESSION['logged_in_user_id'], ENT_QUOTES, 'UTF-8'); ?>/<?php echo htmlspecialchars(getProfilePictureName($connection, $_SESSION['logged_in_user_id']), ENT_QUOTES, 'UTF-8'); ?>"
+                                        alt="Profilový obrázok"
+                                    >
+
+                                    <p class="user_name">
+                                        <?php echo htmlspecialchars(getUserInformations($connection, $_SESSION["logged_in_user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
+
+                                        <?php echo htmlspecialchars(getUserInformations($connection, $_SESSION["logged_in_user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
+                                    </p>
+                                </div>
+
+                            <?php else: ?>
+                                <div class="reviewer">
+                                    <img class="profile_picture" src="/content/images/user.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
+
+                                    <p class="user_name">Anonymný zákazník</p>
+                                </div>
 
                             <?php endif; ?>
 
-                            <p><?php echo getReviewInformations($connection, $review_id, "review"); ?></p>
-                        </div>
+                            <div class="stars">
+                                <img src="/content/images/empty_star.png" data-rating="1" alt="Prázdna hviezda">
+                                <img src="/content/images/empty_star.png" data-rating="2" alt="Prázdna hviezda">
+                                <img src="/content/images/empty_star.png" data-rating="3" alt="Prázdna hviezda">
+                                <img src="/content/images/empty_star.png" data-rating="4" alt="Prázdna hviezda">
+                                <img src="/content/images/empty_star.png" data-rating="5" alt="Prázdna hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828884 https://www.flaticon.com/free-icon/star_1828970 -->
 
-                    <?php elseif(getReviewInformations($connection, $review_id, "user_id") === null): ?>
-                        <div class="review">
-                            <div class="reviewer">
-                                <img class="profile_picture" src="/content/images/user.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
-
-                                <div>
-                                    Anonymný zákazník 
-                                    <span class="date">- <?php echo date("j.n.Y", strtotime(getReviewInformations($connection, $review_id, "review_time"))) ; ?></span>
-                                </div>
+                                <input class="rating" type="hidden" name="rating" value="">
                             </div>
 
-                            <div class="user_rating">
+                            <p class="form_report_paragraph"></p>
+
+                            <textarea type="textarea" name="review" placeholder="Zanechajte nám vaše hodnotenie"><?php echo htmlspecialchars($review, ENT_QUOTES, "UTF-8"); ?></textarea>
+
+                            <button class="write_review_submit" type="submit" name="write_review_submit">Zverejniť recenziu</button>
+                        </form>
+
+                    <?php endif; ?>
+                </div>
+
+                <div class="all_reviews">
+                    <h3>Ostatné recenzie</h3>
+
+                    <?php foreach(allReviews($connection, $user_id) as $one_review): ?>
+                        <div class="review">
+                            <?php if($one_review["user_id"] !== null): ?>
+                                <div class="reviewer">
+                                    <img
+                                        class="profile_picture"
+                                        src="/content/uploads/<?php echo htmlspecialchars($one_review['user_id'], ENT_QUOTES, 'UTF-8'); ?>/<?php echo htmlspecialchars(getProfilePictureName($connection, $one_review['user_id']), ENT_QUOTES, 'UTF-8'); ?>"
+                                    >
+
+                                    <p class="user_name">
+                                        <?php echo htmlspecialchars(getUserInformations($connection, $one_review["user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
+
+                                        <?php echo htmlspecialchars(getUserInformations($connection, $one_review["user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
+
+                                        <span class="date">
+                                            -
+
+                                            <?php echo htmlspecialchars(date("j.n.Y", strtotime($one_review["review_time"])), ENT_QUOTES, "UTF-8"); ?>
+                                        </span>
+                                    </p>
+                                </div>
+
                                 <?php for($i = 1; $i <= 5; $i++): ?>
-                                    <?php if($i <= getReviewInformations($connection, $review_id, "rating")): ?>
+                                    <?php if($i <= $one_review["rating"]): ?>
                                         <img src="/content/images/star.png" alt="Hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828884 -->
 
                                     <?php else: ?>
                                         <img src="/content/images/empty_star.png" alt="Prázdna hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
 
                                     <?php endif; ?>
-
+                                    
                                 <?php endfor; ?>
-                            </div>
-                                
-                            <p><?php echo getReviewInformations($connection, $review_id, "review"); ?></p>
+
+                                <p><?php echo htmlspecialchars($one_review["review"], ENT_QUOTES, "UTF-8"); ?></p>
+
+                            <?php else: ?>
+                                <div class="reviewer">
+                                    <img class="profile_picture" src="/content/images/user.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
+
+                                    <p class="user_name">
+                                        Anonymný zákazník
+
+                                        <span class="date">
+                                            -
+                                            
+                                            <?php echo htmlspecialchars(date("j.n.Y", strtotime($one_review["review_time"])), ENT_QUOTES, "UTF-8"); ?>
+                                        </span>
+                                    </p>
+                                </div>
+
+                                <?php for($i = 1; $i <= 5; $i++): ?>
+                                    <?php if($i <= $one_review["rating"]): ?>
+                                        <img src="/content/images/star.png" alt="Hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828884 -->
+
+                                    <?php else: ?>
+                                        <img src="/content/images/empty_star.png" alt="Prázdna hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
+
+                                    <?php endif; ?>
+                                    
+                                <?php endfor; ?>
+
+                                <p><?php echo htmlspecialchars($one_review["review"], ENT_QUOTES, "UTF-8"); ?></p>
+
+                            <?php endif; ?>
                         </div>
 
-                    <?php endif; ?>
-
-                <?php endfor; ?>
+                    <?php endforeach; ?>
+                </div>
             </section>
         </section>
 

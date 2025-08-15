@@ -539,25 +539,25 @@
         }
     }
 
-    function getReviewInformations($connection, $review_id, $database_field) {
-        $sql = "SELECT $database_field
-        FROM reviews
-        WHERE review_id = ?";
+    // function getReviewInformations($connection, $review_id, $database_field) {
+    //     $sql = "SELECT $database_field
+    //     FROM reviews
+    //     WHERE review_id = ?";
 
-        $stmt = mysqli_prepare($connection, $sql);
+    //     $stmt = mysqli_prepare($connection, $sql);
 
-        if($stmt) {
-            mysqli_stmt_bind_param($stmt, "i", $review_id);
+    //     if($stmt) {
+    //         mysqli_stmt_bind_param($stmt, "i", $review_id);
 
-            if(mysqli_stmt_execute($stmt)) {
-                return mysqli_fetch_column(mysqli_stmt_get_result($stmt));
-            }
-        }
+    //         if(mysqli_stmt_execute($stmt)) {
+    //             return mysqli_fetch_column(mysqli_stmt_get_result($stmt));
+    //         }
+    //     }
 
-        else {
-            echo mysqli_error($connection);
-        }
-    }
+    //     else {
+    //         echo mysqli_error($connection);
+    //     }
+    // }
 
     function averageRating($connection) {
         $sql = "SELECT AVG(rating)
@@ -583,26 +583,26 @@
         return false;
     }
 
-    function findUserReview($connection, $user_id) {
-        $sql = "SELECT * FROM reviews
-                WHERE user_id = ?";
+    // function findUserReview($connection, $user_id) {
+    //     $sql = "SELECT * FROM reviews
+    //             WHERE user_id = ?";
 
-        $stmt = mysqli_prepare($connection, $sql);
+    //     $stmt = mysqli_prepare($connection, $sql);
 
-        if($stmt) {
-            mysqli_stmt_bind_param($stmt, "i", $user_id);
+    //     if($stmt) {
+    //         mysqli_stmt_bind_param($stmt, "i", $user_id);
 
-            if(mysqli_stmt_execute($stmt)) {
-                return mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
-            }
-        }
+    //         if(mysqli_stmt_execute($stmt)) {
+    //             return mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
+    //         }
+    //     }
 
-        else {
-            echo mysqli_error($connection);
-        }
+    //     else {
+    //         echo mysqli_error($connection);
+    //     }
 
-        return false;
-    }
+    //     return false;
+    // }
 
     function updateReview($connection, $user_id, $rating, $review) {
         $sql = "UPDATE reviews 
@@ -627,4 +627,51 @@
             echo mysqli_error($connection);
         }
     }
+
+    function countReviews($connection) {
+        $sql = "SELECT COUNT(*) 
+                AS reviews_amount
+                FROM reviews";
+
+        $stmt = mysqli_prepare($connection, $sql);
+
+        if($stmt) {
+            if(mysqli_stmt_execute($stmt)) {
+                $result = mysqli_stmt_get_result($stmt);
+
+                if($row = mysqli_fetch_assoc($result)) {
+                    return $row["reviews_amount"];
+                }
+            }
+        }
+
+        else {
+            echo mysqli_error($connection);
+        }
+
+        return false;
+    }
+
+    // function allReviews($connection, $user_id) {
+    //     $sql = "SELECT * FROM reviews
+    //             WHERE user_id IS NULL OR user_id != ?
+    //             ORDER BY review_time DESC
+    //             -- LIMIT 5";
+
+    //     $stmt = mysqli_prepare($connection, $sql);
+
+    //     if ($stmt) {
+    //         mysqli_stmt_bind_param($stmt, "i", $user_id);
+
+    //         if (mysqli_stmt_execute($stmt)) {
+    //             return mysqli_fetch_all(mysqli_stmt_get_result($stmt), MYSQLI_ASSOC);
+    //         }
+    //     } 
+        
+    //     else {
+    //         echo mysqli_error($connection);
+    //     }
+
+    //     return [];
+    // }
 ?>
