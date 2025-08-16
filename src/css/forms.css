@@ -157,7 +157,8 @@ main {
 .forgot_password p,
 .account p,
 .delete_account_container p,
-.no_logged_in p {
+.no_logged_in p,
+.no_review p {
   font-family: Poppins, Arial, sans-serif;
   color: rgb(255, 255, 255);
 }

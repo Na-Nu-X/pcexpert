@@ -628,29 +628,29 @@
         }
     }
 
-    function countReviews($connection) {
-        $sql = "SELECT COUNT(*) 
-                AS reviews_amount
-                FROM reviews";
+    // function countReviews($connection) {
+    //     $sql = "SELECT COUNT(*) 
+    //             AS reviews_amount
+    //             FROM reviews";
 
-        $stmt = mysqli_prepare($connection, $sql);
+    //     $stmt = mysqli_prepare($connection, $sql);
 
-        if($stmt) {
-            if(mysqli_stmt_execute($stmt)) {
-                $result = mysqli_stmt_get_result($stmt);
+    //     if($stmt) {
+    //         if(mysqli_stmt_execute($stmt)) {
+    //             $result = mysqli_stmt_get_result($stmt);
 
-                if($row = mysqli_fetch_assoc($result)) {
-                    return $row["reviews_amount"];
-                }
-            }
-        }
+    //             if($row = mysqli_fetch_assoc($result)) {
+    //                 return $row["reviews_amount"];
+    //             }
+    //         }
+    //     }
 
-        else {
-            echo mysqli_error($connection);
-        }
+    //     else {
+    //         echo mysqli_error($connection);
+    //     }
 
-        return false;
-    }
+    //     return false;
+    // }
 
     // function allReviews($connection, $user_id) {
     //     $sql = "SELECT * FROM reviews

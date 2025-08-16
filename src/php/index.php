@@ -322,9 +322,9 @@
         </div>
         
         <div class="header_text">
-            <div class="user_rating">
+            <div class="user_rating" title="Na základe <?php echo htmlspecialchars(countReviews($connection), ENT_QUOTES, 'UTF-8'); ?> recenzií.">
                 <?php if(averageRating($connection)): ?>
-                    <p><?php echo averageRating($connection); ?> / 5</p>
+                    <p><?php echo htmlspecialchars(averageRating($connection), ENT_QUOTES, "UTF-8"); ?> / 5</p>
 
                     <?php for($i = 1; $i <= 5; $i++): ?>
                         <?php if($i <= round(averageRating($connection))): ?>
@@ -719,6 +719,11 @@
                         </div>
 
                     <?php endforeach; ?>
+
+                    <?php if(countReviews($connection, $user_id) > 5): ?>
+                        <button class="load_more" title="Zobraziť viac">Zobraziť viac</button>
+
+                    <?php endif; ?>
                 </div>
             </section>
         </section>
@@ -885,6 +890,28 @@
                 form_report_paragraph.textContent = ""
                 form_report_paragraph.classList.remove("invalid")
             }
+        })
+
+        // Load More Reviews With Ajax
+
+        let offset = 5
+        let total = <?php echo countReviews($connection, $user_id); ?> 
+        let user_id = <?php echo json_encode($user_id); ?>
+
+        $(".load_more").on("click", function() {
+            $.ajax({
+                url: "./all_reviews.php",
+                method: "POST",
+                data: { offset: offset, user_id: user_id },
+                success: function(data) {
+                    $(".all_reviews").append(data)
+                    offset = offset + 5
+
+                    if(offset >= total) {
+                        $(".load_more").hide()
+                    }
+                }
+            })
         })
     </script>
 

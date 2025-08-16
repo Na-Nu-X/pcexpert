@@ -2,6 +2,7 @@
     // PHP Code
 
     require "../assets/functions.php";
+    require "../assets/reviews.php";
     
     session_start();
     
@@ -14,6 +15,8 @@
     if(isset($_COOKIE["theme"])) {
         $theme = $_COOKIE["theme"];
     }
+
+    $user_id = $_SESSION["logged_in_user_id"] ?? null;
 
     if($_SERVER["REQUEST_METHOD"] === "POST" and isset($_POST["edit_review_submit"])) {
         $rating = $_POST["rating"];
@@ -67,10 +70,8 @@
 
             <h2><a href="./edit_review.php">Recenzia</a></h2>
             
-            <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true): ?>
+            <?php if(userReview($connection, $user_id) !== null and userReview($connection, $user_id) !== false): ?>
                 <form class="edit_review_form" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
-                    <!-- Profile Picture -->
-
                     <div class="review_container">
                         <?php if(!empty(getProfilePictureName($connection, $_SESSION["logged_in_user_id"]))): ?>
                             <img 
@@ -84,15 +85,16 @@
 
                         <?php endif; ?>
 
-                        <!-- User Name and Review Time -->
-                        
                         <p>
                             <?php echo htmlspecialchars(getUserInformations($connection, $_SESSION["logged_in_user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
-                            <?php echo htmlspecialchars(getUserInformations($connection, $_SESSION["logged_in_user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
-                            -
-                            <?php echo htmlspecialchars(date("j.n.Y", strtotime(findUserReview($connection, $_SESSION["logged_in_user_id"])["review_time"])), ENT_QUOTES, "UTF-8"); ?>
 
-                            <?php if(findUserReview($connection, $_SESSION["logged_in_user_id"])["edited"] === "yes"): ?>
+                            <?php echo htmlspecialchars(getUserInformations($connection, $_SESSION["logged_in_user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
+
+                            -
+
+                            <?php echo htmlspecialchars(date("j.n.Y", strtotime(userReview($connection, $_SESSION["logged_in_user_id"])["review_time"])), ENT_QUOTES, "UTF-8"); ?>
+
+                            <?php if(userReview($connection, $_SESSION["logged_in_user_id"])["edited"]): ?>
                                 (upravená)
 
                             <?php endif; ?>
@@ -102,7 +104,7 @@
                         
                         <div class="stars">
                             <?php for($i = 1; $i <=5; $i++): ?>
-                                <?php if($i <= findUserReview($connection, $_SESSION["logged_in_user_id"])["rating"]): ?>
+                                <?php if($i <= userReview($connection, $_SESSION["logged_in_user_id"])["rating"]): ?>
                                     <img src="/content/images/star.png" alt="Hviezda" data-rating="<?php echo $i; ?>"> <!-- https://www.flaticon.com/free-icon/star_1828884 -->
 
                                 <?php else: ?>
@@ -112,22 +114,27 @@
 
                             <?php endfor; ?>
 
-                            <input class="rating" type="hidden" name="rating" value="<?php echo (int)findUserReview($connection, $_SESSION["logged_in_user_id"])["rating"]; ?>">
+                            <input class="rating" type="hidden" name="rating" value="<?php echo (int)userReview($connection, $_SESSION['logged_in_user_id'])['rating']; ?>">
                         </div>
                     </div>
 
                     <!-- Review -->
 
-                    <textarea type="textarea" name="review" placeholder="Zanechajte nám vaše hodnotenie" maxlength=200><?php echo findUserReview($connection, $_SESSION["logged_in_user_id"])["review"]; ?></textarea>
+                    <textarea type="textarea" name="review" placeholder="Zanechajte nám vaše hodnotenie" maxlength=200><?php echo userReview($connection, $_SESSION["logged_in_user_id"])["review"]; ?></textarea>
 
                     <p class="form_report_paragraph"></p>
 
                     <button class="edit_review_submit" type="submit" name="edit_review_submit">Upraviť recenziu</button>
                 </form>
 
-            <?php else: ?>
+            <?php elseif(!isset($_SESSION["is_logged_in"])): ?>
                 <div class="no_logged_in">
                     <p>Pre úpravu vašej recenzie sa musíte najprv <a href="./log_in.php" title="Prihlásiť sa">prihlásiť</a> alebo <a href="./registration.php" title="Vytvoriť účet">zaregistrovať.</a></p>
+                </div>
+
+            <?php else: ?>
+                <div class="no_review">
+                    <p>Zatiaľ ste nenapísali žiadnu recenziu.</p>
                 </div>
 
             <?php endif; ?>
