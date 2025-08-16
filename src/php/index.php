@@ -177,6 +177,12 @@
 
         <?php endif; ?>
 
+        <?php if(isset($_SESSION["delete_review_successful_message"]) and !empty($_SESSION["delete_review_successful_message"])): ?>
+            <p class="delete_review_successful_message"><?php echo $_SESSION["delete_review_successful_message"]; ?></p>
+            <?php $_SESSION["delete_review_successful_message"] = ""; ?>
+
+        <?php endif; ?>
+
         <?php if(isset($_SESSION["contact_successful_message"]) and !empty($_SESSION["contact_successful_message"])): ?>
             <p class="contact_successful_message"><?php echo $_SESSION["contact_successful_message"]; ?></p>
             <?php $_SESSION["contact_successful_message"] = ""; ?>
@@ -721,7 +727,7 @@
                     <?php endforeach; ?>
 
                     <?php if(countReviews($connection, $user_id) > 5): ?>
-                        <button class="load_more" title="Zobraziť viac">Zobraziť viac</button>
+                        <button class="show_more" title="Zobraziť viac">Zobraziť viac</button>
 
                     <?php endif; ?>
                 </div>
@@ -892,13 +898,13 @@
             }
         })
 
-        // Load More Reviews With Ajax
+        // Show More Reviews With Ajax
 
         let offset = 5
         let total = <?php echo countReviews($connection, $user_id); ?> 
         let user_id = <?php echo json_encode($user_id); ?>
 
-        $(".load_more").on("click", function() {
+        $(".show_more").on("click", function() {
             $.ajax({
                 url: "./all_reviews.php",
                 method: "POST",
@@ -908,7 +914,7 @@
                     offset = offset + 5
 
                     if(offset >= total) {
-                        $(".load_more").hide()
+                        $(".show_more").hide()
                     }
                 }
             })

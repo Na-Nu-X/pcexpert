@@ -171,7 +171,8 @@ main
 
 .have_account, 
 .forgot_password,
-.delete_account_container
+.delete_account_container,
+.delete_review_container
 {
     text-align: center;
     font-size: 14px;
@@ -181,6 +182,7 @@ main
 .forgot_password p,
 .account p,
 .delete_account_container p,
+.delete_review_container p,
 .no_logged_in p,
 .no_review p
 {
@@ -577,7 +579,7 @@ main
     transition: transform 0.3s ease;
 }
 
-.delete_profile_picture
+.delete_profile_picture, .delete_review
 {
     width: 40px;
     height: 40px;
@@ -595,13 +597,13 @@ main
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.profile_picture:hover, .delete_profile_picture:hover, .delete_account:hover
+.profile_picture:hover, .delete_profile_picture:hover, .delete_account:hover, .delete_review:hover
 {
     transform: scale(1.1);
     cursor: pointer;
 }
 
-#delete_profile_picture, #delete_account
+#delete_profile_picture, #delete_account, #delete_review
 {
     display: none;
 }

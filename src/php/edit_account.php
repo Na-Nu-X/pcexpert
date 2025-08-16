@@ -299,6 +299,7 @@
 
                     <div class="delete_account_container">
                         <p>Chcete nenávratne odstrániť váš účet?</p>
+                        
                         <label for="delete_account">
                             <img class="delete_account" title="Odstrániť účet" src="/content/images/delete_account.png" alt="Odstrániť účet"> <!-- https://www.flaticon.com/free-icon/delete_11502978 -->
                         </label>
@@ -336,7 +337,7 @@
             if(delete_account_input.checked) {
                 delete_account_image.style.opacity = 1
 
-                form_report_paragraph.textContent = "Váš účet bude odstránený"
+                form_report_paragraph.textContent = "Váš účet bude odstránený."
                 form_report_paragraph.classList.add("invalid")
             }
 

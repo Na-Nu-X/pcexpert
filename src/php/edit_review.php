@@ -18,16 +18,29 @@
 
     $user_id = $_SESSION["logged_in_user_id"] ?? null;
 
-    if($_SERVER["REQUEST_METHOD"] === "POST" and isset($_POST["edit_review_submit"])) {
+    if($_SERVER["REQUEST_METHOD"] === "POST") {
         $rating = $_POST["rating"];
         $review = $_POST["review"];
 
-        if(updateReview($connection, $_SESSION["logged_in_user_id"], $rating, $review)) {
-            redirectURL("/src/php/index.php");
+        $delete_review = isset($_POST["delete_review"]) ? "yes" : "no";
+
+        if($delete_review === "yes") {
+            if(deleteReview($connection, $_SESSION["logged_in_user_id"])) {
+                $_SESSION["delete_review_successful_message"] = "Recenzia bola odstránená";
+
+                redirectURL("/src/php/index.php");
+                exit;
+            }
         }
 
-        else {
-            // Error Code
+        else if($delete_review === "no") {
+            if(updateReview($connection, $_SESSION["logged_in_user_id"], $rating, $review)) {
+                redirectURL("/src/php/index.php");
+            }
+
+            else {
+                // Error Code
+            }
         }
     }
 ?>
@@ -94,7 +107,7 @@
 
                             <?php echo htmlspecialchars(date("j.n.Y", strtotime(userReview($connection, $_SESSION["logged_in_user_id"])["review_time"])), ENT_QUOTES, "UTF-8"); ?>
 
-                            <?php if(userReview($connection, $_SESSION["logged_in_user_id"])["edited"]): ?>
+                            <?php if(userReview($connection, $_SESSION["logged_in_user_id"])["edited"] === "yes"): ?>
                                 (upravená)
 
                             <?php endif; ?>
@@ -125,6 +138,16 @@
                     <p class="form_report_paragraph"></p>
 
                     <button class="edit_review_submit" type="submit" name="edit_review_submit">Upraviť recenziu</button>
+                    
+                    <div class="delete_review_container">
+                        <p>Chcete odstrániť vašu recenziu?</p>
+
+                        <label for="delete_review">
+                            <img class="delete_review" title="Odstrániť recenziu" src="/content/images/trash.png" alt="Odstrániť recenziu"> <!-- https://www.flaticon.com/free-icon/trash_8848798 -->
+                        </label>
+                        
+                        <input type="checkbox" name="delete_review" id="delete_review" value="yes">
+                    </div>
                 </form>
 
             <?php elseif(!isset($_SESSION["is_logged_in"])): ?>
@@ -214,6 +237,26 @@
             else {
                 form_report_paragraph.textContent = ""
                 form_report_paragraph.classList.remove("invalid")
+            }
+        })
+
+        // Delete Review Warning
+
+        const delete_review_input = document.querySelector("#delete_review")
+        const delete_review_image = document.querySelector(".delete_review")
+
+        delete_review_input.addEventListener("click", function(event) {
+            if(delete_review_input.checked) {
+                delete_review_image.style.opacity = 1
+
+                form_report_paragraph.textContent = "Vaša recenzia bude odstránená."
+                form_report_paragraph.classList.add("invalid")
+            }
+
+            else {
+                delete_review_image.style.opacity = 0.8
+
+                form_report_paragraph.textContent = ""
             }
         })
     </script>

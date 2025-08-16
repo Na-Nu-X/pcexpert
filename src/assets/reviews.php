@@ -77,4 +77,28 @@
         $row = mysqli_fetch_assoc($result);
         return $row["reviews_amount"];
     }
+
+    function deleteReview($connection, $user_id) {
+        $sql = "DELETE
+                FROM reviews
+                WHERE user_id = ?";
+
+        $stmt = mysqli_prepare($connection, $sql);
+
+        if($stmt) {
+            mysqli_stmt_bind_param($stmt, "i", $user_id);
+
+            if(mysqli_stmt_execute($stmt)) {
+                return true;
+            }
+
+            else {
+                return false;
+            }
+        }
+
+        else {
+            echo mysqli_error($connection);
+        }
+    }
 ?>
