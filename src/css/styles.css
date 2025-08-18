@@ -625,6 +625,35 @@ input[name=r] {
   cursor: pointer;
 }
 
+.user_review h3, .all_reviews h3 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.review {
+  margin: 0px auto;
+  width: 70%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 5px;
+  background-color: rgb(245, 245, 245);
+  transition: background-color 0.3s ease;
+}
+
+.all_reviews .review:last-of-type {
+  margin-bottom: 0px;
+}
+
+.review:hover {
+  background-color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+
+.review p {
+  margin-bottom: 0px;
+}
+
 .reviewer {
   position: relative;
 }
@@ -649,13 +678,20 @@ input[name=r] {
   cursor: pointer;
 }
 
-.show_more {
+.show_more, .show_less {
+  display: block;
+  margin-top: 5px;
+  width: 100%;
   font-size: 14px;
   font-style: italic;
   color: rgb(150, 150, 150);
   border: none;
   background: none;
   cursor: pointer;
+}
+
+.show_less {
+  display: none;
 }
 
 .edit_review:link,

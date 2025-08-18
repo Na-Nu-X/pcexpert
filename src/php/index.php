@@ -728,6 +728,7 @@
 
                     <?php if(countReviews($connection, $user_id) > 5): ?>
                         <button class="show_more" title="Zobraziť viac">Zobraziť viac</button>
+                        <button class="show_less" title="Zobraziť menej">Zobraziť menej</button>
 
                     <?php endif; ?>
                 </div>
@@ -805,6 +806,43 @@
         "use strict"
         
         console.log("%c PC Expert by Patrik Behul", "color: rgb(170, 255, 50); background-color: rgb(0, 0, 0)")
+
+        // Show More Reviews With Ajax
+
+        let offset = 5
+        let total = <?php echo countReviews($connection, $user_id); ?> 
+        let user_id = <?php echo json_encode($user_id); ?>
+
+        $(".show_more").on("click", function() {
+            $.ajax({
+                url: "./all_reviews.php",
+                method: "POST",
+                data: { offset: offset, user_id: user_id },
+                success: function(data) {
+                    $(".all_reviews").append(data)
+                    offset = offset + 5
+
+                    if(offset >= total) {
+                        $(".show_more").hide()
+                    }
+                }
+            })
+        })
+
+        // Toggle Show More / Show Less
+
+        const show_more = document.querySelector(".show_more")
+        const show_less = document.querySelector(".show_less")
+
+        show_more.addEventListener("click", function(event) {
+            show_more.style.display = "none"
+            show_less.style.display = "block"
+        })
+
+        show_less.addEventListener("click", function(event) {
+            show_less.style.display = "none"
+            show_more.style.display = "block"
+        })
 
         // Our Services Buttons
 
@@ -896,28 +934,6 @@
                 form_report_paragraph.textContent = ""
                 form_report_paragraph.classList.remove("invalid")
             }
-        })
-
-        // Show More Reviews With Ajax
-
-        let offset = 5
-        let total = <?php echo countReviews($connection, $user_id); ?> 
-        let user_id = <?php echo json_encode($user_id); ?>
-
-        $(".show_more").on("click", function() {
-            $.ajax({
-                url: "./all_reviews.php",
-                method: "POST",
-                data: { offset: offset, user_id: user_id },
-                success: function(data) {
-                    $(".all_reviews").append(data)
-                    offset = offset + 5
-
-                    if(offset >= total) {
-                        $(".show_more").hide()
-                    }
-                }
-            })
         })
     </script>
 
