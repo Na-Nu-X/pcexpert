@@ -655,9 +655,9 @@
                     <?php endif; ?>
                 </div>
 
-                <div class="all_reviews">
-                    <h3>Ostatné recenzie</h3>
+                <h3 class="all_reviews_title">Ostatné recenzie</h3>
 
+                <div class="all_reviews">
                     <?php foreach(allReviews($connection, $user_id) as $one_review): ?>
                         <div class="review">
                             <?php if($one_review["user_id"] !== null): ?>
@@ -725,13 +725,13 @@
                         </div>
 
                     <?php endforeach; ?>
-
-                    <?php if(countReviews($connection, $user_id) > 5): ?>
-                        <button class="show_more" title="Zobraziť viac">Zobraziť viac</button>
-                        <button class="show_less" title="Zobraziť menej">Zobraziť menej</button>
-
-                    <?php endif; ?>
                 </div>
+
+                <?php if(countReviews($connection, $user_id) > 5): ?>
+                    <button class="show_more" title="Zobraziť viac">Zobraziť viac</button>
+                    <button class="show_less" title="Zobraziť menej">Zobraziť menej</button>
+
+                <?php endif; ?>
             </section>
         </section>
 
@@ -807,41 +807,52 @@
         
         console.log("%c PC Expert by Patrik Behul", "color: rgb(170, 255, 50); background-color: rgb(0, 0, 0)")
 
-        // Show More Reviews With Ajax
+        // Show More / Show Less Reviews
 
-        let offset = 5
-        let total = <?php echo countReviews($connection, $user_id); ?> 
-        let user_id = <?php echo json_encode($user_id); ?>
+        document.addEventListener("DOMContentLoaded", function(event) {
+            let offset = 0
+            const limit = 5
+            const user_id = <?php echo json_encode($user_id); ?>
 
-        $(".show_more").on("click", function() {
-            $.ajax({
-                url: "./all_reviews.php",
-                method: "POST",
-                data: { offset: offset, user_id: user_id },
-                success: function(data) {
-                    $(".all_reviews").append(data)
-                    offset = offset + 5
+            const all_reviews = document.querySelector(".all_reviews")
+            const show_more = document.querySelector(".show_more")
+            const show_less = document.querySelector(".show_less")
 
-                    if(offset >= total) {
-                        $(".show_more").hide()
-                    }
-                }
+            show_more.addEventListener("click", function(event) {
+                offset += limit
+
+                fetch("all_reviews.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: `offset=${offset}&user_id=${encodeURIComponent(user_id)}`
+                })
+                .then(response => response.text())
+                .then(data => {
+                    all_reviews.insertAdjacentHTML("beforeend", data)
+                    show_more.style.display = "none"
+                    show_less.style.display = "block"
+                })
             })
-        })
 
-        // Toggle Show More / Show Less
+            show_less.addEventListener("click", function(event) {
+                offset = 0
 
-        const show_more = document.querySelector(".show_more")
-        const show_less = document.querySelector(".show_less")
-
-        show_more.addEventListener("click", function(event) {
-            show_more.style.display = "none"
-            show_less.style.display = "block"
-        })
-
-        show_less.addEventListener("click", function(event) {
-            show_less.style.display = "none"
-            show_more.style.display = "block"
+                fetch("all_reviews.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: `offset=${offset}&user_id=${encodeURIComponent(user_id)}`
+                })
+                .then(response => response.text())
+                .then(data => {
+                    all_reviews.innerHTML = data
+                    show_less.style.display = "none"
+                    show_more.style.display = "block"
+                })
+            })
         })
 
         // Our Services Buttons
