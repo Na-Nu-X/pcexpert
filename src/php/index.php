@@ -587,6 +587,11 @@
                                         -
 
                                         <?php echo htmlspecialchars(date("j.n.Y", strtotime(userReview($connection, $user_id)["review_time"])), ENT_QUOTES, "UTF-8"); ?>
+
+                                        <?php if(userReview($connection, $_SESSION["logged_in_user_id"])["edited"] === "yes"): ?>
+                                            (upravená)
+
+                                        <?php endif; ?>
                                     </span>
                                 </p>
                             </div>
@@ -676,6 +681,11 @@
                                             -
 
                                             <?php echo htmlspecialchars(date("j.n.Y", strtotime($one_review["review_time"])), ENT_QUOTES, "UTF-8"); ?>
+
+                                            <?php if($one_review["edited"] === "yes"): ?>
+                                                (upravená)
+
+                                            <?php endif; ?>
                                         </span>
                                     </p>
                                 </div>

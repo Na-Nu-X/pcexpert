@@ -1137,6 +1137,11 @@ footer.dark .copywrite
 
 @media only screen and (max-width: 600px)
 {
+    .review
+    {
+        width: 100%;
+    }
+
     .contact_form input, .contact_form select, .contact_form textarea, .contact_form.light input, .contact_form.light select, .contact_form.light textarea
     {
         width: 100%;
