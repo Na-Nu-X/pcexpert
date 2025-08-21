@@ -91,6 +91,45 @@
                 <strong>IP adresa:</strong> {$_SERVER['REMOTE_ADDR']}
             ";
 
+            if(isset($_FILES["attachment"])) {
+                $attachment_name = $_FILES["attachment"]["name"];
+                $attachment_full_path = $_FILES["attachment"]["full_path"];
+                $attachment_type = $_FILES["attachment"]["type"];
+                $attachment_tmp_name = $_FILES["attachment"]["tmp_name"];
+                $attachment_size = $_FILES["attachment"]["size"];
+                $attachment_error = $_FILES["attachment"]["error"];
+
+                if($attachment_error === 0) {
+                    if($attachment_size > 25000000) { // 25MB
+                        $error_message = "Vybraný súbor je príliš veľký.";
+                    }
+
+                    else {
+                        $supported_extensions = ["png", "jpg", "jpeg", "mp4", "hevc", "mkv", "docx", "txt"];
+                        $attachment_extension = strtolower(pathinfo($attachment_name, PATHINFO_EXTENSION));
+
+                        if(in_array($attachment_extension, $supported_extensions)) {
+                            $new_attachment_name = uniqid("IMG-", true) . "." . $attachment_extension;
+
+                            mkdir("../../content/uploads/attachments", 0777, true);
+
+                            $attachment_upload_path = "../../content/uploads/attachments/" . $new_attachment_name;
+                            move_uploaded_file($attachment_tmp_name, $attachment_upload_path);
+
+                            $mail->addAttachment($attachment_upload_path);
+                        }
+
+                        else {
+                            $message = "Prípona súboru nie je podporovaná.";
+                        }
+                    }
+                }
+
+                else {
+                    $message = "Pri nahrávaní obrázku došlo k chybe.";
+                }
+            }
+
             $mail->send();
 
             $_SESSION["contact_successful_message"] = "Správa bola odoslaná";
@@ -755,7 +794,7 @@
                 <?php endif; ?>
             </p>
 
-            <form class="contact_form <?php echo $theme; ?>" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
+            <form class="contact_form <?php echo $theme; ?>" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data">
                 <input 
                     type="text"
                     name="first_name"
@@ -798,6 +837,14 @@
                         <option>Nahlásenie chyby</option>
                     </optgroup>
                 </select>
+                
+                <div class="attachment_container">
+                    <p class="attachment_report">Nie je vybraný žiaden súbor.</p>
+
+                    <label class="attachment" for="attachment"><i class="fa-solid fa-paperclip" title="priložiť prílohu..."></i></label>
+
+                    <input id="attachment" type="file" name="attachment" multiple>
+                </div>
 
                 <textarea type="textarea" name="message" placeholder="Zadajte vašu správu" required><?php echo htmlspecialchars($message, ENT_QUOTES, "UTF-8"); ?></textarea>
 
@@ -816,6 +863,23 @@
         "use strict"
         
         console.log("%c PC Expert by Patrik Behul", "color: rgb(170, 255, 50); background-color: rgb(0, 0, 0)")
+
+        // Selected Attachment
+
+        const attachment = document.querySelector("#attachment")
+        const attachment_report = document.querySelector(".attachment_report")
+
+        attachment.addEventListener("change", function(event) {
+            if(attachment.files.length > 0) {
+                const all_attachments = Array.from(attachment.files).map(file => file.name)
+
+                attachment_report.textContent = `súbory (${all_attachments.length}): ${all_attachments.join(", ")}`
+            }
+
+            else {
+                attachment_report.textContent = "Nie je vybraný žiaden súbor."
+            }
+        })
 
         // Show More / Show Less Reviews
 

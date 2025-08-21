@@ -630,7 +630,7 @@ input[name=r] {
   margin-bottom: 10px;
 }
 
-.review {
+.reviews .review, .reviews.light .review {
   margin: 0px auto;
   width: 70%;
   margin-bottom: 10px;
@@ -639,6 +639,12 @@ input[name=r] {
   border-radius: 5px;
   background-color: rgb(245, 245, 245);
   transition: background-color 0.3s ease;
+  transition: width 0.3s ease;
+}
+
+.reviews.dark .review {
+  background-color: rgb(40, 40, 40);
+  border: 2px solid rgb(255, 255, 255);
 }
 
 .all_reviews .review:last-of-type {
@@ -720,6 +726,10 @@ input[name=r] {
   color: rgb(250, 50, 50);
 }
 
+.contact_form {
+  position: relative;
+}
+
 .contact_form input, .contact_form button[type=submit], .contact_form select, .contact_form textarea,
 .contact_form.light input, .contact_form.light button[type=submit], .contact_form.light select, .contact_form.light textarea {
   display: block;
@@ -758,8 +768,59 @@ input[name=r] {
 
 .contact_form textarea, .contact_form.light textarea {
   margin-bottom: 20px;
+  padding: 5px 10px;
   height: 100px;
   resize: none;
+}
+
+.attachment_container {
+  position: absolute;
+  bottom: 70px;
+  right: 15%;
+  background-color: red;
+  width: 70%;
+  height: 20px;
+  transition: right 0.3s ease, width 0.3s ease;
+}
+
+.attachment_report {
+  position: absolute;
+  bottom: 0px;
+  background-color: rgb(230, 230, 230);
+  width: 100%;
+  margin: 0px auto;
+  border-bottom: 1px solid rgb(0, 0, 0);
+  border-left: 1px solid rgb(0, 0, 0);
+  border-right: 1px solid rgb(0, 0, 0);
+  border-radius: 0px 0px 5px 5px;
+  text-align: center;
+  font-size: 12px;
+}
+
+.contact_form input[type=file] {
+  display: none;
+}
+
+.attachment {
+  position: absolute;
+  top: -73px;
+  right: 11px;
+  transition: right 0.3s ease;
+}
+
+.attachment i {
+  color: rgb(180, 180, 180);
+}
+
+.attachment i:hover {
+  color: rgb(200, 200, 200);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.contact_form:has(textarea:focus) .attachment_container {
+  right: 10%;
+  width: 80%;
 }
 
 .contact_form input::-moz-placeholder, .contact_form textarea::-moz-placeholder {
@@ -929,8 +990,8 @@ footer.dark .copywrite {
   }
 }
 @media only screen and (max-width: 600px) {
-  .review {
-    width: 100%;
+  .reviews .review {
+    width: 100% !important;
   }
   .contact_form input, .contact_form select, .contact_form textarea, .contact_form.light input, .contact_form.light select, .contact_form.light textarea {
     width: 100%;
@@ -940,6 +1001,14 @@ footer.dark .copywrite {
   }
   .contact_form select:hover, .contact_form button[type=submit]:hover, .contact_form.light button[type=submit], .contact_form.light button[type=submit]:hover, .contact_form.dark button[type=submit], .contact_form.dark button[type=submit]:hover {
     width: 100%;
+  }
+  .attachment_container {
+    width: 100%;
+    right: 0%;
+  }
+  .contact_form:has(textarea:focus) .attachment_container {
+    width: 100%;
+    right: 0%;
   }
 }
 @media only screen and (max-width: 550px) {
