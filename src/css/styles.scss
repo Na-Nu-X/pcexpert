@@ -911,13 +911,12 @@ input[name="r"]
     position: absolute;
     bottom: 70px;
     right: 15%;
-    background-color: red;
     width: 70%;
     height: 20px;
     transition: right 0.3s ease, width 0.3s ease;
 }
 
-.attachment_report
+.attachment_report, .attachment_report.light
 {
     position: absolute;
     bottom: 0px;
@@ -930,6 +929,14 @@ input[name="r"]
     border-radius: 0px 0px 5px 5px;
     text-align: center;
     font-size: 12px;
+}
+
+.attachment_report.dark
+{
+    background-color: rgb(15, 15, 15);
+    border-bottom: 2px solid rgb(255, 255, 255);
+    border-left: 2px solid rgb(255, 255, 255);
+    border-right: 2px solid rgb(255, 255, 255);
 }
 
 .contact_form input[type="file"]

@@ -49,6 +49,8 @@
 
     $review = "";
 
+    $attachment_message = "Nie je vybraný žiaden súbor.";
+
     if($_SERVER["REQUEST_METHOD"] === "POST" and isset($_POST["contact_form_submit"])) {
         // Contact Form
         
@@ -92,49 +94,54 @@
             ";
 
             if(isset($_FILES["attachment"])) {
-                $attachment_name = $_FILES["attachment"]["name"];
-                $attachment_full_path = $_FILES["attachment"]["full_path"];
-                $attachment_type = $_FILES["attachment"]["type"];
-                $attachment_tmp_name = $_FILES["attachment"]["tmp_name"];
-                $attachment_size = $_FILES["attachment"]["size"];
-                $attachment_error = $_FILES["attachment"]["error"];
+                for($i = 0; $i <= 4; $i++) { // Maximum of 5 Files.
+                    $attachment_name = $_FILES["attachment"]["name"][$i];
+                    $attachment_full_path = $_FILES["attachment"]["full_path"][$i];
+                    $attachment_type = $_FILES["attachment"]["type"][$i];
+                    $attachment_tmp_name = $_FILES["attachment"]["tmp_name"][$i];
+                    $attachment_size = $_FILES["attachment"]["size"][$i];
+                    $attachment_error = $_FILES["attachment"]["error"][$i];
 
-                if($attachment_error === 0) {
-                    if($attachment_size > 25000000) { // 25MB
-                        $error_message = "Vybraný súbor je príliš veľký.";
+                    if(empty($_FILES["attachment"]["name"][$i])) {
+                        continue;
                     }
 
-                    else {
-                        $supported_extensions = ["png", "jpg", "jpeg", "mp4", "hevc", "mkv", "docx", "txt"];
+                    if($attachment_error === 0) {
+                        $supported_extensions = ["jpg", "jpeg", "png", "gif", "webp", "bmp", "tiff", "tif", "mp4", "mov", "avi", "mkv", "webm", "hevc", "pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "txt", "rtf", "odt", "ods", "odp"];
                         $attachment_extension = strtolower(pathinfo($attachment_name, PATHINFO_EXTENSION));
 
                         if(in_array($attachment_extension, $supported_extensions)) {
-                            $new_attachment_name = uniqid("IMG-", true) . "." . $attachment_extension;
+                            $new_attachment_name = uniqid("FILE-", true) . "." . $attachment_extension;
 
-                            mkdir("../../content/uploads/attachments", 0777, true);
+                            if(!is_dir("../../content/uploads/attachments")) {
+                                mkdir("../../content/uploads/attachments", 0777, true);
+                            }
 
                             $attachment_upload_path = "../../content/uploads/attachments/" . $new_attachment_name;
                             move_uploaded_file($attachment_tmp_name, $attachment_upload_path);
 
-                            $mail->addAttachment($attachment_upload_path);
+                            $mail->addAttachment($attachment_upload_path, $attachment_name);
                         }
 
                         else {
-                            $message = "Prípona súboru nie je podporovaná.";
+                            $attachment_message = "Prípona súboru nie je podporovaná.";
+                            break;
                         }
                     }
-                }
 
-                else {
-                    $message = "Pri nahrávaní obrázku došlo k chybe.";
+                    else {
+                        $attachment_message = "Pri nahrávaní súborov došlo k chybe.";
+                    }
                 }
             }
 
-            $mail->send();
+            if($attachment_message === "Nie je vybraný žiaden súbor.") {
+                $mail->send();
 
-            $_SESSION["contact_successful_message"] = "Správa bola odoslaná";
+                $_SESSION["contact_successful_message"] = "Správa bola odoslaná";
 
-            redirectURL("/src/php/index.php");
+                redirectURL("/src/php/index.php");
+            }
         }
         
         catch(Exception $e) {
@@ -839,11 +846,11 @@
                 </select>
                 
                 <div class="attachment_container">
-                    <p class="attachment_report">Nie je vybraný žiaden súbor.</p>
+                    <p class="attachment_report <?php echo $theme; ?>"><?php echo htmlspecialchars($attachment_message, ENT_QUOTES, "UTF-8"); ?></p>
 
                     <label class="attachment" for="attachment"><i class="fa-solid fa-paperclip" title="priložiť prílohu..."></i></label>
 
-                    <input id="attachment" type="file" name="attachment" multiple>
+                    <input id="attachment" type="file" name="attachment[]" accept=".jpg, .jpeg, .png, .gif, .webp, .bmp, .tiff, .tif, .mp4, .mov, .avi, .mkv, .webm, .hevc, .pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .txt, .rtf, .odt, .ods, .odp" multiple>
                 </div>
 
                 <textarea type="textarea" name="message" placeholder="Zadajte vašu správu" required><?php echo htmlspecialchars($message, ENT_QUOTES, "UTF-8"); ?></textarea>
@@ -870,10 +877,25 @@
         const attachment_report = document.querySelector(".attachment_report")
 
         attachment.addEventListener("change", function(event) {
-            if(attachment.files.length > 0) {
-                const all_attachments = Array.from(attachment.files).map(file => file.name)
+            const all_attachments_sizes = Array.from(attachment.files).map(file => file.size)
+            let final_size = 0
 
-                attachment_report.textContent = `súbory (${all_attachments.length}): ${all_attachments.join(", ")}`
+            for(let i = 0; i < all_attachments_sizes.length; i++) {
+                final_size = final_size + all_attachments_sizes[i]
+            }
+
+            if(attachment.files.length > 0 && attachment.files.length <= 5 && final_size <= 25000000) {
+                const all_attachments_names = Array.from(attachment.files).map(file => file.name)
+
+                attachment_report.textContent = `súbory (${all_attachments_names.length}): ${all_attachments_names.join(", ")}`
+            }
+
+            else if(attachment.files.length > 5) {
+                attachment_report.textContent = "Vybrali ste príliš mnoho súborov."
+            }
+
+            else if(final_size > 25000000) {
+                attachment_report.textContent = "Vybrané súbory sú príliš veľké."
             }
 
             else {
