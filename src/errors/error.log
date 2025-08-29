@@ -1,0 +1,12 @@
+[2025-08-29 22:28:27] - Error While Sending An Email. (SMTP Error: Could not authenticate.)
+<strong>DETAILS:</strong>
+<strong>IP Address: </strong>127.0.0.1
+<strong>User ID: </strong>140
+<strong>User Agent: </strong>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
+<strong>Request URI: </strong>/src/php/
+<strong>Request Method: </strong>POST
+<strong>Referer: </strong>http://pcexpert.local/src/php/
+<strong>Post Data: </strong><strong>Meno: </strong>Patrik, <strong>Priezvisko: </strong>Behul, <strong>E-mail: </strong>behulpatrik@gmail.com, <strong>Predmet: </strong>, <strong>Správa: </strong>Test.
+<strong>Server IP: </strong>127.0.0.1
+<strong>Last Error: </strong>Array
+

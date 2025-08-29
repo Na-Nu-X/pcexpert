@@ -75,6 +75,15 @@
                 <?php endforeach; ?>
             </div>
 
+            <br>
+
+            <div class="error_log">
+                <?php if(file_exists("../../errors/error.log")): ?>
+                    <?php echo nl2br((file_get_contents("../../errors/error.log"))); ?>
+
+                <?php endif; ?>
+            </div>
+
         <?php else: ?>
             <p>K obsahu tejto stránky nemáte povolený prístup.</p>
             <a href="./index.php" title="Domov" target="_self">Späť na úvodnú stránku.</a>

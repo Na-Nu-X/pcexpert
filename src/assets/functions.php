@@ -674,4 +674,45 @@
 
     //     return [];
     // }
+
+    function error_log_print($message, $file_directory) {
+        $current_time = date("Y-m-d H:i:s");
+
+        $ip_address = $_SERVER["REMOTE_ADDR"] ?? "unknown";
+        $user_agent = $_SERVER["HTTP_USER_AGENT"] ?? "unknown";
+        $request_uri = $_SERVER["REQUEST_URI"] ?? "unknown";
+        $request_method = $_SERVER["REQUEST_METHOD"] ?? "unknown";
+        $referer = $_SERVER["HTTP_REFERER"] ?? "unknown";
+        $user_id = $_SESSION["logged_in_user_id"] ?? "unknown";
+        $server_ip = $_SERVER["SERVER_ADDR"] ?? "unknown";
+        $last_error = error_get_last() ?? "unknown";
+        $post_data = "Žiadne dáta z formuláru.";
+        
+        // Contact Form Post Data
+
+        if($_SERVER["REQUEST_METHOD"] === "POST" and isset($_POST["contact_form_submit"])) {
+            $post_data = 
+                        "<strong>Meno: </strong>" . $_POST["first_name"] . ", " . 
+                        "<strong>Priezvisko: </strong>" . $_POST["last_name"] . ", " . 
+                        "<strong>E-mail: </strong>" . $_POST["email_address"] . ", " . 
+                        "<strong>Predmet: </strong>" . $_POST["subject"] . ", " . 
+                        "<strong>Správa: </strong>" . $_POST["message"];
+        }
+
+        $generated_message = 
+                            "[" . $current_time . "] - " .
+                            $message . "\n" .
+                            "<strong>DETAILS:</strong>\n" .
+                            "<strong>IP Address: </strong>" . $ip_address . "\n" .
+                            "<strong>User ID: </strong>" . $user_id . "\n" .
+                            "<strong>User Agent: </strong>" . $user_agent . "\n" .
+                            "<strong>Request URI: </strong>" . $request_uri . "\n" .
+                            "<strong>Request Method: </strong>" . $request_method ."\n" .
+                            "<strong>Referer: </strong>" . $referer . "\n" .
+                            "<strong>Post Data: </strong>" . $post_data . "\n" .
+                            "<strong>Server IP: </strong>" . $server_ip . "\n" .
+                            "<strong>Last Error: </strong>" . $last_error . "\n\n";
+
+        error_log($generated_message, 3, $file_directory);
+    }
 ?>

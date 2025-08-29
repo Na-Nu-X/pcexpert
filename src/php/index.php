@@ -73,7 +73,7 @@
             $mail->Encoding = "base64";
 
             $mail->Username = "behulpatrik@gmail.com";
-            $mail->Password = "ogqxkmwxfpfwjeel";
+            $mail->Password = "ogqxkmwxfpfwjeell";
             $mail->SMTPSecure = "ssl";
             $mail->Port = 465;
 
@@ -90,7 +90,7 @@
                 <strong>$first_name $last_name</strong><br>
                 $email_address<br><br>
                 $message<br><br>
-                <strong>IP adresa:</strong> {$_SERVER['REMOTE_ADDR']}
+                <strong>IP Address:</strong> {$_SERVER['REMOTE_ADDR']}
             ";
 
             if(isset($_FILES["attachment"])) {
@@ -142,11 +142,16 @@
 
                 redirectURL("/src/php/index.php");
             }
+
+            throw new Exception();
         }
         
         catch(Exception $e) {
             // echo "Správu sa nepodarilo odoslať: {$mail->ErrorInfo}";
+
             $_SESSION["contact_error_message"] = "Správu sa nepodarilo odoslať";
+
+            error_log_print("Error While Sending An Email. (" . $e->getMessage() . ")", "../errors/error.log");
         }
     }
 
