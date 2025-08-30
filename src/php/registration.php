@@ -43,7 +43,7 @@
                 $_SESSION["logged_in_user_id"] = $id;
                 $_SESSION["log_in_successful_message"] = "Prihlásený ako " . htmlspecialchars(getUserName($connection, $id), ENT_QUOTES, "UTF-8");
         
-                redirectURL("/src/php/index.php");
+                redirectURL("/src/php/index");
             }
         
             else {
@@ -61,7 +61,7 @@
     
     <title>PC Expert - Registrácia</title>
 
-    <link rel="stylesheet" href="../css/forms.css">
+    <link rel="stylesheet" href="/src/css/forms.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins"> <!-- Poppins Font Style -->
 
     <script src="https://kit.fontawesome.com/069c0938a1.js" crossorigin="anonymous"></script> <!-- Icons -->
@@ -72,11 +72,11 @@
         <nav class="navigation_bar">
             <ul>
                 <li class="navigation_bar_item home">
-                    <a href="./index.php">DOMOV</a>
+                    <a href="./index">DOMOV</a>
                 </li>
 
                 <li class="navigation_bar_item">
-                    <a href="./log_in.php">PRIHLÁSENIE</a>
+                    <a href="./log_in">PRIHLÁSENIE</a>
                 </li>
 
                 <div class="navigation_icon">
@@ -89,11 +89,11 @@
 
     <main>
         <section class="registration">
-            <a href="./index.php">
+            <a href="./index">
                 <img class="back_icon" title="Späť na domovskú stránku" src="/content/images/back.png" alt="Späť na domovskú stránku"> <!-- https://www.flaticon.com/free-icon/back_2099190 -->
             </a>
 
-            <h2><a href="./registration.php">Registrácia</a></h2>
+            <h2><a href="./registration">Registrácia</a></h2>
 
             <form class="registration_form" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
                 <input 
@@ -187,7 +187,7 @@
                 <button class="registration_form_submit" type="submit">Zaregistrovať sa</button>
 
                 <div class="have_account">
-                    <p>Už máte účet? <a href="./log_in.php">Prihlásiť</a></p>
+                    <p>Už máte účet? <a href="./log_in">Prihlásiť</a></p>
                 </div>
 
                 <div class="agree">

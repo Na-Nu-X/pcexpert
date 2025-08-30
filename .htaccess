@@ -1,0 +1,20 @@
+# Custom 404 Error Page
+
+ErrorDocument 404 /src/php/404.php
+
+# URL Rewriting
+
+RewriteEngine On
+RewriteBase /
+
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+RewriteRule ^$ src/php/index.php [L]
+
+RewriteCond %{DOCUMENT_ROOT}/src/php/$1.php -f
+RewriteRule ^([A-Za-z0-9\-_]+)/?$ src/php/$1.php [L,QSA]
+
+RewriteCond %{DOCUMENT_ROOT}/src/php/$1 -f
+RewriteRule ^([A-Za-z0-9\-_]+\.php)$ src/php/$1 [L,QSA]

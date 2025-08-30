@@ -140,7 +140,7 @@
 
                 $_SESSION["contact_successful_message"] = "Správa bola odoslaná";
 
-                redirectURL("/src/php/index.php");
+                redirectURL("/src/php/index");
             }
 
             throw new Exception();
@@ -172,7 +172,7 @@
         $_SESSION["write_review_successful_message"] = "Ďakujeme za spätnú väzbu";
         $review = "";
 
-        redirectURL("/src/php/index.php");
+        redirectURL("/src/php/index");
     }
 ?>
 
@@ -187,8 +187,8 @@
     <title>PC Expert - Stavba, údržba a čistenie počítačov</title>
     <!-- <link rel="icon" type="image/png" href=""> -->
 
-    <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/lightbox.min.css"> <!-- https://github.com/lokesh/lightbox2/tree/dev -->
+    <link rel="stylesheet" href="/src/css/styles.css">
+    <link rel="stylesheet" href="/src/css/lightbox.min.css"> <!-- https://github.com/lokesh/lightbox2/tree/dev -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins"> <!-- Poppins Font Style -->
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script> <!-- https://releases.jquery.com/ -->
@@ -262,7 +262,7 @@
 
                 <?php if(isset($_SESSION["logged_in_user_id"]) and getUserRole($connection, $_SESSION["logged_in_user_id"]) === "admin"): ?>
                     <li style="border: 1px solid rgb(250, 50, 50)" class="navigation_bar_item">
-                        <a href="./admin/admin.php">ADMINISTRÁCIA</a>
+                        <a href="./admin">ADMINISTRÁCIA</a>
                     </li>
 
                 <?php endif; ?>
@@ -294,7 +294,7 @@
             <div class="account">
                 <ul>
                     <li>
-                        <a href="./edit_account.php" title="Môj účet">
+                        <a href="./edit_account" title="Môj účet">
                             <?php if(!empty(getProfilePictureName($connection, $_SESSION["logged_in_user_id"]))): ?>
                                 <img 
                                     class="profile_picture" 
@@ -308,7 +308,7 @@
                             <?php endif; ?>
                         </a>
 
-                        <a href="./edit_account.php" title="Môj účet">
+                        <a href="./edit_account" title="Môj účet">
                             <?php echo htmlspecialchars(getUserName($connection, $_SESSION["logged_in_user_id"]), ENT_QUOTES, "UTF-8"); ?>
                         </a>
                     </li>
@@ -323,7 +323,7 @@
             <div class="account">
                 <ul>
                     <li>
-                        <a href="./log_in.php" title="Prihlásiť sa">
+                        <a href="./log_in" title="Prihlásiť sa">
                             <?php echo "Neprihlásený" ?>
                         </a>
                     </li>
@@ -337,10 +337,10 @@
                 <img src="/content/images/test_logo.png" alt="Logo">
             </div>
 
-            <h1><a href="./index.php">PC&nbsp;Expert</a></h1>
+            <h1><a href="./index">PC&nbsp;Expert</a></h1>
 
             <div class="buttons"> <!-- https://codepen.io/hilwat/pen/BeemVX -->
-                <a class="blob-btn first_button" href="./log_in.php" target="_self">
+                <a class="blob-btn first_button" href="./log_in" target="_self">
                     Prihlásiť
                     <span class="blob-btn__inner">
                     <span class="blob-btn__blobs">
@@ -352,7 +352,7 @@
                     </span>
                 </a>
 
-                <a class="blob-btn second_button" href="./registration.php" target="_self">
+                <a class="blob-btn second_button" href="./registration" target="_self">
                     Zaregistrovať
                     <span class="blob-btn__inner">
                     <span class="blob-btn__blobs">
@@ -582,7 +582,7 @@
                             
                             <br>
 
-                            <a class="edit_review" href="./edit_review.php" title="Upraviť recenziu">Upraviť recenziu</a>
+                            <a class="edit_review" href="./edit_review" title="Upraviť recenziu">Upraviť recenziu</a>
 
                             <p><?php echo htmlspecialchars(userReview($connection, $user_id)["review"], ENT_QUOTES, "UTF-8"); ?></p>
                         </div>

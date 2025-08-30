@@ -1,7 +1,7 @@
 <?php
     // PHP Code
 
-    require "../../assets/functions.php";
+    require "../assets/functions.php";
 
     session_start();
     
@@ -36,7 +36,7 @@
 
     <title>PC Expert - Administrácia</title>
 
-    <link rel="stylesheet" href="../../css/admin.css">
+    <link rel="stylesheet" href="/src/css/admin.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins"> <!-- Poppins Font Style -->
 
     <script src="https://kit.fontawesome.com/069c0938a1.js" crossorigin="anonymous"></script> <!-- Icons -->
@@ -46,7 +46,7 @@
         <nav class="navigation_bar">
             <ul>
                 <li class="navigation_bar_item home">
-                    <a href="../index.php">DOMOV</a>
+                    <a href="../index">DOMOV</a>
                 </li>
 
                 <div class="navigation_icon">
@@ -56,7 +56,7 @@
             </ul>
         </nav>
 
-        <h1><a href="./admin.php">Administrácia</a></h1>
+        <h1><a href="./admin">Administrácia</a></h1>
     </header>
 
     <main>
@@ -78,21 +78,21 @@
             <br>
 
             <div class="error_log">
-                <?php if(file_exists("../../errors/error.log")): ?>
-                    <?php echo nl2br((file_get_contents("../../errors/error.log"))); ?>
+                <?php if(file_exists("../errors/error.log")): ?>
+                    <?php echo nl2br((file_get_contents("../errors/error.log"))); ?>
 
                 <?php endif; ?>
             </div>
 
         <?php else: ?>
             <p>K obsahu tejto stránky nemáte povolený prístup.</p>
-            <a href="./index.php" title="Domov" target="_self">Späť na úvodnú stránku.</a>
+            <a href="./index" title="Domov" target="_self">Späť na úvodnú stránku.</a>
 
         <?php endif; ?>
     </main>
 
     <footer>
-        <?php require "../../assets/footer.php"; ?>
+        <?php require "../assets/footer.php"; ?>
     </footer>
 </body>
 </html>
