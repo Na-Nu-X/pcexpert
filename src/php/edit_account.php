@@ -331,7 +331,6 @@
         const delete_account_input = document.querySelector("#delete_account")
         const delete_account_image = document.querySelector(".delete_account")
         const form_report_paragraph = document.querySelector(".form_report_paragraph")
-        const dialogue_paragraph = document.querySelector(".dialogue_paragraph")
 
         delete_account_input.addEventListener("click", function(event) {
             if(delete_account_input.checked) {

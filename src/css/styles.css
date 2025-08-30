@@ -643,7 +643,7 @@ input[name=r] {
   margin-bottom: 10px;
 }
 
-.reviews .review, .reviews.light .review {
+.reviews .review, .reviews.light .review, .user {
   margin: 0px auto;
   width: 70%;
   margin-bottom: 10px;
@@ -654,8 +654,17 @@ input[name=r] {
   transition: background-color 0.3s ease, width 0.3s ease;
 }
 
-.reviews .review:hover, .reviews.light .review:hover {
+.user {
+  position: relative;
+}
+
+.user p {
+  margin: 0px;
+}
+
+.reviews .review:hover, .reviews.light .review:hover, .review, .user:hover {
   background-color: rgb(255, 255, 255);
+  cursor: pointer;
 }
 
 .reviews.dark .review {
@@ -671,28 +680,59 @@ input[name=r] {
   margin-bottom: 0px;
 }
 
-.review:hover {
-  background-color: rgb(255, 255, 255);
-  cursor: pointer;
-}
-
 .review p {
   margin-bottom: 0px;
 }
 
-.reviewer {
+.reviewer, .basic_info {
   position: relative;
 }
 
-.reviewer .user_name {
+.reviewer .user_name, .basic_info .user_name {
   position: absolute;
   top: 7px;
   left: 50px;
 }
 
-.reviewer .user_name .date {
+.reviewer .user_name .date, .basic_info .user_name .user_role {
   font-style: italic;
   color: rgb(150, 150, 150);
+}
+
+.user .form_report_paragraph {
+  top: 141px;
+}
+
+.other_info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.other_info div h3, .other_info div p {
+  text-align: center;
+}
+
+.delete_user_container {
+  margin-top: 30px;
+}
+
+.delete_user_container, .delete_user_container p {
+  text-align: center;
+  font-size: 14px;
+}
+
+.delete_user {
+  opacity: 0.8;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.delete_user:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+#delete_user {
+  display: none;
 }
 
 .stars img {

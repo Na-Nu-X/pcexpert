@@ -151,7 +151,7 @@
 
             $_SESSION["contact_error_message"] = "Správu sa nepodarilo odoslať";
 
-            error_log_print("Error While Sending An Email. (" . $e->getMessage() . ")", "../errors/error.log");
+            error_log_save($connection, "Error While Sending An Email. (" . $e->getMessage() . ")", "../errors/error.log");
         }
     }
 
@@ -261,7 +261,7 @@
                 </li>
 
                 <?php if(isset($_SESSION["logged_in_user_id"]) and getUserRole($connection, $_SESSION["logged_in_user_id"]) === "admin"): ?>
-                    <li style="border: 1px solid rgb(250, 50, 50)" class="navigation_bar_item">
+                    <li style="border: 1px solid rgb(250, 50, 50);" class="navigation_bar_item">
                         <a href="./admin">ADMINISTRÁCIA</a>
                     </li>
 

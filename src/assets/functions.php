@@ -539,26 +539,6 @@
         }
     }
 
-    // function getReviewInformations($connection, $review_id, $database_field) {
-    //     $sql = "SELECT $database_field
-    //     FROM reviews
-    //     WHERE review_id = ?";
-
-    //     $stmt = mysqli_prepare($connection, $sql);
-
-    //     if($stmt) {
-    //         mysqli_stmt_bind_param($stmt, "i", $review_id);
-
-    //         if(mysqli_stmt_execute($stmt)) {
-    //             return mysqli_fetch_column(mysqli_stmt_get_result($stmt));
-    //         }
-    //     }
-
-    //     else {
-    //         echo mysqli_error($connection);
-    //     }
-    // }
-
     function averageRating($connection) {
         $sql = "SELECT AVG(rating)
                 AS average_rating
@@ -582,27 +562,6 @@
 
         return false;
     }
-
-    // function findUserReview($connection, $user_id) {
-    //     $sql = "SELECT * FROM reviews
-    //             WHERE user_id = ?";
-
-    //     $stmt = mysqli_prepare($connection, $sql);
-
-    //     if($stmt) {
-    //         mysqli_stmt_bind_param($stmt, "i", $user_id);
-
-    //         if(mysqli_stmt_execute($stmt)) {
-    //             return mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
-    //         }
-    //     }
-
-    //     else {
-    //         echo mysqli_error($connection);
-    //     }
-
-    //     return false;
-    // }
 
     function updateReview($connection, $user_id, $rating, $review) {
         $sql = "UPDATE reviews 
@@ -628,91 +587,50 @@
         }
     }
 
-    // function countReviews($connection) {
-    //     $sql = "SELECT COUNT(*) 
-    //             AS reviews_amount
-    //             FROM reviews";
+    function error_log_save($connection, $message, $file_directory) {
+        // Data
 
-    //     $stmt = mysqli_prepare($connection, $sql);
-
-    //     if($stmt) {
-    //         if(mysqli_stmt_execute($stmt)) {
-    //             $result = mysqli_stmt_get_result($stmt);
-
-    //             if($row = mysqli_fetch_assoc($result)) {
-    //                 return $row["reviews_amount"];
-    //             }
-    //         }
-    //     }
-
-    //     else {
-    //         echo mysqli_error($connection);
-    //     }
-
-    //     return false;
-    // }
-
-    // function allReviews($connection, $user_id) {
-    //     $sql = "SELECT * FROM reviews
-    //             WHERE user_id IS NULL OR user_id != ?
-    //             ORDER BY review_time DESC
-    //             -- LIMIT 5";
-
-    //     $stmt = mysqli_prepare($connection, $sql);
-
-    //     if ($stmt) {
-    //         mysqli_stmt_bind_param($stmt, "i", $user_id);
-
-    //         if (mysqli_stmt_execute($stmt)) {
-    //             return mysqli_fetch_all(mysqli_stmt_get_result($stmt), MYSQLI_ASSOC);
-    //         }
-    //     } 
-        
-    //     else {
-    //         echo mysqli_error($connection);
-    //     }
-
-    //     return [];
-    // }
-
-    function error_log_print($message, $file_directory) {
-        $current_time = date("Y-m-d H:i:s");
-
-        $ip_address = $_SERVER["REMOTE_ADDR"] ?? "unknown";
-        $user_agent = $_SERVER["HTTP_USER_AGENT"] ?? "unknown";
-        $request_uri = $_SERVER["REQUEST_URI"] ?? "unknown";
-        $request_method = $_SERVER["REQUEST_METHOD"] ?? "unknown";
-        $referer = $_SERVER["HTTP_REFERER"] ?? "unknown";
+        $error_time = date("Y-m-d H:i:s");
         $user_id = $_SESSION["logged_in_user_id"] ?? "unknown";
+        $ip_address = $_SERVER["REMOTE_ADDR"] ?? "unknown";
+        $referer = $_SERVER["HTTP_REFERER"] ?? "unknown";
+        $request_method = $_SERVER["REQUEST_METHOD"] ?? "unknown";
+        $user_agent = $_SERVER["HTTP_USER_AGENT"] ?? "unknown";
         $server_ip = $_SERVER["SERVER_ADDR"] ?? "unknown";
-        $last_error = error_get_last() ?? "unknown";
-        $post_data = "Žiadne dáta z formuláru.";
-        
-        // Contact Form Post Data
+        $post_data = json_encode($_POST) ?? "unknown";
 
-        if($_SERVER["REQUEST_METHOD"] === "POST" and isset($_POST["contact_form_submit"])) {
-            $post_data = 
-                        "<strong>Meno: </strong>" . $_POST["first_name"] . ", " . 
-                        "<strong>Priezvisko: </strong>" . $_POST["last_name"] . ", " . 
-                        "<strong>E-mail: </strong>" . $_POST["email_address"] . ", " . 
-                        "<strong>Predmet: </strong>" . $_POST["subject"] . ", " . 
-                        "<strong>Správa: </strong>" . $_POST["message"];
+        // Error Log Database
+
+        $sql = "INSERT INTO errors (error_time, message, user_id, ip_address, referer, request_method, user_agent, server_ip, post_data)
+                VALUES (CURRENT_TIMESTAMP, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        $stmt = mysqli_prepare($connection, $sql);
+
+        if($stmt) {
+            mysqli_stmt_bind_param($stmt, "sissssss", $message, $user_id, $ip_address, $referer, $request_method, $user_agent, $server_ip, $post_data);
+
+            if(mysqli_stmt_execute($stmt)) {
+                // Error Log File
+
+                $generated_message = 
+                    "Chyba:\n" .
+                    "[" . $error_time . "] - " .
+                    $message . "\n" .
+                    "Podrobnosti:\n" .
+                    "User ID: " . $user_id . "\n" .
+                    "IP Address: " . $ip_address . "\n" .
+                    "Referer: " . $referer . "\n" .
+                    "Request Method: " . $request_method ."\n" .
+                    "User Agent: " . $user_agent . "\n" .
+                    "Server IP: " . $server_ip . "\n" .
+                    "Post Data: " . $post_data . "\n\n";
+
+                error_log($generated_message, 3, $file_directory);
+
+                return true;
+            }
         }
 
-        $generated_message = 
-                            "[" . $current_time . "] - " .
-                            $message . "\n" .
-                            "<strong>DETAILS:</strong>\n" .
-                            "<strong>IP Address: </strong>" . $ip_address . "\n" .
-                            "<strong>User ID: </strong>" . $user_id . "\n" .
-                            "<strong>User Agent: </strong>" . $user_agent . "\n" .
-                            "<strong>Request URI: </strong>" . $request_uri . "\n" .
-                            "<strong>Request Method: </strong>" . $request_method ."\n" .
-                            "<strong>Referer: </strong>" . $referer . "\n" .
-                            "<strong>Post Data: </strong>" . $post_data . "\n" .
-                            "<strong>Server IP: </strong>" . $server_ip . "\n" .
-                            "<strong>Last Error: </strong>" . $last_error . "\n\n";
-
-        error_log($generated_message, 3, $file_directory);
+        return false;
     }
 ?>

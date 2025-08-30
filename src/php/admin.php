@@ -2,30 +2,11 @@
     // PHP Code
 
     require "../assets/functions.php";
+    require "../assets/admin_functions.php";
 
     session_start();
     
     $connection = connectionDB();
-
-    function allUsers($connection) {
-        $sql = "SELECT * FROM users";
-
-        $stmt = mysqli_prepare($connection, $sql);
-
-        if($stmt) {
-            if(mysqli_stmt_execute($stmt)) {
-                return mysqli_stmt_get_result($stmt);
-            }
-        }
-        
-        else {
-            echo mysqli_error($connection);
-        }
-
-        return false;
-    }
-
-    $all_users = mysqli_fetch_all(allUsers($connection));
 ?>
 
 <!DOCTYPE html>
@@ -36,7 +17,7 @@
 
     <title>PC Expert - Administrácia</title>
 
-    <link rel="stylesheet" href="/src/css/admin.css">
+    <link rel="stylesheet" href="/src/css/styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins"> <!-- Poppins Font Style -->
 
     <script src="https://kit.fontawesome.com/069c0938a1.js" crossorigin="anonymous"></script> <!-- Icons -->
@@ -56,32 +37,112 @@
             </ul>
         </nav>
 
-        <h1><a href="./admin">Administrácia</a></h1>
+        <!-- <div class="header_box">
+            <h1><a href="./admin">Administrácia</a></h1>
+        </div> -->
     </header>
 
-    <main>
+    <main style="padding: 20px;">
         <?php if(isset($_SESSION["logged_in_user_id"]) and getUserRole($connection, $_SESSION["logged_in_user_id"]) === "admin"): ?>
-            <div class="users">
-                <?php foreach($all_users as $one_user): ?>
+            <section class="users">
+                <h2>Používatelia</h2>
+
+                <?php foreach(allUsers($connection, $_SESSION["logged_in_user_id"]) as $one_user):  ?>
                     <div class="user">
-                        <h2><?php echo $one_user[1] . " " . $one_user[2]; ?></h2>
-                        <p><strong>ID používateľa: </strong><?php echo $one_user[0]; ?></p>
-                        <p><strong>E-mailová adresa: </strong><?php echo $one_user[3]; ?></p>
-                        <p><strong>Telefónne číslo: </strong><?php echo $one_user[4]; ?></p>
-                        <p><strong>Rola: </strong><?php echo $one_user[7]; ?></p>
-                        <p><strong>Čas vytvorenia účtu: </strong><?php echo $one_user[8]; ?></p>
+                        <div class="basic_info">
+                            <?php if(!empty($one_user["profile_picture_name"])): ?>
+                                <img
+                                    class="profile_picture"
+                                    src="/content/uploads/<?php echo htmlspecialchars($one_user['id'], ENT_QUOTES, 'UTF-8'); ?>/<?php echo htmlspecialchars($one_user['profile_picture_name'], ENT_QUOTES, 'UTF-8'); ?>"
+                                >
+
+                            <?php else: ?>
+                                <img class="profile_picture" src="/content/images/user.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
+
+                            <?php endif; ?>
+
+                            <p class="user_name">
+                                <?php echo htmlspecialchars($one_user["first_name"], ENT_QUOTES, "UTF-8"); ?>
+
+                                <?php echo htmlspecialchars($one_user["last_name"], ENT_QUOTES, "UTF-8"); ?>
+
+                                <span class="user_role"
+                                    <?php if($one_user["role"] === "admin"): ?>
+                                        style="color: rgb(250, 50, 50);"
+
+                                    <?php endif; ?>
+                                >
+                                    -
+
+                                    <?php echo htmlspecialchars($one_user["role"], ENT_QUOTES, "UTF-8"); ?>
+                                </span>
+                            </p>
+                        </div>
+
+                        <div class="other_info">
+                            <div>
+                                <h3>Kontaktné údaje</h3>
+
+                                <p><strong>E-mail: </strong><?php echo htmlspecialchars($one_user["email_address"], ENT_QUOTES, "UTF-8"); ?></p>
+                                <p><strong>Telefónne číslo: </strong><?php echo htmlspecialchars($one_user["phone_number"], ENT_QUOTES, "UTF-8"); ?></p>
+                            </div>
+
+                            <div>
+                                <h3>Ostatné údaje</h3>
+
+                                <p><strong>ID používateľa: </strong><?php echo htmlspecialchars($one_user["id"], ENT_QUOTES, "UTF-8"); ?></p>
+
+                                <p><strong>Vytvorenie účtu: </strong><?php echo htmlspecialchars(date("j.n.Y", strtotime($one_user["creation_time"])), ENT_QUOTES, "UTF-8"); ?></p>
+                            </div>
+                        </div>
+                        
+                        <p class="form_report_paragraph"></p>
+
+                        <div class="delete_user_container">
+                            <p>Chcete nenávratne odstrániť tento účet?</p>
+                            
+                            <label for="delete_user">
+                                <img class="delete_user" title="Odstrániť účet" src="/content/images/delete_account.png" alt="Odstrániť účet"> <!-- https://www.flaticon.com/free-icon/delete_11502978 -->
+                            </label>
+
+                            <input type="checkbox" name="delete_user" id="delete_user" value="yes">
+                        </div>
                     </div>
 
                 <?php endforeach; ?>
-            </div>
+            </section>
 
             <br>
 
             <div class="error_log">
-                <?php if(file_exists("../errors/error.log")): ?>
-                    <?php echo nl2br((file_get_contents("../errors/error.log"))); ?>
+                <h2>Výpis&nbsp;chýb</h2>
 
-                <?php endif; ?>
+                <?php foreach(get_error_log($connection) as $one_error): ?>
+                    <p>
+                        <strong>Chyba:</strong>
+                        <br>
+                        [<?php echo htmlspecialchars($one_error["error_time"], ENT_QUOTES, "UTF-8"); ?>] - 
+                        <?php echo htmlspecialchars($one_error["message"], ENT_QUOTES, "UTF-8"); ?>
+                        <br><br>
+                        <strong>Podrobnosti:</strong>
+                        <br>
+                        <strong>User ID: </strong><?php echo htmlspecialchars($one_error["user_id"], ENT_QUOTES, "UTF-8"); ?>
+                        <br>
+                        <strong>IP Address: </strong><?php echo htmlspecialchars($one_error["ip_address"], ENT_QUOTES, "UTF-8"); ?>
+                        <br>
+                        <strong>Referer: </strong><?php echo htmlspecialchars($one_error["referer"], ENT_QUOTES, "UTF-8"); ?>
+                        <br>
+                        <strong>Request Method: </strong><?php echo htmlspecialchars($one_error["request_method"], ENT_QUOTES, "UTF-8"); ?>
+                        <br>
+                        <strong>User Agent: </strong><?php echo htmlspecialchars($one_error["user_agent"], ENT_QUOTES, "UTF-8"); ?>
+                        <br>
+                        <strong>Server IP: </strong><?php echo htmlspecialchars($one_error["server_ip"], ENT_QUOTES, "UTF-8"); ?>
+                        <br>
+                        <strong>Post Data: </strong><?php var_dump(json_decode($one_error["post_data"])); ?>
+                        <hr></hr>
+                    </p>
+
+                <?php endforeach; ?>
             </div>
 
         <?php else: ?>
@@ -94,5 +155,34 @@
     <footer>
         <?php require "../assets/footer.php"; ?>
     </footer>
+
+    <script>
+        // JavaScript Code
+
+        "use strict"
+
+        // Delete Account Warning
+
+        const delete_user_input = document.querySelector("#delete_user")
+        const delete_user_image = document.querySelector(".delete_user")
+        const form_report_paragraph = document.querySelector(".form_report_paragraph")
+
+        delete_user_input.addEventListener("click", function(event) {
+            if(delete_user_input.checked) {
+                delete_user_image.style.opacity = 1
+
+                form_report_paragraph.textContent = "Účet bude odstránený."
+                form_report_paragraph.classList.add("invalid")
+            }
+
+            else {
+                delete_user_image.style.opacity = 0.8
+
+                form_report_paragraph.textContent = ""
+            }
+        })
+    </script>
+
+    <script src="/src/js/navigation_bar.js"></script>
 </body>
 </html>
