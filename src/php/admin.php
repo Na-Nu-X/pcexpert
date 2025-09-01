@@ -7,6 +7,14 @@
     session_start();
     
     $connection = connectionDB();
+
+    // Theme
+
+    $theme = "light"; // Default Theme
+
+    if(isset($_COOKIE["theme"])) {
+        $theme = $_COOKIE["theme"];
+    }
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +30,8 @@
 
     <script src="https://kit.fontawesome.com/069c0938a1.js" crossorigin="anonymous"></script> <!-- Icons -->
 </head>
-<body>
+
+<body class="<?php echo $theme; ?>">
     <header>
         <nav class="navigation_bar">
             <ul>
@@ -42,13 +51,13 @@
         </div> -->
     </header>
 
-    <main style="padding: 20px;">
+    <main class="<?php echo $theme; ?>" style="padding: 10px 20px;">
         <?php if(isset($_SESSION["logged_in_user_id"]) and getUserRole($connection, $_SESSION["logged_in_user_id"]) === "admin"): ?>
             <section class="users">
                 <h2>Používatelia</h2>
 
                 <?php foreach(allUsers($connection, $_SESSION["logged_in_user_id"]) as $one_user):  ?>
-                    <div class="user">
+                    <div class="user <?php echo $theme; ?>">
                         <div class="basic_info">
                             <?php if(!empty($one_user["profile_picture_name"])): ?>
                                 <img
@@ -152,7 +161,7 @@
         <?php endif; ?>
     </main>
 
-    <footer>
+    <footer class="<?php echo $theme; ?>">
         <?php require "../assets/footer.php"; ?>
     </footer>
 

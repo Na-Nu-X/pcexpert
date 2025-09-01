@@ -643,7 +643,7 @@ input[name=r] {
   margin-bottom: 10px;
 }
 
-.reviews .review, .reviews.light .review, .user {
+.reviews .review, .reviews.light .review, .user, .user.light {
   margin: 0px auto;
   width: 70%;
   margin-bottom: 10px;
@@ -662,17 +662,17 @@ input[name=r] {
   margin: 0px;
 }
 
-.reviews .review:hover, .reviews.light .review:hover, .review, .user:hover {
+.reviews .review:hover, .reviews.light .review:hover, .review, .user:hover, .user.light:hover {
   background-color: rgb(255, 255, 255);
   cursor: pointer;
 }
 
-.reviews.dark .review {
+.reviews.dark .review, .user.dark {
   background-color: rgb(30, 30, 30);
   border: 2px solid rgb(255, 255, 255);
 }
 
-.reviews.dark .review:hover {
+.reviews.dark .review:hover, .user.dark:hover {
   background-color: rgb(40, 40, 40);
 }
 
