@@ -35,8 +35,16 @@
     <header>
         <nav class="navigation_bar">
             <ul>
-                <li class="navigation_bar_item home">
+                <li class="navigation_bar_item">
                     <a href="../index">DOMOV</a>
+                </li>
+
+                <li class="navigation_bar_item scroll_users">
+                    <a href="#">POUŽÍVATELIA</a>
+                </li>
+
+                <li class="navigation_bar_item scroll_error_log">
+                    <a href="#">PROTOKOLY CHÝB</a>
                 </li>
 
                 <div class="navigation_icon">
@@ -123,8 +131,8 @@
 
             <br>
 
-            <div class="error_log">
-                <h2>Výpis&nbsp;chýb</h2>
+            <section class="error_log">
+                <h2>Protokoly&nbsp;chýb</h2>
 
                 <?php foreach(get_error_log($connection) as $one_error): ?>
                     <p>
@@ -152,7 +160,7 @@
                     </p>
 
                 <?php endforeach; ?>
-            </div>
+                </section>
 
         <?php else: ?>
             <p>K obsahu tejto stránky nemáte povolený prístup.</p>
@@ -190,6 +198,18 @@
                 form_report_paragraph.textContent = ""
             }
         })
+
+        // .users .scroll_users
+        // .error_log .scroll_error_log
+
+        // const users = document.querySelector(".users")
+        // const error_log = document.querySelector(".error_log")
+
+        // const scroll_users = document.querySelector(".scroll_users")
+        // const scroll_error_log = document.querySelector(".scroll_error_log")
+
+        // autoScrollButtons(scroll_users, users)
+        // autoScrollButtons(scroll_error_log, error_log)
     </script>
 
     <script src="/src/js/navigation_bar.js"></script>
