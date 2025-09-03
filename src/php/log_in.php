@@ -48,11 +48,13 @@
                 }
             }
     
-            redirectURL("/src/php/index");
+            redirectURL("/index");
         }
     
         else {
             $message = "Nepodarilo sa prihlásiť.";
+
+            error_log_save($connection, "Nepodarilo sa prihlásiť.", "../errors/error.log");
         }
     }
 ?>

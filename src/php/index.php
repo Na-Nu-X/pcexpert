@@ -73,7 +73,7 @@
             $mail->Encoding = "base64";
 
             $mail->Username = "behulpatrik@gmail.com";
-            $mail->Password = "ogqxkmwxfpfwjeell";
+            $mail->Password = "test"; // ogqxkmwxfpfwjeel
             $mail->SMTPSecure = "ssl";
             $mail->Port = 465;
 
@@ -711,8 +711,8 @@
                 </div>
 
                 <?php if(countReviews($connection, $user_id) > 5): ?>
-                    <button class="show_more" title="Zobraziť viac">Zobraziť viac</button>
-                    <button class="show_less" title="Zobraziť menej">Zobraziť menej</button>
+                    <button class="show_more show_more_reviews" title="Zobraziť viac">Zobraziť viac</button>
+                    <button class="show_less show_less_reviews" title="Zobraziť menej">Zobraziť menej</button>
 
                 <?php endif; ?>
             </section>
@@ -832,49 +832,47 @@
 
         // Show More / Show Less Reviews
 
-        document.addEventListener("DOMContentLoaded", function(event) {
-            let offset = 0
-            const limit = 5
-            const user_id = <?php echo json_encode($user_id); ?>
+        let offset = 0
+        const limit = 5
+        const user_id = <?php echo json_encode($user_id); ?>
 
-            const all_reviews = document.querySelector(".all_reviews")
-            const show_more = document.querySelector(".show_more")
-            const show_less = document.querySelector(".show_less")
+        const all_reviews = document.querySelector(".all_reviews")
+        const show_more_reviews = document.querySelector(".show_more_reviews")
+        const show_less_reviews = document.querySelector(".show_less_reviews")
 
-            show_more.addEventListener("click", function(event) {
-                offset += limit
+        show_more_reviews.addEventListener("click", function(event) {
+            offset += limit
 
-                fetch("all_reviews.php", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                    },
-                    body: `offset=${offset}&user_id=${encodeURIComponent(user_id)}`
-                })
-                .then(response => response.text())
-                .then(data => {
-                    all_reviews.insertAdjacentHTML("beforeend", data)
-                    show_more.style.display = "none"
-                    show_less.style.display = "block"
-                })
+            fetch("all_reviews.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: `offset=${offset}&user_id=${encodeURIComponent(user_id)}`
             })
+            .then(response => response.text())
+            .then(data => {
+                all_reviews.insertAdjacentHTML("beforeend", data)
+                show_more_reviews.style.display = "none"
+                show_less_reviews.style.display = "block"
+            })
+        })
 
-            show_less.addEventListener("click", function(event) {
-                offset = 0
+        show_less_reviews.addEventListener("click", function(event) {
+            offset = 0
 
-                fetch("all_reviews.php", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                    },
-                    body: `offset=${offset}&user_id=${encodeURIComponent(user_id)}`
-                })
-                .then(response => response.text())
-                .then(data => {
-                    all_reviews.innerHTML = data
-                    show_less.style.display = "none"
-                    show_more.style.display = "block"
-                })
+            fetch("all_reviews.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: `offset=${offset}&user_id=${encodeURIComponent(user_id)}`
+            })
+            .then(response => response.text())
+            .then(data => {
+                all_reviews.innerHTML = data
+                show_less_reviews.style.display = "none"
+                show_more_reviews.style.display = "block"
             })
         })
 

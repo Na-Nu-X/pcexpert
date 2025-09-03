@@ -247,7 +247,7 @@
             }
         })
 
-        // Password Match
+        // Password Verification
 
         const password = document.querySelector(".password")
         const password_check = document.querySelector(".password_check")
@@ -255,22 +255,14 @@
         const dialogue_paragraph = document.querySelector(".dialogue_paragraph")
 
         password.addEventListener("input", function(event){
-            if(password.value === password_check.value) {
-                form_report_paragraph.textContent = "Heslá sa zhodujú."
-                form_report_paragraph.classList.add("valid")
-                form_report_paragraph.classList.remove("invalid")
-                dialogue_paragraph.textContent = ""
-            }
-
-            else {
-                form_report_paragraph.textContent = "Heslá sa nezhodujú."
+            if(password.value.length < 8) {
+                form_report_paragraph.textContent = "Heslo je príliš krátke."
                 form_report_paragraph.classList.add("invalid")
                 form_report_paragraph.classList.remove("valid")
                 dialogue_paragraph.textContent = ""
             }
 
-
-            if (password.value === "" && password_check.value === "") {
+            else {
                 form_report_paragraph.textContent = ""
             }
         })

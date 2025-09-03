@@ -31,4 +31,49 @@
             return mysqli_fetch_all(mysqli_stmt_get_result($stmt), MYSQLI_ASSOC);
         }
     }
+
+    function countUsers($connection, $user_id = null) {
+        if($user_id === null) {
+            $sql = "SELECT COUNT(*) 
+                    AS users_amount 
+                    FROM users";
+
+            $stmt = mysqli_prepare($connection, $sql);
+        } 
+        
+        else {
+            $sql = "SELECT COUNT(*) 
+                    AS users_amount
+                    FROM users
+                    WHERE id IS NULL 
+                    OR id != ?";
+
+            $stmt = mysqli_prepare($connection, $sql);
+            mysqli_stmt_bind_param($stmt, "i", $user_id);
+        }
+
+        if(mysqli_stmt_execute($stmt)) {
+            $result = mysqli_stmt_get_result($stmt);
+            $row = mysqli_fetch_assoc($result);
+            return $row["users_amount"];
+        }
+        
+        return false;
+    }
+
+    function countErrors($connection) {
+        $sql = "SELECT COUNT(*) 
+                AS errors_amount
+                FROM errors";
+
+        $stmt = mysqli_prepare($connection, $sql);
+
+        if(mysqli_stmt_execute($stmt)) {
+            $result = mysqli_stmt_get_result($stmt);
+            $row = mysqli_fetch_assoc($result);
+            return $row["errors_amount"];
+        }
+        
+        return false;
+    }
 ?>

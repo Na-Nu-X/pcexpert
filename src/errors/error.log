@@ -20,3 +20,48 @@ User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
 Server IP: 127.0.0.1
 Post Data: {"first_name":"Patrik","last_name":"Behul","email_address":"behulpatrik@gmail.com","subject":"Stavba po\u010d\u00edta\u010da","message":"Test.","contact_form_submit":""}
 
+
+Chyba:
+[2025-09-03 14:30:05] - Nepodarilo sa prihlásiť.
+Podrobnosti:
+User ID: unknown
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/log_in
+Request Method: POST
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: {"email_address":"behulpatrik@gmail.com","password":"heslo","remember_me":"yes"}
+
+Chyba:
+[2025-09-03 20:53:59] - Error While Sending An Email. (SMTP Error: Could not authenticate.)
+Podrobnosti:
+User ID: 140
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/index
+Request Method: POST
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: {"first_name":"Patrik","last_name":"Behul","email_address":"behulpatrik@gmail.com","subject":"","message":"a","contact_form_submit":""}
+
+Chyba:
+[2025-09-03 20:54:06] - Error While Sending An Email. (SMTP Error: Could not authenticate.)
+Podrobnosti:
+User ID: 140
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/index
+Request Method: POST
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: {"first_name":"Patrik","last_name":"Behul","email_address":"behulpatrik@gmail.com","subject":"","message":"b","contact_form_submit":""}
+
+Chyba:
+[2025-09-03 20:54:13] - Error While Sending An Email. (SMTP Error: Could not authenticate.)
+Podrobnosti:
+User ID: 140
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/index
+Request Method: POST
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: {"first_name":"Patrik","last_name":"Behul","email_address":"behulpatrik@gmail.com","subject":"","message":"c\r\n","contact_form_submit":""}
+
