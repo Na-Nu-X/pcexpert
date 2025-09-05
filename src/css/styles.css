@@ -326,6 +326,10 @@ header h1 a:active {
   transform: translateY(-50%);
 }
 
+.user_rating:hover {
+  cursor: pointer;
+}
+
 .header_text .user_rating img {
   width: 12px;
   height: 12px;
@@ -735,6 +739,10 @@ input[name=r] {
   display: none;
 }
 
+.error_log p {
+  margin-bottom: 0px;
+}
+
 .stars img {
   transition: transform 0.3s ease;
 }
@@ -744,8 +752,8 @@ input[name=r] {
   cursor: pointer;
 }
 
-.show_more, .show_less {
-  display: block;
+.show_more, .show_less, .show_error_details, .hide_error_details, .delete_error_log {
+  display: inline-block;
   margin-top: 5px;
   width: 100%;
   font-size: 14px;
@@ -755,11 +763,16 @@ input[name=r] {
   background: none;
 }
 
-.show_less {
+.show_less, .hide_error_details {
   display: none;
 }
 
-.show_more:hover, .show_less:hover {
+.show_error_details, .hide_error_details, .delete_error_log {
+  width: auto;
+  margin: 0px 10px 10px 0px;
+}
+
+.show_more:hover, .show_less:hover, .show_error_details:hover, .hide_error_details:hover, .delete_error_log:hover {
   text-decoration: underline;
   cursor: pointer;
 }

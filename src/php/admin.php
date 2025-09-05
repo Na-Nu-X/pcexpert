@@ -139,36 +139,24 @@
                 <?php endif; ?>
             </section>
 
-            <br>
-
             <section class="error_log">
                 <h2>Protokoly&nbsp;chýb</h2>
                 
                 <div class="all_errors">
-                    <?php foreach(get_error_log($connection) as $one_error): ?>
-                        <p>
-                            <strong>Chyba:</strong>
-                            <br>
-                            [<?php echo htmlspecialchars($one_error["error_time"], ENT_QUOTES, "UTF-8"); ?>] - 
-                            <?php echo htmlspecialchars($one_error["message"], ENT_QUOTES, "UTF-8"); ?>
-                            <br><br>
-                            <strong>Podrobnosti:</strong>
-                            <br>
-                            <strong>User ID: </strong><?php echo htmlspecialchars($one_error["user_id"], ENT_QUOTES, "UTF-8"); ?>
-                            <br>
-                            <strong>IP Address: </strong><?php echo htmlspecialchars($one_error["ip_address"], ENT_QUOTES, "UTF-8"); ?>
-                            <br>
-                            <strong>Referer: </strong><?php echo htmlspecialchars($one_error["referer"], ENT_QUOTES, "UTF-8"); ?>
-                            <br>
-                            <strong>Request Method: </strong><?php echo htmlspecialchars($one_error["request_method"], ENT_QUOTES, "UTF-8"); ?>
-                            <br>
-                            <strong>User Agent: </strong><?php echo htmlspecialchars($one_error["user_agent"], ENT_QUOTES, "UTF-8"); ?>
-                            <br>
-                            <strong>Server IP: </strong><?php echo htmlspecialchars($one_error["server_ip"], ENT_QUOTES, "UTF-8"); ?>
-                            <br>
-                            <strong>Post Data: </strong><?php var_dump(json_decode($one_error["post_data"])); ?>
-                            <hr></hr>
-                        </p>
+                    <?php foreach(getErrorLog($connection) as $one_error): ?>
+                        <div class="error" data-error_id="<?php echo htmlspecialchars($one_error["error_id"], ENT_QUOTES, 'UTF-8'); ?>">
+                            <p>
+                                <strong>[<?php echo htmlspecialchars($one_error["error_time"], ENT_QUOTES, "UTF-8"); ?>]</strong> - 
+                                <?php echo htmlspecialchars($one_error["message"], ENT_QUOTES, "UTF-8"); ?>
+                            </p>
+
+                            <div class="error_details"></div>
+
+                            <button class="show_error_details">Podrobnosti</button>
+                            <button class="hide_error_details">Skryť</button>
+
+                            <button class="delete_error_log">Vymazať</button>
+                        </div>
 
                     <?php endforeach; ?>
                 </div>
@@ -179,6 +167,8 @@
 
                 <?php endif; ?>
             </section>
+
+            <button>Uložiť</button>
 
         <?php else: ?>
             <p>K obsahu tejto stránky nemáte povolený prístup.</p>
@@ -222,7 +212,7 @@
                 .then(data => {
                     all_users.insertAdjacentHTML("beforeend", data)
                     show_more_users.style.display = "none"
-                    show_less_users.style.display = "block"
+                    show_less_users.style.display = "inline-block"
                 })
             })
 
@@ -240,8 +230,45 @@
                 .then(data => {
                     all_users.innerHTML = data
                     show_less_users.style.display = "none"
-                    show_more_users.style.display = "block"
+                    show_more_users.style.display = "inline-block"
                 })
+            })
+        })
+
+        // Show / Hide Error Details
+
+        document.addEventListener("DOMContentLoaded", function(event) {
+            const all_errors = document.querySelector(".all_errors")
+
+            all_errors.addEventListener("click", async function(event) {
+                const show_error_details = event.target.closest(".show_error_details")
+                const hide_error_details = event.target.closest(".hide_error_details")
+
+                const error = event.target.closest(".error")
+                const error_id = error?.dataset.error_id
+                const error_details = error?.querySelector(".error_details")
+
+                if(show_error_details) {
+                    const body = new URLSearchParams({ error_id: error_id }).toString()
+                    const res = await fetch("error_details.php", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                        body
+                    })
+
+                    const html = await res.text()
+                    error_details.innerHTML = html
+
+                    show_error_details.style.display = "none"
+                    error.querySelector(".hide_error_details").style.display = "inline-block"
+                }
+
+                if(hide_error_details) {
+                    error_details.innerHTML = ""
+
+                    hide_error_details.style.display = "none"
+                    error.querySelector(".show_error_details").style.display = "inline-block"
+                }
             })
         })
 
@@ -266,7 +293,7 @@
                 .then(data => {
                     all_errors.insertAdjacentHTML("beforeend", data)
                     show_more_errors.style.display = "none"
-                    show_less_errors.style.display = "block"
+                    show_less_errors.style.display = "inline-block"
                 })
             })
 
@@ -284,7 +311,7 @@
                 .then(data => {
                     all_errors.innerHTML = data
                     show_less_errors.style.display = "none"
-                    show_more_errors.style.display = "block"
+                    show_more_errors.style.display = "inline-block"
                 })
             })
         })

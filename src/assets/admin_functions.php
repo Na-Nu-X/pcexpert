@@ -16,7 +16,7 @@
         }
     }
 
-    function get_error_log($connection, $offset = 0, $limit = 5) {
+    function getErrorLog($connection, $offset = 0, $limit = 5) {
         $sql = "SELECT * FROM errors
                 ORDER BY error_time DESC
                 LIMIT ?, ?";
@@ -30,6 +30,42 @@
         if(mysqli_stmt_execute($stmt)) {
             return mysqli_fetch_all(mysqli_stmt_get_result($stmt), MYSQLI_ASSOC);
         }
+
+        return false;
+    }
+
+    function getErrorLogById($connection, $error_id) {
+        $sql = "SELECT * FROM errors
+                WHERE error_id = ?";
+
+        $stmt = mysqli_prepare($connection, $sql);
+
+        if($stmt) {
+            mysqli_stmt_bind_param($stmt, "i", $error_id);
+        }
+
+        if(mysqli_stmt_execute($stmt)) {
+            return mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
+        }
+
+        return false;
+    }
+
+    function deleteErrorLogById($connection, $error_id) {
+        $sql = "DELETE FROM errors
+                WHERE error_id = ?";
+
+        $stmt = mysqli_prepare($connection, $sql);
+
+        if($stmt) {
+            mysqli_stmt_bind_param($stmt, "i", $error_id);
+        }
+
+        if(mysqli_stmt_execute($stmt)) {
+            return true;
+        }
+
+        return false;
     }
 
     function countUsers($connection, $user_id = null) {

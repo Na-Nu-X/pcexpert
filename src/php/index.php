@@ -854,7 +854,7 @@
             .then(data => {
                 all_reviews.insertAdjacentHTML("beforeend", data)
                 show_more_reviews.style.display = "none"
-                show_less_reviews.style.display = "block"
+                show_less_reviews.style.display = "inline-block"
             })
         })
 
@@ -872,7 +872,7 @@
             .then(data => {
                 all_reviews.innerHTML = data
                 show_less_reviews.style.display = "none"
-                show_more_reviews.style.display = "block"
+                show_more_reviews.style.display = "inline-block"
             })
         })
 
