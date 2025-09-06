@@ -884,7 +884,7 @@ input[name="r"]
     cursor: pointer;
 }
 
-.show_more, .show_less, .show_error_details, .hide_error_details, .delete_error_log
+.show_more, .show_less, .show_error_details, .hide_error_details, .delete_error_log, .cancel_delete_error_log
 {
     display: inline-block;
     margin-top: 5px;
@@ -896,18 +896,18 @@ input[name="r"]
     background: none;
 }
 
-.show_less, .hide_error_details
+.show_less, .hide_error_details, .cancel_delete_error_log, .delete_error_log_checkbox
 {
     display: none;
 }
 
-.show_error_details, .hide_error_details, .delete_error_log
+.show_error_details, .hide_error_details, .delete_error_log, .cancel_delete_error_log
 {
     width: auto;
     margin: 0px 10px 10px 0px;
 }
 
-.show_more:hover, .show_less:hover, .show_error_details:hover, .hide_error_details:hover, .delete_error_log:hover
+.show_more:hover, .show_less:hover, .show_error_details:hover, .hide_error_details:hover, .delete_error_log:hover, .cancel_delete_error_log:hover
 {
     text-decoration: underline;
     cursor: pointer;

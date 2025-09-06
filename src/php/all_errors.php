@@ -23,6 +23,7 @@
             <button class="hide_error_details">Skryť</button>
 
             <button class="delete_error_log">Vymazať</button>
+            <button class="cancel_delete_error_log">Zrušiť</button>
         </div>
 
     <?php endforeach; ?>
