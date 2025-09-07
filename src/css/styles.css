@@ -735,7 +735,7 @@ input[name=r] {
   cursor: pointer;
 }
 
-#delete_user {
+.delete_user_checkbox {
   display: none;
 }
 

@@ -23,6 +23,14 @@
     // Admin Form After Submitting
 
     if($_SERVER["REQUEST_METHOD"] === "POST" and isset($_POST["admin_form_submit"])) {
+        // Delete User
+
+        foreach(allUsers($connection, $_SESSION["logged_in_user_id"]) as $one_user) {
+            if(isset($_POST["delete_user_checkbox_" . $one_user["id"]]) and $_POST["delete_user_checkbox_" . $one_user["id"]] === "yes") {
+                deleteUser($connection, $one_user["id"]);
+            }
+        }
+
         // Delete Error
 
         foreach(getErrorLog($connection) as $one_error) {
@@ -136,11 +144,17 @@
                                 <div class="delete_user_container">
                                     <p>Chcete nenávratne odstrániť tento účet?</p>
                                     
-                                    <label for="delete_user">
+                                    <label for="delete_user_checkbox_<?php echo htmlspecialchars($one_user['id'], ENT_QUOTES, 'UTF-8'); ?>">
                                         <img class="delete_user" title="Odstrániť účet" src="/content/images/delete_account.png" alt="Odstrániť účet"> <!-- https://www.flaticon.com/free-icon/delete_11502978 -->
                                     </label>
 
-                                    <input type="checkbox" name="delete_user" id="delete_user" value="yes">
+                                    <input 
+                                        class="delete_user_checkbox"
+                                        type="checkbox"
+                                        name="delete_user_checkbox_<?php echo htmlspecialchars($one_user['id'], ENT_QUOTES, 'UTF-8'); ?>"
+                                        id="delete_user_checkbox_<?php echo htmlspecialchars($one_user['id'], ENT_QUOTES, 'UTF-8'); ?>"
+                                        value="yes"
+                                    >
                                 </div>
                             </div>
 
@@ -159,7 +173,7 @@
                     
                     <div class="all_errors">
                         <?php foreach(getErrorLog($connection) as $one_error): ?>
-                            <div class="error" data-error_id="<?php echo htmlspecialchars($one_error['error_id'], ENT_QUOTES, 'UTF-8'); ?>">
+                            <div class="error">
                                 <p>
                                     <strong>[<?php echo htmlspecialchars($one_error["error_time"], ENT_QUOTES, "UTF-8"); ?>]</strong> - 
                                     <?php echo htmlspecialchars($one_error["message"], ENT_QUOTES, "UTF-8"); ?>
@@ -175,7 +189,7 @@
 
                                 <input 
                                     class="delete_error_log_checkbox"
-                                    type="checkbox" 
+                                    type="checkbox"
                                     name="delete_error_log_checkbox_<?php echo htmlspecialchars($one_error['error_id'], ENT_QUOTES, 'UTF-8'); ?>"
                                     id="delete_error_log_checkbox_<?php echo htmlspecialchars($one_error['error_id'], ENT_QUOTES, 'UTF-8'); ?>"
                                     value="yes"
@@ -260,6 +274,36 @@
             })
         })
 
+        // Delete User
+
+        document.addEventListener("DOMContentLoaded", function(event) {
+            const all_users = document.querySelector(".all_users")
+
+            all_users.addEventListener("click", async function(event) {
+                const user = event.target.closest(".user")
+
+                const delete_user_image = event.target.closest(".delete_user")
+
+                if(delete_user_image) {
+                    const delete_user_input = user.querySelector(".delete_user_checkbox")
+                    const form_report_paragraph = user.querySelector(".form_report_paragraph")
+
+                    if(!delete_user_input.checked) {
+                        delete_user_image.style.opacity = 1
+
+                        form_report_paragraph.textContent = "Účet bude odstránený."
+                        form_report_paragraph.classList.add("invalid")
+                    }
+
+                    else {
+                        delete_user_image.style.opacity = 0.8
+
+                        form_report_paragraph.textContent = ""
+                    }
+                }
+            })
+        })
+
         // Show / Hide Error Details
 
         document.addEventListener("DOMContentLoaded", function(event) {
@@ -304,7 +348,6 @@
 
             all_errors.addEventListener("click", async function(event) {
                 const error = event.target.closest(".error")
-                const error_id = error?.dataset.error_id
 
                 const delete_error_log = event.target.closest(".delete_error_log")
                 const cancel_delete_error_log = event.target.closest(".cancel_delete_error_log")
@@ -312,15 +355,11 @@
                 if(delete_error_log) {
                     delete_error_log.style.display = "none"
                     error.querySelector(".cancel_delete_error_log").style.display = "inline-block"
-
-                    // console.log(error_id)
                 }
 
                 if(cancel_delete_error_log) {
                     cancel_delete_error_log.style.display = "none"
                     error.querySelector(".delete_error_log").style.display = "inline-block"
-
-                    // console.log(error_id)
                 }
             })
         })
@@ -367,27 +406,6 @@
                     show_more_errors.style.display = "inline-block"
                 })
             })
-        })
-
-        // Delete Account Warning
-
-        const delete_user_input = document.querySelector("#delete_user")
-        const delete_user_image = document.querySelector(".delete_user")
-        const form_report_paragraph = document.querySelector(".form_report_paragraph")
-
-        delete_user_input.addEventListener("click", function(event) {
-            if(delete_user_input.checked) {
-                delete_user_image.style.opacity = 1
-
-                form_report_paragraph.textContent = "Účet bude odstránený."
-                form_report_paragraph.classList.add("invalid")
-            }
-
-            else {
-                delete_user_image.style.opacity = 0.8
-
-                form_report_paragraph.textContent = ""
-            }
         })
     </script>
 
