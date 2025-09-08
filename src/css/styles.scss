@@ -950,8 +950,8 @@ input[name="r"]
     position: relative;
 }
 
-.contact_form input, .contact_form button[type="submit"], .contact_form select, .contact_form textarea,
-.contact_form.light input, .contact_form.light button[type="submit"], .contact_form.light select, .contact_form.light textarea
+.contact_form input, .contact_form button[type="submit"], .contact_form select, .contact_form textarea, .admin_form .admin_form_submit,
+.contact_form.light input, .contact_form.light button[type="submit"], .contact_form.light select, .contact_form.light textarea, .admin_form.light .admin_form_submit
 {
     display: block;
     width: 70%;
@@ -964,7 +964,7 @@ input[name="r"]
     transition: width 0.3s ease;
 }
 
-.contact_form.dark input, .contact_form.dark button[type="submit"], .contact_form.dark select, .contact_form.dark textarea
+.contact_form.dark input, .contact_form.dark button[type="submit"], .contact_form.dark select, .contact_form.dark textarea, .admin_form.dark .admin_form_submit
 {
     color: rgb(255, 255, 255);
     background-color: rgb(40, 40, 40);
@@ -986,7 +986,7 @@ input[name="r"]
     width: 80%;
 }
 
-.contact_form input, .contact_form button[type="submit"], .contact_form select, .contact_form.light input, .contact_form.light button[type="submit"], .contact_form.light select
+.contact_form input, .contact_form button[type="submit"], .contact_form select, .admin_form .admin_form_submit, .contact_form.light input, .contact_form.light button[type="submit"], .contact_form.light select, .admin_form.light .admin_form_submit
 {
     margin-bottom: 10px;
     height: 50px;
@@ -1069,7 +1069,7 @@ input[name="r"]
     color: rgb(180, 180, 180);
 }
 
-.contact_form button[type="submit"], .contact_form.light button[type="submit"]
+.contact_form button[type="submit"], .contact_form.light button[type="submit"], .admin_form .admin_form_submit, .admin_form.light .admin_form_submit
 {
     margin-bottom: 10px;
     cursor: pointer;
@@ -1078,19 +1078,19 @@ input[name="r"]
     transition: width 0.3s ease, letter-spacing 0.3s ease, background-color 0.3s ease;
 }
 
-.contact_form button[type="submit"]:hover, .contact_form.light button[type="submit"]:hover
+.contact_form button[type="submit"]:hover, .contact_form.light button[type="submit"]:hover, .admin_form .admin_form_submit:hover, .admin_form.light .admin_form_submit:hover
 {
     width: 80%;
     letter-spacing: 1px;
     background-color: rgb(245, 245, 245);
 }
 
-.contact_form.dark button[type="submit"]
+.contact_form.dark button[type="submit"], .admin_form.dark .admin_form_submit
 {
     background-color: rgb(15, 15, 15);
 }
 
-.contact_form.dark button[type="submit"]:hover
+.contact_form.dark button[type="submit"]:hover, .admin_form.dark .admin_form_submit:hover
 {
     background-color: rgb(30, 30, 30);
 }
@@ -1103,6 +1103,20 @@ input[name="r"]
 .contact_form.dark input:-webkit-autofill, .contact_form.dark input:-webkit-autofill:hover, .contact_form.dark input:-webkit-autofill:focus
 {
     -webkit-text-fill-color: rgb(255, 255, 255);
+}
+
+.no_admin a:link,
+.no_admin a:visited
+{
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-style: italic;
+}
+
+.no_admin a:hover,
+.no_admin a:active
+{
+    text-decoration: underline;
 }
 
 /**************

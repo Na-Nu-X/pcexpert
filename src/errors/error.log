@@ -1,5 +1,5 @@
 Chyba:
-[2025-09-01 13:54:14] - Error While Sending An Email. (SMTP Error: Could not authenticate.)
+[2025-09-07 13:44:59] - Error While Sending An Email. (SMTP Error: Could not authenticate.)
 Podrobnosti:
 User ID: 140
 IP Address: 127.0.0.1
@@ -7,44 +7,10 @@ Referer: http://pcexpert.local/index
 Request Method: POST
 User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
 Server IP: 127.0.0.1
-Post Data: {"first_name":"Patrik","last_name":"Behul","email_address":"behulpatrik@gmail.com","subject":"","message":"Test","contact_form_submit":""}
+Post Data: {"first_name":"Patrik","last_name":"Behul","email_address":"behulpatrik@gmail.com","subject":"Stavba po\u010d\u00edta\u010da","message":"a","contact_form_submit":""}
 
 Chyba:
-[2025-09-01 13:54:22] - Error While Sending An Email. (SMTP Error: Could not authenticate.)
-Podrobnosti:
-User ID: 140
-IP Address: 127.0.0.1
-Referer: http://pcexpert.local/index
-Request Method: POST
-User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
-Server IP: 127.0.0.1
-Post Data: {"first_name":"Patrik","last_name":"Behul","email_address":"behulpatrik@gmail.com","subject":"Stavba po\u010d\u00edta\u010da","message":"Test.","contact_form_submit":""}
-
-
-Chyba:
-[2025-09-03 14:30:05] - Nepodarilo sa prihlásiť.
-Podrobnosti:
-User ID: unknown
-IP Address: 127.0.0.1
-Referer: http://pcexpert.local/log_in
-Request Method: POST
-User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
-Server IP: 127.0.0.1
-Post Data: {"email_address":"behulpatrik@gmail.com","password":"heslo","remember_me":"yes"}
-
-Chyba:
-[2025-09-03 20:53:59] - Error While Sending An Email. (SMTP Error: Could not authenticate.)
-Podrobnosti:
-User ID: 140
-IP Address: 127.0.0.1
-Referer: http://pcexpert.local/index
-Request Method: POST
-User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
-Server IP: 127.0.0.1
-Post Data: {"first_name":"Patrik","last_name":"Behul","email_address":"behulpatrik@gmail.com","subject":"","message":"a","contact_form_submit":""}
-
-Chyba:
-[2025-09-03 20:54:06] - Error While Sending An Email. (SMTP Error: Could not authenticate.)
+[2025-09-07 13:45:06] - Error While Sending An Email. (SMTP Error: Could not authenticate.)
 Podrobnosti:
 User ID: 140
 IP Address: 127.0.0.1
@@ -55,7 +21,7 @@ Server IP: 127.0.0.1
 Post Data: {"first_name":"Patrik","last_name":"Behul","email_address":"behulpatrik@gmail.com","subject":"","message":"b","contact_form_submit":""}
 
 Chyba:
-[2025-09-03 20:54:13] - Error While Sending An Email. (SMTP Error: Could not authenticate.)
+[2025-09-07 13:45:14] - Error While Sending An Email. (SMTP Error: Could not authenticate.)
 Podrobnosti:
 User ID: 140
 IP Address: 127.0.0.1
@@ -63,5 +29,49 @@ Referer: http://pcexpert.local/index
 Request Method: POST
 User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
 Server IP: 127.0.0.1
-Post Data: {"first_name":"Patrik","last_name":"Behul","email_address":"behulpatrik@gmail.com","subject":"","message":"c\r\n","contact_form_submit":""}
+Post Data: {"first_name":"Patrik","last_name":"Behul","email_address":"behulpatrik@gmail.com","subject":"Ot\u00e1zka","message":"c","contact_form_submit":""}
+
+Chyba:
+[2025-09-07 13:45:27] - Error While Sending An Email. (SMTP Error: Could not authenticate.)
+Podrobnosti:
+User ID: 140
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/index
+Request Method: POST
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: {"first_name":"Patrik","last_name":"Behul","email_address":"behulpatrik@gmail.com","subject":"","message":"d","contact_form_submit":""}
+
+Chyba:
+[2025-09-07 13:45:38] - Error While Sending An Email. (SMTP Error: Could not authenticate.)
+Podrobnosti:
+User ID: 140
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/index
+Request Method: POST
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: {"first_name":"Patrik","last_name":"Behul","email_address":"behulpatrik@gmail.com","subject":"Nahl\u00e1senie chyby","message":"e","contact_form_submit":""}
+
+Chyba:
+[2025-09-07 13:45:48] - Error While Sending An Email. (SMTP Error: Could not authenticate.)
+Podrobnosti:
+User ID: 140
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/index
+Request Method: POST
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: {"first_name":"Patrik","last_name":"Behul","email_address":"behulpatrik@gmail.com","subject":"Stavba po\u010d\u00edta\u010da","message":"f","contact_form_submit":""}
+
+Chyba:
+[2025-09-07 20:53:38] - Nepodarilo sa prihlásiť.
+Podrobnosti:
+User ID: 140
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/log_in
+Request Method: POST
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: {"email_address":"behulpatrik@gmail.com","password":"a","remember_me":"yes"}
 

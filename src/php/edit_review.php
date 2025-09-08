@@ -28,14 +28,14 @@
             if(deleteReview($connection, $_SESSION["logged_in_user_id"])) {
                 $_SESSION["delete_review_successful_message"] = "Recenzia bola odstránená";
 
-                redirectURL("/src/php/index");
+                redirectURL("/index");
                 exit;
             }
         }
 
         else if($delete_review === "no") {
             if(updateReview($connection, $_SESSION["logged_in_user_id"], $rating, $review)) {
-                redirectURL("/src/php/index");
+                redirectURL("/index");
             }
 
             else {
@@ -52,6 +52,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>PC Expert - Upraviť recenziu</title>
+    <link rel="icon" href="/content/images/favicon.png"> <!-- https://www.flaticon.com/free-icon/pc-tower_4275113 -->
 
     <link rel="stylesheet" href="/src/css/forms.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins"> <!-- Poppins Font Style -->

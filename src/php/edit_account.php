@@ -49,7 +49,7 @@
                     session_start();
                     $_SESSION["delete_account_successful_message"] = "Účet bol odstránený";
 
-                    redirectURL("/src/php/index");
+                    redirectURL("/index");
                     exit;
                 }
 
@@ -135,7 +135,7 @@
                 }
 
                 if(empty($message)) {
-                    redirectURL("/src/php/index");
+                    redirectURL("/index");
                     exit;
                 }
             }
@@ -149,7 +149,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>PC Expert - Profilový obrázok</title>
+    <title>PC Expert - Môj účet</title>
+    <link rel="icon" href="/content/images/favicon.png"> <!-- https://www.flaticon.com/free-icon/pc-tower_4275113 -->
 
     <link rel="stylesheet" href="/src/css/forms.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins"> <!-- Poppins Font Style -->

@@ -43,7 +43,7 @@
                 $_SESSION["logged_in_user_id"] = $id;
                 $_SESSION["log_in_successful_message"] = "Prihlásený ako " . htmlspecialchars(getUserName($connection, $id), ENT_QUOTES, "UTF-8");
         
-                redirectURL("/src/php/index");
+                redirectURL("/index");
             }
         
             else {
@@ -60,6 +60,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>PC Expert - Registrácia</title>
+    <link rel="icon" href="/content/images/favicon.png"> <!-- https://www.flaticon.com/free-icon/pc-tower_4275113 -->
 
     <link rel="stylesheet" href="/src/css/forms.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins"> <!-- Poppins Font Style -->

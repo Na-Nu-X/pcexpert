@@ -140,7 +140,7 @@
 
                 $_SESSION["contact_successful_message"] = "Správa bola odoslaná";
 
-                redirectURL("/src/php/index");
+                redirectURL("/index");
             }
 
             throw new Exception();
@@ -172,7 +172,7 @@
         $_SESSION["write_review_successful_message"] = "Ďakujeme za spätnú väzbu";
         $review = "";
 
-        redirectURL("/src/php/index");
+        redirectURL("/index");
     }
 ?>
 
@@ -186,6 +186,7 @@
 
     <title>PC Expert - Stavba, údržba a čistenie počítačov</title>
     <!-- <link rel="icon" type="image/png" href=""> -->
+    <link rel="icon" href="/content/images/favicon.png"> <!-- https://www.flaticon.com/free-icon/pc-tower_4275113 -->
 
     <link rel="stylesheet" href="/src/css/styles.css">
     <link rel="stylesheet" href="/src/css/lightbox.min.css"> <!-- https://github.com/lokesh/lightbox2/tree/dev -->

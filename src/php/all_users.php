@@ -65,11 +65,17 @@
             <div class="delete_user_container">
                 <p>Chcete nenávratne odstrániť tento účet?</p>
                 
-                <label for="delete_user">
+                <label for="delete_user_checkbox_<?php echo htmlspecialchars($one_user['id'], ENT_QUOTES, 'UTF-8'); ?>">
                     <img class="delete_user" title="Odstrániť účet" src="/content/images/delete_account.png" alt="Odstrániť účet"> <!-- https://www.flaticon.com/free-icon/delete_11502978 -->
                 </label>
 
-                <input type="checkbox" name="delete_user" id="delete_user" value="yes">
+                <input 
+                    class="delete_user_checkbox"
+                    type="checkbox"
+                    name="delete_user_checkbox_<?php echo htmlspecialchars($one_user['id'], ENT_QUOTES, 'UTF-8'); ?>"
+                    id="delete_user_checkbox_<?php echo htmlspecialchars($one_user['id'], ENT_QUOTES, 'UTF-8'); ?>"
+                    value="yes"
+                >
             </div>
         </div>
 

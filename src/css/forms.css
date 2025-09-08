@@ -314,14 +314,15 @@ main {
   transition: color 0.3s ease;
 }
 
-.registration_form input::-moz-placeholder, .log_in_form input::-moz-placeholder, .edit_account_form input::-moz-placeholder, .edit_review_form textarea::-moz-placeholder .edit_account_form input::-moz-placeholder, .edit_review_form textarea::-moz-placeholder {
+.registration_form input::-moz-placeholder, .log_in_form input::-moz-placeholder, .edit_account_form input::-moz-placeholder, .edit_review_form textarea::-moz-placeholder, .edit_account_form input::-moz-placeholder, .edit_review_form textarea::-moz-placeholder {
   color: rgb(180, 180, 180);
 }
 
 .registration_form input::placeholder,
 .log_in_form input::placeholder,
 .edit_account_form input::placeholder,
-.edit_review_form textarea::placeholder .edit_account_form input::placeholder,
+.edit_review_form textarea::placeholder,
+.edit_account_form input::placeholder,
 .edit_review_form textarea::placeholder {
   color: rgb(180, 180, 180);
 }

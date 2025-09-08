@@ -48,6 +48,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>PC Expert - Administrácia</title>
+    <link rel="icon" href="/content/images/favicon.png"> <!-- https://www.flaticon.com/free-icon/pc-tower_4275113 -->
 
     <link rel="stylesheet" href="/src/css/styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins"> <!-- Poppins Font Style -->
@@ -85,7 +86,7 @@
 
     <main class="<?php echo $theme; ?>" style="padding: 10px 20px;">
         <?php if(isset($_SESSION["logged_in_user_id"]) and getUserRole($connection, $_SESSION["logged_in_user_id"]) === "admin"): ?>
-            <form class="admin_form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+            <form class="admin_form <?php echo $theme; ?>" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                 <section class="users">
                     <h2>Používatelia</h2>
 
@@ -166,6 +167,11 @@
                         <button class="show_less show_less_users" type="button" title="Zobraziť menej">Zobraziť menej</button>
 
                     <?php endif; ?>
+
+                    <?php if(empty(allUsers($connection, $_SESSION["logged_in_user_id"]))): ?>
+                        <p style="text-align: center; margin-bottom: 10px;">Nenašli sa žiadny zaregistrovaný používatelia.</p>
+
+                    <?php endif; ?>
                 </section>
 
                 <section class="error_log">
@@ -173,7 +179,7 @@
                     
                     <div class="all_errors">
                         <?php foreach(getErrorLog($connection) as $one_error): ?>
-                            <div class="error">
+                            <div class="error" data-error_id="<?php echo htmlspecialchars($one_error['error_id'], ENT_QUOTES, 'UTF-8'); ?>">
                                 <p>
                                     <strong>[<?php echo htmlspecialchars($one_error["error_time"], ENT_QUOTES, "UTF-8"); ?>]</strong> - 
                                     <?php echo htmlspecialchars($one_error["message"], ENT_QUOTES, "UTF-8"); ?>
@@ -204,14 +210,21 @@
                         <button class="show_less show_less_errors" type="button" title="Zobraziť menej">Zobraziť menej</button>
 
                     <?php endif; ?>
+
+                    <?php if(empty(getErrorLog($connection))): ?>
+                        <p style="text-align: center; margin-bottom: 10px;">Nenašli sa žiadne chybné záznamy.</p>
+
+                    <?php endif; ?>
                 </section>
 
                 <button class="admin_form_submit" type="submit" name="admin_form_submit">Uložiť</button>
             </form>
 
         <?php else: ?>
-            <p>K obsahu tejto stránky nemáte povolený prístup.</p>
-            <a href="./index" title="Domov" target="_self">Späť na úvodnú stránku.</a>
+            <div class="no_admin">
+                <p style="margin-bottom: 0px;">K obsahu tejto stránky nemáte povolený prístup.</p>
+                <a href="./index" title="Domov" target="_self">Späť na úvodnú stránku.</a>
+            </div>
 
         <?php endif; ?>
     </main>
