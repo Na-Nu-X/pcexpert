@@ -13,8 +13,6 @@
             echo mysqli_connect_error();
             exit;
         }
-        
-        // echo "Úspešne prihlásenie do databáze.";
 
         return $connection;
     }
@@ -49,6 +47,7 @@
     **/
 
     function createUser($connection, $first_name, $last_name, $email_address, $phone_number, $password, $news, $role) {
+
         $sql = "INSERT INTO users (first_name, last_name, email_address, phone_number, password, news, role, creation_time) VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
 
         $statement = mysqli_prepare($connection, $sql);
@@ -58,7 +57,7 @@
         }
 
         else {
-            mysqli_stmt_bind_param($statement, "sssssss", $first_name, $last_name, $email_address, $phone_number, $password, $news, $role);
+            mysqli_stmt_bind_param($statement, "sssssss", mysqli_real_escape_string($connection, $first_name), mysqli_real_escape_string($connection, $last_name), mysqli_real_escape_string($connection, $email_address), mysqli_real_escape_string($connection, $phone_number), $password, $news, $role);
 
             mysqli_stmt_execute($statement);
             $id = mysqli_insert_id($connection);
