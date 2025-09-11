@@ -146,7 +146,7 @@
 <!DOCTYPE html>
 <html lang="sk">
 <head>
-    <!-- Google tag (gtag.js) -->
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-L62G1B08VS"></script>
     <script>
         window.dataLayer = window.dataLayer || [];

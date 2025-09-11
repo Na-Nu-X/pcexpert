@@ -38,6 +38,8 @@
                 deleteErrorLogById($connection, $one_error["error_id"]);
             }
         }
+
+        $_SESSION["changes_committed"] = "Zmeny boli vykonané";
     }
 ?>
 
@@ -58,6 +60,12 @@
 
 <body class="<?php echo $theme; ?>">
     <header>
+        <?php if(isset($_SESSION["changes_committed"]) and !empty($_SESSION["changes_committed"])): ?>
+            <p class="changes_committed"><?php echo $_SESSION["changes_committed"]; ?></p>
+            <?php $_SESSION["changes_committed"] = ""; ?>
+
+        <?php endif; ?>
+
         <nav class="navigation_bar">
             <ul>
                 <li class="navigation_bar_item">
@@ -116,9 +124,22 @@
 
                                             <?php endif; ?>
                                         >
-                                            -
+                                            
+                                            <span class="user_role_value">
+                                                <?php echo "- " . htmlspecialchars($one_user["role"], ENT_QUOTES, "UTF-8"); ?>
+                                            </span>
+                                            
+                                            <label for="user_role_checkbox<?php echo htmlspecialchars($one_user["id"], ENT_QUOTES, "UTF-8"); ?>">
+                                                <i class="fa-solid fa-pen user_role_icon"></i> <!-- https://fontawesome.com/icons/pen?f=classic&s=solid -->
+                                            </label>
 
-                                            <?php echo htmlspecialchars($one_user["role"], ENT_QUOTES, "UTF-8"); ?>
+                                            <input 
+                                                class="user_role_checkbox"
+                                                type="checkbox"
+                                                name="user_role_checkbox<?php echo htmlspecialchars($one_user["id"], ENT_QUOTES, "UTF-8"); ?>"
+                                                id="user_role_checkbox<?php echo htmlspecialchars($one_user["id"], ENT_QUOTES, "UTF-8"); ?>"
+                                                value="user"
+                                            >
                                         </span>
                                     </p>
                                 </div>
@@ -128,6 +149,7 @@
                                         <h3>Kontaktné údaje</h3>
 
                                         <p><strong>E-mail: </strong><?php echo htmlspecialchars($one_user["email_address"], ENT_QUOTES, "UTF-8"); ?></p>
+
                                         <p><strong>Telefónne číslo: </strong><?php echo htmlspecialchars($one_user["phone_number"], ENT_QUOTES, "UTF-8"); ?></p>
                                     </div>
 
@@ -237,6 +259,33 @@
         // JavaScript Code
 
         "use strict"
+
+        // User Role
+
+        document.addEventListener("DOMContentLoaded", function(event) {
+            const all_users = document.querySelector(".all_users")
+
+            all_users.addEventListener("click", async function(event) {
+                const user = event.target.closest(".user")
+
+                const user_role_icon = document.querySelector(".user_role_icon")
+
+                if(user_role_icon) {
+                    const user_role_checkbox = user.querySelector(".user_role_checkbox")
+                    const user_role_value = user.querySelector(".user_role_value")
+
+                    if(user_role_checkbox.checked) {
+                        user_role_value.textContent = "- admin"
+                        user_role_value.style.color = "rgb(250, 50, 50)"
+                    }
+
+                    else {
+                        user_role_value.textContent = "- user"
+                        user_role_value.style.color = "rgb(150, 150, 150)"
+                    }
+                }
+            })
+        })
 
         // Show More / Show Less Users
 

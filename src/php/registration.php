@@ -18,37 +18,98 @@
     $email_address = "";
     $phone_number = "";
 
-    if($_SERVER["REQUEST_METHOD"] === "POST") {
-        $connection = connectionDB();
-    
-        $first_name = $_POST["first_name"];
-        $last_name = $_POST["last_name"];
-        $email_address = $_POST["email_address"];
-        $phone_number = str_replace(" ", "", $_POST["phone_number"]);
-        $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
-        $news = isset($_POST["news"]) ? "yes" : "no";
-        $role = "user";
+    // Google reCAPTCHA
 
-        if(!empty(emailAuthentication($connection, $email_address))) {
-            $message = "Tento email už je zaregistrovaný.";
+    $secret_key = "6LfbXMYrAAAAAM8u-89OhIKngVukDKxWDTOWWnrk";
+    $token = $_POST["g-recaptcha-response"] ?? "";
+
+    if($_SERVER["REQUEST_METHOD"] === 'POST') {
+        if(empty($token)) {
+            echo "Token Not Found.";
+            exit;
         }
 
-        else {
-            $id = createUser($connection, $first_name, $last_name, $email_address, $phone_number, $password, $news, $role);
+        $api_url = "https://www.google.com/recaptcha/api/siteverify";
+        $postData = [
+            "secret"   => $secret_key,
+            "response" => $token,
+            "remoteip" => $_SERVER["REMOTE_ADDR"] ?? ""
+        ];
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $api_url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+
+        $response = curl_exec($ch);
+
+        if($response === false) {
+            $curlErr = curl_error($ch);
+            curl_close($ch);
+
+            echo "cURL error: " . htmlspecialchars($curlErr);
+            exit;
+        }
+
+        curl_close($ch);
+
+        // var_dump($response);
+
+        $responseData = json_decode($response);
+
+        if($responseData === null) {
+            echo "Invalid reCAPTCHA Server Response: ";
+            echo htmlspecialchars($response);
+            exit;
+        }
+
+        // reCAPTCHA V3
+
+        $minScore = 0.5;
+        if(!empty($responseData->success) and isset($responseData->score) and $responseData->score >= $minScore and isset($responseData->action) and $responseData->action === 'submit') {
+            // Registration Form
+
+            $connection = connectionDB();
     
-            if(!empty($id)) {
-                session_regenerate_id(true); // Protection For Fixation Attack
-        
-                $_SESSION["is_logged_in"] = true;
-                $_SESSION["logged_in_user_id"] = $id;
-                $_SESSION["log_in_successful_message"] = "Prihlásený ako " . htmlspecialchars(getUserName($connection, $id), ENT_QUOTES, "UTF-8");
-        
-                redirectURL("/index");
+            $first_name = $_POST["first_name"];
+            $last_name = $_POST["last_name"];
+            $email_address = $_POST["email_address"];
+            $phone_number = str_replace(" ", "", $_POST["phone_number"]);
+            $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
+            $news = isset($_POST["news"]) ? "yes" : "no";
+            $role = "user";
+
+            if(!empty(emailAuthentication($connection, $email_address))) {
+                $message = "Tento email už je zaregistrovaný.";
             }
-        
+
             else {
-                $message = "Nepodarilo sa registrovať.";
+                $id = createUser($connection, $first_name, $last_name, $email_address, $phone_number, $password, $news, $role);
+        
+                if(!empty($id)) {
+                    session_regenerate_id(true); // Protection For Fixation Attack
+            
+                    $_SESSION["is_logged_in"] = true;
+                    $_SESSION["logged_in_user_id"] = $id;
+                    $_SESSION["log_in_successful_message"] = "Prihlásený ako " . htmlspecialchars(getUserName($connection, $id), ENT_QUOTES, "UTF-8");
+            
+                    redirectURL("/index");
+                }
+            
+                else {
+                    $message = "Nepodarilo sa registrovať.";
+                }
             }
+
+            exit;
+        }
+        
+        else {
+            echo "reCAPTCHA Failed.";
+            exit;
         }
     }
 ?>
@@ -56,14 +117,37 @@
 <!DOCTYPE html>
 <html lang="sk">
 <head>
-    <!-- Google tag (gtag.js) -->
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-L62G1B08VS"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
 
-        gtag('config', 'G-L62G1B08VS');
+    <script>
+        window.dataLayer = window.dataLayer || []
+        function gtag(){dataLayer.push(arguments)}
+        gtag('js', new Date())
+
+        gtag('config', 'G-L62G1B08VS')
+    </script>
+
+    <!-- reCAPTCHA V3 -->
+    <script src="https://www.google.com/recaptcha/api.js?render=6LfbXMYrAAAAAJfSCq3aCjeiFxnhly7K2sgFjiEz&badge=inline"></script>
+    
+    <script>
+        grecaptcha.ready(function() {
+            const grecaptcha_badge = document.querySelector(".grecaptcha-badge")
+            const grecaptcha_badge_container = document.querySelector(".grecaptcha_badge_container")
+
+            grecaptcha_badge_container.appendChild(grecaptcha_badge)
+            grecaptcha_badge.style.margin = "35px auto 0px"
+
+            document.querySelector(".registration_form").addEventListener("submit", function(event) {
+                event.preventDefault()
+
+                grecaptcha.execute("6LfbXMYrAAAAAJfSCq3aCjeiFxnhly7K2sgFjiEz", {action: "submit"}).then(function(token) {
+                    document.querySelector("#g-recaptcha-response").value = token
+                    event.target.submit()
+                })
+            })
+        })
     </script>
     
     <meta charset="UTF-8">
@@ -195,6 +279,8 @@
                     </p>
                 </article>
 
+                <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
+
                 <button class="registration_form_submit" type="submit">Zaregistrovať sa</button>
 
                 <div class="have_account">
@@ -208,6 +294,8 @@
                     <input type="checkbox" name="news" id="news" value="yes" checked>
                     <label for="news">Súhlasím so zasielaním noviniek.</label>
                 </div>
+
+                <div class="grecaptcha_badge_container"></div>
             </form>
         </section>
     </main>

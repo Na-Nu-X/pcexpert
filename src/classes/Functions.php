@@ -19,13 +19,14 @@
             try {
                 $db = new PDO($connection, $db_user, $db_password);
                 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                
                 return $db;
             }
 
             catch (PDOException $e) {
-                error_log("Chyba v connectionDB: " . $e->getMessage() . "\n", 3, "../errors/error.log");
-                echo "Typ chyby: " . $e->getMessage();
-                exit;
+                error_log_save($connection, "Error While Connecting To Database. (" . $e->getMessage() . ")", "../errors/error.log");
+                
+                return false;
             }
         }
 
@@ -36,17 +37,23 @@
         **/
 
         public static function redirectURL($path) {
-            if (isset($_SERVER["HTTPS"]) and $_SERVER["HTTPS"] != "off") {
-                $url_protocol = "https";
+            try {
+                if (isset($_SERVER["HTTPS"]) and $_SERVER["HTTPS"] != "off") {
+                    $url_protocol = "https";
+                }
+                
+                else {
+                    $url_protocol = "http";
+                }
+            
+                header("location: $url_protocol://" . $_SERVER["HTTP_HOST"] . $path);
             }
             
-            else {
-                $url_protocol = "http";
+            catch (PDOException $e) {
+                error_log_save($connection, "Error While Redirecting URL Address. (" . $e->getMessage() . ")", "../errors/error.log");
+                
+                return false;
             }
-        
-            header("location: $url_protocol://" . $_SERVER["HTTP_HOST"] . $path);
-        
-            exit;
         }
 
         /**

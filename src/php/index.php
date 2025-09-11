@@ -155,31 +155,88 @@
         }
     }
 
-    // Write Review
+    // Google reCAPTCHA
 
-    if($_SERVER["REQUEST_METHOD"] === "POST" and isset($_POST["write_review_submit"])) {
-        $rating = $_POST["rating"];
-        $review = $_POST["review"];
+    $secret_key = "6LfbXMYrAAAAAM8u-89OhIKngVukDKxWDTOWWnrk";
+    $token = $_POST["g-recaptcha-response"] ?? "";
 
-        if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true) {
-            sendReview($connection, $_SESSION["logged_in_user_id"], $rating, $review);
+    if($_SERVER["REQUEST_METHOD"] === "POST" and isset($_POST["recaptcha_write_review_submit"])) {
+        if (empty($token)) {
+            echo "Token Not Found.";
+            exit;
         }
 
+        $api_url = "https://www.google.com/recaptcha/api/siteverify";
+        $postData = [
+            "secret"   => $secret_key,
+            "response" => $token,
+            "remoteip" => $_SERVER["REMOTE_ADDR"] ?? ""
+        ];
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $api_url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+
+        $response = curl_exec($ch);
+
+        if($response === false) {
+            $curlErr = curl_error($ch);
+            curl_close($ch);
+
+            echo "cURL error: " . htmlspecialchars($curlErr);
+            exit;
+        }
+
+        curl_close($ch);
+
+        // var_dump($response);
+
+        $responseData = json_decode($response);
+
+        if($responseData === null) {
+            echo "Invalid reCAPTCHA Server Response: ";
+            echo htmlspecialchars($response);
+            exit;
+        }
+
+        // reCAPTCHA V3
+
+        $minScore = 0.5;
+        if(!empty($responseData->success) and isset($responseData->score) and $responseData->score >= $minScore and isset($responseData->action) and $responseData->action === 'submit') {
+            // Write Review
+
+            $rating = $_POST["rating"];
+            $review = $_POST["review"];
+
+            if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true) {
+                sendReview($connection, $_SESSION["logged_in_user_id"], $rating, $review);
+            }
+
+            else {
+                sendReview($connection, null, $rating, $review);
+            }
+
+            $_SESSION["write_review_successful_message"] = "Ďakujeme za spätnú väzbu";
+            $review = "";
+
+            redirectURL("/index");
+        }
+        
         else {
-            sendReview($connection, null, $rating, $review);
+            echo "reCAPTCHA Failed.";
+            exit;
         }
-
-        $_SESSION["write_review_successful_message"] = "Ďakujeme za spätnú väzbu";
-        $review = "";
-
-        redirectURL("/index");
     }
 ?>
 
 <!DOCTYPE html>
 <html lang="sk">
 <head>
-    <!-- Google tag (gtag.js) -->
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-L62G1B08VS"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -599,6 +656,28 @@
                         </div>
 
                     <?php else: ?>
+                        <!-- reCAPTCHA V3 -->
+                        <script src="https://www.google.com/recaptcha/api.js?render=6LfbXMYrAAAAAJfSCq3aCjeiFxnhly7K2sgFjiEz&badge=inline"></script>
+                        
+                        <script>
+                            grecaptcha.ready(function() {
+                                const grecaptcha_badge = document.querySelector(".grecaptcha-badge")
+                                const grecaptcha_badge_container = document.querySelector(".grecaptcha_badge_container")
+
+                                grecaptcha_badge_container.appendChild(grecaptcha_badge)
+                                grecaptcha_badge.style.marginBottom = "7px"
+
+                                document.querySelector(".write_review").addEventListener("submit", function(event) {
+                                    event.preventDefault()
+                                    
+                                    grecaptcha.execute("6LfbXMYrAAAAAJfSCq3aCjeiFxnhly7K2sgFjiEz", {action: "submit"}).then(function(token) {
+                                        document.querySelector("#g-recaptcha-response").value = token
+                                        event.target.submit()
+                                    })
+                                })
+                            })
+                        </script>
+
                         <form class="write_review" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                             <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true): ?>
                                 <div class="reviewer">
@@ -638,6 +717,11 @@
 
                             <textarea type="textarea" name="review" placeholder="Zanechajte nám vaše hodnotenie"><?php echo htmlspecialchars($review, ENT_QUOTES, "UTF-8"); ?></textarea>
 
+                            <div class="grecaptcha_badge_container"></div>
+
+                            <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
+
+                            <input type="hidden" name="recaptcha_write_review_submit">
                             <button class="write_review_submit" type="submit" name="write_review_submit">Zverejniť recenziu</button>
                         </form>
 
