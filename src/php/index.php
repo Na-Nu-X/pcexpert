@@ -51,117 +51,174 @@
 
     $attachment_message = "Nie je vybraný žiaden súbor.";
 
-    if($_SERVER["REQUEST_METHOD"] === "POST" and isset($_POST["contact_form_submit"])) {
-        // Contact Form
+    // Google reCAPTCHA
+
+    if($_SERVER["REQUEST_METHOD"] === "POST" and isset($_POST["recaptcha_contact_form_submit"])) {
+        $secret_key = "6LfbXMYrAAAAAM8u-89OhIKngVukDKxWDTOWWnrk";
+        $token = $_POST["g-recaptcha-response"] ?? "";
+
+        if(empty($token)) {
+            echo "Token Not Found.";
+            exit;
+        }
+
+        $api_url = "https://www.google.com/recaptcha/api/siteverify";
+        $postData = [
+            "secret"   => $secret_key,
+            "response" => $token,
+            "remoteip" => $_SERVER["REMOTE_ADDR"] ?? ""
+        ];
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $api_url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+
+        $response = curl_exec($ch);
+
+        if($response === false) {
+            $curlErr = curl_error($ch);
+            curl_close($ch);
+
+            echo "cURL error: " . htmlspecialchars($curlErr);
+            exit;
+        }
+
+        curl_close($ch);
+
+        // var_dump($response);
+
+        $responseData = json_decode($response);
+
+        if($responseData === null) {
+            echo "Invalid reCAPTCHA Server Response: ";
+            echo htmlspecialchars($response);
+            exit;
+        }
+
+        // reCAPTCHA V3
+
+        $minScore = 0.5;
+        if(!empty($responseData->success) and isset($responseData->score) and $responseData->score >= $minScore and isset($responseData->action) and $responseData->action === 'submit') {
+            // Contact Form
         
-        $first_name = $_POST["first_name"];
-        $last_name = $_POST["last_name"];
-        $email_address = $_POST["email_address"];
-        $subject = $_POST["subject"];
-        $message = $_POST["message"];
+            $first_name = $_POST["first_name"];
+            $last_name = $_POST["last_name"];
+            $email_address = $_POST["email_address"];
+            $subject = $_POST["subject"];
+            $message = $_POST["message"];
 
-        $mail = new PHPMailer(true);
+            $mail = new PHPMailer(true);
 
-        try {
-            // Server settings
+            try {
+                // Server settings
 
-            $mail->isSMTP();
-            $mail->Host = "smtp.gmail.com";
-            $mail->SMTPAuth = true;
+                $mail->isSMTP();
+                $mail->Host = "smtp.gmail.com";
+                $mail->SMTPAuth = true;
 
-            $mail->CharSet = "UTF-8";
-            $mail->Encoding = "base64";
+                $mail->CharSet = "UTF-8";
+                $mail->Encoding = "base64";
 
-            $mail->Username = "behulpatrik@gmail.com";
-            $mail->Password = "test"; // ogqxkmwxfpfwjeel
-            $mail->SMTPSecure = "ssl";
-            $mail->Port = 465;
+                $mail->Username = "behulpatrik@gmail.com";
+                $mail->Password = "Test"; // ogqxkmwxfpfwjeel
+                $mail->SMTPSecure = "ssl";
+                $mail->Port = 465;
 
-            // Recipients
+                // Recipients
 
-            $mail->setFrom("behulpatrik@gmail.com", "PC Expert");
-            $mail->addAddress("behulpatrik@gmail.com");
+                $mail->setFrom("behulpatrik@gmail.com", "PC Expert");
+                $mail->addAddress("behulpatrik@gmail.com");
 
-            // Content
+                // Content
 
-            $mail->isHTML(true);
-            $mail->Subject = $subject;
-            $mail->Body = "
-                <strong>$first_name $last_name</strong><br>
-                $email_address<br><br>
-                $message<br><br>
-                <strong>IP Address:</strong> {$_SERVER['REMOTE_ADDR']}
-            ";
+                $mail->isHTML(true);
+                $mail->Subject = $subject;
+                $mail->Body = "
+                    <strong>$first_name $last_name</strong><br>
+                    $email_address<br><br>
+                    $message<br><br>
+                    <strong>IP Address:</strong> {$_SERVER['REMOTE_ADDR']}
+                ";
 
-            if(isset($_FILES["attachment"])) {
-                for($i = 0; $i <= 4; $i++) { // Maximum of 5 Files.
-                    $attachment_name = $_FILES["attachment"]["name"][$i];
-                    $attachment_full_path = $_FILES["attachment"]["full_path"][$i];
-                    $attachment_type = $_FILES["attachment"]["type"][$i];
-                    $attachment_tmp_name = $_FILES["attachment"]["tmp_name"][$i];
-                    $attachment_size = $_FILES["attachment"]["size"][$i];
-                    $attachment_error = $_FILES["attachment"]["error"][$i];
+                if(isset($_FILES["attachment"])) {
+                    for($i = 0; $i <= 4; $i++) { // Maximum of 5 Files.
+                        $attachment_name = $_FILES["attachment"]["name"][$i];
+                        $attachment_full_path = $_FILES["attachment"]["full_path"][$i];
+                        $attachment_type = $_FILES["attachment"]["type"][$i];
+                        $attachment_tmp_name = $_FILES["attachment"]["tmp_name"][$i];
+                        $attachment_size = $_FILES["attachment"]["size"][$i];
+                        $attachment_error = $_FILES["attachment"]["error"][$i];
 
-                    if(empty($_FILES["attachment"]["name"][$i])) {
-                        continue;
-                    }
+                        if(empty($_FILES["attachment"]["name"][$i])) {
+                            continue;
+                        }
 
-                    if($attachment_error === 0) {
-                        $supported_extensions = ["jpg", "jpeg", "png", "gif", "webp", "bmp", "tiff", "tif", "mp4", "mov", "avi", "mkv", "webm", "hevc", "pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "txt", "rtf", "odt", "ods", "odp"];
-                        $attachment_extension = strtolower(pathinfo($attachment_name, PATHINFO_EXTENSION));
+                        if($attachment_error === 0) {
+                            $supported_extensions = ["jpg", "jpeg", "png", "gif", "webp", "bmp", "tiff", "tif", "mp4", "mov", "avi", "mkv", "webm", "hevc", "pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "txt", "rtf", "odt", "ods", "odp"];
+                            $attachment_extension = strtolower(pathinfo($attachment_name, PATHINFO_EXTENSION));
 
-                        if(in_array($attachment_extension, $supported_extensions)) {
-                            $new_attachment_name = uniqid("FILE-", true) . "." . $attachment_extension;
+                            if(in_array($attachment_extension, $supported_extensions)) {
+                                $new_attachment_name = uniqid("FILE-", true) . "." . $attachment_extension;
 
-                            if(!is_dir("../../content/uploads/attachments")) {
-                                mkdir("../../content/uploads/attachments", 0777, true);
+                                if(!is_dir("../../content/uploads/attachments")) {
+                                    mkdir("../../content/uploads/attachments", 0777, true);
+                                }
+
+                                $attachment_upload_path = "../../content/uploads/attachments/" . $new_attachment_name;
+                                move_uploaded_file($attachment_tmp_name, $attachment_upload_path);
+
+                                $mail->addAttachment($attachment_upload_path, $attachment_name);
                             }
 
-                            $attachment_upload_path = "../../content/uploads/attachments/" . $new_attachment_name;
-                            move_uploaded_file($attachment_tmp_name, $attachment_upload_path);
-
-                            $mail->addAttachment($attachment_upload_path, $attachment_name);
+                            else {
+                                $attachment_message = "Prípona súboru nie je podporovaná.";
+                                break;
+                            }
                         }
 
                         else {
-                            $attachment_message = "Prípona súboru nie je podporovaná.";
-                            break;
+                            $attachment_message = "Pri nahrávaní súborov došlo k chybe.";
                         }
                     }
-
-                    else {
-                        $attachment_message = "Pri nahrávaní súborov došlo k chybe.";
-                    }
                 }
+
+                if($attachment_message === "Nie je vybraný žiaden súbor.") {
+                    $mail->send();
+
+                    $_SESSION["contact_successful_message"] = "Správa bola odoslaná";
+
+                    redirectURL("/index");
+                }
+
+                throw new Exception();
             }
+            
+            catch(Exception $e) {
+                // echo "Správu sa nepodarilo odoslať: {$mail->ErrorInfo}";
 
-            if($attachment_message === "Nie je vybraný žiaden súbor.") {
-                $mail->send();
+                $_SESSION["contact_error_message"] = "Správu sa nepodarilo odoslať";
 
-                $_SESSION["contact_successful_message"] = "Správa bola odoslaná";
-
-                redirectURL("/index");
+                error_log_save($connection, "Error While Sending An Email. (" . $e->getMessage() . ")", "../errors/error.log");
             }
-
-            throw new Exception();
         }
         
-        catch(Exception $e) {
-            // echo "Správu sa nepodarilo odoslať: {$mail->ErrorInfo}";
-
-            $_SESSION["contact_error_message"] = "Správu sa nepodarilo odoslať";
-
-            error_log_save($connection, "Error While Sending An Email. (" . $e->getMessage() . ")", "../errors/error.log");
+        else {
+            echo "reCAPTCHA Failed.";
+            exit;
         }
     }
 
     // Google reCAPTCHA
 
-    $secret_key = "6LfbXMYrAAAAAM8u-89OhIKngVukDKxWDTOWWnrk";
-    $token = $_POST["g-recaptcha-response"] ?? "";
-
     if($_SERVER["REQUEST_METHOD"] === "POST" and isset($_POST["recaptcha_write_review_submit"])) {
-        if (empty($token)) {
+        $secret_key = "6LfbXMYrAAAAAM8u-89OhIKngVukDKxWDTOWWnrk";
+        $token = $_POST["g-recaptcha-response"] ?? "";
+
+        if(empty($token)) {
             echo "Token Not Found.";
             exit;
         }
@@ -661,8 +718,8 @@
                         
                         <script>
                             grecaptcha.ready(function() {
-                                const grecaptcha_badge = document.querySelector(".grecaptcha-badge")
-                                const grecaptcha_badge_container = document.querySelector(".grecaptcha_badge_container")
+                                const grecaptcha_badge = document.querySelectorAll(".grecaptcha-badge")[0]
+                                const grecaptcha_badge_container = document.querySelectorAll(".grecaptcha_badge_container")[0]
 
                                 grecaptcha_badge_container.appendChild(grecaptcha_badge)
                                 grecaptcha_badge.style.marginBottom = "7px"
@@ -671,7 +728,9 @@
                                     event.preventDefault()
                                     
                                     grecaptcha.execute("6LfbXMYrAAAAAJfSCq3aCjeiFxnhly7K2sgFjiEz", {action: "submit"}).then(function(token) {
-                                        document.querySelector("#g-recaptcha-response").value = token
+                                        const g_recaptcha_response = document.querySelectorAll("#g-recaptcha-response")[0]
+
+                                        g_recaptcha_response.value = token
                                         event.target.submit()
                                     })
                                 })
@@ -823,6 +882,30 @@
                 <?php endif; ?>
             </p>
 
+            <!-- reCAPTCHA V3 -->
+            <script src="https://www.google.com/recaptcha/api.js?render=6LfbXMYrAAAAAJfSCq3aCjeiFxnhly7K2sgFjiEz&badge=inline"></script>
+            
+            <script>
+                grecaptcha.ready(function() {
+                    const grecaptcha_badge = document.querySelectorAll(".grecaptcha-badge")[1] ?? document.querySelectorAll(".grecaptcha-badge")[0]
+                    const grecaptcha_badge_container = document.querySelectorAll(".grecaptcha_badge_container")[1] ?? document.querySelectorAll(".grecaptcha_badge_container")[0]
+
+                    grecaptcha_badge_container.appendChild(grecaptcha_badge)
+                    grecaptcha_badge.style.margin = "0px auto 10px"
+
+                    document.querySelector(".contact_form").addEventListener("submit", function(event) {
+                        event.preventDefault()
+                        
+                        grecaptcha.execute("6LfbXMYrAAAAAJfSCq3aCjeiFxnhly7K2sgFjiEz", {action: "submit"}).then(function(token) {
+                            const g_recaptcha_response = document.querySelectorAll("#g-recaptcha-response")[1] ?? document.querySelectorAll("#g-recaptcha-response")[0]
+
+                            g_recaptcha_response.value = token
+                            event.target.submit()
+                        })
+                    })
+                })
+            </script>
+
             <form class="contact_form <?php echo $theme; ?>" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data">
                 <input 
                     type="text"
@@ -877,7 +960,12 @@
 
                 <textarea type="textarea" name="message" placeholder="Zadajte vašu správu" required><?php echo htmlspecialchars($message, ENT_QUOTES, "UTF-8"); ?></textarea>
 
+                <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
+                
+                <input type="hidden" name="recaptcha_contact_form_submit">
                 <button class="contact_form_submit" type="submit" name="contact_form_submit">Poslať správu</button>
+
+                <div class="grecaptcha_badge_container"></div>
             </form>
         </section>
     </main>
