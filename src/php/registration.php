@@ -180,6 +180,13 @@
                 </div>
             </ul>
         </nav>
+
+        <div class="cookie_policy">
+            <img src="/content/images/cookie.png" alt="Cookie"> <!-- https://www.flaticon.com/free-icon/cookie_1047711 -->
+            <h2>Cookie Policy</h2>
+            <p>Táto&nbsp;stránka&nbsp;používa&nbsp;súbory&nbsp;cookies.</p>
+            <button class="cookie_policy_button">ROZUMIEM</button>
+        </div>
     </header>
 
     <main>
@@ -476,5 +483,6 @@
     </script>
 
     <script src="/src/js/navigation_bar.js"></script>
+    <script src="/src/js/cookie_policy.js"></script>
 </body>
 </html>

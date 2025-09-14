@@ -67,9 +67,6 @@ function autoScrollButtons(button, scroll_to) {
     button.addEventListener("click", function(event){
         event.preventDefault()
 
-        console.log("a")
-        
-
         window.scrollTo({
             top: scroll_to.offsetTop - 90,
             behavior: "smooth"
@@ -79,7 +76,7 @@ function autoScrollButtons(button, scroll_to) {
 
 const about_us = document.querySelector(".about_us")
 const our_services = document.querySelector(".our_services")
-// const contact = document.querySelector(".contact") // Declared in index.php
+const contact = document.querySelector(".contact")
 const users = document.querySelector(".users")
 const error_log = document.querySelector(".error_log")
 

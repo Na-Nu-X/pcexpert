@@ -67,6 +67,59 @@ body.dark {
   transition: transform 0.3s ease;
 }
 
+.cookie_policy {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-top: 1px solid rgb(150, 150, 150);
+  text-align: center;
+  z-index: 100;
+}
+
+.cookie_policy.hide {
+  display: none;
+}
+
+.cookie_policy img {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 20px;
+}
+
+.cookie_policy h2 {
+  display: inline-block;
+  vertical-align: middle;
+  font-family: Poppins, Arial, sans-serif;
+  font-size: 30px;
+}
+
+.cookie_policy p {
+  font-family: Poppins, Arial, sans-serif;
+}
+
+.cookie_policy_button {
+  width: 200px;
+  height: 50px;
+  background-color: rgb(50, 125, 200);
+  color: rgb(255, 255, 255);
+  border: 1px solid rgb(0, 0, 0);
+  outline: none;
+  border-radius: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  text-transform: uppercase;
+  transition: letter-spacing 0.3s ease, transform 0.3s ease;
+}
+
+.cookie_policy_button:hover,
+.cookie_policy_button:focus {
+  letter-spacing: 1px;
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
 /************
  Main Styles
 ************/
@@ -344,6 +397,7 @@ main {
   outline: none;
   font-size: 16px;
   transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease, transform 0.3s ease;
+  animation: fade_in_animation 0.5s ease-out;
 }
 
 .registration_form button[type=submit]:hover, .registration_form button[type=submit]:focus,
@@ -668,5 +722,18 @@ footer.dark .copywrite {
   .log_in,
   .edit_account {
     padding: 50px 20px;
+  }
+}
+/***********
+ Key Frames
+***********/
+@keyframes fade_in_animation {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
   }
 }/*# sourceMappingURL=forms.css.map */

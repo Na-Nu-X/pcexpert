@@ -723,6 +723,8 @@
 
                                 grecaptcha_badge_container.appendChild(grecaptcha_badge)
                                 grecaptcha_badge.style.marginBottom = "7px"
+                                grecaptcha_badge.style.background = "#1e1e1e"
+                                grecaptcha_badge.style.opacity = "0.8"
 
                                 document.querySelector(".write_review").addEventListener("submit", function(event) {
                                     event.preventDefault()
@@ -892,6 +894,8 @@
 
                     grecaptcha_badge_container.appendChild(grecaptcha_badge)
                     grecaptcha_badge.style.margin = "0px auto 10px"
+                    grecaptcha_badge.style.background = "#1e1e1e"
+                    grecaptcha_badge.style.opacity = "0.8"
 
                     document.querySelector(".contact_form").addEventListener("submit", function(event) {
                         event.preventDefault()
@@ -982,173 +986,181 @@
         console.log("%c PC Expert by Patrik Behul", "color: rgb(170, 255, 50); background-color: rgb(0, 0, 0)")
 
         // Selected Attachment
+        
+        document.addEventListener("DOMContentLoaded", function(event) {
+            const attachment = document.querySelector("#attachment")
+            const attachment_report = document.querySelector(".attachment_report")
 
-        const attachment = document.querySelector("#attachment")
-        const attachment_report = document.querySelector(".attachment_report")
+            attachment.addEventListener("change", function(event) {
+                const all_attachments_sizes = Array.from(attachment.files).map(file => file.size)
+                let final_size = 0
 
-        attachment.addEventListener("change", function(event) {
-            const all_attachments_sizes = Array.from(attachment.files).map(file => file.size)
-            let final_size = 0
+                for(let i = 0; i < all_attachments_sizes.length; i++) {
+                    final_size = final_size + all_attachments_sizes[i]
+                }
 
-            for(let i = 0; i < all_attachments_sizes.length; i++) {
-                final_size = final_size + all_attachments_sizes[i]
-            }
+                if(attachment.files.length > 0 && attachment.files.length <= 5 && final_size <= 25000000) {
+                    const all_attachments_names = Array.from(attachment.files).map(file => file.name)
 
-            if(attachment.files.length > 0 && attachment.files.length <= 5 && final_size <= 25000000) {
-                const all_attachments_names = Array.from(attachment.files).map(file => file.name)
+                    attachment_report.textContent = `súbory (${all_attachments_names.length}): ${all_attachments_names.join(", ")}`
+                }
 
-                attachment_report.textContent = `súbory (${all_attachments_names.length}): ${all_attachments_names.join(", ")}`
-            }
+                else if(attachment.files.length > 5) {
+                    attachment_report.textContent = "Vybrali ste príliš mnoho súborov."
+                }
 
-            else if(attachment.files.length > 5) {
-                attachment_report.textContent = "Vybrali ste príliš mnoho súborov."
-            }
+                else if(final_size > 25000000) {
+                    attachment_report.textContent = "Vybrané súbory sú príliš veľké."
+                }
 
-            else if(final_size > 25000000) {
-                attachment_report.textContent = "Vybrané súbory sú príliš veľké."
-            }
-
-            else {
-                attachment_report.textContent = "Nie je vybraný žiaden súbor."
-            }
+                else {
+                    attachment_report.textContent = "Nie je vybraný žiaden súbor."
+                }
+            })
         })
 
         // Show More / Show Less Reviews
 
-        let offset = 0
-        const limit = 5
-        const user_id = <?php echo json_encode($user_id); ?>
+        document.addEventListener("DOMContentLoaded", function(event) {
+            let offset = 0
+            const limit = 5
+            const user_id = <?php echo json_encode($user_id); ?>
 
-        const all_reviews = document.querySelector(".all_reviews")
-        const show_more_reviews = document.querySelector(".show_more_reviews")
-        const show_less_reviews = document.querySelector(".show_less_reviews")
+            const all_reviews = document.querySelector(".all_reviews")
+            const show_more_reviews = document.querySelector(".show_more_reviews")
+            const show_less_reviews = document.querySelector(".show_less_reviews")
 
-        show_more_reviews.addEventListener("click", function(event) {
-            offset += limit
+            show_more_reviews.addEventListener("click", function(event) {
+                offset += limit
 
-            fetch("all_reviews.php", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                },
-                body: `offset=${offset}&user_id=${encodeURIComponent(user_id)}`
+                fetch("all_reviews.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: `offset=${offset}&user_id=${encodeURIComponent(user_id)}`
+                })
+                .then(response => response.text())
+                .then(data => {
+                    all_reviews.insertAdjacentHTML("beforeend", data)
+                    show_more_reviews.style.display = "none"
+                    show_less_reviews.style.display = "inline-block"
+                })
             })
-            .then(response => response.text())
-            .then(data => {
-                all_reviews.insertAdjacentHTML("beforeend", data)
-                show_more_reviews.style.display = "none"
-                show_less_reviews.style.display = "inline-block"
-            })
-        })
 
-        show_less_reviews.addEventListener("click", function(event) {
-            offset = 0
+            show_less_reviews.addEventListener("click", function(event) {
+                offset = 0
 
-            fetch("all_reviews.php", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                },
-                body: `offset=${offset}&user_id=${encodeURIComponent(user_id)}`
-            })
-            .then(response => response.text())
-            .then(data => {
-                all_reviews.innerHTML = data
-                show_less_reviews.style.display = "none"
-                show_more_reviews.style.display = "inline-block"
+                fetch("all_reviews.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: `offset=${offset}&user_id=${encodeURIComponent(user_id)}`
+                })
+                .then(response => response.text())
+                .then(data => {
+                    all_reviews.innerHTML = data
+                    show_less_reviews.style.display = "none"
+                    show_more_reviews.style.display = "inline-block"
+                })
             })
         })
 
         // Our Services Buttons
 
-        const select_menu = document.querySelector(".select_menu")
+        document.addEventListener("DOMContentLoaded", function(event) {
+            const select_menu = document.querySelector(".select_menu")
 
-        const contact = document.querySelector(".contact")
+            const contact = document.querySelector(".contact")
 
-        const build_computer_button = document.querySelector(".build_computer_button")
-        const computer_maintenance_button = document.querySelector(".computer_maintenance_button")
-        const computer_cleaning_button = document.querySelector(".computer_cleaning_button")
+            const build_computer_button = document.querySelector(".build_computer_button")
+            const computer_maintenance_button = document.querySelector(".computer_maintenance_button")
+            const computer_cleaning_button = document.querySelector(".computer_cleaning_button")
 
-        function ourServicesButtons(button, number) {
-            button.addEventListener("click", function(event) {
-                event.preventDefault()
+            function ourServicesButtons(button, number) {
+                button.addEventListener("click", function(event) {
+                    event.preventDefault()
 
-                window.scrollTo({
-                    top: contact.offsetTop - 90,
-                    behavior: "smooth"
+                    window.scrollTo({
+                        top: contact.offsetTop - 90,
+                        behavior: "smooth"
+                    })
+
+                    select_menu.selectedIndex = number
                 })
+            }
 
-                select_menu.selectedIndex = number
-            })
-        }
-
-        ourServicesButtons(build_computer_button, 1)
-        ourServicesButtons(computer_maintenance_button, 2)
-        ourServicesButtons(computer_cleaning_button, 3)
+            ourServicesButtons(build_computer_button, 1)
+            ourServicesButtons(computer_maintenance_button, 2)
+            ourServicesButtons(computer_cleaning_button, 3)
+        })
 
         // Write Review
 
-        const stars = document.querySelectorAll(".stars img")
-        const rating = document.querySelector(".rating")
-        let selected_rating = 0
+        document.addEventListener("DOMContentLoaded", function(event) {
+            const stars = document.querySelectorAll(".stars img")
+            const rating = document.querySelector(".rating")
+            let selected_rating = 0
 
-        function updateStars(hover_value = 0) {
-            stars.forEach(function(star, index) {
-                if(hover_value > 0) {
-                    if(index < hover_value) {
-                        star.src = "/content/images/star.png"
+            function updateStars(hover_value = 0) {
+                stars.forEach(function(star, index) {
+                    if(hover_value > 0) {
+                        if(index < hover_value) {
+                            star.src = "/content/images/star.png"
+                        }
+
+                        else {
+                            star.src = "/content/images/empty_star.png"
+                        }
                     }
 
                     else {
-                        star.src = "/content/images/empty_star.png"
+                        if(index < selected_rating) {
+                            star.src = "/content/images/star.png"
+                        }
+
+                        else {
+                            star.src = "/content/images/empty_star.png"
+                        }
                     }
+                })
+            }
+
+            stars.forEach(function(star, index) {
+                const rating_number = index + 1
+
+                star.addEventListener("mouseover", function(event) {
+                    updateStars(rating_number)
+                })
+
+                star.addEventListener("mouseout", function(event) {
+                    updateStars()
+                })
+
+                star.addEventListener("click", function(event) {
+                    selected_rating = rating_number
+                    rating.value = rating_number
+                    updateStars()
+                })
+            })
+
+            const form_report_paragraph = document.querySelector(".form_report_paragraph")
+            const write_review_submit = document.querySelector(".write_review_submit")
+
+            write_review_submit.addEventListener("click", function(event) {
+                if(rating.value === "") {
+                    event.preventDefault()
+
+                    form_report_paragraph.textContent = "Ukážte nám vašu spokojnosť."
+                    form_report_paragraph.classList.add("invalid")
                 }
 
                 else {
-                    if(index < selected_rating) {
-                        star.src = "/content/images/star.png"
-                    }
-
-                    else {
-                        star.src = "/content/images/empty_star.png"
-                    }
+                    form_report_paragraph.textContent = ""
+                    form_report_paragraph.classList.remove("invalid")
                 }
             })
-        }
-
-        stars.forEach(function(star, index) {
-            const rating_number = index + 1
-
-            star.addEventListener("mouseover", function(event) {
-                updateStars(rating_number)
-            })
-
-            star.addEventListener("mouseout", function(event) {
-                updateStars()
-            })
-
-            star.addEventListener("click", function(event) {
-                selected_rating = rating_number
-                rating.value = rating_number
-                updateStars()
-            })
-        })
-
-        const form_report_paragraph = document.querySelector(".form_report_paragraph")
-        const write_review_submit = document.querySelector(".write_review_submit")
-
-        write_review_submit.addEventListener("click", function(event) {
-            if(rating.value === "") {
-                event.preventDefault()
-
-                form_report_paragraph.textContent = "Ukážte nám vašu spokojnosť."
-                form_report_paragraph.classList.add("invalid")
-            }
-
-            else {
-                form_report_paragraph.textContent = ""
-                form_report_paragraph.classList.remove("invalid")
-            }
         })
     </script>
 

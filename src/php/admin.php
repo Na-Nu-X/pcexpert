@@ -87,9 +87,12 @@
             </ul>
         </nav>
 
-        <!-- <div class="header_box">
-            <h1><a href="./admin">Administrácia</a></h1>
-        </div> -->
+        <div class="cookie_policy">
+            <img src="/content/images/cookie.png" alt="Cookie"> <!-- https://www.flaticon.com/free-icon/cookie_1047711 -->
+            <h2>Cookie Policy</h2>
+            <p>Táto&nbsp;stránka&nbsp;používa&nbsp;súbory&nbsp;cookies.</p>
+            <button class="cookie_policy_button">ROZUMIEM</button>
+        </div>
     </header>
 
     <main class="<?php echo $theme; ?>" style="padding: 10px 20px;">
@@ -289,10 +292,9 @@
 
         // Show More / Show Less Users
 
-        let offset = 0
-        const limit = 5
-
         document.addEventListener("DOMContentLoaded", function(event) {
+            let offset = 0
+            const limit = 5
             const user_id = <?php echo json_encode($user_id); ?>
 
             const all_users = document.querySelector(".all_users")
@@ -472,5 +474,6 @@
     </script>
 
     <script src="/src/js/navigation_bar.js"></script>
+    <script src="/src/js/cookie_policy.js"></script>
 </body>
 </html>
