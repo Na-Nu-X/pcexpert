@@ -24,7 +24,7 @@
             }
 
             catch (PDOException $e) {
-                error_log_save($connection, "Error While Connecting To Database. (" . $e->getMessage() . ")", "../errors/error.log");
+                errorLogSave($connection, "Error While Connecting To Database. (" . $e->getMessage() . ")", "../errors/error.log");
                 
                 return false;
             }
@@ -50,7 +50,7 @@
             }
             
             catch (PDOException $e) {
-                error_log_save($connection, "Error While Redirecting URL Address. (" . $e->getMessage() . ")", "../errors/error.log");
+                errorLogSave($connection, "Error While Redirecting URL Address. (" . $e->getMessage() . ")", "../errors/error.log");
                 
                 return false;
             }

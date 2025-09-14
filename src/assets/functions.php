@@ -48,7 +48,8 @@
 
     function createUser($connection, $first_name, $last_name, $email_address, $phone_number, $password, $news, $role) {
 
-        $sql = "INSERT INTO users (first_name, last_name, email_address, phone_number, password, news, role, creation_time) VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
+        $sql = "INSERT INTO users (first_name, last_name, email_address, phone_number, password, news, role, creation_time) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
 
         $statement = mysqli_prepare($connection, $sql);
 
@@ -586,7 +587,7 @@
         }
     }
 
-    function error_log_save($connection, $message, $file_directory) {
+    function errorLogSave($connection, $message, $file_directory) {
         // Data
 
         $error_time = date("Y-m-d H:i:s");
@@ -631,5 +632,25 @@
         }
 
         return false;
+    }
+
+    function insertPasswordResetCode($connection, $user_id, $password_reset_code) {
+        $sql = "UPDATE users 
+                SET password_reset_code = ? 
+                WHERE id = ?";
+
+        $stmt = mysqli_prepare($connection, $sql);
+
+        if($stmt === false) {
+            echo mysqli_error($connection);
+        }
+
+        else {
+            mysqli_stmt_bind_param($stmt, "ii", $password_reset_code, $user_id);
+
+            mysqli_stmt_execute($stmt);
+            
+            return true;
+        }
     }
 ?>

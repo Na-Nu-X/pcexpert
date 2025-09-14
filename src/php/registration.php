@@ -23,7 +23,7 @@
     $secret_key = "6LfbXMYrAAAAAM8u-89OhIKngVukDKxWDTOWWnrk";
     $token = $_POST["g-recaptcha-response"] ?? "";
 
-    if($_SERVER["REQUEST_METHOD"] === 'POST') {
+    if($_SERVER["REQUEST_METHOD"] === "POST") {
         if(empty($token)) {
             echo "Token Not Found.";
             exit;

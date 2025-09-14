@@ -54,7 +54,7 @@
         else {
             $message = "Nepodarilo sa prihlásiť.";
 
-            error_log_save($connection, "Nepodarilo sa prihlásiť.", "../errors/error.log");
+            errorLogSave($connection, "Nepodarilo sa prihlásiť.", "../errors/error.log");
         }
     }
 ?>
