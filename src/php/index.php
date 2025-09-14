@@ -202,7 +202,7 @@
 
                 $_SESSION["contact_error_message"] = "Správu sa nepodarilo odoslať";
 
-                error_log_save($connection, "Error While Sending An Email. (" . $e->getMessage() . ")", "../errors/error.log");
+                errorLogSave($connection, "Error While Sending An Email. (" . $e->getMessage() . ")", "../errors/error.log");
             }
         }
         

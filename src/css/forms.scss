@@ -167,7 +167,8 @@ main
 .log_in,
 .edit_account,
 .account,
-.edit_review
+.edit_review,
+.password_reset
 {
     width: 450px;
     margin: 98px 0px 50px;
@@ -196,7 +197,8 @@ main
 .log_in h2,
 .edit_account h2,
 .account h2,
-.edit_review h2
+.edit_review h2,
+.password_reset h2
 {
     text-align: center;
     font-size: 35px;
@@ -207,7 +209,8 @@ main
 .log_in h2:hover,
 .edit_account h2:hover,
 .account h2:hover,
-.edit_review h2:hover
+.edit_review h2:hover,
+.password_reset h2:hover
 {
     letter-spacing: 1px;
     cursor: pointer;
@@ -217,7 +220,8 @@ main
 .log_in h2 a,
 .edit_account h2 a,
 .account h2 a,
-.edit_review h2 a
+.edit_review h2 a,
+.password_reset h2 a
 {
     text-decoration: none;
     color: rgb(255, 255, 255);
@@ -226,7 +230,8 @@ main
 .registration_form, 
 .log_in_form,
 .edit_account_form,
-.edit_review_form
+.edit_review_form,
+.password_reset_form
 {
     position: relative;
 }
@@ -246,10 +251,12 @@ main
 .delete_account_container p,
 .delete_review_container p,
 .no_logged_in p,
-.no_review p
+.no_review p,
+.code_expired p
 {
     font-family: Poppins, Arial, sans-serif;
     color: rgb(255, 255, 255);
+    text-align: center;
 }
 
 .have_account a:link,
@@ -283,7 +290,7 @@ main
 
 .registration_form input[type="text"], .registration_form input[type="email"], 
 .log_in_form input[type="text"], .log_in_form input[type="email"],
-.edit_account_form input[type="text"], .edit_account_form input[type="email"]
+.edit_account_form input[type="text"], .edit_account_form input[type="email"], .password_reset_form input[type="text"]
 {
     font-family: Poppins, Arial, sans-serif;
     color: rgb(255, 255, 255);
@@ -426,7 +433,8 @@ main
 .edit_account_form input::placeholder,
 .edit_review_form textarea::placeholder,
 .edit_account_form input::placeholder,
-.edit_review_form textarea::placeholder
+.edit_review_form textarea::placeholder,
+.password_reset_form input::placeholder
 {
     color: rgb(180, 180, 180);
 }
@@ -436,7 +444,8 @@ main
 .edit_account_form button[type="submit"],
 .edit_review_form button[type="submit"]
 .edit_account_form button[type="submit"],
-.edit_review_form button[type="submit"]
+.edit_review_form button[type="submit"],
+.password_reset_form button[type="submit"]
 {
     font-family: Poppins, Arial, sans-serif;
     margin: 50px auto 10px;
@@ -458,7 +467,8 @@ main
 .edit_account_form button[type="submit"]:hover, .edit_account_form button[type="submit"]:focus,
 .edit_review_form button[type="submit"]:hover, .edit_review_form button[type="submit"]:focus
 .edit_account_form button[type="submit"]:hover, .edit_account_form button[type="submit"]:focus,
-.edit_review_form button[type="submit"]:hover, .edit_review_form button[type="submit"]:focus
+.edit_review_form button[type="submit"]:hover, .edit_review_form button[type="submit"]:focus,
+.password_reset_form button[type="submit"]:hover, .password_reset_form button[type="submit"]:focus
 {
     background-color: rgba(255, 255, 255, 0.8);
     color: rgb(0, 0, 0);
@@ -472,7 +482,8 @@ main
 .edit_account_form input[type="text"]:focus, .edit_account_form input[type="email"]:focus,
 .edit_review_form textarea:focus
 .edit_account_form input[type="text"]:focus, .edit_account_form input[type="email"]:focus,
-.edit_review_form textarea:focus
+.edit_review_form textarea:focus,
+.password_reset_form input[type="text"]:focus
 {
     width: 100%;
 }
@@ -791,7 +802,8 @@ footer.dark .copywrite
     .edit_account_form input[type="text"], .edit_account_form input[type="email"], .edit_account_form button[type="submit"],
     .edit_review_form textarea, .edit_review_form button[type="submit"]
     .edit_account_form input[type="text"], .edit_account_form input[type="email"], .edit_account_form button[type="submit"],
-    .edit_review_form textarea, .edit_review_form button[type="submit"]
+    .edit_review_form textarea, .edit_review_form button[type="submit"],
+    .password_reset_form input[type="text"], .password_reset_form button[type="submit"]
     {
         width: 100%;
     }

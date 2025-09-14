@@ -108,3 +108,113 @@ User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
 Server IP: 127.0.0.1
 Post Data: {"first_name":"Patrik","last_name":"Behul","email_address":"behulpatrik@gmail.com","subject":"","message":"test","g-recaptcha-response":"0cAFcWeA4l7Qya2xEGcipGPrKm7umUDNNpMUUEB40cbLfeq4h2kWkNdsVeBVGlV4aoKItjCkbWZ-6kckjHD8bYIuE_QP8-PUNVYL-nyq4gdxONn1qeMvtk1i3u_f6NqV-JE-qudDkhM0yeCzNWXxvuDkzNd4p7W8ojBtxp10FgcCfy-5cXHqH3DBWl-zw9lpfNl7Ys9eB2OMBw_jzCKveHTdJ5JZoBp-_LG_egDoJF1nlu8KDqZLquHz7I2R6v7tlpbdE37utlBxjPXn9Crua2La6ZUgoSdUzFBthAmP84oY-GOxdtUbhp9eYNviwcKKduM_Wlh1RSl9dXF92JIzBOGyer0YnGN0E0MRqHfbJxXUa__yaQCru7-j858KK1BB-v4NTPRoZcjTqZB2Yk8EVA1HnB6e3Pmd3Ahom6CaKYxLuU_AJArRV7g89FZ7eu79n7Smv9gIPPuO35W-4ptVI8faTCo1e4w-dxEp7wYom193bfZFMT5J_v1IKz3279RWc2KHECLCyqoU4Rzsx8IPWgRrsCwMnJUwqaHTUA14widPT6J8CmfRVnSj3P1iVi_7N56KFp2MhBa4Y2JRAWmXGgon6bs4NK76oTOnFCFlihT9YL14o7udPL5hOZMWsMvTR6kJu8286O4lQ8c7Z5NIhOZRV6V9sLwU0Gy490GxYaUwUdxChULfOSYwDvfFv22crHDSjLE8fbwE4eLU-zR2-GdWeN5CGFKHi2Ibudoe1qzfxgJ7_pNev0XC0QYuhe9OLHgyxFLmWrkS1Hq6LL48u1tqWtDw3zzQ1qYqn3u1DNGPIy42amqMxPcNSNGgNYmP3ZL_nP8JhUw1BoqrTZ7pyVzdhAcxCaNlSAWJtbCzGqS6KrlEBDJFQU4eVZE080q4ETS91G1IVqBiPTCtq8vxgRaQZKosE1TgnzgyS7JV_0NJdKxiGCT6V_0fCSKWV-OIVDwKhEUF5NXQ9HJirKzDIkMhvJF62WnztuJAxy3YRiydvmbyuQziZ0x0Fdiz0FZeywVIxbLYramWeVJvx5ejxj0gMPpQA9Jin_w2Duk6n0WQesEzUhHeBrDYupm1TLQK3mS5Kh4ET1JVm-JV-a4pcirI7Cm4aq8kpE5F3hCZxPo69ojWVA81kbFYnq5kYx1Q8mHW6FZ5qSLHXBAQEhqBFi5VTTZS4pjH5Fw528Obc2M82jBnc6EQrRbLpYxdzabLrcrAqLC5HCmdFoalUj9pCwZNDIxTkaeQS6BKwQquITCqMnGlB65sGFOKJJ2jTbbagjNvRej_CLPlS4ArQ28xSXIn5t60CjQj3YwfdY2SjEWEOVoJvUVJvW8Y04Ctevp458ehxTZJSHMQPvZ4p8xpYw6bUUPU_EyeIA6pO92PdLsdHdPwGtiv021dA-d4s8ssCnQ6e4YD7USgpgxpZ-cCbuZnwLyOQE16bYFSvbgBE2yFCGCiCJjnlD28Qg_j4XE_-sFxwSTA-NNr6qGNeNcVTiSW-0wtXc7NqdkU6RbDe8OeDBdBtEmEAFNLfxVlgJfP-mTvtapV_kqfTPsp51JICwUjxX7bimMX_YuWOr5dqZuzY7VbjInJ8i8UtE9w_5Jb33631ocidl5M-BVtuZkcQUWKwoH7UVrPoiBg","recaptcha_contact_form_submit":""}
 
+Chyba:
+[2025-09-14 15:00:38] - Error While Sending Password Reset Code To User's Email. (You must provide at least one recipient email address.)
+Podrobnosti:
+User ID: 140
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/edit_account
+Request Method: GET
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: []
+
+Chyba:
+[2025-09-14 15:01:35] - Error While Sending Password Reset Code To User's Email. (You must provide at least one recipient email address.)
+Podrobnosti:
+User ID: 140
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/edit_account?change_password=true
+Request Method: GET
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: []
+
+Chyba:
+[2025-09-14 22:40:24] - Nepodarilo sa prihlásiť.
+Podrobnosti:
+User ID: unknown
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/log_in
+Request Method: POST
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: {"email_address":"behulpatrik@gmail.com","password":"Patrik2008","remember_me":"yes"}
+
+Chyba:
+[2025-09-14 22:40:29] - Nepodarilo sa prihlásiť.
+Podrobnosti:
+User ID: unknown
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/log_in
+Request Method: POST
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: {"email_address":"behulpatrik@gmail.com","password":"Patrik200","remember_me":"yes"}
+
+Chyba:
+[2025-09-14 22:40:40] - Nepodarilo sa prihlásiť.
+Podrobnosti:
+User ID: unknown
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/log_in
+Request Method: POST
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: {"email_address":"behulpatrik@gmail.com","password":"Patrik200","remember_me":"yes"}
+
+Chyba:
+[2025-09-14 22:40:46] - Nepodarilo sa prihlásiť.
+Podrobnosti:
+User ID: unknown
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/log_in
+Request Method: POST
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: {"email_address":"behulpatrik@gmail.com","password":"Patrik20007","remember_me":"yes"}
+
+Chyba:
+[2025-09-14 22:41:03] - Nepodarilo sa prihlásiť.
+Podrobnosti:
+User ID: unknown
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/log_in
+Request Method: POST
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: {"email_address":"behulpatrik@gmail.com","password":"a","remember_me":"yes"}
+
+Chyba:
+[2025-09-14 22:43:02] - Nepodarilo sa prihlásiť.
+Podrobnosti:
+User ID: unknown
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/log_in
+Request Method: POST
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: {"email_address":"behulpatrik@gmail.com","password":"Patrik200","remember_me":"yes"}
+
+Chyba:
+[2025-09-14 22:48:12] - Nepodarilo sa prihlásiť.
+Podrobnosti:
+User ID: unknown
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/log_in
+Request Method: POST
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: {"email_address":"behulpatrik@gmail.com","password":"Patrik2008","remember_me":"yes"}
+
+Chyba:
+[2025-09-14 22:48:51] - Nepodarilo sa prihlásiť.
+Podrobnosti:
+User ID: unknown
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/log_in
+Request Method: POST
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: {"email_address":"behulpatrik@gmail.com","password":"Patrik200","remember_me":"yes"}
+
