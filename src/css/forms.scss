@@ -142,6 +142,30 @@ body.dark
     cursor: pointer;
 }
 
+.green_report_message, .red_report_message
+{
+    visibility: hidden;
+    position: fixed;
+    text-align: center;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    user-select: none;
+    z-index: 100;
+    animation: fade_out_animation 5s ease-out;
+}
+
+.green_report_message
+{
+    color: rgb(170, 255, 50);
+}
+
+.red_report_message
+{
+    color: rgb(250, 50, 50);
+}
+
 /************
  Main Styles
 ************/
@@ -856,6 +880,10 @@ footer.dark .copywrite
  Key Frames
 ***********/
 
+/***********
+ Key Frames
+***********/
+
 @keyframes fade_in_animation
 {
     0%
@@ -868,5 +896,20 @@ footer.dark .copywrite
     {
         opacity: 1;
         transform: scale(1);
+    }
+}
+
+@keyframes fade_out_animation
+{
+    0%
+    {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    100%
+    {
+        opacity: 0;
+        top: 50%;
     }
 }

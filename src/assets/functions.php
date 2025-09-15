@@ -653,4 +653,29 @@
             return true;
         }
     }
+
+    function deletePasswordResetCode($connection, $user_id) {
+        $sql = "UPDATE users
+                SET password_reset_code = null
+                WHERE id = ?";
+
+        $stmt = mysqli_prepare($connection, $sql);
+
+        if($stmt === false) {
+            echo mysqli_error($connection);
+            return false;
+        }
+
+        else {
+            mysqli_stmt_bind_param($stmt, "i", $user_id);
+
+            if(mysqli_stmt_execute($stmt)) {
+                return true;
+            }
+
+            else {
+                return false;
+            }
+        }
+    }
 ?>

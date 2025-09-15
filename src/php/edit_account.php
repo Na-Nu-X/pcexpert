@@ -78,6 +78,8 @@
             $mail->send();
 
             setcookie("password_reset_code_timer", "password_reset_code_timer", time() + (60 * 10), "/"); // 10 Minutes Timed Cookie
+
+            $_SESSION["green_report_message"] = "Overovací&nbsp;kód&nbsp;bol&nbsp;odoslaný&nbsp;na&nbsp;adresu " . $user_email_address;
         }
 
         catch(Exception $e) {
@@ -87,8 +89,6 @@
 
             errorLogSave($connection, "Error While Sending Password Reset Code To User's Email. (" . $e->getMessage() . ")", "../errors/error.log");
         }
-        
-        // Password Reset Code Verification
     }
 
     if($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -246,6 +246,18 @@
 
 <body class="<?php echo $theme; ?>">
     <header>
+        <?php if(isset($_SESSION["green_report_message"]) and !empty($_SESSION["green_report_message"])): ?>
+            <p class="green_report_message"><?php echo $_SESSION["green_report_message"]; ?></p>
+            <?php $_SESSION["green_report_message"] = ""; ?>
+
+        <?php endif; ?>
+
+        <?php if(isset($_SESSION["red_report_message"]) and !empty($_SESSION["red_report_message"])): ?>
+            <p class="red_report_message"><?php echo $_SESSION["red_report_message"]; ?></p>
+            <?php $_SESSION["red_report_message"] = ""; ?>
+
+        <?php endif; ?>
+
         <nav class="navigation_bar">
             <ul>
                 <li class="navigation_bar_item home">

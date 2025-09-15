@@ -5,12 +5,92 @@
 
     session_start();
 
+    $connection = connectionDB();
+
     // Theme
 
     $theme = "light"; // Default Theme
 
     if(isset($_COOKIE["theme"])) {
         $theme = $_COOKIE["theme"];
+    }
+
+    // PHP Mailer
+
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
+    
+    require "../phpmailer/vendor/autoload.php";
+
+    // Change Password
+
+    if(isset($_GET["password_reset"]) and $_GET["password_reset"] === "true") {
+        // Generate 6-Digit Code
+
+        $password_reset_code_array = array();
+
+        for($i = 0; $i < 6; $i++) {
+            array_push($password_reset_code_array, rand(0, 9));
+        }
+
+        $password_reset_code = (int)implode($password_reset_code_array); // Integer
+
+        $user_id = getUserId($connection, $_COOKIE["email_address"]);
+
+        insertPasswordResetCode($connection, $user_id, $password_reset_code);
+
+        // Send Code To User's Email
+
+        $user_email_address = $_COOKIE["email_address"];
+        $user_password_reset_code = getUserInformations($connection, $user_id, "password_reset_code");
+
+        $mail = new PHPMailer(true);
+
+        try {
+            // Server settings
+
+            $mail->isSMTP();
+            $mail->Host = "smtp.gmail.com";
+            $mail->SMTPAuth = true;
+
+            $mail->CharSet = "UTF-8";
+            $mail->Encoding = "base64";
+
+            $mail->Username = "behulpatrik@gmail.com";
+            $mail->Password = "ogqxkmwxfpfwjeel"; // ogqxkmwxfpfwjeel
+            $mail->SMTPSecure = "ssl";
+            $mail->Port = 465;
+
+            // Recipients
+
+            $mail->setFrom($user_email_address, "PC Expert");
+            $mail->addAddress($user_email_address);
+
+            // Content
+
+            $mail->isHTML(true);
+            $mail->Subject = "Obnovenie hesla";
+            $mail->Body = "
+                Váš overovací kód pre obnovenie hesla.<br>
+                Platnosť vyprší o 10 minút.<br><br>
+                <strong>$user_password_reset_code</strong><br>
+                <a href='http://pcexpert.local/password_reset'>Heslo zmeníte tu.</a>
+            ";
+
+            $mail->send();
+
+            setcookie("password_reset_code_timer", "password_reset_code_timer", time() + (60 * 10), "/"); // 10 Minutes Timed Cookie
+
+            $_SESSION["green_report_message"] = "Overovací&nbsp;kód&nbsp;bol&nbsp;odoslaný&nbsp;na&nbsp;adresu " . $user_email_address;
+        }
+
+        catch(Exception $e) {
+            // echo "Správu sa nepodarilo odoslať: {$mail->ErrorInfo}";
+
+            $_SESSION["red_report_message"] = "Overovací kód sa nepodarilo odoslať";
+
+            errorLogSave($connection, "Error While Sending Password Reset Code To User's Email. (" . $e->getMessage() . ")", "../errors/error.log");
+        }
     }
 
     $email_address = "";
@@ -86,6 +166,18 @@
 
 <body class="<?php echo $theme; ?>">
     <header>
+        <?php if(isset($_SESSION["green_report_message"]) and !empty($_SESSION["green_report_message"])): ?>
+            <p class="green_report_message"><?php echo $_SESSION["green_report_message"]; ?></p>
+            <?php $_SESSION["green_report_message"] = ""; ?>
+
+        <?php endif; ?>
+
+        <?php if(isset($_SESSION["red_report_message"]) and !empty($_SESSION["red_report_message"])): ?>
+            <p class="red_report_message"><?php echo $_SESSION["red_report_message"]; ?></p>
+            <?php $_SESSION["red_report_message"] = ""; ?>
+
+        <?php endif; ?>
+
         <nav class="navigation_bar">
             <ul>
                 <li class="navigation_bar_item home">
@@ -121,6 +213,7 @@
             
             <form class="log_in_form" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
                 <input 
+                    class="email_address"
                     type="email"
                     name="email_address"
                     placeholder="Zadajte váš e-mail"
@@ -138,6 +231,8 @@
                     <input class="password" type="text" name="password" placeholder="Zadajte vaše heslo" autocomplete="off" required>
                 </div>
 
+                <p class="form_report_paragraph"></p>
+
                 <article>
                     <p class="dialogue_paragraph invalid">
                         <?php if(!empty($message)): ?>
@@ -153,7 +248,7 @@
                 <button type="submit">Prihlásiť sa</button>
 
                 <div class="forgot_password">
-                    <p>Zabudli ste heslo? <a href="#">Zmeniť heslo</a></p>
+                    <p>Zabudli ste heslo? <a href="?password_reset=true" title="Odoslať kód">Zmeniť heslo</a></p>
                 </div>
 
                 <div class="have_account">
@@ -181,6 +276,27 @@
         // JavaScript Code
 
         "use strict"
+
+        // Password Reset
+
+        const password_reset = document.querySelector(".forgot_password p a")
+        const email_address = document.querySelector(".email_address")
+        const form_report_paragraph = document.querySelector(".form_report_paragraph")
+
+        password_reset.addEventListener("click", function(event) {
+            if(email_address.value !== "" && email_address.value.includes("@") && email_address.value.includes(".")) {
+                form_report_paragraph.textContent = ""
+
+                document.cookie = `email_address=${email_address.value}; max-age=` + 60 * 10 + "; path=/"; // 10 Minutes Timed Cookie With User's Email Address
+            }
+
+            else {
+                event.preventDefault()
+
+                form_report_paragraph.textContent = "Zadajte váš e-mail."
+                form_report_paragraph.classList.add("invalid")
+            }
+        })
         
         // Toggle Show / Hide Password
 
