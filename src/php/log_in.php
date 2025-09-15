@@ -85,9 +85,7 @@
         }
 
         catch(Exception $e) {
-            // echo "Správu sa nepodarilo odoslať: {$mail->ErrorInfo}";
-
-            $_SESSION["red_report_message"] = "Overovací kód sa nepodarilo odoslať";
+            $_SESSION["red_report_message"] = "Overovací&nbsp;kód&nbsp;sa&nbsp;nepodarilo&nbsp;odoslať";
 
             errorLogSave($connection, "Error While Sending Password Reset Code To User's Email. (" . $e->getMessage() . ")", "../errors/error.log");
         }
@@ -277,46 +275,48 @@
 
         "use strict"
 
-        // Password Reset
+        document.addEventListener("DOMContentLoaded", function(event) {
+            // Toggle Show / Hide Password
 
-        const password_reset = document.querySelector(".forgot_password p a")
-        const email_address = document.querySelector(".email_address")
-        const form_report_paragraph = document.querySelector(".form_report_paragraph")
+            const password = document.querySelector(".password")
+            const password_icon = document.querySelector(".fa-regular")
 
-        password_reset.addEventListener("click", function(event) {
-            if(email_address.value !== "" && email_address.value.includes("@") && email_address.value.includes(".")) {
-                form_report_paragraph.textContent = ""
+            password_icon.addEventListener("click", function(event) {
+                if(password_icon.classList[1] === "fa-eye-slash") {
+                    password_icon.classList.remove("fa-eye-slash")
+                    password_icon.classList.add("fa-eye")
 
-                document.cookie = `email_address=${email_address.value}; max-age=` + 60 * 10 + "; path=/"; // 10 Minutes Timed Cookie With User's Email Address
-            }
+                    password.style.webkitTextSecurity = "none"
+                }
 
-            else {
-                event.preventDefault()
+                else if(password_icon.classList[1] === "fa-eye") {
+                    password_icon.classList.remove("fa-eye")
+                    password_icon.classList.add("fa-eye-slash")
 
-                form_report_paragraph.textContent = "Zadajte váš e-mail."
-                form_report_paragraph.classList.add("invalid")
-            }
-        })
-        
-        // Toggle Show / Hide Password
+                    password.style.webkitTextSecurity = "disc"
+                }
+            })
 
-        const password = document.querySelector(".password")
-        const password_icon = document.querySelector(".fa-regular")
+            // Password Reset
 
-        password_icon.addEventListener("click", function(event) {
-            if(password_icon.classList[1] === "fa-eye-slash") {
-                password_icon.classList.remove("fa-eye-slash")
-                password_icon.classList.add("fa-eye")
+            const password_reset = document.querySelector(".forgot_password p a")
+            const email_address = document.querySelector(".email_address")
+            const form_report_paragraph = document.querySelector(".form_report_paragraph")
 
-                password.style.webkitTextSecurity = "none"
-            }
+            password_reset.addEventListener("click", function(event) {
+                if(email_address.value !== "" && email_address.value.includes("@") && email_address.value.includes(".")) {
+                    form_report_paragraph.textContent = ""
 
-            else if(password_icon.classList[1] === "fa-eye") {
-                password_icon.classList.remove("fa-eye")
-                password_icon.classList.add("fa-eye-slash")
+                    document.cookie = `email_address=${email_address.value}; max-age=` + 60 * 10 + "; path=/"; // 10 Minutes Timed Cookie With User's Email Address
+                }
 
-                password.style.webkitTextSecurity = "disc"
-            }
+                else {
+                    event.preventDefault()
+
+                    form_report_paragraph.textContent = "Zadajte váš e-mail."
+                    form_report_paragraph.classList.add("invalid")
+                }
+            })
         })
     </script>
 

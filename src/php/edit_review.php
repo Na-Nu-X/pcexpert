@@ -26,7 +26,7 @@
 
         if($delete_review === "yes") {
             if(deleteReview($connection, $_SESSION["logged_in_user_id"])) {
-                $_SESSION["red_report_message"] = "Recenzia bola odstránená";
+                $_SESSION["red_report_message"] = "Recenzia&nbsp;bola&nbsp;odstránená";
 
                 redirectURL("/index");
                 exit;
@@ -191,91 +191,95 @@
 
         "use strict"
 
-        // Write Review
+        document.addEventListener("DOMContentLoaded", function(event) {
+            // Stars
 
-        const stars = document.querySelectorAll(".stars img")
-        const rating = document.querySelector(".rating")
-        let selected_rating = parseInt(rating.value) || 0
+            const stars = document.querySelectorAll(".stars img")
+            const rating = document.querySelector(".rating")
+            let selected_rating = parseInt(rating.value) || 0
 
-        function updateStars(hover_value = 0) {
-            stars.forEach(function(star, index) {
-                if(hover_value > 0) {
-                    if(index < hover_value) {
-                        star.src = "/content/images/star.png"
+            function updateStars(hover_value = 0) {
+                stars.forEach(function(star, index) {
+                    if(hover_value > 0) {
+                        if(index < hover_value) {
+                            star.src = "/content/images/star.png"
+                        }
+
+                        else {
+                            star.src = "/content/images/empty_star.png"
+                        }
                     }
 
                     else {
-                        star.src = "/content/images/empty_star.png"
+                        if(index < selected_rating) {
+                            star.src = "/content/images/star.png"
+                        }
+
+                        else {
+                            star.src = "/content/images/empty_star.png"
+                        }
                     }
+                })
+            }
+
+            stars.forEach(function(star, index) {
+                const rating_number = index + 1
+
+                star.addEventListener("mouseover", function(event) {
+                    updateStars(rating_number)
+                })
+
+                star.addEventListener("mouseout", function(event) {
+                    updateStars()
+                })
+
+                star.addEventListener("click", function(event) {
+                    selected_rating = rating_number
+                    rating.value = rating_number
+                    updateStars()
+                })
+            })
+
+            updateStars()
+
+            // Update Review
+
+            const form_report_paragraph = document.querySelector(".form_report_paragraph")
+            const edit_review_submit = document.querySelector(".edit_review_submit")
+
+            edit_review_submit.addEventListener("click", function(event) {
+                if(rating.value === "" || parseInt(rating.value) === 0) {
+                    event.preventDefault()
+
+                    form_report_paragraph.textContent = "Ukážte nám vašu spokojnosť."
+                    form_report_paragraph.classList.add("invalid")
                 }
 
                 else {
-                    if(index < selected_rating) {
-                        star.src = "/content/images/star.png"
-                    }
-
-                    else {
-                        star.src = "/content/images/empty_star.png"
-                    }
+                    form_report_paragraph.textContent = ""
+                    form_report_paragraph.classList.remove("invalid")
                 }
             })
-        }
 
-        stars.forEach(function(star, index) {
-            const rating_number = index + 1
+            // Delete Review Warning
 
-            star.addEventListener("mouseover", function(event) {
-                updateStars(rating_number)
+            const delete_review_input = document.querySelector("#delete_review")
+            const delete_review_image = document.querySelector(".delete_review")
+
+            delete_review_input.addEventListener("click", function(event) {
+                if(delete_review_input.checked) {
+                    delete_review_image.style.opacity = 1
+
+                    form_report_paragraph.textContent = "Vaša recenzia bude odstránená."
+                    form_report_paragraph.classList.add("invalid")
+                }
+
+                else {
+                    delete_review_image.style.opacity = 0.8
+
+                    form_report_paragraph.textContent = ""
+                }
             })
-
-            star.addEventListener("mouseout", function(event) {
-                updateStars()
-            })
-
-            star.addEventListener("click", function(event) {
-                selected_rating = rating_number
-                rating.value = rating_number
-                updateStars()
-            })
-        })
-
-        updateStars()
-
-        const form_report_paragraph = document.querySelector(".form_report_paragraph")
-        const write_review_submit = document.querySelector(".edit_review_submit")
-
-        write_review_submit.addEventListener("click", function(event) {
-            if(rating.value === "" || parseInt(rating.value) === 0) {
-                event.preventDefault()
-
-                form_report_paragraph.textContent = "Ukážte nám vašu spokojnosť."
-                form_report_paragraph.classList.add("invalid")
-            }
-
-            else {
-                form_report_paragraph.textContent = ""
-                form_report_paragraph.classList.remove("invalid")
-            }
-        })
-
-        // Delete Review Warning
-
-        const delete_review_input = document.querySelector("#delete_review")
-        const delete_review_image = document.querySelector(".delete_review")
-
-        delete_review_input.addEventListener("click", function(event) {
-            if(delete_review_input.checked) {
-                delete_review_image.style.opacity = 1
-
-                form_report_paragraph.textContent = "Vaša recenzia bude odstránená."
-                form_report_paragraph.classList.add("invalid")
-            }
-
-            else {
-                delete_review_image.style.opacity = 0.8
-
-                form_report_paragraph.textContent = ""
-            }
         })
     </script>
 

@@ -35,14 +35,14 @@
                 setcookie("password_reset_code_timer", "", -1, "/");
             }
 
-            $_SESSION["green_report_message"] = "Heslo bolo zmenené";
+            $_SESSION["green_report_message"] = "Heslo&nbsp;bolo&nbsp;zmenené";
 
             redirectURL("/index");
             exit;
         }
 
         else {
-            $_SESSION["red_report_message"] = "Overovací kód sa nezhoduje";
+            $_SESSION["red_report_message"] = "Overovací&nbsp;kód&nbsp;sa&nbsp;nezhoduje";
         }
     }
 ?>
@@ -143,70 +143,72 @@
 
         "use strict"
 
-        // Password Length Verification
+        document.addEventListener("DOMContentLoaded", function(event) {
+            // Password Length Verification
 
-        const new_password = document.querySelector(".new_password")
-        const form_report_paragraph = document.querySelector(".form_report_paragraph")
+            const new_password = document.querySelector(".new_password")
+            const form_report_paragraph = document.querySelector(".form_report_paragraph")
 
-        new_password.addEventListener("input", function(event){
-            if(new_password.value.length < 8 && new_password.value.length > 0) {
-                form_report_paragraph.textContent = "Heslo je príliš krátke."
-                form_report_paragraph.classList.add("invalid")
-                form_report_paragraph.classList.remove("valid")
-            }
-
-            else {
-                form_report_paragraph.textContent = ""
-            }
-        })
-
-        // Random Password Generator
-
-        const generate_password = document.querySelector(".fa-key")
-
-        const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
-        const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-        const special_chars = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', '[', ']', '{', '}', ';', ':', "'", '"', ',', '.', '<', '>', '/', '?', '\\', '|', '`', '~']
-
-        generate_password.addEventListener("click", function(event) {
-            function shuffleString(string) {
-                let array = string.split("")
-
-                for(let i = array.length - 1; i > 0; i--) {
-                    let j = Math.floor(Math.random() * (i + 1));
-                    [array[i], array[j]] = [array[j], array[i]]
+            new_password.addEventListener("input", function(event){
+                if(new_password.value.length < 8 && new_password.value.length > 0) {
+                    form_report_paragraph.textContent = "Heslo je príliš krátke."
+                    form_report_paragraph.classList.add("invalid")
+                    form_report_paragraph.classList.remove("valid")
                 }
 
-                return array.join("");
-            }
+                else {
+                    form_report_paragraph.textContent = ""
+                }
+            })
 
-            let generated_password = ""
+            // Random Password Generator
 
-            for(let x = 0; x < 5; x++) {
-                generated_password = generated_password + alphabet[Math.floor(Math.random() * alphabet.length)] + numbers[Math.floor(Math.random() * numbers.length)] + special_chars[Math.floor(Math.random() * special_chars.length)]
-            }
+            const generate_password = document.querySelector(".fa-key")
 
-            new_password.value = shuffleString(generated_password)
-        })
+            const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+            const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+            const special_chars = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', '[', ']', '{', '}', ';', ':', "'", '"', ',', '.', '<', '>', '/', '?', '\\', '|', '`', '~']
 
-        // Toggle Show / Hide Password
+            generate_password.addEventListener("click", function(event) {
+                function shuffleString(string) {
+                    let array = string.split("")
 
-        const password_icon = document.querySelector(".fa-regular")
+                    for(let i = array.length - 1; i > 0; i--) {
+                        let j = Math.floor(Math.random() * (i + 1));
+                        [array[i], array[j]] = [array[j], array[i]]
+                    }
 
-        password_icon.addEventListener("click", function(event) {
-            if(password_icon.classList[1] === "fa-eye-slash") {
-                password_icon.classList.remove("fa-eye-slash")
-                password_icon.classList.add("fa-eye")
+                    return array.join("");
+                }
 
-                new_password.style.webkitTextSecurity = "none"
-            }
+                let generated_password = ""
 
-            else if(password_icon.classList[1] === "fa-eye") {
-                password_icon.classList.remove("fa-eye")
-                password_icon.classList.add("fa-eye-slash")
+                for(let x = 0; x < 5; x++) {
+                    generated_password = generated_password + alphabet[Math.floor(Math.random() * alphabet.length)] + numbers[Math.floor(Math.random() * numbers.length)] + special_chars[Math.floor(Math.random() * special_chars.length)]
+                }
 
-                new_password.style.webkitTextSecurity = "disc"
-            }
+                new_password.value = shuffleString(generated_password)
+            })
+
+            // Toggle Show / Hide Password
+
+            const password_icon = document.querySelector(".fa-regular")
+
+            password_icon.addEventListener("click", function(event) {
+                if(password_icon.classList[1] === "fa-eye-slash") {
+                    password_icon.classList.remove("fa-eye-slash")
+                    password_icon.classList.add("fa-eye")
+
+                    new_password.style.webkitTextSecurity = "none"
+                }
+
+                else if(password_icon.classList[1] === "fa-eye") {
+                    password_icon.classList.remove("fa-eye")
+                    password_icon.classList.add("fa-eye-slash")
+
+                    new_password.style.webkitTextSecurity = "disc"
+                }
+            })
         })
     </script>
 

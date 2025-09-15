@@ -26,7 +26,7 @@
 
             $_SESSION["is_logged_in"] = true;
             $_SESSION["logged_in_user_id"] = $id;
-            $_SESSION["green_report_message"] = "Prihlásený ako " . htmlspecialchars(getUserName($connection, $id), ENT_QUOTES, "UTF-8");
+            $_SESSION["green_report_message"] = "Prihlásený&nbsp;ako " . htmlspecialchars(getUserName($connection, $id), ENT_QUOTES, "UTF-8");
         }
     }
 
@@ -189,7 +189,7 @@
                 if($attachment_message === "Nie je vybraný žiaden súbor.") {
                     $mail->send();
 
-                    $_SESSION["green_report_message"] = "Správa bola odoslaná";
+                    $_SESSION["green_report_message"] = "Správa&nbsp;bola&nbsp;odoslaná";
 
                     redirectURL("/index");
                 }
@@ -200,7 +200,7 @@
             catch(Exception $e) {
                 // echo "Správu sa nepodarilo odoslať: {$mail->ErrorInfo}";
 
-                $_SESSION["red_report_message"] = "Správu sa nepodarilo odoslať";
+                $_SESSION["red_report_message"] = "Správu&nbsp;sa&nbsp;nepodarilo&nbsp;odoslať";
 
                 errorLogSave($connection, "Error While Sending An Email. (" . $e->getMessage() . ")", "../errors/error.log");
             }
@@ -277,7 +277,7 @@
                 sendReview($connection, null, $rating, $review);
             }
 
-            $_SESSION["green_report_message"] = "Ďakujeme za spätnú väzbu";
+            $_SESSION["green_report_message"] = "Ďakujeme&nbsp;za&nbsp;spätnú&nbsp;väzbu";
             $review = "";
 
             redirectURL("/index");
@@ -947,93 +947,13 @@
 
         "use strict"
         
-        console.log("%c PC Expert by Patrik Behul", "color: rgb(170, 255, 50); background-color: rgb(0, 0, 0)")
-
-        // Selected Attachment
-        
         document.addEventListener("DOMContentLoaded", function(event) {
-            const attachment = document.querySelector("#attachment")
-            const attachment_report = document.querySelector(".attachment_report")
+            // Secret Print
 
-            attachment.addEventListener("change", function(event) {
-                const all_attachments_sizes = Array.from(attachment.files).map(file => file.size)
-                let final_size = 0
+            console.log("%c PC Expert by Patrik Behul", "color: rgb(170, 255, 50); background-color: rgb(0, 0, 0)")
 
-                for(let i = 0; i < all_attachments_sizes.length; i++) {
-                    final_size = final_size + all_attachments_sizes[i]
-                }
+            // Our Services Buttons
 
-                if(attachment.files.length > 0 && attachment.files.length <= 5 && final_size <= 25000000) {
-                    const all_attachments_names = Array.from(attachment.files).map(file => file.name)
-
-                    attachment_report.textContent = `súbory (${all_attachments_names.length}): ${all_attachments_names.join(", ")}`
-                }
-
-                else if(attachment.files.length > 5) {
-                    attachment_report.textContent = "Vybrali ste príliš mnoho súborov."
-                }
-
-                else if(final_size > 25000000) {
-                    attachment_report.textContent = "Vybrané súbory sú príliš veľké."
-                }
-
-                else {
-                    attachment_report.textContent = "Nie je vybraný žiaden súbor."
-                }
-            })
-        })
-
-        // Show More / Show Less Reviews
-
-        document.addEventListener("DOMContentLoaded", function(event) {
-            let offset = 0
-            const limit = 5
-            const user_id = <?php echo json_encode($user_id); ?>
-
-            const all_reviews = document.querySelector(".all_reviews")
-            const show_more_reviews = document.querySelector(".show_more_reviews")
-            const show_less_reviews = document.querySelector(".show_less_reviews")
-
-            show_more_reviews.addEventListener("click", function(event) {
-                offset += limit
-
-                fetch("all_reviews.php", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                    },
-                    body: `offset=${offset}&user_id=${encodeURIComponent(user_id)}`
-                })
-                .then(response => response.text())
-                .then(data => {
-                    all_reviews.insertAdjacentHTML("beforeend", data)
-                    show_more_reviews.style.display = "none"
-                    show_less_reviews.style.display = "inline-block"
-                })
-            })
-
-            show_less_reviews.addEventListener("click", function(event) {
-                offset = 0
-
-                fetch("all_reviews.php", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                    },
-                    body: `offset=${offset}&user_id=${encodeURIComponent(user_id)}`
-                })
-                .then(response => response.text())
-                .then(data => {
-                    all_reviews.innerHTML = data
-                    show_less_reviews.style.display = "none"
-                    show_more_reviews.style.display = "inline-block"
-                })
-            })
-        })
-
-        // Our Services Buttons
-
-        document.addEventListener("DOMContentLoaded", function(event) {
             const select_menu = document.querySelector(".select_menu")
 
             const contact = document.querySelector(".contact")
@@ -1058,11 +978,9 @@
             ourServicesButtons(build_computer_button, 1)
             ourServicesButtons(computer_maintenance_button, 2)
             ourServicesButtons(computer_cleaning_button, 3)
-        })
 
-        // Write Review
+            // Write Review
 
-        document.addEventListener("DOMContentLoaded", function(event) {
             const stars = document.querySelectorAll(".stars img")
             const rating = document.querySelector(".rating")
             let selected_rating = 0
@@ -1123,6 +1041,84 @@
                 else {
                     form_report_paragraph.textContent = ""
                     form_report_paragraph.classList.remove("invalid")
+                }
+            })
+
+            // Show More / Show Less Reviews
+
+            let offset = 0
+            const limit = 5
+            const user_id = <?php echo json_encode($user_id); ?>
+
+            const all_reviews = document.querySelector(".all_reviews")
+            const show_more_reviews = document.querySelector(".show_more_reviews")
+            const show_less_reviews = document.querySelector(".show_less_reviews")
+
+            show_more_reviews.addEventListener("click", function(event) {
+                offset += limit
+
+                fetch("all_reviews.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: `offset=${offset}&user_id=${encodeURIComponent(user_id)}`
+                })
+                .then(response => response.text())
+                .then(data => {
+                    all_reviews.insertAdjacentHTML("beforeend", data)
+                    show_more_reviews.style.display = "none"
+                    show_less_reviews.style.display = "inline-block"
+                })
+            })
+
+            show_less_reviews.addEventListener("click", function(event) {
+                offset = 0
+
+                fetch("all_reviews.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: `offset=${offset}&user_id=${encodeURIComponent(user_id)}`
+                })
+                .then(response => response.text())
+                .then(data => {
+                    all_reviews.innerHTML = data
+                    show_less_reviews.style.display = "none"
+                    show_more_reviews.style.display = "inline-block"
+                })
+            })
+
+            // Selected Attachment
+            
+            const attachment = document.querySelector("#attachment")
+            const attachment_report = document.querySelector(".attachment_report")
+
+            attachment.addEventListener("change", function(event) {
+                const all_attachments_sizes = Array.from(attachment.files).map(file => file.size)
+                let final_size = 0
+
+                for(let i = 0; i < all_attachments_sizes.length; i++) {
+                    final_size = final_size + all_attachments_sizes[i]
+                }
+
+                if(attachment.files.length > 0 && attachment.files.length <= 5 && final_size <= 25000000) {
+                    const all_attachments_names = Array.from(attachment.files).map(file => file.name)
+
+                    attachment_report.textContent = `súbory (${all_attachments_names.length}): ${all_attachments_names.join(", ")}`
+                }
+
+                else if(attachment.files.length > 5) {
+                    attachment_report.textContent = "Vybrali ste príliš mnoho súborov."
+                }
+
+                else if(final_size > 25000000) {
+                    attachment_report.textContent = "Vybrané súbory sú príliš veľké."
+                }
+
+                else {
+                    attachment_report.textContent = "Nie je vybraný žiaden súbor."
                 }
             })
         })

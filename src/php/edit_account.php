@@ -83,9 +83,7 @@
         }
 
         catch(Exception $e) {
-            // echo "Správu sa nepodarilo odoslať: {$mail->ErrorInfo}";
-
-            $_SESSION["red_report_message"] = "Overovací kód sa nepodarilo odoslať";
+            $_SESSION["red_report_message"] = "Overovací&nbsp;kód&nbsp;sa&nbsp;nepodarilo&nbsp;odoslať";
 
             errorLogSave($connection, "Error While Sending Password Reset Code To User's Email. (" . $e->getMessage() . ")", "../errors/error.log");
         }
@@ -123,7 +121,7 @@
                     session_destroy();
 
                     session_start();
-                    $_SESSION["red_report_message"] = "Účet bol odstránený";
+                    $_SESSION["red_report_message"] = "Účet&nbsp;bol&nbsp;odstránený";
 
                     redirectURL("/index");
                     exit;
@@ -193,7 +191,7 @@
 
             if(empty($message)) {
                 if(updateUser($connection, $id, $first_name, $last_name, $email_address, $phone_number, $new_image_name) === true) {
-                    $_SESSION["green_report_message"] = "Zmeny boli uložené";
+                    $_SESSION["green_report_message"] = "Zmeny&nbsp;boli&nbsp;uložené";
                 } 
                 
                 else {
@@ -431,91 +429,93 @@
         // JavaScript Code
 
         "use strict"
+        
+        document.addEventListener("DOMContentLoaded", function(event) {
+            // Delete Profile Picture Warning
 
-        // Delete Account Warning
+            const delete_profile_picture_input = document.querySelector("#delete_profile_picture")
+            const delete_profile_picture_image = document.querySelector(".delete_profile_picture")
 
-        const delete_account_input = document.querySelector("#delete_account")
-        const delete_account_image = document.querySelector(".delete_account")
-        const form_report_paragraph = document.querySelector(".form_report_paragraph")
-
-        delete_account_input.addEventListener("click", function(event) {
-            if(delete_account_input.checked) {
-                delete_account_image.style.opacity = 1
-
-                form_report_paragraph.textContent = "Váš účet bude odstránený."
-                form_report_paragraph.classList.add("invalid")
-            }
-
-            else {
-                delete_account_image.style.opacity = 0.8
-
-                form_report_paragraph.textContent = ""
-            }
-        })
-
-        // Delete Profile Picture Warning
-
-        const delete_profile_picture_input = document.querySelector("#delete_profile_picture")
-        const delete_profile_picture_image = document.querySelector(".delete_profile_picture")
-
-        delete_profile_picture_input.addEventListener("click", function(event) {
-            if(delete_profile_picture_input.checked) {
-                delete_profile_picture_image.style.opacity = 1
-            }
-
-            else {
-                delete_profile_picture_image.style.opacity = 0.8
-            }
-        })
-
-        // Random Password Generator
-
-        const password = document.querySelector(".password")
-        const generate_password = document.querySelector(".fa-key")
-
-        const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
-        const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-        const special_chars = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', '[', ']', '{', '}', ';', ':', "'", '"', ',', '.', '<', '>', '/', '?', '\\', '|', '`', '~']
-
-        generate_password.addEventListener("click", function(event) {
-            function shuffleString(string) {
-                let array = string.split("")
-
-                for(let i = array.length - 1; i > 0; i--) {
-                    let j = Math.floor(Math.random() * (i + 1));
-                    [array[i], array[j]] = [array[j], array[i]]
+            delete_profile_picture_input.addEventListener("click", function(event) {
+                if(delete_profile_picture_input.checked) {
+                    delete_profile_picture_image.style.opacity = 1
                 }
 
-                return array.join("");
-            }
+                else {
+                    delete_profile_picture_image.style.opacity = 0.8
+                }
+            })
 
-            let generated_password = ""
+            // Delete Account Warning
+            
+            const delete_account_input = document.querySelector("#delete_account")
+            const delete_account_image = document.querySelector(".delete_account")
+            const form_report_paragraph = document.querySelector(".form_report_paragraph")
 
-            for(let x = 0; x < 5; x++) {
-                generated_password = generated_password + alphabet[Math.floor(Math.random() * alphabet.length)] + numbers[Math.floor(Math.random() * numbers.length)] + special_chars[Math.floor(Math.random() * special_chars.length)]
-            }
+            delete_account_input.addEventListener("click", function(event) {
+                if(delete_account_input.checked) {
+                    delete_account_image.style.opacity = 1
 
-            password.value = shuffleString(generated_password)
-        })
+                    form_report_paragraph.textContent = "Váš účet bude odstránený."
+                    form_report_paragraph.classList.add("invalid")
+                }
 
-        // Toggle Show / Hide Password
+                else {
+                    delete_account_image.style.opacity = 0.8
 
-        const password_icon = document.querySelector(".fa-regular")
+                    form_report_paragraph.textContent = ""
+                }
+            })
 
-        password_icon.addEventListener("click", function(event) {
-            if(password_icon.classList[1] === "fa-eye-slash") {
-                password_icon.classList.remove("fa-eye-slash")
-                password_icon.classList.add("fa-eye")
+            // Random Password Generator
 
-                password.style.webkitTextSecurity = "none"
-            }
+            const password = document.querySelector(".password")
+            const generate_password = document.querySelector(".fa-key")
 
-            else if(password_icon.classList[1] === "fa-eye") {
-                password_icon.classList.remove("fa-eye")
-                password_icon.classList.add("fa-eye-slash")
+            const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+            const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+            const special_chars = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', '[', ']', '{', '}', ';', ':', "'", '"', ',', '.', '<', '>', '/', '?', '\\', '|', '`', '~']
 
-                password.style.webkitTextSecurity = "disc"
-            }
+            generate_password.addEventListener("click", function(event) {
+                function shuffleString(string) {
+                    let array = string.split("")
+
+                    for(let i = array.length - 1; i > 0; i--) {
+                        let j = Math.floor(Math.random() * (i + 1));
+                        [array[i], array[j]] = [array[j], array[i]]
+                    }
+
+                    return array.join("");
+                }
+
+                let generated_password = ""
+
+                for(let x = 0; x < 5; x++) {
+                    generated_password = generated_password + alphabet[Math.floor(Math.random() * alphabet.length)] + numbers[Math.floor(Math.random() * numbers.length)] + special_chars[Math.floor(Math.random() * special_chars.length)]
+                }
+
+                password.value = shuffleString(generated_password)
+            })
+
+            // Toggle Show / Hide Password
+
+            const password_icon = document.querySelector(".fa-regular")
+
+            password_icon.addEventListener("click", function(event) {
+                if(password_icon.classList[1] === "fa-eye-slash") {
+                    password_icon.classList.remove("fa-eye-slash")
+                    password_icon.classList.add("fa-eye")
+
+                    password.style.webkitTextSecurity = "none"
+                }
+
+                else if(password_icon.classList[1] === "fa-eye") {
+                    password_icon.classList.remove("fa-eye")
+                    password_icon.classList.add("fa-eye-slash")
+
+                    password.style.webkitTextSecurity = "disc"
+                }
+            })
         })
     </script>
 

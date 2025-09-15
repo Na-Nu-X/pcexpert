@@ -94,7 +94,7 @@
             
                     $_SESSION["is_logged_in"] = true;
                     $_SESSION["logged_in_user_id"] = $id;
-                    $_SESSION["green_report_message"] = "Prihlásený ako " . htmlspecialchars(getUserName($connection, $id), ENT_QUOTES, "UTF-8");
+                    $_SESSION["green_report_message"] = "Prihlásený&nbsp;ako " . htmlspecialchars(getUserName($connection, $id), ENT_QUOTES, "UTF-8");
             
                     redirectURL("/index");
                 }
@@ -316,169 +316,171 @@
 
         "use strict"
 
-        // Phone Number Flag
+        document.addEventListener("DOMContentLoaded", function(event) {
+            // Phone Number Country Flag
 
-        const phone_number = document.querySelector(".phone_number")
-        const slovakia_icon = document.querySelector(".slovakia_icon")
-        const czech_republic_icon = document.querySelector(".czech_republic_icon")
-        const spain_icon = document.querySelector(".spain_icon")
-        const united_states_icon = document.querySelector(".united_states_icon")
+            const phone_number = document.querySelector(".phone_number")
+            const slovakia_icon = document.querySelector(".slovakia_icon")
+            const czech_republic_icon = document.querySelector(".czech_republic_icon")
+            const spain_icon = document.querySelector(".spain_icon")
+            const united_states_icon = document.querySelector(".united_states_icon")
 
-        phone_number.addEventListener("input", function(event) {
-            if(event.target.value.includes("+421") || event.target.value.includes("09")) {
-                // console.log("Slovakia")
-                slovakia_icon.style.visibility = "visible"
-            }
-
-            else if(event.target.value.includes("+420")) {
-                // console.log("Czech Republic")
-                czech_republic_icon.style.visibility = "visible"
-            }
-
-            else if(event.target.value.includes("+34")) {
-                // console.log("Spain")
-                spain_icon.style.visibility = "visible"
-            }
-
-            else if(event.target.value.includes("+1")) {
-                // console.log("USA")
-                united_states_icon.style.visibility = "visible"
-            }
-
-            else {
-                slovakia_icon.style.visibility = "hidden"
-                czech_republic_icon.style.visibility = "hidden"
-                spain_icon.style.visibility = "hidden"
-                united_states_icon.style.visibility = "hidden"
-            }
-        })
-
-        // Password Verification
-
-        const password = document.querySelector(".password")
-        const password_check = document.querySelector(".password_check")
-        const form_report_paragraph = document.querySelector(".form_report_paragraph")
-        const dialogue_paragraph = document.querySelector(".dialogue_paragraph")
-
-        password.addEventListener("input", function(event){
-            if(password.value.length < 8) {
-                form_report_paragraph.textContent = "Heslo je príliš krátke."
-                form_report_paragraph.classList.add("invalid")
-                form_report_paragraph.classList.remove("valid")
-                dialogue_paragraph.textContent = ""
-            }
-
-            else {
-                form_report_paragraph.textContent = ""
-            }
-        })
-
-        password_check.addEventListener("input", function(event){
-            if(password.value === password_check.value) {
-                form_report_paragraph.textContent = "Heslá sa zhodujú."
-                form_report_paragraph.classList.add("valid")
-                form_report_paragraph.classList.remove("invalid")
-                dialogue_paragraph.textContent = ""
-            }
-
-            else {
-                form_report_paragraph.textContent = "Heslá sa nezhodujú."
-                form_report_paragraph.classList.add("invalid")
-                form_report_paragraph.classList.remove("valid")
-                dialogue_paragraph.textContent = ""
-            }
-
-
-            if (password.value === "" && password_check.value === "") {
-                form_report_paragraph.textContent = ""
-            }
-        })
-        
-        // Random Password Generator
-
-        const generate_password = document.querySelector(".fa-key")
-
-        const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
-        const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-        const special_chars = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', '[', ']', '{', '}', ';', ':', "'", '"', ',', '.', '<', '>', '/', '?', '\\', '|', '`', '~']
-
-        generate_password.addEventListener("click", function(event) {
-            function shuffleString(string) {
-                let array = string.split("")
-
-                for(let i = array.length - 1; i > 0; i--) {
-                    let j = Math.floor(Math.random() * (i + 1));
-                    [array[i], array[j]] = [array[j], array[i]]
+            phone_number.addEventListener("input", function(event) {
+                if(event.target.value.includes("+421") || event.target.value.includes("09")) {
+                    // console.log("Slovakia")
+                    slovakia_icon.style.visibility = "visible"
                 }
 
-                return array.join("");
-            }
+                else if(event.target.value.includes("+420")) {
+                    // console.log("Czech Republic")
+                    czech_republic_icon.style.visibility = "visible"
+                }
 
-            let generated_password = ""
+                else if(event.target.value.includes("+34")) {
+                    // console.log("Spain")
+                    spain_icon.style.visibility = "visible"
+                }
 
-            for(let x = 0; x < 5; x++) {
-                generated_password = generated_password + alphabet[Math.floor(Math.random() * alphabet.length)] + numbers[Math.floor(Math.random() * numbers.length)] + special_chars[Math.floor(Math.random() * special_chars.length)]
-            }
+                else if(event.target.value.includes("+1")) {
+                    // console.log("USA")
+                    united_states_icon.style.visibility = "visible"
+                }
 
-            password.value = shuffleString(generated_password)
-        })
+                else {
+                    slovakia_icon.style.visibility = "hidden"
+                    czech_republic_icon.style.visibility = "hidden"
+                    spain_icon.style.visibility = "hidden"
+                    united_states_icon.style.visibility = "hidden"
+                }
+            })
 
-        // Toggle Show / Hide Password
+            // Password Verification
 
-        const password_icon = document.querySelector(".fa-regular")
+            const password = document.querySelector(".password")
+            const password_check = document.querySelector(".password_check")
+            const form_report_paragraph = document.querySelector(".form_report_paragraph")
+            const dialogue_paragraph = document.querySelector(".dialogue_paragraph")
 
-        password_icon.addEventListener("click", function(event) {
-            if(password_icon.classList[1] === "fa-eye-slash") {
-                password_icon.classList.remove("fa-eye-slash")
-                password_icon.classList.add("fa-eye")
+            password.addEventListener("input", function(event){
+                if(password.value.length < 8) {
+                    form_report_paragraph.textContent = "Heslo je príliš krátke."
+                    form_report_paragraph.classList.add("invalid")
+                    form_report_paragraph.classList.remove("valid")
+                    dialogue_paragraph.textContent = ""
+                }
 
-                password.style.webkitTextSecurity = "none"
-            }
+                else {
+                    form_report_paragraph.textContent = ""
+                }
+            })
 
-            else if(password_icon.classList[1] === "fa-eye") {
-                password_icon.classList.remove("fa-eye")
-                password_icon.classList.add("fa-eye-slash")
+            password_check.addEventListener("input", function(event){
+                if(password.value === password_check.value) {
+                    form_report_paragraph.textContent = "Heslá sa zhodujú."
+                    form_report_paragraph.classList.add("valid")
+                    form_report_paragraph.classList.remove("invalid")
+                    dialogue_paragraph.textContent = ""
+                }
 
-                password.style.webkitTextSecurity = "disc"
-            }
-        })
+                else {
+                    form_report_paragraph.textContent = "Heslá sa nezhodujú."
+                    form_report_paragraph.classList.add("invalid")
+                    form_report_paragraph.classList.remove("valid")
+                    dialogue_paragraph.textContent = ""
+                }
 
-        // Copy Password To Clipboard
 
-        const copy_password = document.querySelector(".copy_password_icon")
+                if (password.value === "" && password_check.value === "") {
+                    form_report_paragraph.textContent = ""
+                }
+            })
+            
+            // Random Password Generator
 
-        copy_password.addEventListener("click", function(event) {
-            password.select()
-            password.setSelectionRange(0, password.value.length)
-            document.execCommand("copy")
-            // navigator.clipboard.writeText(password.value) // Only HTTPS
-        })
+            const generate_password = document.querySelector(".fa-key")
 
-        // Paste From Clipboard
+            const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+            const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+            const special_chars = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', '[', ']', '{', '}', ';', ':', "'", '"', ',', '.', '<', '>', '/', '?', '\\', '|', '`', '~']
 
-        const paste_password = document.querySelector(".paste_password_icon")
+            generate_password.addEventListener("click", function(event) {
+                function shuffleString(string) {
+                    let array = string.split("")
 
-        paste_password.addEventListener("click", function(event) {
-            // password_check.value = navigator.clipboard.readText() // Only HTTPS
-            password_check.value = password.value
-        })
+                    for(let i = array.length - 1; i > 0; i--) {
+                        let j = Math.floor(Math.random() * (i + 1));
+                        [array[i], array[j]] = [array[j], array[i]]
+                    }
 
-        // Terms Check
+                    return array.join("");
+                }
 
-        const registration_form_submit = document.querySelector(".registration_form_submit")
-        const terms = document.querySelector(".terms")
-        const terms_label = document.querySelector(".terms_label")
+                let generated_password = ""
 
-        registration_form_submit.addEventListener("click", function(event) {
-            if(!terms.checked) {
-                terms_label.style.color = "rgb(250, 50, 50)"
-            }
-        })
+                for(let x = 0; x < 5; x++) {
+                    generated_password = generated_password + alphabet[Math.floor(Math.random() * alphabet.length)] + numbers[Math.floor(Math.random() * numbers.length)] + special_chars[Math.floor(Math.random() * special_chars.length)]
+                }
 
-        terms.addEventListener("input", function(event) {
-            if(terms.checked) {
-                terms_label.style.color = "rgb(180, 180, 180)"
-            }
+                password.value = shuffleString(generated_password)
+            })
+
+            // Toggle Show / Hide Password
+
+            const password_icon = document.querySelector(".fa-regular")
+
+            password_icon.addEventListener("click", function(event) {
+                if(password_icon.classList[1] === "fa-eye-slash") {
+                    password_icon.classList.remove("fa-eye-slash")
+                    password_icon.classList.add("fa-eye")
+
+                    password.style.webkitTextSecurity = "none"
+                }
+
+                else if(password_icon.classList[1] === "fa-eye") {
+                    password_icon.classList.remove("fa-eye")
+                    password_icon.classList.add("fa-eye-slash")
+
+                    password.style.webkitTextSecurity = "disc"
+                }
+            })
+
+            // Copy Password To Clipboard
+
+            const copy_password = document.querySelector(".copy_password_icon")
+
+            copy_password.addEventListener("click", function(event) {
+                password.select()
+                password.setSelectionRange(0, password.value.length)
+                document.execCommand("copy")
+                // navigator.clipboard.writeText(password.value) // Only HTTPS
+            })
+
+            // Paste From Clipboard
+
+            const paste_password = document.querySelector(".paste_password_icon")
+
+            paste_password.addEventListener("click", function(event) {
+                // password_check.value = navigator.clipboard.readText() // Only HTTPS
+                password_check.value = password.value
+            })
+
+            // Terms Check
+
+            const registration_form_submit = document.querySelector(".registration_form_submit")
+            const terms = document.querySelector(".terms")
+            const terms_label = document.querySelector(".terms_label")
+
+            registration_form_submit.addEventListener("click", function(event) {
+                if(!terms.checked) {
+                    terms_label.style.color = "rgb(250, 50, 50)"
+                }
+            })
+
+            terms.addEventListener("input", function(event) {
+                if(terms.checked) {
+                    terms_label.style.color = "rgb(180, 180, 180)"
+                }
+            })
         })
     </script>
 

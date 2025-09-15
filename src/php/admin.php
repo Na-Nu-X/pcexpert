@@ -39,7 +39,7 @@
             }
         }
 
-        $_SESSION["green_report_message"] = "Zmeny boli vykonané";
+        $_SESSION["green_report_message"] = "Zmeny&nbsp;boli&nbsp;vykonané";
     }
 ?>
 
@@ -263,9 +263,9 @@
 
         "use strict"
 
-        // User Role
-
         document.addEventListener("DOMContentLoaded", function(event) {
+            // User Role
+
             const all_users = document.querySelector(".all_users")
 
             all_users.addEventListener("click", async function(event) {
@@ -288,11 +288,37 @@
                     }
                 }
             })
-        })
 
-        // Show More / Show Less Users
+            // Delete User
 
-        document.addEventListener("DOMContentLoaded", function(event) {
+            const all_users = document.querySelector(".all_users")
+
+            all_users.addEventListener("click", async function(event) {
+                const user = event.target.closest(".user")
+
+                const delete_user_image = event.target.closest(".delete_user")
+
+                if(delete_user_image) {
+                    const delete_user_input = user.querySelector(".delete_user_checkbox")
+                    const form_report_paragraph = user.querySelector(".form_report_paragraph")
+
+                    if(!delete_user_input.checked) {
+                        delete_user_image.style.opacity = 1
+
+                        form_report_paragraph.textContent = "Účet bude odstránený."
+                        form_report_paragraph.classList.add("invalid")
+                    }
+
+                    else {
+                        delete_user_image.style.opacity = 0.8
+
+                        form_report_paragraph.textContent = ""
+                    }
+                }
+            })
+
+            // Show More / Show Less Users
+
             let offset = 0
             const limit = 5
             const user_id = <?php echo json_encode($user_id); ?>
@@ -336,41 +362,9 @@
                     show_more_users.style.display = "inline-block"
                 })
             })
-        })
 
-        // Delete User
+            // Show / Hide Error Details
 
-        document.addEventListener("DOMContentLoaded", function(event) {
-            const all_users = document.querySelector(".all_users")
-
-            all_users.addEventListener("click", async function(event) {
-                const user = event.target.closest(".user")
-
-                const delete_user_image = event.target.closest(".delete_user")
-
-                if(delete_user_image) {
-                    const delete_user_input = user.querySelector(".delete_user_checkbox")
-                    const form_report_paragraph = user.querySelector(".form_report_paragraph")
-
-                    if(!delete_user_input.checked) {
-                        delete_user_image.style.opacity = 1
-
-                        form_report_paragraph.textContent = "Účet bude odstránený."
-                        form_report_paragraph.classList.add("invalid")
-                    }
-
-                    else {
-                        delete_user_image.style.opacity = 0.8
-
-                        form_report_paragraph.textContent = ""
-                    }
-                }
-            })
-        })
-
-        // Show / Hide Error Details
-
-        document.addEventListener("DOMContentLoaded", function(event) {
             const all_errors = document.querySelector(".all_errors")
 
             all_errors.addEventListener("click", async function(event) {
@@ -403,11 +397,9 @@
                     error.querySelector(".show_error_details").style.display = "inline-block"
                 }
             })
-        })
 
-        // Delete Error
+            // Delete Error
 
-        document.addEventListener("DOMContentLoaded", function(event) {
             const all_errors = document.querySelector(".all_errors")
 
             all_errors.addEventListener("click", async function(event) {
@@ -426,11 +418,9 @@
                     error.querySelector(".delete_error_log").style.display = "inline-block"
                 }
             })
-        })
 
-        // Show More / Show Less Errors
+            // Show More / Show Less Errors
 
-        document.addEventListener("DOMContentLoaded", function(event) {
             const all_errors = document.querySelector(".all_errors")
             const show_more_errors = document.querySelector(".show_more_errors")
             const show_less_errors = document.querySelector(".show_less_errors")
