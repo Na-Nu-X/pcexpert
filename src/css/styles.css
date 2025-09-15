@@ -149,7 +149,7 @@ header {
   cursor: pointer;
 }
 
-.log_in_successful_message, .log_out_successful_message, .edit_account_successful_message, .delete_account_successful_message, .write_review_successful_message, .delete_review_successful_message, .contact_successful_message, .contact_error_message, .changes_committed {
+.green_report_message, .red_report_message {
   visibility: hidden;
   position: fixed;
   top: 75%;
@@ -163,11 +163,11 @@ header {
   animation: fade_out_animation 5s ease-out;
 }
 
-.log_in_successful_message, .edit_account_successful_message, .write_review_successful_message, .contact_successful_message, .changes_committed {
+.green_report_message {
   color: rgb(170, 255, 50);
 }
 
-.log_out_successful_message, .delete_account_successful_message, .delete_review_successful_message, .contact_error_message {
+.red_report_message {
   color: rgb(250, 50, 50);
 }
 

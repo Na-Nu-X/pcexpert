@@ -26,7 +26,7 @@
 
             $_SESSION["is_logged_in"] = true;
             $_SESSION["logged_in_user_id"] = $id;
-            $_SESSION["log_in_successful_message"] = "Prihlásený ako " . htmlspecialchars(getUserName($connection, $id), ENT_QUOTES, "UTF-8");
+            $_SESSION["green_report_message"] = "Prihlásený ako " . htmlspecialchars(getUserName($connection, $id), ENT_QUOTES, "UTF-8");
         }
     }
 
@@ -189,7 +189,7 @@
                 if($attachment_message === "Nie je vybraný žiaden súbor.") {
                     $mail->send();
 
-                    $_SESSION["contact_successful_message"] = "Správa bola odoslaná";
+                    $_SESSION["green_report_message"] = "Správa bola odoslaná";
 
                     redirectURL("/index");
                 }
@@ -200,7 +200,7 @@
             catch(Exception $e) {
                 // echo "Správu sa nepodarilo odoslať: {$mail->ErrorInfo}";
 
-                $_SESSION["contact_error_message"] = "Správu sa nepodarilo odoslať";
+                $_SESSION["red_report_message"] = "Správu sa nepodarilo odoslať";
 
                 errorLogSave($connection, "Error While Sending An Email. (" . $e->getMessage() . ")", "../errors/error.log");
             }
@@ -277,7 +277,7 @@
                 sendReview($connection, null, $rating, $review);
             }
 
-            $_SESSION["write_review_successful_message"] = "Ďakujeme za spätnú väzbu";
+            $_SESSION["green_report_message"] = "Ďakujeme za spätnú väzbu";
             $review = "";
 
             redirectURL("/index");
@@ -323,51 +323,15 @@
 
 <body class="<?php echo $theme; ?>">
     <header>
-        <?php if(isset($_SESSION["log_in_successful_message"]) and !empty($_SESSION["log_in_successful_message"])): ?>
-            <p class="log_in_successful_message"><?php echo $_SESSION["log_in_successful_message"]; ?></p>
-            <?php $_SESSION["log_in_successful_message"] = ""; ?>
+        <?php if(isset($_SESSION["green_report_message"]) and !empty($_SESSION["green_report_message"])): ?>
+            <p class="green_report_message"><?php echo $_SESSION["green_report_message"]; ?></p>
+            <?php $_SESSION["green_report_message"] = ""; ?>
 
         <?php endif; ?>
 
-        <?php if(isset($_SESSION["log_out_successful_message"]) and !empty($_SESSION["log_out_successful_message"])): ?>
-            <p class="log_out_successful_message"><?php echo $_SESSION["log_out_successful_message"]; ?></p>
-            <?php $_SESSION["log_out_successful_message"] = ""; ?>
-
-        <?php endif; ?>
-
-        <?php if(isset($_SESSION["edit_account_successful_message"]) and !empty($_SESSION["edit_account_successful_message"])): ?>
-            <p class="edit_account_successful_message"><?php echo $_SESSION["edit_account_successful_message"]; ?></p>
-            <?php $_SESSION["edit_account_successful_message"] = ""; ?>
-
-        <?php endif; ?>
-
-        <?php if(isset($_SESSION["delete_account_successful_message"]) and !empty($_SESSION["delete_account_successful_message"])): ?>
-            <p class="delete_account_successful_message"><?php echo $_SESSION["delete_account_successful_message"]; ?></p>
-            <?php $_SESSION["delete_account_successful_message"] = ""; ?>
-
-        <?php endif; ?>
-
-        <?php if(isset($_SESSION["write_review_successful_message"]) and !empty($_SESSION["write_review_successful_message"])): ?>
-            <p class="write_review_successful_message"><?php echo $_SESSION["write_review_successful_message"]; ?></p>
-            <?php $_SESSION["write_review_successful_message"] = ""; ?>
-
-        <?php endif; ?>
-
-        <?php if(isset($_SESSION["delete_review_successful_message"]) and !empty($_SESSION["delete_review_successful_message"])): ?>
-            <p class="delete_review_successful_message"><?php echo $_SESSION["delete_review_successful_message"]; ?></p>
-            <?php $_SESSION["delete_review_successful_message"] = ""; ?>
-
-        <?php endif; ?>
-
-        <?php if(isset($_SESSION["contact_successful_message"]) and !empty($_SESSION["contact_successful_message"])): ?>
-            <p class="contact_successful_message"><?php echo $_SESSION["contact_successful_message"]; ?></p>
-            <?php $_SESSION["contact_successful_message"] = ""; ?>
-
-        <?php endif; ?>
-
-        <?php if(isset($_SESSION["contact_error_message"]) and !empty($_SESSION["contact_error_message"])): ?>
-            <p class="contact_error_message"><?php echo $_SESSION["contact_error_message"]; ?></p>
-            <?php $_SESSION["contact_error_message"] = ""; ?>
+        <?php if(isset($_SESSION["red_report_message"]) and !empty($_SESSION["red_report_message"])): ?>
+            <p class="red_report_message"><?php echo $_SESSION["red_report_message"]; ?></p>
+            <?php $_SESSION["red_report_message"] = ""; ?>
 
         <?php endif; ?>
 

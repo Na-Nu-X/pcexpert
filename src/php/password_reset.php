@@ -31,7 +31,7 @@
                 setcookie("password_reset_code_timer", "", -1, "/");
             }
 
-            $_SESSION["password_reset_successful_message"] = "Heslo bolo zmenené";
+            $_SESSION["green_report_message"] = "Heslo bolo zmenené";
 
             redirectURL("/index");
             exit;

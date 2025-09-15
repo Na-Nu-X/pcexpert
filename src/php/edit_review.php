@@ -26,7 +26,7 @@
 
         if($delete_review === "yes") {
             if(deleteReview($connection, $_SESSION["logged_in_user_id"])) {
-                $_SESSION["delete_review_successful_message"] = "Recenzia bola odstránená";
+                $_SESSION["red_report_message"] = "Recenzia bola odstránená";
 
                 redirectURL("/index");
                 exit;

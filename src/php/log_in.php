@@ -29,7 +29,7 @@
     
             $_SESSION["is_logged_in"] = true;
             $_SESSION["logged_in_user_id"] = $id;
-            $_SESSION["log_in_successful_message"] = "Prihlásený&nbsp;ako " . htmlspecialchars(getUserName($connection, $_SESSION["logged_in_user_id"]), ENT_QUOTES, "UTF-8");
+            $_SESSION["green_report_message"] = "Prihlásený&nbsp;ako " . htmlspecialchars(getUserName($connection, $_SESSION["logged_in_user_id"]), ENT_QUOTES, "UTF-8");
 
             if($remember_me === "yes") {
                 $remember_me_token = bin2hex(random_bytes(30)); // Generate Random 60 Characters Long String

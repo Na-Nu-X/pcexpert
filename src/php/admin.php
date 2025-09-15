@@ -39,7 +39,7 @@
             }
         }
 
-        $_SESSION["changes_committed"] = "Zmeny boli vykonané";
+        $_SESSION["green_report_message"] = "Zmeny boli vykonané";
     }
 ?>
 
@@ -60,9 +60,9 @@
 
 <body class="<?php echo $theme; ?>">
     <header>
-        <?php if(isset($_SESSION["changes_committed"]) and !empty($_SESSION["changes_committed"])): ?>
-            <p class="changes_committed"><?php echo $_SESSION["changes_committed"]; ?></p>
-            <?php $_SESSION["changes_committed"] = ""; ?>
+        <?php if(isset($_SESSION["green_report_message"]) and !empty($_SESSION["green_report_message"])): ?>
+            <p class="green_report_message"><?php echo $_SESSION["green_report_message"]; ?></p>
+            <?php $_SESSION["green_report_message"] = ""; ?>
 
         <?php endif; ?>
 

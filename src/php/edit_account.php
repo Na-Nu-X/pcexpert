@@ -83,7 +83,7 @@
         catch(Exception $e) {
             // echo "Správu sa nepodarilo odoslať: {$mail->ErrorInfo}";
 
-            $_SESSION["password_reset_error_message"] = "Overovací kód sa nepodarilo odoslať";
+            $_SESSION["red_report_message"] = "Overovací kód sa nepodarilo odoslať";
 
             errorLogSave($connection, "Error While Sending Password Reset Code To User's Email. (" . $e->getMessage() . ")", "../errors/error.log");
         }
@@ -123,7 +123,7 @@
                     session_destroy();
 
                     session_start();
-                    $_SESSION["delete_account_successful_message"] = "Účet bol odstránený";
+                    $_SESSION["red_report_message"] = "Účet bol odstránený";
 
                     redirectURL("/index");
                     exit;
@@ -193,7 +193,7 @@
 
             if(empty($message)) {
                 if(updateUser($connection, $id, $first_name, $last_name, $email_address, $phone_number, $new_image_name) === true) {
-                    $_SESSION["edit_account_successful_message"] = "Zmeny boli uložené";
+                    $_SESSION["green_report_message"] = "Zmeny boli uložené";
                 } 
                 
                 else {

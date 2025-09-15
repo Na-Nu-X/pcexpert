@@ -94,7 +94,7 @@
             
                     $_SESSION["is_logged_in"] = true;
                     $_SESSION["logged_in_user_id"] = $id;
-                    $_SESSION["log_in_successful_message"] = "Prihlásený ako " . htmlspecialchars(getUserName($connection, $id), ENT_QUOTES, "UTF-8");
+                    $_SESSION["green_report_message"] = "Prihlásený ako " . htmlspecialchars(getUserName($connection, $id), ENT_QUOTES, "UTF-8");
             
                     redirectURL("/index");
                 }
