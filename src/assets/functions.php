@@ -50,8 +50,6 @@
 
         $sql = "INSERT INTO users (first_name, last_name, email_address, phone_number, password, news, role, creation_time) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
-        $sql = "INSERT INTO users (first_name, last_name, email_address, phone_number, password, news, role, creation_time) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
 
         $statement = mysqli_prepare($connection, $sql);
 
@@ -589,7 +587,6 @@
         }
     }
 
-    function errorLogSave($connection, $message, $file_directory) {
     function errorLogSave($connection, $message, $file_directory) {
         // Data
 
