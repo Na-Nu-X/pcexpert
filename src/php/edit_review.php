@@ -28,14 +28,14 @@
             if(deleteReview($connection, $_SESSION["logged_in_user_id"])) {
                 $_SESSION["red_report_message"] = "Recenzia&nbsp;bola&nbsp;odstránená";
 
-                redirectURL("/index");
+                redirectURL("/domov");
                 exit;
             }
         }
 
         else if($delete_review === "no") {
             if(updateReview($connection, $_SESSION["logged_in_user_id"], $rating, $review)) {
-                redirectURL("/index");
+                redirectURL("/domov");
             }
 
             else {
@@ -75,7 +75,7 @@
         <nav class="navigation_bar">
             <ul>
                 <li class="navigation_bar_item home">
-                    <a href="./index">DOMOV</a>
+                    <a href="./domov">DOMOV</a>
                 </li>
 
                 <div class="navigation_icon">
@@ -95,11 +95,11 @@
 
     <main>
         <section class="edit_review">
-            <a href="./index">
+            <a href="./domov">
                 <img class="back_icon" title="Späť na domovskú stránku" src="/content/images/back.png" alt="Späť na domovskú stránku"> <!-- https://www.flaticon.com/free-icon/back_2099190 -->
             </a>
 
-            <h2><a href="./edit_review">Recenzia</a></h2>
+            <h2><a href="./upravit-recenziu">Recenzia</a></h2>
             
             <?php if(userReview($connection, $user_id) !== null and userReview($connection, $user_id) !== false): ?>
                 <form class="edit_review_form" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
@@ -170,7 +170,7 @@
 
             <?php elseif(!isset($_SESSION["is_logged_in"])): ?>
                 <div class="no_logged_in">
-                    <p>Pre úpravu vašej recenzie sa musíte najprv <a href="./log_in" title="Prihlásiť sa">prihlásiť</a> alebo <a href="./registration" title="Vytvoriť účet">zaregistrovať.</a></p>
+                    <p>Pre úpravu vašej recenzie sa musíte najprv <a href="./prihlasenie" title="Prihlásiť sa">prihlásiť</a> alebo <a href="./registracia" title="Vytvoriť účet">zaregistrovať.</a></p>
                 </div>
 
             <?php else: ?>

@@ -123,7 +123,7 @@
                     session_start();
                     $_SESSION["red_report_message"] = "Účet&nbsp;bol&nbsp;odstránený";
 
-                    redirectURL("/index");
+                    redirectURL("/domov");
                     exit;
                 }
 
@@ -209,7 +209,7 @@
                 }
 
                 if(empty($message)) {
-                    redirectURL("/index");
+                    redirectURL("/domov");
                     exit;
                 }
             }
@@ -259,7 +259,7 @@
         <nav class="navigation_bar">
             <ul>
                 <li class="navigation_bar_item home">
-                    <a href="./index">DOMOV</a>
+                    <a href="./domov">DOMOV</a>
                 </li>
 
                 <div class="navigation_icon">
@@ -279,11 +279,11 @@
 
     <main>
         <section class="edit_account">
-            <a href="./index">
+            <a href="./domov">
                 <img class="back_icon" title="Späť na domovskú stránku" src="/content/images/back.png" alt="Späť na domovskú stránku"> <!-- https://www.flaticon.com/free-icon/back_2099190 -->
             </a>
             
-            <h2><a href="./edit_account">Môj&nbsp;účet</a></h2>
+            <h2><a href="./moj-ucet">Môj&nbsp;účet</a></h2>
 
             <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true): ?>
                 <form class="edit_account_form" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data">
@@ -414,7 +414,7 @@
 
             <?php else: ?>
                 <div class="no_logged_in">
-                    <p>Pre zobrazenie podrobností o vašom účte sa musíte najprv <a href="./log_in" title="Prihlásiť sa">prihlásiť</a> alebo <a href="./registration" title="Vytvoriť účet">zaregistrovať.</a></p>
+                    <p>Pre zobrazenie podrobností o vašom účte sa musíte najprv <a href="./prihlasenie" title="Prihlásiť sa">prihlásiť</a> alebo <a href="./registracia" title="Vytvoriť účet">zaregistrovať.</a></p>
                 </div>
 
             <?php endif; ?>

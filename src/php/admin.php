@@ -69,7 +69,7 @@
         <nav class="navigation_bar">
             <ul>
                 <li class="navigation_bar_item">
-                    <a href="../index">DOMOV</a>
+                    <a href="../domov">DOMOV</a>
                 </li>
 
                 <li class="navigation_bar_item scroll_users">
@@ -248,7 +248,7 @@
         <?php else: ?>
             <div class="no_admin">
                 <p style="margin-bottom: 0px;">K obsahu tejto stránky nemáte povolený prístup.</p>
-                <a href="./index" title="Domov" target="_self">Späť na úvodnú stránku.</a>
+                <a href="./domov" title="Domov" target="_self">Späť na úvodnú stránku.</a>
             </div>
 
         <?php endif; ?>
@@ -291,8 +291,6 @@
 
             // Delete User
 
-            const all_users = document.querySelector(".all_users")
-
             all_users.addEventListener("click", async function(event) {
                 const user = event.target.closest(".user")
 
@@ -323,7 +321,6 @@
             const limit = 5
             const user_id = <?php echo json_encode($user_id); ?>
 
-            const all_users = document.querySelector(".all_users")
             const show_more_users = document.querySelector(".show_more_users")
             const show_less_users = document.querySelector(".show_less_users")
 
@@ -400,8 +397,6 @@
 
             // Delete Error
 
-            const all_errors = document.querySelector(".all_errors")
-
             all_errors.addEventListener("click", async function(event) {
                 const error = event.target.closest(".error")
 
@@ -421,7 +416,6 @@
 
             // Show More / Show Less Errors
 
-            const all_errors = document.querySelector(".all_errors")
             const show_more_errors = document.querySelector(".show_more_errors")
             const show_less_errors = document.querySelector(".show_less_errors")
 

@@ -126,7 +126,7 @@
                 }
             }
     
-            redirectURL("/index");
+            redirectURL("/domov");
         }
     
         else {
@@ -179,11 +179,11 @@
         <nav class="navigation_bar">
             <ul>
                 <li class="navigation_bar_item home">
-                    <a href="./index">DOMOV</a>
+                    <a href="./domov">DOMOV</a>
                 </li>
 
                 <li class="navigation_bar_item">
-                    <a href="./registration">REGISTRÁCIA</a>
+                    <a href="./registracia">REGISTRÁCIA</a>
                 </li>
 
                 <div class="navigation_icon">
@@ -203,11 +203,11 @@
 
     <main>
         <section class="log_in">
-            <a href="./index">
+            <a href="./domov">
                 <img class="back_icon" title="Späť na domovskú stránku" src="/content/images/back.png" alt="Späť na domovskú stránku"> <!-- https://www.flaticon.com/free-icon/back_2099190 -->
             </a>
 
-            <h2><a href="./log_in">Prihlásenie</a></h2>
+            <h2><a href="./prihlasenie">Prihlásenie</a></h2>
             
             <form class="log_in_form" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
                 <input 
@@ -250,7 +250,7 @@
                 </div>
 
                 <div class="have_account">
-                    <p>Ešte nemáte účet? <a href="./registration">Registrovať</a></p>
+                    <p>Ešte nemáte účet? <a href="./registracia">Registrovať</a></p>
                 </div>
 
                 <div class="agree">

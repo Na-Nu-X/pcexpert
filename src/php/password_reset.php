@@ -37,7 +37,7 @@
 
             $_SESSION["green_report_message"] = "Heslo&nbsp;bolo&nbsp;zmenené";
 
-            redirectURL("/index");
+            redirectURL("/domov");
             exit;
         }
 
@@ -73,11 +73,11 @@
         <nav class="navigation_bar">
             <ul>
                 <li class="navigation_bar_item home">
-                    <a href="./index">DOMOV</a>
+                    <a href="./domov">DOMOV</a>
                 </li>
 
                 <li class="navigation_bar_item">
-                    <a href="./edit_account">MÔJ ÚČET</a>
+                    <a href="./moj-ucet">MÔJ ÚČET</a>
                 </li>
 
                 <div class="navigation_icon">
@@ -97,11 +97,11 @@
 
     <main>
         <section class="password_reset">
-            <a href="./index">
+            <a href="./domov">
                 <img class="back_icon" title="Späť na domovskú stránku" src="/content/images/back.png" alt="Späť na domovskú stránku"> <!-- https://www.flaticon.com/free-icon/back_2099190 -->
             </a>
 
-            <h2><a href="./password_reset">Obnova&nbsp;hesla</a></h2>
+            <h2><a href="./obnova-hesla">Obnova&nbsp;hesla</a></h2>
 
             <?php if(isset($_COOKIE["password_reset_code_timer"])): ?>
                 <form class="password_reset_form" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">

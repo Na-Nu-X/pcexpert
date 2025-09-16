@@ -191,7 +191,7 @@
 
                     $_SESSION["green_report_message"] = "Správa&nbsp;bola&nbsp;odoslaná";
 
-                    redirectURL("/index");
+                    redirectURL("/domov");
                 }
 
                 throw new Exception();
@@ -280,7 +280,7 @@
             $_SESSION["green_report_message"] = "Ďakujeme&nbsp;za&nbsp;spätnú&nbsp;väzbu";
             $review = "";
 
-            redirectURL("/index");
+            redirectURL("/domov");
         }
         
         else {
@@ -351,7 +351,7 @@
 
                 <?php if(isset($_SESSION["logged_in_user_id"]) and getUserRole($connection, $_SESSION["logged_in_user_id"]) === "admin"): ?>
                     <li style="border: 1px solid rgb(250, 50, 50);" class="navigation_bar_item">
-                        <a href="./admin">ADMINISTRÁCIA</a>
+                        <a href="./administracia">ADMINISTRÁCIA</a>
                     </li>
 
                 <?php endif; ?>
@@ -383,7 +383,7 @@
             <div class="account">
                 <ul>
                     <li>
-                        <a href="./edit_account" title="Môj účet">
+                        <a href="./moj-ucet" title="Môj účet">
                             <?php if(!empty(getProfilePictureName($connection, $_SESSION["logged_in_user_id"]))): ?>
                                 <img 
                                     class="profile_picture" 
@@ -397,7 +397,7 @@
                             <?php endif; ?>
                         </a>
 
-                        <a href="./edit_account" title="Môj účet">
+                        <a href="./moj-ucet" title="Môj účet">
                             <?php echo htmlspecialchars(getUserName($connection, $_SESSION["logged_in_user_id"]), ENT_QUOTES, "UTF-8"); ?>
                         </a>
                     </li>
@@ -412,7 +412,7 @@
             <div class="account">
                 <ul>
                     <li>
-                        <a href="./log_in" title="Prihlásiť sa">
+                        <a href="./prihlasenie" title="Prihlásiť sa">
                             <?php echo "Neprihlásený" ?>
                         </a>
                     </li>
@@ -426,10 +426,10 @@
                 <img src="/content/images/test_logo.png" alt="Logo">
             </div>
 
-            <h1><a href="./index">PC&nbsp;Expert</a></h1>
+            <h1><a href="./domov">PC&nbsp;Expert</a></h1>
 
             <div class="buttons"> <!-- https://codepen.io/hilwat/pen/BeemVX -->
-                <a class="blob-btn first_button" href="./log_in" target="_self">
+                <a class="blob-btn first_button" href="./prihlasenie" target="_self">
                     Prihlásiť
                     <span class="blob-btn__inner">
                     <span class="blob-btn__blobs">
@@ -441,7 +441,7 @@
                     </span>
                 </a>
 
-                <a class="blob-btn second_button" href="./registration" target="_self">
+                <a class="blob-btn second_button" href="./registracia" target="_self">
                     Zaregistrovať
                     <span class="blob-btn__inner">
                     <span class="blob-btn__blobs">
@@ -671,7 +671,7 @@
                             
                             <br>
 
-                            <a class="edit_review" href="./edit_review" title="Upraviť recenziu">Upraviť recenziu</a>
+                            <a class="edit_review" href="./upravit-recenziu" title="Upraviť recenziu">Upraviť recenziu</a>
 
                             <p><?php echo htmlspecialchars(userReview($connection, $user_id)["review"], ENT_QUOTES, "UTF-8"); ?></p>
                         </div>

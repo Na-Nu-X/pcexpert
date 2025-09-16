@@ -36,9 +36,22 @@
 
                         <?php endif; ?>
                     >
-                        -
+                        
+                        <span class="user_role_value">
+                            <?php echo "- " . htmlspecialchars($one_user["role"], ENT_QUOTES, "UTF-8"); ?>
+                        </span>
+                        
+                        <label for="user_role_checkbox<?php echo htmlspecialchars($one_user["id"], ENT_QUOTES, "UTF-8"); ?>">
+                            <i class="fa-solid fa-pen user_role_icon"></i> <!-- https://fontawesome.com/icons/pen?f=classic&s=solid -->
+                        </label>
 
-                        <?php echo htmlspecialchars($one_user["role"], ENT_QUOTES, "UTF-8"); ?>
+                        <input 
+                            class="user_role_checkbox"
+                            type="checkbox"
+                            name="user_role_checkbox<?php echo htmlspecialchars($one_user["id"], ENT_QUOTES, "UTF-8"); ?>"
+                            id="user_role_checkbox<?php echo htmlspecialchars($one_user["id"], ENT_QUOTES, "UTF-8"); ?>"
+                            value="user"
+                        >
                     </span>
                 </p>
             </div>
@@ -48,6 +61,7 @@
                     <h3>Kontaktné údaje</h3>
 
                     <p><strong>E-mail: </strong><?php echo htmlspecialchars($one_user["email_address"], ENT_QUOTES, "UTF-8"); ?></p>
+
                     <p><strong>Telefónne číslo: </strong><?php echo htmlspecialchars($one_user["phone_number"], ENT_QUOTES, "UTF-8"); ?></p>
                 </div>
 

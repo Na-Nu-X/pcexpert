@@ -2,7 +2,7 @@
 
 ErrorDocument 404 /src/php/404.php
 
-# URL Rewriting
+# General URL Rewriting
 
 RewriteEngine On
 RewriteBase /
@@ -18,3 +18,13 @@ RewriteRule ^([A-Za-z0-9\-_]+)/?$ src/php/$1.php [L,QSA]
 
 RewriteCond %{DOCUMENT_ROOT}/src/php/$1 -f
 RewriteRule ^([A-Za-z0-9\-_]+\.php)$ src/php/$1 [L,QSA]
+
+# SEO URL Rewriting
+
+RewriteRule ^administracia$ src/php/admin.php [L]
+RewriteRule ^moj-ucet$ src/php/edit_account.php [L]
+RewriteRule ^upravit-recenziu$ src/php/edit_review.php [L]
+RewriteRule ^domov$ src/php/index.php [L]
+RewriteRule ^prihlasenie$ src/php/log_in.php [L]
+RewriteRule ^obnova-hesla$ src/php/password_reset.php [L]
+RewriteRule ^registracia$ src/php/registration.php [L]

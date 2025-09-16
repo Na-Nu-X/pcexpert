@@ -18,5 +18,5 @@
     session_regenerate_id(true); // Protection For Fixation Attack
     $_SESSION["red_report_message"] = "Úspešne&nbsp;odhlásený";
 
-    redirectURL("/index");
+    redirectURL("/domov");
 ?>

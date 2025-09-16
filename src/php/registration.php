@@ -96,7 +96,7 @@
                     $_SESSION["logged_in_user_id"] = $id;
                     $_SESSION["green_report_message"] = "Prihlásený&nbsp;ako " . htmlspecialchars(getUserName($connection, $id), ENT_QUOTES, "UTF-8");
             
-                    redirectURL("/index");
+                    redirectURL("/domov");
                 }
             
                 else {
@@ -167,11 +167,11 @@
         <nav class="navigation_bar">
             <ul>
                 <li class="navigation_bar_item home">
-                    <a href="./index">DOMOV</a>
+                    <a href="./domov">DOMOV</a>
                 </li>
 
                 <li class="navigation_bar_item">
-                    <a href="./log_in">PRIHLÁSENIE</a>
+                    <a href="./prihlasenie">PRIHLÁSENIE</a>
                 </li>
 
                 <div class="navigation_icon">
@@ -191,11 +191,11 @@
 
     <main>
         <section class="registration">
-            <a href="./index">
+            <a href="./domov">
                 <img class="back_icon" title="Späť na domovskú stránku" src="/content/images/back.png" alt="Späť na domovskú stránku"> <!-- https://www.flaticon.com/free-icon/back_2099190 -->
             </a>
 
-            <h2><a href="./registration">Registrácia</a></h2>
+            <h2><a href="./registracia">Registrácia</a></h2>
 
             <form class="registration_form" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
                 <input 
@@ -291,7 +291,7 @@
                 <button class="registration_form_submit" type="submit">Zaregistrovať sa</button>
 
                 <div class="have_account">
-                    <p>Už máte účet? <a href="./log_in">Prihlásiť</a></p>
+                    <p>Už máte účet? <a href="./prihlasenie">Prihlásiť</a></p>
                 </div>
 
                 <div class="agree">
