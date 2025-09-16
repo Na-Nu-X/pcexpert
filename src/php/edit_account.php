@@ -399,6 +399,7 @@
 
                     <div class="forgot_password">
                         <p>Zabudli ste heslo? <a href="?password_reset=true" title="Odoslať kód">Zmeniť heslo</a></p>
+                        <p>Zabudli ste heslo? <a href="?password_reset=true" title="Odoslať kód">Zmeniť heslo</a></p>
                     </div>
 
                     <div class="delete_account_container">
