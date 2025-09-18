@@ -15,9 +15,17 @@
         <div class="review">
             <?php if($one_review["user_id"] !== null): ?>
                 <div class="reviewer">
-                    <img
+                    <img 
                         class="profile_picture"
-                        src="/content/uploads/<?php echo htmlspecialchars($one_review['user_id'], ENT_QUOTES, 'UTF-8'); ?>/<?php echo htmlspecialchars(getProfilePictureName($connection, $one_review['user_id']), ENT_QUOTES, 'UTF-8'); ?>"
+                        src="
+                            <?php if(!empty(getUserInformations($connection, $one_review['user_id'], 'google_profile_picture_url')) and empty(getUserInformations($connection, $one_review['user_id'], 'profile_picture_name'))): ?>
+                                <?php echo getUserInformations($connection, $one_review['user_id'], 'google_profile_picture_url'); ?>
+
+                            <?php else: ?>
+                                /content/uploads/<?php echo $one_review['user_id']; ?>/<?php echo getProfilePictureName($connection, $one_review['user_id']); ?>
+
+                            <?php endif; ?>
+                        "
                     >
 
                     <p class="user_name">

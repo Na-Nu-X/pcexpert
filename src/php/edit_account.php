@@ -290,12 +290,20 @@
                     <div class="profile_picture_container">
                         <h3>Profilový obrázok</h3>
 
-                        <?php if(!empty(getProfilePictureName($connection, $_SESSION["logged_in_user_id"]))): ?>
+                        <?php if(!empty(getProfilePictureName($connection, $_SESSION["logged_in_user_id"])) or !empty(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'))): ?>
                             <label for="profile_picture">
                                 <img 
                                     class="profile_picture" 
                                     title="Zmeniť profilový obrázok" 
-                                    src="/content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo getProfilePictureName($connection, $_SESSION['logged_in_user_id']); ?>"
+                                    src="
+                                        <?php if(!empty(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url')) and empty(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'profile_picture_name'))): ?>
+                                            <?php echo getUserInformations($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'); ?>
+
+                                        <?php else: ?>
+                                            /content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo getProfilePictureName($connection, $_SESSION['logged_in_user_id']); ?>
+
+                                        <?php endif; ?>
+                                    "
                                     alt="Zmeniť profilový obrázok"
                                 >
                             </label>

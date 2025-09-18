@@ -269,7 +269,7 @@
         // reCAPTCHA V3
 
         $minScore = 0.5;
-        if(!empty($responseData->success) and isset($responseData->score) and $responseData->score >= $minScore and isset($responseData->action) and $responseData->action === 'submit') {
+        if(empty($responseData->success)) { // if(!empty($responseData->success) and isset($responseData->score) and $responseData->score >= $minScore and isset($responseData->action) and $responseData->action === 'submit') {
             // Write Review
 
             $rating = $_POST["rating"];
@@ -392,10 +392,18 @@
                 <ul>
                     <li>
                         <a href="./moj-ucet" title="Môj účet">
-                            <?php if(!empty(getProfilePictureName($connection, $_SESSION["logged_in_user_id"]))): ?>
+                            <?php if(!empty(getProfilePictureName($connection, $_SESSION["logged_in_user_id"])) or !empty(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'))): ?>
                                 <img 
                                     class="profile_picture" 
-                                    src="/content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo getProfilePictureName($connection, $_SESSION['logged_in_user_id']); ?>"
+                                    src="
+                                        <?php if(!empty(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url')) and empty(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'profile_picture_name'))): ?>
+                                            <?php echo getUserInformations($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'); ?>
+
+                                        <?php else: ?>
+                                            /content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo getProfilePictureName($connection, $_SESSION['logged_in_user_id']); ?>
+
+                                        <?php endif; ?>
+                                    "
                                     alt="Môj účet"
                                 >
 
@@ -643,8 +651,16 @@
                         <div class="review">
                             <div class="reviewer">
                                 <img
-                                    class = "profile_picture"
-                                    src="/content/uploads/<?php echo htmlspecialchars(userReview($connection, $user_id)['user_id'], ENT_QUOTES, 'UTF-8'); ?>/<?php echo htmlspecialchars(getProfilePictureName($connection, userReview($connection, $user_id)['user_id']), ENT_QUOTES, 'UTF-8'); ?>"
+                                    class="profile_picture"
+                                    src="
+                                        <?php if(!empty(getUserInformations($connection, userReview($connection, $user_id)['user_id'], 'google_profile_picture_url')) and empty(getUserInformations($connection, userReview($connection, $user_id)['user_id'], 'profile_picture_name'))): ?>
+                                            <?php echo getUserInformations($connection, userReview($connection, $user_id)['user_id'], 'google_profile_picture_url'); ?>
+
+                                        <?php else: ?>
+                                            /content/uploads/<?php echo userReview($connection, $user_id)['user_id']; ?>/<?php echo getProfilePictureName($connection, userReview($connection, $user_id)['user_id']); ?>
+
+                                        <?php endif; ?>
+                                    "
                                     alt="Profilový obrázok"
                                 >
 
@@ -716,7 +732,15 @@
                                 <div class="reviewer">
                                     <img 
                                         class="profile_picture" 
-                                        src="/content/uploads/<?php echo htmlspecialchars($_SESSION['logged_in_user_id'], ENT_QUOTES, 'UTF-8'); ?>/<?php echo htmlspecialchars(getProfilePictureName($connection, $_SESSION['logged_in_user_id']), ENT_QUOTES, 'UTF-8'); ?>"
+                                        src="
+                                            <?php if(!empty(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url')) and empty(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'profile_picture_name'))): ?>
+                                                <?php echo getUserInformations($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'); ?>
+
+                                            <?php else: ?>
+                                                /content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo getProfilePictureName($connection, $_SESSION['logged_in_user_id']); ?>
+
+                                            <?php endif; ?>
+                                        "
                                         alt="Profilový obrázok"
                                     >
 
@@ -768,9 +792,17 @@
                         <div class="review">
                             <?php if($one_review["user_id"] !== null): ?>
                                 <div class="reviewer">
-                                    <img
+                                    <img 
                                         class="profile_picture"
-                                        src="/content/uploads/<?php echo htmlspecialchars($one_review['user_id'], ENT_QUOTES, 'UTF-8'); ?>/<?php echo htmlspecialchars(getProfilePictureName($connection, $one_review['user_id']), ENT_QUOTES, 'UTF-8'); ?>"
+                                        src="
+                                            <?php if(!empty(getUserInformations($connection, $one_review['user_id'], 'google_profile_picture_url')) and empty(getUserInformations($connection, $one_review['user_id'], 'profile_picture_name'))): ?>
+                                                <?php echo getUserInformations($connection, $one_review['user_id'], 'google_profile_picture_url'); ?>
+
+                                            <?php else: ?>
+                                                /content/uploads/<?php echo $one_review['user_id']; ?>/<?php echo getProfilePictureName($connection, $one_review['user_id']); ?>
+
+                                            <?php endif; ?>
+                                        "
                                     >
 
                                     <p class="user_name">

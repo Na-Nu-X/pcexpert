@@ -105,10 +105,18 @@
                         <?php foreach(allUsers($connection, $_SESSION["logged_in_user_id"]) as $one_user):  ?>
                             <div class="user <?php echo $theme; ?>">
                                 <div class="basic_info">
-                                    <?php if(!empty($one_user["profile_picture_name"])): ?>
+                                    <?php if(!empty($one_user["profile_picture_name"]) or !empty($one_user["google_profile_picture_url"])): ?>
                                         <img
                                             class="profile_picture"
-                                            src="/content/uploads/<?php echo htmlspecialchars($one_user['id'], ENT_QUOTES, 'UTF-8'); ?>/<?php echo htmlspecialchars($one_user['profile_picture_name'], ENT_QUOTES, 'UTF-8'); ?>"
+                                            src="
+                                                <?php if(!empty($one_user['google_profile_picture_url']) and empty($one_user['profile_picture_name'])): ?>
+                                                    <?php echo $one_user['google_profile_picture_url']; ?>
+
+                                                <?php else: ?>
+                                                    /content/uploads/<?php echo htmlspecialchars($one_user['id'], ENT_QUOTES, 'UTF-8'); ?>/<?php echo htmlspecialchars($one_user['profile_picture_name'], ENT_QUOTES, 'UTF-8'); ?>
+
+                                                <?php endif; ?>
+                                            "
                                         >
 
                                     <?php else: ?>

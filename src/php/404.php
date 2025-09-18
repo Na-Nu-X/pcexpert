@@ -6,14 +6,19 @@
 
     <title>404 - Stránka sa nenašla</title>
     <link rel="icon" href="/content/images/favicon.png"> <!-- https://www.flaticon.com/free-icon/pc-tower_4275113 -->
+
+    <link rel="stylesheet" href="/src/css/forms.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins"> <!-- Poppins Font Style -->
 </head>
 
 <body>
     <main>
-        <section>
+        <section class="error_404">
             <h1>Chyba 404</h1>
 
             <p>Je nám to ľúto, ale stránka sa nenašla.</p>
+
+            <a href="./domov">Späť na domovskú stránku</a>
         </section>
     </main>
 </body>

@@ -290,3 +290,30 @@ User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
 Server IP: 127.0.0.1
 Post Data: {"first_name":"Patrik","last_name":"Behul","email_address":"behulpatrik@gmail.com","subject":"","message":"test","g-recaptcha-response":"0cAFcWeA6mHwhF2vD7PyH2ex5v8KwZPVDEvWhh2Vh1jnUBwlurYB07LxSqtjOkwLeKcZW-AtNVluJcGi93D-KEkQhkS6VvLJ2IhwqPdYmclhuUGD0j0lJuuqUHmpgdrM_NCi74e_z-MiB-OAceV9Jk-7EKCsluj2HY1ZUxdn1ifoqpdv0zyjDpuZqus51VXxUxvdenruB6uuAan5d_pZ3K-jTfhBnzkSTHgETRB2HYpZBV2ZTn2QT5I6xvBJsIQL-g7eY3lDxNY6PyZCm252jrYa9g8DR9NT6vigFi6OE5_GbenxINamCxcSgk71My-lTZysbvzukYO5p3jJqRfcH0mfFWFcNUKM36SJNnwq93e_GrgBtER4U0gX33v8bGMVNDfUxx2ES3wt6auIv_AuAgKZDpZdKDrEv_xcudxTpRb3ysEOQS4Su4LkpX5dKDORvBxXuME2dFChx0DtR9m4sv3Ow6ADzGhK9PIp8cv0V83IbTTsXBbfAaOCf_u_3LIH94iy3sljf9W_OHK5wPy5UMmp2zOhrgkgikrQURi_Jk5Yn8e4azncpHcNuqWf-X-qbeq1J2PuqwE_uj1Mo_ucmEpCrIYq91JyxQt1_I_0jYajtrsU6cVqlpQZ1kR4ylp8TMW8SES6CdDCDGkZh3lSf0q0kM9ps7AQ-V4CDsAQrYNjRIHxD7tHSBMhlo0rBwXNCRPJt_PQVe2Z2DvSWEp701PdcJjTwWP5GyAwbUpmL0fNKtumd9ooFicZVk-V6leD8G4Oh8eKC05iIHccoeHY23ygdtlRaJn0JXdfit61p9_RO3Juw5EooQxphvFeu33N4G2gigmFjjjPNsV_7PPidU9_3JklFG2H8Kh8xFn3kcGBE_TJexa_WiXtoVHiNiPAkhPrvyTIH-7e2TsRWZ4iZg3DgtWJNGsxPbDK1RuybbACqozzBqtYHmSP0ZdOHivbJbgIZvmtC5ceUs1wiwWSNpQTi0AFuzojQ5AJ9WGq7tH_t_6Ds9XiRKy4KOUgMg9MpHeBZG-ESu6zpXli6WycWVD37sNIqxakWy4_8QJSQgIRjCbd6OLtK8YpMGJ_SEhcF_N5kVYJGaoSxAJ-09r5B5xSthCWJHUouADsBXUAHX77cyGzVUWVoPziHFR0wVMZT62e_UvkP6IZ82dIH7A9Vyp-RxQzXESfNcVX-SzvAYen8wiZ5NyC0TWjURLx9LsrmoQICs5a-quoMzhGLYjZaB9tVwcWu-gBCywSsDMczPLAMgu1TU0R9g1IYxSCqUkun5nW_vRQj2CA0IqnU6Rse_d2OcVnFxJkJdCt3XGHgGx7QpOynImxJ-CVjM224TFmXA41tiQl7iMG-3C167WTs-Wcgn06BC692VmHO7qtPXl918xiiKv0EN-SfjTS8eb_KpklRdYXmh-ynyaztylu0SHMx6IAyv5grGklWgWV_Lwn4mE9SdvE3iTc5cKfKGhS7XR5Vh3cD3xJfPuJ-5TTRO1vGbeWbLjCm6iP1WOJmopkbgTNo4r_Urt1UUdOatFZ3MTBviV_J8vcLXph5mmAhvXGw1V1_TZbHPVv60t6OTo_1gBKmJZ4eJptfRM7aVDVElGdKWQXq-o0gw2G8r8X3H-EGVUx8rxnv5e-AkZzK9bnqVR65k0X0sEnM","recaptcha_contact_form_submit":""}
 
+Chyba:
+[2025-09-18 20:42:16] - reCAPTCHA Token Not Found In Registration Form.
+Podrobnosti:
+User ID: unknown
+IP Address: ::1
+Referer: http://localhost/registracia
+Request Method: POST
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36
+Server IP: ::1
+Post Data: {"first_name":"t","last_name":"t","email_address":"test6@test.com","phone_number":"+421940322633","password":"y68;~D4n5;g^'K0","g-recaptcha-response":"","terms":"on","news":"yes"}
+
+Chyba:
+[2025-09-18 20:43:22] - reCAPTCHA Failed In Registration Form. ({
+  &quot;success&quot;: false,
+  &quot;error-codes&quot;: [
+    &quot;timeout-or-duplicate&quot;
+  ]
+})
+Podrobnosti:
+User ID: 140
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/registracia
+Request Method: POST
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: {"first_name":"t","last_name":"t","email_address":"test6@test.com","phone_number":"0940322622","password":"+5Taq1iA\\'30$@5","g-recaptcha-response":"0cAFcWeA7ehfPH3WEHCspGo5LGx4Gv8-czn_jZgKFvvpkPxvIISZOeUrfm1PptXrdXT08aP9kYxDF1No4cTMFDpB-pI7Uh1OwZii2scF3Vm6FObPBll9dGi7tEdMbE-P4A_Hk0geP-GuH2QUbwhMOEHCh7RZjw_SM4oAcXVxWI0DSJ71VrnXExL7asQMTQ0WQZD4HXnxBQbHJ6ERRsNzQT35VkP_s1VXJXh4g1a3OD2YMm3HrW8gi4PAY9-PIT8FPrwPYmFDh7b05IjWpH6ggVk9KCbH7e3yiEN-Jh2s8FTxDOVkEbHzb2fiwcLOLZ1ztiA2nRdzvQAyzpcFYarJ03zm122VGT3pvz8meSMQ4SuzhTXkDSiOnw0rdUppniDkg73o44NxTyAaC-rc0gCw1c4IxUQMl3Dbil4aqIe0L92B2ixca-oMHMULdtfSLWXwrCvoiIrn7zXg1ubCDuDq7vNklw_BpRGpC-BHabQtW9qCCXibb7aVI39cUP_PZPObVuYx03IAd_976nt59o3d0DFFJQZewdhrV-erXcI068Zwus-gEWV598e7cjn68Yic-SbmY__1Rc1HPMN8V-24Tfs8RijW3J06qs56WDo4SZHmERwHLmHvwMjNZ7VCQ_2zvjrTinESorUG1pcVii2fgw4138CNbqv6mQUdxBd83Krze7lJEJ8dd40yZRdQ8cl_JNGdZxuEcVb-ZAoPqmCyjVTpEjxPbudGzU9hq7spEQ6GN4wA5ZEbN505sdiA1KL0HiY1wHpm6Ew6HYNbiJK1lLk6abXwruZ8sT6L_qDGYmFfJ4tyAyhmKJM5cMJXQprfPyplGIueekx25Pi0zZum8wwoMDBdfLxynDZB2cWDjVtojBd-Hdsoub4FnKw4LAmfX77QqGMashhYXVZMdHHb2Nj3QY3bNKHoMljjSvKnVVds4JNCZhFmuu0IqbIjvaab3Z9IAb8iqzVRZ302igoWO_365A0MiGDtpjzuPfcubVzcj1lA8W5jslA1fZeLjdZwNWMXtSrBjzJ_HREj_UTiQTumgxq_m7-LlW_jftpx85MAbyM8GUtTr2VydGKlcWOzIPBWzp8qBOoa8squGGUeTkxlEM7pyz_cIkxvnl697IlWbp9VcE5V7kBoCUsHWbeGa6mw7113knvFmJygPlkNlWHXyxEJZtfEXnvoMbiGqiS-LkZo2NjnkffzeqeoiBA1TKgDqwb5nFpsWaqO2LVJQpHUH5epgoyY-61-hut6kkL52uBOmD8WPUaJgs3Cr2m82GmZbNVCd3Q_BcMQK4rlrsrMzNE9mDzpqluVUMZVQr74hRnCqmNvzA9iiwt9CUK6W-jDhaxec1NW90k90wcqwMj_0-5pGXyuocDjodHorJyI4qwsd29qihq44mkiaj-KVhVKNJP9ZDcod4r6uRyZwimnW_tYHqVaLSxh1eRpNxdqK_qs4FFa3SESjK-BTolycz1i8uw-E9vBX1SCaO-j0N-FKmQvPeqDVefWkVyw3NMaFEJkvKia0eROordSttsaJIH4wV59dA3hxm4xfcNHYBHJj1MKf0jYOhTuBYowcY_21bGdTaOmMr7eQxQ4Uw49yqBetHKMLkgJvTeWf0LuNkquwURgfjhWQkTXcxJzKugbaOKJD6ZWPFc0A","terms":"on","news":"yes"}
+

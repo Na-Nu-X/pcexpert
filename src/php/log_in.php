@@ -2,6 +2,7 @@
     // PHP Code
 
     require "../assets/functions.php";
+    require "../assets/google_account_functions.php";
 
     session_start();
 
@@ -143,6 +144,64 @@
             errorLogSave($connection, "Nepodarilo sa prihlásiť.", "../errors/error.log");
         }
     }
+
+    // Log In With Google Account
+
+    require "../OAuth/vendor/autoload.php";
+
+    $client = new Google\Client;
+
+    $client->setClientId("904461928265-a71ha9f0ijid425muufb1uutouk7os5m.apps.googleusercontent.com");
+    $client->setClientSecret("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");
+    $client->setRedirectUri("http://localhost/src/php/log_in.php");
+
+    $client->addScope("email");
+    $client->addScope("profile");
+
+    $url = $client->createAuthUrl();
+
+    // if(!isset($_GET["code"])) {
+    //     echo "Prihlásenie pomocou účtu Google zlyhalo.";
+    //     exit;
+    // }
+
+    if(isset($_GET["code"])) {
+        $token = $client->fetchAccessTokenWithAuthCode($_GET["code"]);
+        $client->setAccessToken($token["access_token"]);
+        $oauth = new Google\Service\Oauth2($client);
+
+        $user_info = $oauth->userinfo->get();
+
+        $google_id = $user_info->id;
+        $first_name = $user_info->givenName;
+        $last_name = $user_info->familyName;
+        $email_address = $user_info->email;
+        $google_profile_picture_url = $user_info->picture;
+
+        if(!empty(getGoogleUserInformations($connection, $google_id, "google_id"))) {
+            // echo "Už je zaregistrovaný.";
+    
+            session_regenerate_id(true); // Protection For Fixation Attack
+    
+            $_SESSION["is_logged_in"] = true;
+            $_SESSION["logged_in_user_id"] = getGoogleUserInformations($connection, $google_id, "id");
+            $_SESSION["green_report_message"] = "Prihlásený&nbsp;ako " . htmlspecialchars(getUserName($connection, $_SESSION["logged_in_user_id"]), ENT_QUOTES, "UTF-8");
+
+            redirectURL("/domov");
+        }
+        
+        else {
+            createGoogleUser($connection, $first_name, $last_name, $email_address, $google_id, $google_profile_picture_url);
+    
+            session_regenerate_id(true); // Protection For Fixation Attack
+    
+            $_SESSION["is_logged_in"] = true;
+            $_SESSION["logged_in_user_id"] = getGoogleUserInformations($connection, $google_id, "id");
+            $_SESSION["green_report_message"] = "Prihlásený&nbsp;ako " . htmlspecialchars(getUserName($connection, $_SESSION["logged_in_user_id"]), ENT_QUOTES, "UTF-8");
+
+            redirectURL("/domov");
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -253,6 +312,20 @@
 
                 <button type="submit">Prihlásiť sa</button>
 
+                <div class="login_method">
+                    <a href="<?php echo $url ?>">
+                        <img src="/content/images/google.png" alt="Prihlásiť sa Google účtom"> <!-- https://www.flaticon.com/free-icon/search_281764 -->
+
+                        <span>Prihlásiť&nbsp;sa&nbsp;cez&nbsp;Google</span>
+                    </a>
+                    
+                    <a href="#">
+                        <img src="/content/images/facebook_2.png" alt="Prihlásiť sa Facebook účtom"> <!-- https://www.flaticon.com/free-icon/facebook_5968764 -->
+
+                        <span>Prihlásiť&nbsp;sa&nbsp;cez&nbsp;Facebook</span>
+                    </a>
+                </div>
+
                 <div class="forgot_password">
                     <p>Zabudli ste heslo? <a href="?password_reset=true" title="Odoslať kód">Zmeniť heslo</a></p>
                 </div>
@@ -264,11 +337,6 @@
                 <div class="agree">
                     <input type="checkbox" class="remember_me" name="remember_me" id="remember_me" value="yes" checked>
                     <label for="remember_me">Ostať prihlásený</label>
-                </div>
-
-                <div class="login_method">
-                    <img src="/content/images/google.png" title="Prihlásiť sa Google účtom" alt="Prihlásiť sa Google účtom"> <!-- https://www.flaticon.com/free-icon/search_281764 -->
-                    <img src="/content/images/facebook_2.png" title="Prihlásiť sa Facebook účtom" alt="Prihlásiť sa Facebook účtom"> <!-- https://www.flaticon.com/free-icon/facebook_5968764 -->
                 </div>
             </form>
         </section>

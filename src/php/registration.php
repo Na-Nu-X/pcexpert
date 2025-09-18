@@ -85,14 +85,13 @@
             $phone_number = str_replace(" ", "", $_POST["phone_number"]);
             $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
             $news = isset($_POST["news"]) ? "yes" : "no";
-            $role = "user";
 
             if(!empty(emailAuthentication($connection, $email_address))) {
                 $message = "Tento email už je zaregistrovaný.";
             }
 
             else {
-                $id = createUser($connection, $first_name, $last_name, $email_address, $phone_number, $password, $news, $role);
+                $id = createUser($connection, $first_name, $last_name, $email_address, $phone_number, $password, $news);
         
                 if(!empty($id)) {
                     session_regenerate_id(true); // Protection For Fixation Attack

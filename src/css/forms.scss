@@ -465,6 +465,7 @@ main
 
 .registration_form button[type="submit"], 
 .log_in_form button[type="submit"],
+.login_method a,
 .edit_account_form button[type="submit"],
 .edit_review_form button[type="submit"]
 .edit_account_form button[type="submit"],
@@ -486,8 +487,30 @@ main
     animation: fade_in_animation 0.5s ease-out;
 }
 
+.login_method a
+{
+    position: relative;
+    margin: 10px auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.login_method a img
+{
+    margin: 8px;
+}
+
+.login_method a span
+{
+    font-family: Poppins, Arial, sans-serif;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .registration_form button[type="submit"]:hover, .registration_form button[type="submit"]:focus, 
 .log_in_form button[type="submit"]:hover, .log_in_form button[type="submit"]:focus,
+.login_method a:hover, .login_method a:focus,
 .edit_account_form button[type="submit"]:hover, .edit_account_form button[type="submit"]:focus,
 .edit_review_form button[type="submit"]:hover, .edit_review_form button[type="submit"]:focus
 .edit_account_form button[type="submit"]:hover, .edit_account_form button[type="submit"]:focus,
@@ -499,6 +522,11 @@ main
     border: 1px solid rgb(0, 0, 0);
     transform: scale(1.1);
     cursor: pointer;
+}
+
+.login_method a:hover, .login_method a:focus
+{
+    background-color: rgba(255, 255, 255, 0.6);
 }
 
 .registration_form input[type="text"]:focus, .registration_form input[type="email"]:focus, 
@@ -549,6 +577,7 @@ main
 
 .agree
 {
+    text-align: center;
     margin: 35px auto 0px;
     padding-left: 5px;
     width: 90%;
@@ -648,26 +677,6 @@ main
     letter-spacing: 0.5px;
 }
 
-.login_method
-{
-    margin-top: 35px;
-    text-align: center;
-}
-
-.login_method img
-{
-    margin: 0px 5px;
-    opacity: 0.8;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.login_method img:hover
-{
-    transform: scale(1.1);
-    opacity: 1;
-    cursor: pointer;
-}
-
 // Edit Account
 
 .profile_picture_container
@@ -723,6 +732,33 @@ main
 {
     color: rgb(255, 255, 255);
     text-align: center;
+}
+
+// Error Page
+
+.error_404
+{
+    text-align: center;
+    color: rgb(255, 255, 255);
+}
+
+.error_404 p
+{
+    font-family: Poppins, Arial, sans-serif;
+}
+
+.error_404 a:link, .error_404 a:visited
+{
+    font-family: Poppins, Arial, sans-serif;
+    font-size: 14px;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+}
+
+.error_404 a:hover, .error_404 a:active
+{
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 /**************
@@ -823,6 +859,7 @@ footer.dark .copywrite
 
     .registration_form input[type="text"], .registration_form input[type="email"], .registration_form button[type="submit"],
     .log_in_form input[type="text"], .log_in_form input[type="email"], .log_in_form button[type="submit"],
+    .login_method a,
     .edit_account_form input[type="text"], .edit_account_form input[type="email"], .edit_account_form button[type="submit"],
     .edit_review_form textarea, .edit_review_form button[type="submit"]
     .edit_account_form input[type="text"], .edit_account_form input[type="email"], .edit_account_form button[type="submit"],

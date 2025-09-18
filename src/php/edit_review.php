@@ -103,10 +103,18 @@
             <?php if(userReview($connection, $user_id) !== null and userReview($connection, $user_id) !== false): ?>
                 <form class="edit_review_form" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
                     <div class="review_container">
-                        <?php if(!empty(getProfilePictureName($connection, $_SESSION["logged_in_user_id"]))): ?>
+                        <?php if(!empty(getProfilePictureName($connection, $_SESSION["logged_in_user_id"])) or !empty(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'))): ?>
                             <img 
                                 class="profile_picture"
-                                src="/content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo getProfilePictureName($connection, $_SESSION['logged_in_user_id']); ?>"
+                                src="
+                                    <?php if(!empty(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url')) and empty(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'profile_picture_name'))): ?>
+                                        <?php echo getUserInformations($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'); ?>
+
+                                    <?php else: ?>
+                                        /content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo getProfilePictureName($connection, $_SESSION['logged_in_user_id']); ?>
+
+                                    <?php endif; ?>
+                                "
                                 alt="Profilový obrázok"
                             >
 
