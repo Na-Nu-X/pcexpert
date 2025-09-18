@@ -229,3 +229,64 @@ User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
 Server IP: 127.0.0.1
 Post Data: {"email_address":"behulpatrik@gmail.com","password":"a","remember_me":"yes"}
 
+Chyba:
+[2025-09-17 20:43:57] - Nepodarilo sa prihlásiť.
+Podrobnosti:
+User ID: 140
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/prihlasenie?password_reset=true
+Request Method: POST
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: {"email_address":"behulpatrik@gmail.com","password":"Patrik208","remember_me":"yes"}
+
+Chyba:
+[2025-09-17 20:45:18] - Error While Sending Password Reset Code To User's Email. (SMTP Error: Could not authenticate.)
+Podrobnosti:
+User ID: 140
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/moj-ucet
+Request Method: GET
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: []
+
+Chyba:
+[2025-09-17 20:45:24] - Error While Sending Password Reset Code To User's Email. (SMTP Error: Could not authenticate.)
+Podrobnosti:
+User ID: 140
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/moj-ucet?password_reset=true
+Request Method: GET
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: []
+
+Chyba:
+[2025-09-17 20:59:21] - Invalid reCAPTCHA Server Response. ({
+  &quot;success&quot;: true,
+  &quot;challenge_ts&quot;: &quot;2025-09-17T18:51:44Z&quot;,
+  &quot;hostname&quot;: &quot;pcexpert.local&quot;,
+  &quot;score&quot;: 0.9,
+  &quot;action&quot;: &quot;submit&quot;
+})
+Podrobnosti:
+User ID: 140
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/domov
+Request Method: POST
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: {"first_name":"Patrik","last_name":"Behul","email_address":"behulpatrik@gmail.com","subject":"","message":"a","g-recaptcha-response":"0cAFcWeA71asglkNOXLsqXEe0W9VOB1eWXufW8AJNcqAypBP44Ns85N42tQj-6e5E2C9CfgzHY3brUzjLE30SK3Ziap7reUYwJv8ghpvxpc2wqemyRdwUEsqRldmszWWSejt_5dNaQEcKxxZb-YJj6FEXrGkjZM15x0m0VnxwEe2vQoHjZwuWb1MCfiEpgEgYj7gHhBKiKxR0YwsfKhPxQbUcpbOV4D8WghEnIGENv9WRbT4o8CzDHy4uS8V18si4ynv_FMKvW3hI6F2Yvw_3UriPOME275S2VHa16-MOgPbOSJYPE3Kx_HQOq9TJmXq3BdjBqXYK6-32BpKI15163axtSMRlEOuYFm9Qu5hW93YnRGV6n-667JkChmfnZGWG_yuErgQOOohuBCSAzYil6oHqPeBO34kAI40vgHIJiv3dzr6omLLZo5YrtU2xNfEZzLf-x8yV_uCOy9IRfASbt0QpgOLz-DG3Wag_iE8L0ecDbpIgbUX6IPA1Oz--1HQA_rruneb45nkt_PZz27D8WLpOy8iElvRaBYVTjuLkd5iV-EHnRB0lrlCeR0tEW1h9LitRMv2w-_yL6ik8iAe0UdXS-Ffj6gNnpfrj03L6lzqNFgyoB-hYJPaM1VmqpmNeAp57JwVzAU333CUuTRVGiZdXuMSYHPvnBgBHH6QJw93undFcinlrdEmn9_Y0bMiWMSm77f3Z-2YLh3398yu3_nx5sOYQJmytAe7jYn-vwJNG4ft85n6gguHhc_4LDiG550U_33Uj1NL1DVDyjeX1NaRwNMvpWMPBtCLsDoBvJjKIq4FQeIs5g6SJNLCjUPoRSP4pG8xUjbmZZnWt_yvr5ZCoKLmDC8KUyrONGYb_0yTYTyxfNfYSK4wszdspth5bpW-ppF4rC7UQ41QxUEZ4h84JhOIb8bSzsRJZ-XjFjrDJK0s_jVpymYifBjB6-AU-arQp8v2QavGY1nemJWQwzzUZavH1PMMGOqK3rviuOFld_9ecVmb-n8Z4sD9T8PCe1QGJF0q6Mxf8iRYZs9cZ6NJ7mxhQPnAi3w6gr8UD6LylsrBbkU-FkhNogDeBocwAr7GhBvICwc0kY5BB4Nht1riFkF3iTWSliGt04vQgXGF904kBZjzfaBHOQU6YUcr_gQnT_lMrn0B1yI_jDq_8if3OgpRB5DmKiWYBn9sLFVrifWAEvwlk0C2bniAMsCj3dhfeNsR0hT707R1i5-qLgzf6BEkZAcAuw_JH4r5r7zFUjfW-LoIY_Tgit8JVV13MJoijcRAWfNytv9_iu6T37DyJ61clz8d7N_fM8oIdDDws-fjcdvpr_71sRGAYROswue2QnPr_nXb6CUqjYWkamQRDVckFnkj573otOslHS0eh0ra6EFdjtXSp1k7mKnosLurR-xs8VnnDMdndHYKBoctKF4nhsUYQ1XFqMvAbSlbFzGYWeUAP9b2BzyhKvzJgevxU5eKtXdZJH2O-bWdpvyIOBo-FlLAToczTd6p3ucnAnr8AtDgM6OVlTEJbzo0YrYlGIUtw8p4y_LFuRF7kNhANjbNAkeuBzuSK1CZatrSz4avI30Xw45qoS2nbX7n64X7HUOt40MyNBefo1IrJ69k_d0HCmPW8TrQ","recaptcha_contact_form_submit":""}
+
+Chyba:
+[2025-09-17 20:59:40] - Error While Sending An E-mail. (SMTP Error: Could not authenticate.)
+Podrobnosti:
+User ID: 140
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/domov
+Request Method: POST
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: {"first_name":"Patrik","last_name":"Behul","email_address":"behulpatrik@gmail.com","subject":"","message":"test","g-recaptcha-response":"0cAFcWeA6mHwhF2vD7PyH2ex5v8KwZPVDEvWhh2Vh1jnUBwlurYB07LxSqtjOkwLeKcZW-AtNVluJcGi93D-KEkQhkS6VvLJ2IhwqPdYmclhuUGD0j0lJuuqUHmpgdrM_NCi74e_z-MiB-OAceV9Jk-7EKCsluj2HY1ZUxdn1ifoqpdv0zyjDpuZqus51VXxUxvdenruB6uuAan5d_pZ3K-jTfhBnzkSTHgETRB2HYpZBV2ZTn2QT5I6xvBJsIQL-g7eY3lDxNY6PyZCm252jrYa9g8DR9NT6vigFi6OE5_GbenxINamCxcSgk71My-lTZysbvzukYO5p3jJqRfcH0mfFWFcNUKM36SJNnwq93e_GrgBtER4U0gX33v8bGMVNDfUxx2ES3wt6auIv_AuAgKZDpZdKDrEv_xcudxTpRb3ysEOQS4Su4LkpX5dKDORvBxXuME2dFChx0DtR9m4sv3Ow6ADzGhK9PIp8cv0V83IbTTsXBbfAaOCf_u_3LIH94iy3sljf9W_OHK5wPy5UMmp2zOhrgkgikrQURi_Jk5Yn8e4azncpHcNuqWf-X-qbeq1J2PuqwE_uj1Mo_ucmEpCrIYq91JyxQt1_I_0jYajtrsU6cVqlpQZ1kR4ylp8TMW8SES6CdDCDGkZh3lSf0q0kM9ps7AQ-V4CDsAQrYNjRIHxD7tHSBMhlo0rBwXNCRPJt_PQVe2Z2DvSWEp701PdcJjTwWP5GyAwbUpmL0fNKtumd9ooFicZVk-V6leD8G4Oh8eKC05iIHccoeHY23ygdtlRaJn0JXdfit61p9_RO3Juw5EooQxphvFeu33N4G2gigmFjjjPNsV_7PPidU9_3JklFG2H8Kh8xFn3kcGBE_TJexa_WiXtoVHiNiPAkhPrvyTIH-7e2TsRWZ4iZg3DgtWJNGsxPbDK1RuybbACqozzBqtYHmSP0ZdOHivbJbgIZvmtC5ceUs1wiwWSNpQTi0AFuzojQ5AJ9WGq7tH_t_6Ds9XiRKy4KOUgMg9MpHeBZG-ESu6zpXli6WycWVD37sNIqxakWy4_8QJSQgIRjCbd6OLtK8YpMGJ_SEhcF_N5kVYJGaoSxAJ-09r5B5xSthCWJHUouADsBXUAHX77cyGzVUWVoPziHFR0wVMZT62e_UvkP6IZ82dIH7A9Vyp-RxQzXESfNcVX-SzvAYen8wiZ5NyC0TWjURLx9LsrmoQICs5a-quoMzhGLYjZaB9tVwcWu-gBCywSsDMczPLAMgu1TU0R9g1IYxSCqUkun5nW_vRQj2CA0IqnU6Rse_d2OcVnFxJkJdCt3XGHgGx7QpOynImxJ-CVjM224TFmXA41tiQl7iMG-3C167WTs-Wcgn06BC692VmHO7qtPXl918xiiKv0EN-SfjTS8eb_KpklRdYXmh-ynyaztylu0SHMx6IAyv5grGklWgWV_Lwn4mE9SdvE3iTc5cKfKGhS7XR5Vh3cD3xJfPuJ-5TTRO1vGbeWbLjCm6iP1WOJmopkbgTNo4r_Urt1UUdOatFZ3MTBviV_J8vcLXph5mmAhvXGw1V1_TZbHPVv60t6OTo_1gBKmJZ4eJptfRM7aVDVElGdKWQXq-o0gw2G8r8X3H-EGVUx8rxnv5e-AkZzK9bnqVR65k0X0sEnM","recaptcha_contact_form_submit":""}
+

@@ -38,7 +38,6 @@
             $_SESSION["green_report_message"] = "Heslo&nbsp;bolo&nbsp;zmenené";
 
             redirectURL("/domov");
-            exit;
         }
 
         else {

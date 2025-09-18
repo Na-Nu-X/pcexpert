@@ -5,6 +5,8 @@
 
     session_start();
 
+    $connection = connectionDB();
+
     // Theme
 
     $theme = "light"; // Default Theme
@@ -25,7 +27,9 @@
 
     if($_SERVER["REQUEST_METHOD"] === "POST") {
         if(empty($token)) {
-            echo "Token Not Found.";
+            $_SESSION["red_report_message"] = "Nepodarilo&nbsp;sa&nbsp;overenie&nbsp;reCAPTCHA";
+
+            errorLogSave($connection, "reCAPTCHA Token Not Found In Registration Form.", "../errors/error.log");
             exit;
         }
 
@@ -50,19 +54,20 @@
             $curlErr = curl_error($ch);
             curl_close($ch);
 
-            echo "cURL error: " . htmlspecialchars($curlErr);
+            $_SESSION["red_report_message"] = "Nepodarilo&nbsp;sa&nbsp;overenie&nbsp;reCAPTCHA";
+
+            errorLogSave($connection, "reCAPTCHA cURL Error In Registration Form. (" . htmlspecialchars($curlErr) . ")", "../errors/error.log");
             exit;
         }
 
         curl_close($ch);
 
-        // var_dump($response);
-
         $responseData = json_decode($response);
 
         if($responseData === null) {
-            echo "Invalid reCAPTCHA Server Response: ";
-            echo htmlspecialchars($response);
+            $_SESSION["red_report_message"] = "Nepodarilo&nbsp;sa&nbsp;overenie&nbsp;reCAPTCHA";
+
+            errorLogSave($connection, "Invalid reCAPTCHA Server Response In Registration Form. (" . htmlspecialchars($response) . ")", "../errors/error.log");
             exit;
         }
 
@@ -108,7 +113,9 @@
         }
         
         else {
-            echo "reCAPTCHA Failed.";
+            $_SESSION["red_report_message"] = "Nepodarilo&nbsp;sa&nbsp;overenie&nbsp;reCAPTCHA";
+
+            errorLogSave($connection, "reCAPTCHA Failed In Registration Form. (" . htmlspecialchars($response) . ")", "../errors/error.log");
             exit;
         }
     }
@@ -138,6 +145,8 @@
 
             grecaptcha_badge_container.appendChild(grecaptcha_badge)
             grecaptcha_badge.style.margin = "35px auto 0px"
+            grecaptcha_badge.style.background = "#1e1e1e"
+            grecaptcha_badge.style.opacity = "0.8"
 
             document.querySelector(".registration_form").addEventListener("submit", function(event) {
                 event.preventDefault()
@@ -164,6 +173,12 @@
 
 <body class="<?php echo $theme; ?>">
     <header>
+        <?php if(isset($_SESSION["red_report_message"]) and !empty($_SESSION["red_report_message"])): ?>
+            <p class="red_report_message"><?php echo $_SESSION["red_report_message"]; ?></p>
+            <?php $_SESSION["red_report_message"] = ""; ?>
+
+        <?php endif; ?>
+
         <nav class="navigation_bar">
             <ul>
                 <li class="navigation_bar_item home">

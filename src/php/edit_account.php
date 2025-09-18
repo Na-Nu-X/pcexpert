@@ -67,12 +67,12 @@
             // Content
 
             $mail->isHTML(true);
-            $mail->Subject = "Obnovenie hesla";
+            $mail->Subject = "Obnovenie hesla - " . $user_password_reset_code;
             $mail->Body = "
-                Váš overovací kód pre obnovenie hesla.<br>
-                Platnosť vyprší o 10 minút.<br><br>
-                <strong>$user_password_reset_code</strong><br>
-                <a href='http://pcexpert.local/password_reset'>Heslo zmeníte tu.</a>
+                Dobrý deň, dostali sme žiadosť o obnovenie hesla k vášmu účtu. Ak ste to boli vy, použite nasledujúci odkaz a zadajte overovací kód.<br><br>
+                <a href='http://pcexpert.local/password_reset'>Obnoviť heslo</a> - <strong>$user_password_reset_code</strong><br><br>
+                Ak ste o obnovu hesla nežiadali, tento e-mail prosím ignorujte.<br>
+                Tím PCExpert.
             ";
 
             $mail->send();
@@ -80,6 +80,8 @@
             setcookie("password_reset_code_timer", "password_reset_code_timer", time() + (60 * 10), "/"); // 10 Minutes Timed Cookie
 
             $_SESSION["green_report_message"] = "Overovací&nbsp;kód&nbsp;bol&nbsp;odoslaný&nbsp;na&nbsp;adresu " . $user_email_address;
+
+            throw new Exception();
         }
 
         catch(Exception $e) {
@@ -124,7 +126,6 @@
                     $_SESSION["red_report_message"] = "Účet&nbsp;bol&nbsp;odstránený";
 
                     redirectURL("/domov");
-                    exit;
                 }
 
                 else {
@@ -210,7 +211,6 @@
 
                 if(empty($message)) {
                     redirectURL("/domov");
-                    exit;
                 }
             }
         }

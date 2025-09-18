@@ -29,7 +29,6 @@
                 $_SESSION["red_report_message"] = "Recenzia&nbsp;bola&nbsp;odstránená";
 
                 redirectURL("/domov");
-                exit;
             }
         }
 

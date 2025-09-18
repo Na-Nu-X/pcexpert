@@ -58,7 +58,9 @@
         $token = $_POST["g-recaptcha-response"] ?? "";
 
         if(empty($token)) {
-            echo "Token Not Found.";
+            $_SESSION["red_report_message"] = "Nepodarilo&nbsp;sa&nbsp;overenie&nbsp;reCAPTCHA";
+
+            errorLogSave($connection, "reCAPTCHA Token Not Found In Contact Form.", "../errors/error.log");
             exit;
         }
 
@@ -83,19 +85,20 @@
             $curlErr = curl_error($ch);
             curl_close($ch);
 
-            echo "cURL error: " . htmlspecialchars($curlErr);
+            $_SESSION["red_report_message"] = "Nepodarilo&nbsp;sa&nbsp;overenie&nbsp;reCAPTCHA";
+
+            errorLogSave($connection, "reCAPTCHA cURL Error In Contact Form. (" . htmlspecialchars($curlErr) . ")", "../errors/error.log");
             exit;
         }
 
         curl_close($ch);
 
-        // var_dump($response);
-
         $responseData = json_decode($response);
 
         if($responseData === null) {
-            echo "Invalid reCAPTCHA Server Response: ";
-            echo htmlspecialchars($response);
+            $_SESSION["red_report_message"] = "Nepodarilo&nbsp;sa&nbsp;overenie&nbsp;reCAPTCHA";
+
+            errorLogSave($connection, "Invalid reCAPTCHA Server Response In Contact Form. (" . htmlspecialchars($response) . ")", "../errors/error.log");
             exit;
         }
 
@@ -124,7 +127,7 @@
                 $mail->Encoding = "base64";
 
                 $mail->Username = "behulpatrik@gmail.com";
-                $mail->Password = "Test"; // ogqxkmwxfpfwjeel
+                $mail->Password = "ogqxkmwxfpfwjeel"; // ogqxkmwxfpfwjeel
                 $mail->SMTPSecure = "ssl";
                 $mail->Port = 465;
 
@@ -198,16 +201,16 @@
             }
             
             catch(Exception $e) {
-                // echo "Správu sa nepodarilo odoslať: {$mail->ErrorInfo}";
-
                 $_SESSION["red_report_message"] = "Správu&nbsp;sa&nbsp;nepodarilo&nbsp;odoslať";
 
-                errorLogSave($connection, "Error While Sending An Email. (" . $e->getMessage() . ")", "../errors/error.log");
+                errorLogSave($connection, "Error While Sending An E-mail With Contact Form. (" . $e->getMessage() . ")", "../errors/error.log");
             }
         }
         
         else {
-            echo "reCAPTCHA Failed.";
+            $_SESSION["red_report_message"] = "Nepodarilo&nbsp;sa&nbsp;overenie&nbsp;reCAPTCHA";
+
+            errorLogSave($connection, "reCAPTCHA Failed In Contact Form. (" . htmlspecialchars($response) . ")", "../errors/error.log");
             exit;
         }
     }
@@ -219,7 +222,9 @@
         $token = $_POST["g-recaptcha-response"] ?? "";
 
         if(empty($token)) {
-            echo "Token Not Found.";
+            $_SESSION["red_report_message"] = "Nepodarilo&nbsp;sa&nbsp;overenie&nbsp;reCAPTCHA";
+
+            errorLogSave($connection, "reCAPTCHA Token Not Found In Write Review Form.", "../errors/error.log");
             exit;
         }
 
@@ -244,19 +249,20 @@
             $curlErr = curl_error($ch);
             curl_close($ch);
 
-            echo "cURL error: " . htmlspecialchars($curlErr);
+            $_SESSION["red_report_message"] = "Nepodarilo&nbsp;sa&nbsp;overenie&nbsp;reCAPTCHA";
+
+            errorLogSave($connection, "reCAPTCHA cURL Error In Write Review Form. (" . htmlspecialchars($curlErr) . ")", "../errors/error.log");
             exit;
         }
 
         curl_close($ch);
 
-        // var_dump($response);
-
         $responseData = json_decode($response);
 
         if($responseData === null) {
-            echo "Invalid reCAPTCHA Server Response: ";
-            echo htmlspecialchars($response);
+            $_SESSION["red_report_message"] = "Nepodarilo&nbsp;sa&nbsp;overenie&nbsp;reCAPTCHA";
+
+            errorLogSave($connection, "Invalid reCAPTCHA Server Response In Write Review Form. (" . htmlspecialchars($response) . ")", "../errors/error.log");
             exit;
         }
 
@@ -284,7 +290,9 @@
         }
         
         else {
-            echo "reCAPTCHA Failed.";
+            $_SESSION["red_report_message"] = "Nepodarilo&nbsp;sa&nbsp;overenie&nbsp;reCAPTCHA";
+
+            errorLogSave($connection, "reCAPTCHA Failed In Write Review Form. (" . htmlspecialchars($response) . ")", "../errors/error.log");
             exit;
         }
     }
@@ -429,7 +437,7 @@
             <h1><a href="./domov">PC&nbsp;Expert</a></h1>
 
             <div class="buttons"> <!-- https://codepen.io/hilwat/pen/BeemVX -->
-                <a class="blob-btn first_button" href="./prihlasenie" target="_self">
+                <a class="blob-btn log_in_button" href="./prihlasenie" target="_self">
                     Prihlásiť
                     <span class="blob-btn__inner">
                     <span class="blob-btn__blobs">
@@ -441,7 +449,7 @@
                     </span>
                 </a>
 
-                <a class="blob-btn second_button" href="./registracia" target="_self">
+                <a class="blob-btn registration_button" href="./registracia" target="_self">
                     Zaregistrovať
                     <span class="blob-btn__inner">
                     <span class="blob-btn__blobs">
@@ -979,71 +987,6 @@
             ourServicesButtons(computer_maintenance_button, 2)
             ourServicesButtons(computer_cleaning_button, 3)
 
-            // Write Review
-
-            const stars = document.querySelectorAll(".stars img")
-            const rating = document.querySelector(".rating")
-            let selected_rating = 0
-
-            function updateStars(hover_value = 0) {
-                stars.forEach(function(star, index) {
-                    if(hover_value > 0) {
-                        if(index < hover_value) {
-                            star.src = "/content/images/star.png"
-                        }
-
-                        else {
-                            star.src = "/content/images/empty_star.png"
-                        }
-                    }
-
-                    else {
-                        if(index < selected_rating) {
-                            star.src = "/content/images/star.png"
-                        }
-
-                        else {
-                            star.src = "/content/images/empty_star.png"
-                        }
-                    }
-                })
-            }
-
-            stars.forEach(function(star, index) {
-                const rating_number = index + 1
-
-                star.addEventListener("mouseover", function(event) {
-                    updateStars(rating_number)
-                })
-
-                star.addEventListener("mouseout", function(event) {
-                    updateStars()
-                })
-
-                star.addEventListener("click", function(event) {
-                    selected_rating = rating_number
-                    rating.value = rating_number
-                    updateStars()
-                })
-            })
-
-            const form_report_paragraph = document.querySelector(".form_report_paragraph")
-            const write_review_submit = document.querySelector(".write_review_submit")
-
-            write_review_submit.addEventListener("click", function(event) {
-                if(rating.value === "") {
-                    event.preventDefault()
-
-                    form_report_paragraph.textContent = "Ukážte nám vašu spokojnosť."
-                    form_report_paragraph.classList.add("invalid")
-                }
-
-                else {
-                    form_report_paragraph.textContent = ""
-                    form_report_paragraph.classList.remove("invalid")
-                }
-            })
-
             // Show More / Show Less Reviews
 
             let offset = 0
@@ -1119,6 +1062,71 @@
 
                 else {
                     attachment_report.textContent = "Nie je vybraný žiaden súbor."
+                }
+            })
+
+            // Write Review
+
+            const stars = document.querySelectorAll(".stars img")
+            const rating = document.querySelector(".rating")
+            let selected_rating = 0
+
+            function updateStars(hover_value = 0) {
+                stars.forEach(function(star, index) {
+                    if(hover_value > 0) {
+                        if(index < hover_value) {
+                            star.src = "/content/images/star.png"
+                        }
+
+                        else {
+                            star.src = "/content/images/empty_star.png"
+                        }
+                    }
+
+                    else {
+                        if(index < selected_rating) {
+                            star.src = "/content/images/star.png"
+                        }
+
+                        else {
+                            star.src = "/content/images/empty_star.png"
+                        }
+                    }
+                })
+            }
+
+            stars.forEach(function(star, index) {
+                const rating_number = index + 1
+
+                star.addEventListener("mouseover", function(event) {
+                    updateStars(rating_number)
+                })
+
+                star.addEventListener("mouseout", function(event) {
+                    updateStars()
+                })
+
+                star.addEventListener("click", function(event) {
+                    selected_rating = rating_number
+                    rating.value = rating_number
+                    updateStars()
+                })
+            })
+
+            const form_report_paragraph = document.querySelector(".form_report_paragraph")
+            const write_review_submit = document.querySelector(".write_review_submit")
+
+            write_review_submit.addEventListener("click", function(event) {
+                if(rating.value === "") {
+                    event.preventDefault()
+
+                    form_report_paragraph.textContent = "Ukážte nám vašu spokojnosť."
+                    form_report_paragraph.classList.add("invalid")
+                }
+
+                else {
+                    form_report_paragraph.textContent = ""
+                    form_report_paragraph.classList.remove("invalid")
                 }
             })
         })

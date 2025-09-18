@@ -29,6 +29,11 @@
                             -
 
                             <?php echo htmlspecialchars(date("j.n.Y", strtotime($one_review["review_time"])), ENT_QUOTES, "UTF-8"); ?>
+
+                            <?php if($one_review["edited"] === "yes"): ?>
+                                (upravená)
+
+                            <?php endif; ?>
                         </span>
                     </p>
                 </div>

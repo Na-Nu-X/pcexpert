@@ -1034,12 +1034,12 @@ footer.dark .copywrite {
   animation: fade_in_animation 1s ease-out forwards;
 }
 
-.blob-btn.first_button {
+.blob-btn.log_in_button {
   background-color: rgba(255, 255, 255, 0.8);
   color: rgb(0, 0, 0);
 }
 
-.blob-btn.second_button {
+.blob-btn.registration_button {
   background-color: rgba(0, 0, 0, 0.2);
   color: rgb(255, 255, 255);
 }

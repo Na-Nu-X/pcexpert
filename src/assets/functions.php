@@ -29,7 +29,6 @@
         }
 
         header("location: $url_protocol://" . $_SERVER["HTTP_HOST"] . $path);
-
         exit;
     }
 
@@ -225,15 +224,20 @@
             if(mysqli_stmt_execute($stmt)) {
                 $result = mysqli_stmt_get_result($stmt);
                 $id_database = mysqli_fetch_row($result); // pole
-                $user_id = $id_database[0];
 
-                return $user_id;
+                if(empty($id_database)) {
+                    return false;
+                }
+
+                else {
+                    $user_id = $id_database[0];
+                    
+                    return $user_id;
+                }
             }
-        } 
-        
-        else {
-            echo mysqli_error($connection);
         }
+
+        return false;
     }
 
     function getUserName($connection, $id) {

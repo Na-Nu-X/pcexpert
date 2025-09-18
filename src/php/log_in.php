@@ -25,69 +25,77 @@
     // Change Password
 
     if(isset($_GET["password_reset"]) and $_GET["password_reset"] === "true") {
-        // Generate 6-Digit Code
+        if(getUserId($connection, $_COOKIE["email_address"])) {
+            $user_id = getUserId($connection, $_COOKIE["email_address"]);
 
-        $password_reset_code_array = array();
+            // Generate 6-Digit Code
 
-        for($i = 0; $i < 6; $i++) {
-            array_push($password_reset_code_array, rand(0, 9));
+            $password_reset_code_array = array();
+
+            for($i = 0; $i < 6; $i++) {
+                array_push($password_reset_code_array, rand(0, 9));
+            }
+
+            $password_reset_code = (int)implode($password_reset_code_array); // Integer
+
+            insertPasswordResetCode($connection, $user_id, $password_reset_code);
+
+            // Send Code To User's Email
+
+            $user_email_address = $_COOKIE["email_address"];
+            $user_password_reset_code = getUserInformations($connection, $user_id, "password_reset_code");
+
+            $mail = new PHPMailer(true);
+
+            try {
+                // Server settings
+
+                $mail->isSMTP();
+                $mail->Host = "smtp.gmail.com";
+                $mail->SMTPAuth = true;
+
+                $mail->CharSet = "UTF-8";
+                $mail->Encoding = "base64";
+
+                $mail->Username = "behulpatrik@gmail.com";
+                $mail->Password = "ogqxkmwxfpfwjeel"; // ogqxkmwxfpfwjeel
+                $mail->SMTPSecure = "ssl";
+                $mail->Port = 465;
+
+                // Recipients
+
+                $mail->setFrom($user_email_address, "PC Expert");
+                $mail->addAddress($user_email_address);
+
+                // Content
+
+                $mail->isHTML(true);
+                $mail->Subject = "Obnovenie hesla - " . $user_password_reset_code;
+                $mail->Body = "
+                    Dobrý deň, dostali sme žiadosť o obnovenie hesla k vášmu účtu. Ak ste to boli vy, použite nasledujúci odkaz a zadajte overovací kód.<br><br>
+                    <a href='http://pcexpert.local/password_reset'>Obnoviť heslo</a> - <strong>$user_password_reset_code</strong><br><br>
+                    Ak ste o obnovu hesla nežiadali, tento e-mail prosím ignorujte.<br>
+                    Tím PCExpert.
+                ";
+
+                $mail->send();
+
+                setcookie("password_reset_code_timer", "password_reset_code_timer", time() + (60 * 10), "/"); // 10 Minutes Timed Cookie
+
+                $_SESSION["green_report_message"] = "Overovací&nbsp;kód&nbsp;bol&nbsp;odoslaný&nbsp;na&nbsp;adresu " . $user_email_address;
+
+                throw new Exception();
+            }
+
+            catch(Exception $e) {
+                $_SESSION["red_report_message"] = "Overovací&nbsp;kód&nbsp;sa&nbsp;nepodarilo&nbsp;odoslať";
+
+                errorLogSave($connection, "Error While Sending Password Reset Code To User's Email. (" . $e->getMessage() . ")", "../errors/error.log");
+            }
         }
 
-        $password_reset_code = (int)implode($password_reset_code_array); // Integer
-
-        $user_id = getUserId($connection, $_COOKIE["email_address"]);
-
-        insertPasswordResetCode($connection, $user_id, $password_reset_code);
-
-        // Send Code To User's Email
-
-        $user_email_address = $_COOKIE["email_address"];
-        $user_password_reset_code = getUserInformations($connection, $user_id, "password_reset_code");
-
-        $mail = new PHPMailer(true);
-
-        try {
-            // Server settings
-
-            $mail->isSMTP();
-            $mail->Host = "smtp.gmail.com";
-            $mail->SMTPAuth = true;
-
-            $mail->CharSet = "UTF-8";
-            $mail->Encoding = "base64";
-
-            $mail->Username = "behulpatrik@gmail.com";
-            $mail->Password = "ogqxkmwxfpfwjeel"; // ogqxkmwxfpfwjeel
-            $mail->SMTPSecure = "ssl";
-            $mail->Port = 465;
-
-            // Recipients
-
-            $mail->setFrom($user_email_address, "PC Expert");
-            $mail->addAddress($user_email_address);
-
-            // Content
-
-            $mail->isHTML(true);
-            $mail->Subject = "Obnovenie hesla";
-            $mail->Body = "
-                Váš overovací kód pre obnovenie hesla.<br>
-                Platnosť vyprší o 10 minút.<br><br>
-                <strong>$user_password_reset_code</strong><br>
-                <a href='http://pcexpert.local/password_reset'>Heslo zmeníte tu.</a>
-            ";
-
-            $mail->send();
-
-            setcookie("password_reset_code_timer", "password_reset_code_timer", time() + (60 * 10), "/"); // 10 Minutes Timed Cookie
-
-            $_SESSION["green_report_message"] = "Overovací&nbsp;kód&nbsp;bol&nbsp;odoslaný&nbsp;na&nbsp;adresu " . $user_email_address;
-        }
-
-        catch(Exception $e) {
-            $_SESSION["red_report_message"] = "Overovací&nbsp;kód&nbsp;sa&nbsp;nepodarilo&nbsp;odoslať";
-
-            errorLogSave($connection, "Error While Sending Password Reset Code To User's Email. (" . $e->getMessage() . ")", "../errors/error.log");
+        else {
+            $_SESSION["red_report_message"] = "Zadaný&nbsp;e-mail&nbsp;nie&nbsp;je&nbsp;zaregistrovaný";
         }
     }
 
