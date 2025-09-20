@@ -14,9 +14,10 @@
 <body>
     <main>
         <section class="error_404">
-            <h1>Chyba 404</h1>
+            <img src="/content/images/error_404.png" alt="Chyba 404"> <!-- https://www.flaticon.com/free-icon/error-404_3855833 -->
+            <!-- <h1>Chyba 404</h1> -->
 
-            <p>Je nám to ľúto, ale stránka sa nenašla.</p>
+            <h2>Je nám to ľúto, ale stránka sa nenašla.</h2>
 
             <a href="./domov">Späť na domovskú stránku</a>
         </section>

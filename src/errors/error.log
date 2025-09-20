@@ -317,3 +317,14 @@ User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
 Server IP: 127.0.0.1
 Post Data: {"first_name":"t","last_name":"t","email_address":"test6@test.com","phone_number":"0940322622","password":"+5Taq1iA\\'30$@5","g-recaptcha-response":"0cAFcWeA7ehfPH3WEHCspGo5LGx4Gv8-czn_jZgKFvvpkPxvIISZOeUrfm1PptXrdXT08aP9kYxDF1No4cTMFDpB-pI7Uh1OwZii2scF3Vm6FObPBll9dGi7tEdMbE-P4A_Hk0geP-GuH2QUbwhMOEHCh7RZjw_SM4oAcXVxWI0DSJ71VrnXExL7asQMTQ0WQZD4HXnxBQbHJ6ERRsNzQT35VkP_s1VXJXh4g1a3OD2YMm3HrW8gi4PAY9-PIT8FPrwPYmFDh7b05IjWpH6ggVk9KCbH7e3yiEN-Jh2s8FTxDOVkEbHzb2fiwcLOLZ1ztiA2nRdzvQAyzpcFYarJ03zm122VGT3pvz8meSMQ4SuzhTXkDSiOnw0rdUppniDkg73o44NxTyAaC-rc0gCw1c4IxUQMl3Dbil4aqIe0L92B2ixca-oMHMULdtfSLWXwrCvoiIrn7zXg1ubCDuDq7vNklw_BpRGpC-BHabQtW9qCCXibb7aVI39cUP_PZPObVuYx03IAd_976nt59o3d0DFFJQZewdhrV-erXcI068Zwus-gEWV598e7cjn68Yic-SbmY__1Rc1HPMN8V-24Tfs8RijW3J06qs56WDo4SZHmERwHLmHvwMjNZ7VCQ_2zvjrTinESorUG1pcVii2fgw4138CNbqv6mQUdxBd83Krze7lJEJ8dd40yZRdQ8cl_JNGdZxuEcVb-ZAoPqmCyjVTpEjxPbudGzU9hq7spEQ6GN4wA5ZEbN505sdiA1KL0HiY1wHpm6Ew6HYNbiJK1lLk6abXwruZ8sT6L_qDGYmFfJ4tyAyhmKJM5cMJXQprfPyplGIueekx25Pi0zZum8wwoMDBdfLxynDZB2cWDjVtojBd-Hdsoub4FnKw4LAmfX77QqGMashhYXVZMdHHb2Nj3QY3bNKHoMljjSvKnVVds4JNCZhFmuu0IqbIjvaab3Z9IAb8iqzVRZ302igoWO_365A0MiGDtpjzuPfcubVzcj1lA8W5jslA1fZeLjdZwNWMXtSrBjzJ_HREj_UTiQTumgxq_m7-LlW_jftpx85MAbyM8GUtTr2VydGKlcWOzIPBWzp8qBOoa8squGGUeTkxlEM7pyz_cIkxvnl697IlWbp9VcE5V7kBoCUsHWbeGa6mw7113knvFmJygPlkNlWHXyxEJZtfEXnvoMbiGqiS-LkZo2NjnkffzeqeoiBA1TKgDqwb5nFpsWaqO2LVJQpHUH5epgoyY-61-hut6kkL52uBOmD8WPUaJgs3Cr2m82GmZbNVCd3Q_BcMQK4rlrsrMzNE9mDzpqluVUMZVQr74hRnCqmNvzA9iiwt9CUK6W-jDhaxec1NW90k90wcqwMj_0-5pGXyuocDjodHorJyI4qwsd29qihq44mkiaj-KVhVKNJP9ZDcod4r6uRyZwimnW_tYHqVaLSxh1eRpNxdqK_qs4FFa3SESjK-BTolycz1i8uw-E9vBX1SCaO-j0N-FKmQvPeqDVefWkVyw3NMaFEJkvKia0eROordSttsaJIH4wV59dA3hxm4xfcNHYBHJj1MKf0jYOhTuBYowcY_21bGdTaOmMr7eQxQ4Uw49yqBetHKMLkgJvTeWf0LuNkquwURgfjhWQkTXcxJzKugbaOKJD6ZWPFc0A","terms":"on","news":"yes"}
 
+Chyba:
+[2025-09-20 16:30:46] - Nepodarilo sa prihlásiť.
+Podrobnosti:
+User ID: 140
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/prihlasenie
+Request Method: POST
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: {"email_address":"behulpatrik@gmail.com","password":"a","remember_me":"yes"}
+

@@ -325,7 +325,7 @@
         <?php require "../assets/footer.php"; ?>
     </footer>
 
-    <script>
+    <script defer>
         // JavaScript Code
 
         "use strict"
@@ -498,7 +498,7 @@
         })
     </script>
 
-    <script src="/src/js/navigation_bar.js"></script>
-    <script src="/src/js/cookie_policy.js"></script>
+    <script src="/src/js/navigation_bar.js" defer></script>
+    <script src="/src/js/cookie_policy.js" defer></script>
 </body>
 </html>

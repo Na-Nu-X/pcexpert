@@ -316,13 +316,13 @@
                     <a href="<?php echo $url ?>">
                         <img src="/content/images/google.png" alt="Prihlásiť sa Google účtom"> <!-- https://www.flaticon.com/free-icon/search_281764 -->
 
-                        <span>Prihlásiť&nbsp;sa&nbsp;cez&nbsp;Google</span>
+                        <span>Použiť&nbsp;Google&nbsp;účet</span>
                     </a>
                     
                     <a href="#">
                         <img src="/content/images/facebook_2.png" alt="Prihlásiť sa Facebook účtom"> <!-- https://www.flaticon.com/free-icon/facebook_5968764 -->
 
-                        <span>Prihlásiť&nbsp;sa&nbsp;cez&nbsp;Facebook</span>
+                        <span>Použiť&nbsp;Facebook&nbsp;účet</span>
                     </a>
                 </div>
 
@@ -346,7 +346,7 @@
         <?php require "../assets/footer.php"; ?>
     </footer>
 
-    <script>
+    <script defer>
         // JavaScript Code
 
         "use strict"
@@ -396,7 +396,7 @@
         })
     </script>
 
-    <script src="/src/js/navigation_bar.js"></script>
-    <script src="/src/js/cookie_policy.js"></script>
+    <script src="/src/js/navigation_bar.js" defer></script>
+    <script src="/src/js/cookie_policy.js" defer></script>
 </body>
 </html>

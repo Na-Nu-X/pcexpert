@@ -982,7 +982,7 @@
         <?php require "../assets/footer.php"; ?>
     </footer>
 
-    <script>
+    <script defer>
         // JavaScript Code
 
         "use strict"
@@ -1164,10 +1164,10 @@
         })
     </script>
 
-    <script src="/src/js/navigation_bar.js"></script>
-    <script src="/src/js/move_up_icon.js"></script>
-    <script src="/src/js/cookie_policy.js"></script>
-    <script src="/src/js/theme_selection.js"></script>
-    <script src="/src/js/photo_gallery.js"></script>
+    <script src="/src/js/navigation_bar.js" defer></script>
+    <script src="/src/js/move_up_icon.js" defer></script>
+    <script src="/src/js/cookie_policy.js" defer></script>
+    <script src="/src/js/theme_selection.js" defer></script>
+    <script src="/src/js/photo_gallery.js" defer></script>
 </body>
 </html>
