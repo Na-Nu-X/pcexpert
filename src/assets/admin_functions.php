@@ -132,4 +132,23 @@
             }
         }
     }
+
+    function getUncheckedReviews($connection, $offset = 0, $limit = 5) {
+        $sql = "SELECT * FROM reviews
+                WHERE checked = 'no'
+                ORDER BY review_time DESC
+                LIMIT ?, ?";
+
+        $stmt = mysqli_prepare($connection, $sql);
+
+        if($stmt) {
+            mysqli_stmt_bind_param($stmt, "ii", $offset, $limit);
+        }
+
+        if(mysqli_stmt_execute($stmt)) {
+            return mysqli_fetch_all(mysqli_stmt_get_result($stmt), MYSQLI_ASSOC);
+        }
+
+        return false;
+    }
 ?>
