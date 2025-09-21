@@ -17,9 +17,9 @@
 
     // Password Reset
 
-    $user_id = $_SESSION["logged_in_user_id"] ?? getUserId($connection, $_COOKIE["email_address"]);
-
     if($_SERVER["REQUEST_METHOD"] === "POST") {
+        $user_id = $_SESSION["logged_in_user_id"] ?? getUserId($connection, $_COOKIE["email_address"]);
+
         $password_reset_code_database = getUserInformations($connection, $user_id, "password_reset_code");
         $password_reset_code = (int)$_POST["password_reset_code"];
 

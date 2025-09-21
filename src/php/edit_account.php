@@ -80,8 +80,6 @@
             setcookie("password_reset_code_timer", "password_reset_code_timer", time() + (60 * 10), "/"); // 10 Minutes Timed Cookie
 
             $_SESSION["green_report_message"] = "Overovací&nbsp;kód&nbsp;bol&nbsp;odoslaný&nbsp;na&nbsp;adresu " . $user_email_address;
-
-            throw new Exception();
         }
 
         catch(Exception $e) {
@@ -306,9 +304,14 @@
                                     "
                                     alt="Zmeniť profilový obrázok"
                                 >
+
+                                <?php if(!empty(getUserInformations($connection, $_SESSION["logged_in_user_id"], "google_id"))): ?>
+                                    <img class="google_profile_picture_frame" src="/content/images/google.png" alt="Google"> <!-- https://www.flaticon.com/free-icon/search_281764 -->
+
+                                <?php endif; ?>
                             </label>
 
-                            <input id="profile_picture" type="file" name="profile_picture">
+                            <input id="profile_picture" type="file" name="profile_picture" accept=".jpg, .jpeg, .png, .gif, .webp, .bmp, .tiff, .tif">
 
                             <label for="delete_profile_picture">
                                 <img class="delete_profile_picture" title="Odstrániť profilový obrázok" src="/content/images/trash.png" alt="Odstrániť profilový obrázok"> <!-- https://www.flaticon.com/free-icon/trash_8848798 -->
@@ -372,22 +375,25 @@
                         >
                     </div>
 
-                    <div class="current_password_container">
-                        <input class="current_password" type="text" name="current_password" placeholder="Zadajte vaše heslo" autocomplete="off">
-                    </div>
-
-                    <div class="new_password_container">
-                        <div class="generate_password">
-                            <i class="fa-solid fa-key" title="vygenerovať heslo..."></i>
+                    <?php if(empty(getUserInformations($connection, $_SESSION["logged_in_user_id"], "google_id"))): ?>
+                        <div class="current_password_container">
+                            <input class="current_password" type="text" name="current_password" placeholder="Zadajte vaše heslo" autocomplete="off">
                         </div>
 
-                        <div class="password_icon">
-                            <i class="fa-regular fa-eye-slash" title="zobraziť / skryť heslo..."></i>
-                            <!-- <i class="fa-regular fa-eye"></i> -->
+                        <div class="new_password_container">
+                            <div class="generate_password">
+                                <i class="fa-solid fa-key" title="vygenerovať heslo..."></i>
+                            </div>
+
+                            <div class="password_icon">
+                                <i class="fa-regular fa-eye-slash" title="zobraziť / skryť heslo..."></i>
+                                <!-- <i class="fa-regular fa-eye"></i> -->
+                            </div>
+
+                            <input class="new_password password" type="text" name="new_password" placeholder="Vytvorte nové heslo" autocomplete="off">
                         </div>
 
-                        <input class="new_password password" type="text" name="new_password" placeholder="Vytvorte nové heslo" autocomplete="off">
-                    </div>
+                    <?php endif; ?>
 
                     <p class="form_report_paragraph"></p>
 

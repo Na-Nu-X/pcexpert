@@ -344,3 +344,36 @@ User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
 Server IP: ::1
 Post Data: {"rating":"3","review":"","g-recaptcha-response":"HFNGs4JxIccwFHC3wNGkEcGwRsVQ17RDtMazZiSiNmaT91NxkvdU9bbDATOzEYdztSXAAJUBhLHV4GIh1IBH1rMSRvG0EvOWI4JTMAcj1tNGU-HH54XT9oSRQiYxhLQR41D0QkAEx5EkAiY240f2MfHHM7RmoEdh9geBwBMgJsFV0AAXVcR2lLRRFuVw17RDtObj5hVyYS","recaptcha_write_review_submit":""}
 
+Chyba:
+[2025-09-21 11:56:24] - Nepodarilo sa prihlásiť.
+Podrobnosti:
+User ID: unknown
+IP Address: ::1
+Referer: http://localhost/prihlasenie
+Request Method: POST
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36
+Server IP: ::1
+Post Data: {"email_address":"behulpatrik@gmail.com","password":"Patrik","remember_me":"yes"}
+
+Chyba:
+[2025-09-21 14:44:32] - Error While Sending Password Reset Code To User's Email. ()
+Podrobnosti:
+User ID: unknown
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/prihlasenie
+Request Method: GET
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: []
+
+Chyba:
+[2025-09-21 14:45:14] - Error While Sending Password Reset Code To User's Email. ()
+Podrobnosti:
+User ID: 140
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/moj-ucet
+Request Method: GET
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: []
+

@@ -709,6 +709,15 @@ main
     transition: transform 0.3s ease;
 }
 
+.google_profile_picture_frame
+{
+    position: absolute;
+    top: 30px;
+    left: 158px;
+    width: 10px;
+    height: 10px;
+}
+
 .delete_profile_picture, .delete_review
 {
     width: 40px;
