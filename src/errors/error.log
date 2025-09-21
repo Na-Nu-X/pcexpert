@@ -328,3 +328,19 @@ User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
 Server IP: 127.0.0.1
 Post Data: {"email_address":"behulpatrik@gmail.com","password":"a","remember_me":"yes"}
 
+Chyba:
+[2025-09-20 16:54:21] - reCAPTCHA Failed In Write Review Form. ({
+  &quot;success&quot;: false,
+  &quot;error-codes&quot;: [
+    &quot;browser-error&quot;
+  ]
+})
+Podrobnosti:
+User ID: 168
+IP Address: ::1
+Referer: http://localhost/domov
+Request Method: POST
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36
+Server IP: ::1
+Post Data: {"rating":"3","review":"","g-recaptcha-response":"HFNGs4JxIccwFHC3wNGkEcGwRsVQ17RDtMazZiSiNmaT91NxkvdU9bbDATOzEYdztSXAAJUBhLHV4GIh1IBH1rMSRvG0EvOWI4JTMAcj1tNGU-HH54XT9oSRQiYxhLQR41D0QkAEx5EkAiY240f2MfHHM7RmoEdh9geBwBMgJsFV0AAXVcR2lLRRFuVw17RDtObj5hVyYS","recaptcha_write_review_submit":""}
+

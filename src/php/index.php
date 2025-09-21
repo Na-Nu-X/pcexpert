@@ -269,7 +269,7 @@
         // reCAPTCHA V3
 
         $minScore = 0.5;
-        if(empty($responseData->success)) { // if(!empty($responseData->success) and isset($responseData->score) and $responseData->score >= $minScore and isset($responseData->action) and $responseData->action === 'submit') {
+        if(!empty($responseData->success) and isset($responseData->score) and $responseData->score >= $minScore and isset($responseData->action) and $responseData->action === 'submit') {
             // Write Review
 
             $rating = $_POST["rating"];

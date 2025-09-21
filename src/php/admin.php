@@ -23,9 +23,17 @@
     // Admin Form After Submitting
 
     if($_SERVER["REQUEST_METHOD"] === "POST" and isset($_POST["admin_form_submit"])) {
+        // User Role
+
+        foreach(allUsers($connection, $_SESSION["logged_in_user_id"], 0, 100) as $one_user) {
+            if(isset($_POST["user_role_checkbox_" . $one_user["id"]])) {
+                changeUserRole($connection, $one_user["id"], $_POST["user_role_checkbox_" . $one_user["id"]]);
+            }
+        }
+
         // Delete User
 
-        foreach(allUsers($connection, $_SESSION["logged_in_user_id"]) as $one_user) {
+        foreach(allUsers($connection, $_SESSION["logged_in_user_id"], 0, 100) as $one_user) {
             if(isset($_POST["delete_user_checkbox_" . $one_user["id"]]) and $_POST["delete_user_checkbox_" . $one_user["id"]] === "yes") {
                 deleteUser($connection, $one_user["id"]);
             }
@@ -33,7 +41,7 @@
 
         // Delete Error
 
-        foreach(getErrorLog($connection) as $one_error) {
+        foreach(getErrorLog($connection, 0, 100) as $one_error) {
             if(isset($_POST["delete_error_log_checkbox_" . $one_error["error_id"]]) and $_POST["delete_error_log_checkbox_" . $one_error["error_id"]] === "yes") {
                 deleteErrorLogById($connection, $one_error["error_id"]);
             }
@@ -140,15 +148,15 @@
                                                 <?php echo "- " . htmlspecialchars($one_user["role"], ENT_QUOTES, "UTF-8"); ?>
                                             </span>
                                             
-                                            <label for="user_role_checkbox<?php echo htmlspecialchars($one_user["id"], ENT_QUOTES, "UTF-8"); ?>">
+                                            <label for="user_role_checkbox_<?php echo htmlspecialchars($one_user["id"], ENT_QUOTES, "UTF-8"); ?>">
                                                 <i class="fa-solid fa-pen user_role_icon"></i> <!-- https://fontawesome.com/icons/pen?f=classic&s=solid -->
                                             </label>
 
                                             <input 
                                                 class="user_role_checkbox"
                                                 type="checkbox"
-                                                name="user_role_checkbox<?php echo htmlspecialchars($one_user["id"], ENT_QUOTES, "UTF-8"); ?>"
-                                                id="user_role_checkbox<?php echo htmlspecialchars($one_user["id"], ENT_QUOTES, "UTF-8"); ?>"
+                                                name="user_role_checkbox_<?php echo htmlspecialchars($one_user["id"], ENT_QUOTES, "UTF-8"); ?>"
+                                                id="user_role_checkbox_<?php echo htmlspecialchars($one_user["id"], ENT_QUOTES, "UTF-8"); ?>"
                                                 value="user"
                                             >
                                         </span>
@@ -276,7 +284,7 @@
 
             const all_users = document.querySelector(".all_users")
 
-            all_users.addEventListener("click", async function(event) {
+            all_users.addEventListener("click", function(event) {
                 const user = event.target.closest(".user")
 
                 const user_role_icon = document.querySelector(".user_role_icon")
@@ -285,21 +293,39 @@
                     const user_role_checkbox = user.querySelector(".user_role_checkbox")
                     const user_role_value = user.querySelector(".user_role_value")
 
-                    if(user_role_checkbox.checked) {
-                        user_role_value.textContent = "- admin"
-                        user_role_value.style.color = "rgb(250, 50, 50)"
+                    if(user_role_value.textContent.trim() == "- user") {
+                        if(user_role_checkbox.checked) {
+                            user_role_checkbox.value = "admin"
+                            user_role_value.textContent = "- admin"
+                            user_role_value.style.color = "rgb(250, 50, 50)"
+                        }
+
+                        else {
+                            user_role_checkbox.value = "user"
+                            user_role_value.textContent = "- user"
+                            user_role_value.style.color = "rgb(150, 150, 150)"
+                        }
                     }
 
-                    else {
-                        user_role_value.textContent = "- user"
-                        user_role_value.style.color = "rgb(150, 150, 150)"
+                    else if(user_role_value.textContent.trim() == "- admin") {
+                        if(user_role_checkbox.checked) {
+                            user_role_checkbox.value = "user"
+                            user_role_value.textContent = "- user"
+                            user_role_value.style.color = "rgb(150, 150, 150)"
+                        }
+
+                        else {
+                            user_role_checkbox.value = "admin"
+                            user_role_value.textContent = "- admin"
+                            user_role_value.style.color = "rgb(250, 50, 50)"
+                        }
                     }
                 }
             })
 
             // Delete User
 
-            all_users.addEventListener("click", async function(event) {
+            all_users.addEventListener("click", function(event) {
                 const user = event.target.closest(".user")
 
                 const delete_user_image = event.target.closest(".delete_user")
@@ -332,10 +358,10 @@
             const show_more_users = document.querySelector(".show_more_users")
             const show_less_users = document.querySelector(".show_less_users")
 
-            show_more_users.addEventListener("click", function(event) {
+            show_more_users.addEventListener("click", async function(event) {
                 offset += limit
 
-                fetch("all_users.php", {
+                await fetch("all_users.php", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/x-www-form-urlencoded",
@@ -350,10 +376,10 @@
                 })
             })
 
-            show_less_users.addEventListener("click", function(event) {
+            show_less_users.addEventListener("click", async function(event) {
                 offset = 0
 
-                fetch("all_users.php", {
+                await fetch("all_users.php", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/x-www-form-urlencoded",
@@ -405,7 +431,7 @@
 
             // Delete Error
 
-            all_errors.addEventListener("click", async function(event) {
+            all_errors.addEventListener("click", function(event) {
                 const error = event.target.closest(".error")
 
                 const delete_error_log = event.target.closest(".delete_error_log")
@@ -427,10 +453,10 @@
             const show_more_errors = document.querySelector(".show_more_errors")
             const show_less_errors = document.querySelector(".show_less_errors")
 
-            show_more_errors.addEventListener("click", function(event) {
+            show_more_errors.addEventListener("click", async function(event) {
                 offset += limit
 
-                fetch("all_errors.php", {
+                await fetch("all_errors.php", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/x-www-form-urlencoded",
@@ -445,10 +471,10 @@
                 })
             })
 
-            show_less_errors.addEventListener("click", function(event) {
+            show_less_errors.addEventListener("click", async function(event) {
                 offset = 0
 
-                fetch("all_errors.php", {
+                await fetch("all_errors.php", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/x-www-form-urlencoded",

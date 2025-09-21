@@ -49,15 +49,15 @@
                             <?php echo "- " . htmlspecialchars($one_user["role"], ENT_QUOTES, "UTF-8"); ?>
                         </span>
                         
-                        <label for="user_role_checkbox<?php echo htmlspecialchars($one_user["id"], ENT_QUOTES, "UTF-8"); ?>">
+                        <label for="user_role_checkbox_<?php echo htmlspecialchars($one_user["id"], ENT_QUOTES, "UTF-8"); ?>">
                             <i class="fa-solid fa-pen user_role_icon"></i> <!-- https://fontawesome.com/icons/pen?f=classic&s=solid -->
                         </label>
 
                         <input 
                             class="user_role_checkbox"
                             type="checkbox"
-                            name="user_role_checkbox<?php echo htmlspecialchars($one_user["id"], ENT_QUOTES, "UTF-8"); ?>"
-                            id="user_role_checkbox<?php echo htmlspecialchars($one_user["id"], ENT_QUOTES, "UTF-8"); ?>"
+                            name="user_role_checkbox_<?php echo htmlspecialchars($one_user["id"], ENT_QUOTES, "UTF-8"); ?>"
+                            id="user_role_checkbox_<?php echo htmlspecialchars($one_user["id"], ENT_QUOTES, "UTF-8"); ?>"
                             value="user"
                         >
                     </span>

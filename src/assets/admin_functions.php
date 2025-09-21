@@ -112,4 +112,24 @@
         
         return false;
     }
+
+    function changeUserRole($connection, $id, $role) {
+        $sql = "UPDATE users
+                SET role = ?
+                WHERE id = ?";
+
+        $stmt = mysqli_prepare($connection, $sql);
+
+        if($stmt === false) {
+            echo mysqli_error($connection);
+        }
+
+        else {
+            mysqli_stmt_bind_param($stmt, "si", $role, $id);
+
+            if(mysqli_stmt_execute($stmt)) {
+                return true;
+            }
+        }
+    }
 ?>
