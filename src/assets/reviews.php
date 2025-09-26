@@ -23,6 +23,7 @@
     function allReviews($connection, $user_id = null, $offset = 0, $limit = 5) {
         if($user_id === null) {
             $sql = "SELECT * FROM reviews
+                    WHERE status = 'approved'
                     ORDER BY review_time DESC
                     LIMIT ?, ?";
 
@@ -36,7 +37,9 @@
         else {
             $sql = "SELECT * FROM reviews
                     WHERE user_id IS NULL
+                    AND status = 'approved'
                     OR user_id != ?
+                    AND status = 'approved'
                     ORDER BY review_time DESC
                     LIMIT ?, ?";
 
@@ -56,7 +59,8 @@
         if($user_id === null) {
             $sql = "SELECT COUNT(*) 
                     AS reviews_amount 
-                    FROM reviews";
+                    FROM reviews
+                    WHERE status = 'approved'";
 
             $stmt = mysqli_prepare($connection, $sql);
         } 
@@ -66,7 +70,9 @@
                     AS reviews_amount
                     FROM reviews
                     WHERE user_id IS NULL 
-                    OR user_id != ?";
+                    AND status = 'approved'
+                    OR user_id != ?
+                    AND status = 'approved'";
 
             $stmt = mysqli_prepare($connection, $sql);
             mysqli_stmt_bind_param($stmt, "i", $user_id);

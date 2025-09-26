@@ -290,45 +290,27 @@ header
 
 .header_box
 {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     width: 100%;
-    height: 100vh;
-}
-
-.logo img
-{
     position: absolute;
-    left: 50%;
     top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
-    max-width: 300px;
-    opacity: 0.5;
 }
 
-.header_box h1
+h1
 {
     z-index: 80;
-}
-
-.header_buttons
-{
-    z-index: 90;
+    text-align: center;
 }
 
 header h1 a:link,
 header h1 a:visited
 {
-    text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
     text-decoration: none;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 80px;
-    letter-spacing: 1px;
-    color: rgb(255, 255, 255);
-    -webkit-text-stroke: 2px rgb(0, 0, 0);
+    font-family: "Bruno Ace", sans-serif;
+    font-weight: 500;
+    font-size: 70px;
+    color: rgba(255, 255, 255, 0.8);
     transition: letter-spacing 0.3s ease;
     animation: fade_in_animation 2s ease-out;
 }
@@ -336,27 +318,6 @@ header h1 a:visited
 header h1 a:hover,
 header h1 a:active
 {
-    letter-spacing: 5px;
-}
-
-.header_buttons a
-{
-    display: inline-block;
-    text-decoration: none;
-    text-align: center;
-    width: 200px;
-    margin: 0px 20px;
-    padding: 10px;
-    border: 1px solid rgb(0, 0, 0);
-    border-radius: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: transform 0.3s ease, letter-spacing 0.3s ease, background-color 0.3s ease;
-}
-
-.header_buttons a:hover
-{
-    transform: scale(1.1);
     letter-spacing: 1px;
 }
 
@@ -757,6 +718,14 @@ input[name="r"]
     cursor: pointer;
 }
 
+.pending_review
+{
+    text-align: center;
+    font-size: 14px;
+    font-style: italic;
+    color: rgb(150, 150, 150);
+}
+
 .user_review h3, .all_reviews_title
 {
     text-align: center;
@@ -773,6 +742,11 @@ input[name="r"]
     border-radius: 5px;
     background-color: rgb(245, 245, 245);
     transition: background-color 0.3s ease, width 0.3s ease;
+}
+
+.pending_reviews .review
+{
+    margin-bottom: 0px;
 }
 
 .user
@@ -872,6 +846,46 @@ input[name="r"]
 .user_role_checkbox, .delete_user_checkbox
 {
     display: none;
+}
+
+.review_confirmation
+{
+    text-align: center;
+}
+
+.approve_review, .reject_review
+{
+    width: 200px;
+    height: 50px;
+    font-size: 16px;
+    margin: 10px 20px;
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 25px;
+    transition: letter-spacing 0.3s ease, background-color 0.3s ease;
+}
+
+.approve_review
+{
+    background-color: rgb(155, 230, 50);
+}
+
+.approve_review:hover
+{
+    letter-spacing: 1px;
+    background-color: rgb(170, 255, 50);
+    cursor: pointer;
+}
+
+.reject_review
+{
+    background-color: rgb(250, 90, 55);
+}
+
+.reject_review:hover
+{
+    letter-spacing: 1px;
+    background-color: rgb(255, 75, 35);
+    cursor: pointer;
 }
 
 .error_log p
@@ -1207,6 +1221,7 @@ footer.dark .copywrite
 .buttons
 {
     width: 100%;
+    height: 64px;
     text-align: center;
     animation: fade_in_animation 1s ease-out forwards;
 }

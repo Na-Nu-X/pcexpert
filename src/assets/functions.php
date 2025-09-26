@@ -543,7 +543,8 @@
     function averageRating($connection) {
         $sql = "SELECT AVG(rating)
                 AS average_rating
-                FROM reviews";
+                FROM reviews
+                WHERE status = 'approved'";
         
         $stmt = mysqli_prepare($connection, $sql);
 
@@ -566,7 +567,7 @@
 
     function updateReview($connection, $user_id, $rating, $review) {
         $sql = "UPDATE reviews 
-                SET rating = ?, review = ?, edited = 'yes'
+                SET rating = ?, review = ?, edited = 'yes', status = 'pending'
                 WHERE user_id = ?";
 
         $stmt = mysqli_prepare($connection, $sql);

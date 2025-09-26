@@ -323,6 +323,7 @@
     <link rel="stylesheet" href="/src/css/styles.css">
     <link rel="stylesheet" href="/src/css/lightbox.min.css"> <!-- https://github.com/lokesh/lightbox2/tree/dev -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins"> <!-- Poppins Font Style -->
+    <link href="https://fonts.googleapis.com/css2?family=Bruno+Ace&display=swap" rel="stylesheet"> <!-- Bruno Ace Font Style -->
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script> <!-- https://releases.jquery.com/ -->
     <script src="/src/js/lightbox-plus-jquery.min.js"></script> <!-- https://github.com/lokesh/lightbox2/tree/dev -->
@@ -438,9 +439,9 @@
         <?php endif; ?>
 
         <div class="header_box">
-            <div class="logo">
+            <!-- <div class="logo">
                 <img src="/content/images/test_logo.png" alt="Logo">
-            </div>
+            </div> -->
 
             <h1><a href="./domov">PC&nbsp;Expert</a></h1>
 
@@ -649,6 +650,11 @@
                     
                     <?php if(userReview($connection, $user_id) !== null and userReview($connection, $user_id) !== false): ?>
                         <div class="review">
+                            <?php if(userReview($connection, $user_id)["status"] === "pending"): ?>
+                                <p class="pending_review">Vaša recenzia čaká na kontrolu</p>
+
+                            <?php endif; ?>
+
                             <div class="reviewer">
                                 <img
                                     class="profile_picture"

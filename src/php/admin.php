@@ -49,6 +49,28 @@
 
         $_SESSION["green_report_message"] = "Zmeny&nbsp;boli&nbsp;vykonané";
     }
+
+    // Approve or Reject Reviews
+
+    if($_SERVER["REQUEST_METHOD"] === "POST" and isset($_POST["approve_review"])) {
+        $review_id = $_POST["review_id"];
+
+        if(approveReview($connection, $review_id)) {
+            $_SESSION["green_report_message"] = "Recenzia bola schválená.";
+
+            redirectURL("/administracia");
+        }
+    }
+
+    if($_SERVER["REQUEST_METHOD"] === "POST" and isset($_POST["reject_review"])) {
+        $review_id = $_POST["review_id"];
+
+        if(rejectReview($connection, $review_id)) {
+            $_SESSION["red_report_message"] = "Recenzia bola zamietnutá.";
+
+            redirectURL("/administracia");
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -71,6 +93,12 @@
         <?php if(isset($_SESSION["green_report_message"]) and !empty($_SESSION["green_report_message"])): ?>
             <p class="green_report_message"><?php echo $_SESSION["green_report_message"]; ?></p>
             <?php $_SESSION["green_report_message"] = ""; ?>
+
+        <?php endif; ?>
+
+        <?php if(isset($_SESSION["red_report_message"]) and !empty($_SESSION["red_report_message"])): ?>
+            <p class="red_report_message"><?php echo $_SESSION["red_report_message"]; ?></p>
+            <?php $_SESSION["red_report_message"] = ""; ?>
 
         <?php endif; ?>
 
@@ -105,6 +133,111 @@
 
     <main class="<?php echo $theme; ?>" style="padding: 10px 20px;">
         <?php if(isset($_SESSION["logged_in_user_id"]) and getUserRole($connection, $_SESSION["logged_in_user_id"]) === "admin"): ?>
+            <section class="reviews">
+                <h2>Kontrola&nbsp;recenzií</h2>
+
+                <div class="pending_reviews">
+                    <?php foreach(getPendingReviews($connection) as $one_review): ?>
+                        <div class="review">
+                            <?php if($one_review["user_id"] !== null): ?>
+                                <div class="reviewer">
+                                    <img
+                                        class="profile_picture"
+                                        src="
+                                            <?php if(!empty(getUserInformations($connection, $one_review['user_id'], 'google_profile_picture_url')) and empty(getUserInformations($connection, $one_review['user_id'], 'profile_picture_name'))): ?>
+                                                <?php echo getUserInformations($connection, $one_review['user_id'], 'google_profile_picture_url'); ?>
+
+                                            <?php else: ?>
+                                                /content/uploads/<?php echo $one_review['user_id']; ?>/<?php echo getProfilePictureName($connection, $one_review['user_id']); ?>
+
+                                            <?php endif; ?>
+                                        "
+                                    >
+
+                                    <p class="user_name">
+                                        <?php echo htmlspecialchars(getUserInformations($connection, $one_review["user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
+
+                                        <?php echo htmlspecialchars(getUserInformations($connection, $one_review["user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
+
+                                        <span class="date">
+                                            -
+
+                                            <?php echo htmlspecialchars(date("j.n.Y", strtotime($one_review["review_time"])), ENT_QUOTES, "UTF-8"); ?>
+
+                                            <?php if($one_review["edited"] === "yes"): ?>
+                                                (upravená)
+
+                                            <?php endif; ?>
+                                        </span>
+                                    </p>
+                                </div>
+
+                                <?php for($i = 1; $i <= 5; $i++): ?>
+                                    <?php if($i <= $one_review["rating"]): ?>
+                                        <img src="/content/images/star.png" alt="Hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828884 -->
+
+                                    <?php else: ?>
+                                        <img src="/content/images/empty_star.png" alt="Prázdna hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
+
+                                    <?php endif; ?>
+                                    
+                                <?php endfor; ?>
+
+                                <p><?php echo htmlspecialchars($one_review["review"], ENT_QUOTES, "UTF-8"); ?></p>
+
+                            <?php else: ?>
+                                <div class="reviewer">
+                                    <img class="profile_picture" src="/content/images/user.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
+
+                                    <p class="user_name">
+                                        Anonymný zákazník
+
+                                        <span class="date">
+                                            -
+                                            
+                                            <?php echo htmlspecialchars(date("j.n.Y", strtotime($one_review["review_time"])), ENT_QUOTES, "UTF-8"); ?>
+                                        </span>
+                                    </p>
+                                </div>
+
+                                <?php for($i = 1; $i <= 5; $i++): ?>
+                                    <?php if($i <= $one_review["rating"]): ?>
+                                        <img src="/content/images/star.png" alt="Hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828884 -->
+
+                                    <?php else: ?>
+                                        <img src="/content/images/empty_star.png" alt="Prázdna hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
+
+                                    <?php endif; ?>
+                                    
+                                <?php endfor; ?>
+
+                                <p><?php echo htmlspecialchars($one_review["review"], ENT_QUOTES, "UTF-8"); ?></p>
+
+                            <?php endif; ?>
+                        </div>
+
+                        <form class="review_confirmation" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                            <input type="hidden" name="review_id" value="<?php echo $one_review['review_id']; ?>">
+
+                            <button class="approve_review" type="submit" name="approve_review">Potvrdiť</button>
+                            <button class="reject_review" type="submit" name="reject_review">Zahodiť</button>
+                        </form>
+
+                    <?php endforeach; ?>
+                </div>
+
+                <?php if(countPendingReviews($connection) > 5): ?>
+                    <button class="show_more show_more_reviews" type="button" title="Zobraziť viac">Zobraziť viac</button>
+                    <button class="show_less show_less_reviews" type="button" title="Zobraziť menej">Zobraziť menej</button>
+
+                <?php endif; ?>
+
+                <?php if(empty(getPendingReviews($connection))): ?>
+                    <p style="text-align: center; margin-bottom: 0px;">Nenašli sa žiadne recenzie na potvrdenie.</p>
+
+                <?php endif; ?>
+            </section>
+
             <form class="admin_form <?php echo $theme; ?>" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                 <section class="users">
                     <h2>Používatelia</h2>
@@ -213,93 +346,6 @@
                         <p style="text-align: center; margin-bottom: 10px;">Nenašli sa žiadny zaregistrovaný používatelia.</p>
 
                     <?php endif; ?>
-                </section>
-
-                <section class="reviews">
-                    <h2>Kontrola&nbsp;recenzií</h2>
-
-                    <div class="all_reviews">
-                        <?php foreach(getUncheckedReviews($connection) as $one_review): ?>
-                            <div class="review">
-                                <?php if($one_review["user_id"] !== null): ?>
-                                    <div class="reviewer">
-                                        <img
-                                            class="profile_picture"
-                                            src="
-                                                <?php if(!empty(getUserInformations($connection, $one_review['user_id'], 'google_profile_picture_url')) and empty(getUserInformations($connection, $one_review['user_id'], 'profile_picture_name'))): ?>
-                                                    <?php echo getUserInformations($connection, $one_review['user_id'], 'google_profile_picture_url'); ?>
-
-                                                <?php else: ?>
-                                                    /content/uploads/<?php echo $one_review['user_id']; ?>/<?php echo getProfilePictureName($connection, $one_review['user_id']); ?>
-
-                                                <?php endif; ?>
-                                            "
-                                        >
-
-                                        <p class="user_name">
-                                            <?php echo htmlspecialchars(getUserInformations($connection, $one_review["user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
-
-                                            <?php echo htmlspecialchars(getUserInformations($connection, $one_review["user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
-
-                                            <span class="date">
-                                                -
-
-                                                <?php echo htmlspecialchars(date("j.n.Y", strtotime($one_review["review_time"])), ENT_QUOTES, "UTF-8"); ?>
-
-                                                <?php if($one_review["edited"] === "yes"): ?>
-                                                    (upravená)
-
-                                                <?php endif; ?>
-                                            </span>
-                                        </p>
-                                    </div>
-
-                                    <?php for($i = 1; $i <= 5; $i++): ?>
-                                        <?php if($i <= $one_review["rating"]): ?>
-                                            <img src="/content/images/star.png" alt="Hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828884 -->
-
-                                        <?php else: ?>
-                                            <img src="/content/images/empty_star.png" alt="Prázdna hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
-
-                                        <?php endif; ?>
-                                        
-                                    <?php endfor; ?>
-
-                                    <p><?php echo htmlspecialchars($one_review["review"], ENT_QUOTES, "UTF-8"); ?></p>
-
-                                <?php else: ?>
-                                    <div class="reviewer">
-                                        <img class="profile_picture" src="/content/images/user.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
-
-                                        <p class="user_name">
-                                            Anonymný zákazník
-
-                                            <span class="date">
-                                                -
-                                                
-                                                <?php echo htmlspecialchars(date("j.n.Y", strtotime($one_review["review_time"])), ENT_QUOTES, "UTF-8"); ?>
-                                            </span>
-                                        </p>
-                                    </div>
-
-                                    <?php for($i = 1; $i <= 5; $i++): ?>
-                                        <?php if($i <= $one_review["rating"]): ?>
-                                            <img src="/content/images/star.png" alt="Hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828884 -->
-
-                                        <?php else: ?>
-                                            <img src="/content/images/empty_star.png" alt="Prázdna hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
-
-                                        <?php endif; ?>
-                                        
-                                    <?php endfor; ?>
-
-                                    <p><?php echo htmlspecialchars($one_review["review"], ENT_QUOTES, "UTF-8"); ?></p>
-
-                                <?php endif; ?>
-                            </div>
-
-                        <?php endforeach; ?>
-                    </div>
                 </section>
 
                 <section class="error_log">

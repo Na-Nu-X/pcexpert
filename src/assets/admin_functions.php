@@ -133,9 +133,9 @@
         }
     }
 
-    function getUncheckedReviews($connection, $offset = 0, $limit = 5) {
+    function getPendingReviews($connection, $offset = 0, $limit = 5) {
         $sql = "SELECT * FROM reviews
-                WHERE checked = 'no'
+                WHERE status = 'pending'
                 ORDER BY review_time DESC
                 LIMIT ?, ?";
 
@@ -150,5 +150,62 @@
         }
 
         return false;
+    }
+
+    function countPendingReviews($connection) {
+        $sql = "SELECT COUNT(*) 
+                AS reviews_amount
+                FROM reviews
+                WHERE status = 'pending'";
+
+        $stmt = mysqli_prepare($connection, $sql);
+
+        if(mysqli_stmt_execute($stmt)) {
+            $result = mysqli_stmt_get_result($stmt);
+            $row = mysqli_fetch_assoc($result);
+            return $row["reviews_amount"];
+        }
+        
+        return false;
+    }
+
+    function approveReview($connection, $review_id) {
+        $sql = "UPDATE reviews
+                SET status = 'approved'
+                WHERE review_id = ?";
+
+        $stmt = mysqli_prepare($connection, $sql);
+
+        if($stmt === false) {
+            echo mysqli_error($connection);
+        }
+
+        else {
+            mysqli_stmt_bind_param($stmt, "i", $review_id);
+
+            if(mysqli_stmt_execute($stmt)) {
+                return true;
+            }
+        }
+    }
+
+    function rejectReview($connection, $review_id) {
+        $sql = "UPDATE reviews
+                SET status = 'rejected'
+                WHERE review_id = ?";
+
+        $stmt = mysqli_prepare($connection, $sql);
+
+        if($stmt === false) {
+            echo mysqli_error($connection);
+        }
+
+        else {
+            mysqli_stmt_bind_param($stmt, "i", $review_id);
+
+            if(mysqli_stmt_execute($stmt)) {
+                return true;
+            }
+        }
     }
 ?>
