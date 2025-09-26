@@ -260,6 +260,16 @@ header
     border-radius: 50%;
 }
 
+.google_profile_picture_frame
+{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 40px;
+    height: 40px;
+    z-index: -10;
+}
+
 .account ul li img
 {
     position: absolute;
@@ -746,7 +756,7 @@ input[name="r"]
 
 .pending_reviews .review
 {
-    margin-bottom: 0px;
+    margin-bottom: 0px !important;
 }
 
 .user
@@ -789,6 +799,7 @@ input[name="r"]
 .reviewer, .basic_info
 {
     position: relative;
+    z-index: 0;
 }
 
 .reviewer .user_name, .basic_info .user_name
@@ -853,7 +864,7 @@ input[name="r"]
     text-align: center;
 }
 
-.approve_review, .reject_review
+.approve_review, .reject_review, .approve_review.light, .reject_review.light
 {
     width: 200px;
     height: 50px;
@@ -862,6 +873,12 @@ input[name="r"]
     border: 1px solid rgb(0, 0, 0);
     border-radius: 25px;
     transition: letter-spacing 0.3s ease, background-color 0.3s ease;
+}
+
+.approve_review.dark, .reject_review.dark
+{
+    color: rgb(255, 255, 255);
+    border: 1px solid rgb(255, 255, 255);
 }
 
 .approve_review
@@ -1437,37 +1454,10 @@ footer.dark .copywrite
     }
 }
 
-// @media only screen and (min-width: 801px)
-// {
-//     .navigation_bar ul li
-//     {
-//         display: inline-block !important;
-//     }
-// }
-
 @media only screen and (max-width: 800px)
 {
-    // .navigation_bar ul li
-    // {
-    //     // display: block;
-    //     display: none;
-    //     margin: 5px auto 0px;
-    //     width: 225px;
-    // }
-
-    // .navigation_icon
-    // {
-    //     display: block;
-    // }
-
-    // .account ul
-    // {
-    //     top: 60px;
-    // }
-
     .image h2
     {
-        // display: none;
         font-size: 20px;
     }
 
@@ -1495,9 +1485,20 @@ footer.dark .copywrite
 
 @media only screen and (max-width: 600px)
 {
-    .reviews .review
+    .reviews .review, .user
     {
         width: 100% !important;
+    }
+
+    .approve_review, .reject_review
+    {
+        width: 180px !important;
+        margin: 10px 5px !important;
+    }
+
+    .user .form_report_paragraph
+    {
+        top: 205px;
     }
 
     .contact_form input, .contact_form select, .contact_form textarea, .contact_form.light input, .contact_form.light select, .contact_form.light textarea

@@ -1025,52 +1025,6 @@
             ourServicesButtons(computer_maintenance_button, 2)
             ourServicesButtons(computer_cleaning_button, 3)
 
-            // Show More / Show Less Reviews
-
-            let offset = 0
-            const limit = 5
-            const user_id = <?php echo json_encode($user_id); ?>
-
-            const all_reviews = document.querySelector(".all_reviews")
-            const show_more_reviews = document.querySelector(".show_more_reviews")
-            const show_less_reviews = document.querySelector(".show_less_reviews")
-
-            show_more_reviews.addEventListener("click", function(event) {
-                offset += limit
-
-                fetch("all_reviews.php", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                    },
-                    body: `offset=${offset}&user_id=${encodeURIComponent(user_id)}`
-                })
-                .then(response => response.text())
-                .then(data => {
-                    all_reviews.insertAdjacentHTML("beforeend", data)
-                    show_more_reviews.style.display = "none"
-                    show_less_reviews.style.display = "inline-block"
-                })
-            })
-
-            show_less_reviews.addEventListener("click", function(event) {
-                offset = 0
-
-                fetch("all_reviews.php", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                    },
-                    body: `offset=${offset}&user_id=${encodeURIComponent(user_id)}`
-                })
-                .then(response => response.text())
-                .then(data => {
-                    all_reviews.innerHTML = data
-                    show_less_reviews.style.display = "none"
-                    show_more_reviews.style.display = "inline-block"
-                })
-            })
-
             // Selected Attachment
             
             const attachment = document.querySelector("#attachment")
@@ -1166,6 +1120,52 @@
                     form_report_paragraph.textContent = ""
                     form_report_paragraph.classList.remove("invalid")
                 }
+            })
+
+            // Show More / Show Less Reviews
+
+            let offset = 0
+            const limit = 5
+            const user_id = <?php echo json_encode($user_id); ?>
+
+            const all_reviews = document.querySelector(".all_reviews")
+            const show_more_reviews = document.querySelector(".show_more_reviews")
+            const show_less_reviews = document.querySelector(".show_less_reviews")
+
+            show_more_reviews.addEventListener("click", function(event) {
+                offset += limit
+
+                fetch("all_reviews.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: `offset=${offset}&user_id=${encodeURIComponent(user_id)}`
+                })
+                .then(response => response.text())
+                .then(data => {
+                    all_reviews.insertAdjacentHTML("beforeend", data)
+                    show_more_reviews.style.display = "none"
+                    show_less_reviews.style.display = "inline-block"
+                })
+            })
+
+            show_less_reviews.addEventListener("click", function(event) {
+                offset = 0
+
+                fetch("all_reviews.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: `offset=${offset}&user_id=${encodeURIComponent(user_id)}`
+                })
+                .then(response => response.text())
+                .then(data => {
+                    all_reviews.innerHTML = data
+                    show_less_reviews.style.display = "none"
+                    show_more_reviews.style.display = "inline-block"
+                })
             })
         })
     </script>

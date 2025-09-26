@@ -712,10 +712,11 @@ main
 .google_profile_picture_frame
 {
     position: absolute;
+    left: 130px;
     top: 30px;
-    left: 158px;
-    width: 10px;
-    height: 10px;
+    width: 40px;
+    height: 40px;
+    z-index: -10;
 }
 
 .delete_profile_picture, .delete_review

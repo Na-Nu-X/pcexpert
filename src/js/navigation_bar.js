@@ -77,12 +77,14 @@ function autoScrollButtons(button, scroll_to) {
 const about_us = document.querySelector(".about_us")
 const our_services = document.querySelector(".our_services")
 const contact = document.querySelector(".contact")
+const pending_reviews = document.querySelector(".pending_reviews")
 const users = document.querySelector(".users")
 const error_log = document.querySelector(".error_log")
 
 const scroll_about_us = document.querySelector(".scroll_about_us")
 const scroll_our_services = document.querySelector(".scroll_our_services")
 const scroll_contact = document.querySelector(".scroll_contact")
+const scroll_pending_reviews = document.querySelector(".scroll_pending_reviews")
 const scroll_users = document.querySelector(".scroll_users")
 const scroll_error_log = document.querySelector(".scroll_error_log")
 
@@ -96,6 +98,10 @@ if(scroll_our_services && our_services) {
 
 if(scroll_contact && contact) {
     autoScrollButtons(scroll_contact, contact)
+}
+
+if(scroll_pending_reviews && pending_reviews) {
+    autoScrollButtons(scroll_pending_reviews, pending_reviews)
 }
 
 if(scroll_users && users) {

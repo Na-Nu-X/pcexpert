@@ -107,6 +107,10 @@
                 <li class="navigation_bar_item">
                     <a href="../domov">DOMOV</a>
                 </li>
+                
+                <li class="navigation_bar_item scroll_pending_reviews">
+                    <a href="#">Kontrola recenzií</a>
+                </li>
 
                 <li class="navigation_bar_item scroll_users">
                     <a href="#">POUŽÍVATELIA</a>
@@ -133,10 +137,10 @@
 
     <main class="<?php echo $theme; ?>" style="padding: 10px 20px;">
         <?php if(isset($_SESSION["logged_in_user_id"]) and getUserRole($connection, $_SESSION["logged_in_user_id"]) === "admin"): ?>
-            <section class="reviews">
+            <section class="pending_reviews">
                 <h2>Kontrola&nbsp;recenzií</h2>
 
-                <div class="pending_reviews">
+                <div class="reviews <?php echo $theme; ?>">
                     <?php foreach(getPendingReviews($connection) as $one_review): ?>
                         <div class="review">
                             <?php if($one_review["user_id"] !== null): ?>
@@ -219,8 +223,8 @@
                         <form class="review_confirmation" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                             <input type="hidden" name="review_id" value="<?php echo $one_review['review_id']; ?>">
 
-                            <button class="approve_review" type="submit" name="approve_review">Potvrdiť</button>
-                            <button class="reject_review" type="submit" name="reject_review">Zahodiť</button>
+                            <button class="approve_review <?php echo $theme; ?>" type="submit" name="approve_review">Potvrdiť</button>
+                            <button class="reject_review <?php echo $theme; ?>" type="submit" name="reject_review">Zahodiť</button>
                         </form>
 
                     <?php endforeach; ?>
@@ -265,6 +269,11 @@
 
                                     <?php endif; ?>
 
+                                    <?php if(!empty($one_user["google_id"])): ?>
+                                        <img class="google_profile_picture_frame" src="/content/images/google.png" alt="Google"> <!-- https://www.flaticon.com/free-icon/search_281764 -->
+
+                                    <?php endif; ?>
+
                                     <p class="user_name">
                                         <?php echo htmlspecialchars($one_user["first_name"], ENT_QUOTES, "UTF-8"); ?>
 
@@ -275,6 +284,8 @@
                                                 style="color: rgb(250, 50, 50);"
 
                                             <?php endif; ?>
+
+                                            title="Zmeniť oprávnenia"
                                         >
                                             
                                             <span class="user_role_value">
@@ -282,7 +293,7 @@
                                             </span>
                                             
                                             <label for="user_role_checkbox_<?php echo htmlspecialchars($one_user["id"], ENT_QUOTES, "UTF-8"); ?>">
-                                                <i class="fa-solid fa-pen user_role_icon"></i> <!-- https://fontawesome.com/icons/pen?f=classic&s=solid -->
+                                                <i style="color: rgb(150, 150, 150);" class="fa-solid fa-pen user_role_icon"></i> <!-- https://fontawesome.com/icons/pen?f=classic&s=solid -->
                                             </label>
 
                                             <input 
@@ -343,7 +354,7 @@
                     <?php endif; ?>
 
                     <?php if(empty(allUsers($connection, $_SESSION["logged_in_user_id"]))): ?>
-                        <p style="text-align: center; margin-bottom: 10px;">Nenašli sa žiadny zaregistrovaný používatelia.</p>
+                        <p style="text-align: center; margin-bottom: 0px;">Nenašli sa žiadny zaregistrovaný používatelia.</p>
 
                     <?php endif; ?>
                 </section>
@@ -380,8 +391,8 @@
                     </div>
 
                     <?php if(countErrors($connection) > 5): ?>
-                        <button class="show_more show_more_errors" type="button" title="Zobraziť viac">Zobraziť viac</button>
-                        <button class="show_less show_less_errors" type="button" title="Zobraziť menej">Zobraziť menej</button>
+                        <button style="margin-bottom: 10px;" class="show_more show_more_errors" type="button" title="Zobraziť viac">Zobraziť viac</button>
+                        <button style="margin-bottom: 10px;" class="show_less show_less_errors" type="button" title="Zobraziť menej">Zobraziť menej</button>
 
                     <?php endif; ?>
 
