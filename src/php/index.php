@@ -420,7 +420,7 @@
                     </li>
 
                     <li>
-                        <a href="./log_out.php" title="Odhlásiť sa z účtu <?php echo htmlspecialchars(getUserName($connection, $_SESSION["logged_in_user_id"]), ENT_QUOTES, "UTF-8"); ?>">Odhlásiť</a>
+                        <a href="./logout.php" title="Odhlásiť sa z účtu <?php echo htmlspecialchars(getUserName($connection, $_SESSION["logged_in_user_id"]), ENT_QUOTES, "UTF-8"); ?>">Odhlásiť</a>
                     </li>
                 </ul>
             </div>
@@ -446,7 +446,7 @@
             <h1><a href="./domov">PC&nbsp;Expert</a></h1>
 
             <div class="buttons"> <!-- https://codepen.io/hilwat/pen/BeemVX -->
-                <a class="blob-btn log_in_button" href="./prihlasenie" target="_self">
+                <a class="blob-btn login_button" href="./prihlasenie" target="_self">
                     Prihlásiť
                     <span class="blob-btn__inner">
                     <span class="blob-btn__blobs">

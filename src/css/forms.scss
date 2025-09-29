@@ -188,7 +188,7 @@ main
 // Forms
 
 .registration, 
-.log_in,
+.login,
 .edit_account,
 .account,
 .edit_review,
@@ -218,7 +218,7 @@ main
 }
 
 .registration h2, 
-.log_in h2,
+.login h2,
 .edit_account h2,
 .account h2,
 .edit_review h2,
@@ -230,7 +230,7 @@ main
 }
 
 .registration h2:hover, 
-.log_in h2:hover,
+.login h2:hover,
 .edit_account h2:hover,
 .account h2:hover,
 .edit_review h2:hover,
@@ -241,7 +241,7 @@ main
 }
 
 .registration h2 a, 
-.log_in h2 a,
+.login h2 a,
 .edit_account h2 a,
 .account h2 a,
 .edit_review h2 a,
@@ -252,7 +252,7 @@ main
 }
 
 .registration_form, 
-.log_in_form,
+.login_form,
 .edit_account_form,
 .edit_review_form,
 .password_reset_form
@@ -313,7 +313,7 @@ main
 }
 
 .registration_form input[type="text"], .registration_form input[type="email"], 
-.log_in_form input[type="text"], .log_in_form input[type="email"],
+.login_form input[type="text"], .login_form input[type="email"],
 .edit_account_form input[type="text"], .edit_account_form input[type="email"], .password_reset_form input[type="text"]
 {
     font-family: Poppins, Arial, sans-serif;
@@ -453,7 +453,7 @@ main
 }
 
 .registration_form input::placeholder,
-.log_in_form input::placeholder,
+.login_form input::placeholder,
 .edit_account_form input::placeholder,
 .edit_review_form textarea::placeholder,
 .edit_account_form input::placeholder,
@@ -464,7 +464,7 @@ main
 }
 
 .registration_form button[type="submit"], 
-.log_in_form button[type="submit"],
+.login_form button[type="submit"],
 .login_method a,
 .edit_account_form button[type="submit"],
 .edit_review_form button[type="submit"]
@@ -487,7 +487,7 @@ main
     animation: fade_in_animation 0.5s ease-out;
 }
 
-.log_in_form button[type="submit"]
+.login_form button[type="submit"]
 {
     animation: fade_in_animation 0.3s ease-out;
 }
@@ -524,7 +524,7 @@ main
 }
 
 .registration_form button[type="submit"]:hover, .registration_form button[type="submit"]:focus, 
-.log_in_form button[type="submit"]:hover, .log_in_form button[type="submit"]:focus,
+.login_form button[type="submit"]:hover, .login_form button[type="submit"]:focus,
 .login_method a:hover, .login_method a:focus,
 .edit_account_form button[type="submit"]:hover, .edit_account_form button[type="submit"]:focus,
 .edit_review_form button[type="submit"]:hover, .edit_review_form button[type="submit"]:focus
@@ -545,7 +545,7 @@ main
 }
 
 .registration_form input[type="text"]:focus, .registration_form input[type="email"]:focus, 
-.log_in_form input[type="text"]:focus, .log_in_form input[type="email"]:focus,
+.login_form input[type="text"]:focus, .login_form input[type="email"]:focus,
 .edit_account_form input[type="text"]:focus, .edit_account_form input[type="email"]:focus,
 .edit_review_form textarea:focus
 .edit_account_form input[type="text"]:focus, .edit_account_form input[type="email"]:focus,
@@ -556,7 +556,7 @@ main
 }
 
 .registration_form input[type="text"]:-webkit-autofill, .registration_form input[type="text"]:-webkit-autofill:hover, .registration_form input[type="text"]:-webkit-autofill:focus, .registration_form input[type="email"]:-webkit-autofill, .registration_form input[type="email"]:-webkit-autofill:hover, .registration_form input[type="email"]:-webkit-autofill:focus,
-.log_in_form input[type="text"]:-webkit-autofill, .log_in_form input[type="text"]:-webkit-autofill:hover, .log_in_form input[type="text"]:-webkit-autofill:focus, .log_in_form input[type="email"]:-webkit-autofill, .log_in_form input[type="email"]:-webkit-autofill:hover, .log_in_form input[type="email"]:-webkit-autofill:focus,
+.login_form input[type="text"]:-webkit-autofill, .login_form input[type="text"]:-webkit-autofill:hover, .login_form input[type="text"]:-webkit-autofill:focus, .login_form input[type="email"]:-webkit-autofill, .login_form input[type="email"]:-webkit-autofill:hover, .login_form input[type="email"]:-webkit-autofill:focus,
 .edit_account_form input[type="text"]:-webkit-autofill, .edit_account_form input[type="text"]:-webkit-autofill:hover, .edit_account_form input[type="text"]:-webkit-autofill:focus, .edit_account_form input[type="email"]:-webkit-autofill, .edit_account_form input[type="email"]:-webkit-autofill:hover, .edit_account_form input[type="email"]:-webkit-autofill:focus
 {
     -webkit-text-fill-color: rgb(255, 255, 255);
@@ -895,7 +895,7 @@ footer.dark .copywrite
     }
 
     .registration_form input[type="text"], .registration_form input[type="email"], .registration_form button[type="submit"],
-    .log_in_form input[type="text"], .log_in_form input[type="email"], .log_in_form button[type="submit"],
+    .login_form input[type="text"], .login_form input[type="email"], .login_form button[type="submit"],
     .login_method a,
     .edit_account_form input[type="text"], .edit_account_form input[type="email"], .edit_account_form button[type="submit"],
     .edit_review_form textarea, .edit_review_form button[type="submit"]
@@ -933,7 +933,7 @@ footer.dark .copywrite
 @media only screen and (max-width: 500px)
 {
     .registration,
-    .log_in,
+    .login,
     .edit_account
     {
         width: 90%;
@@ -943,7 +943,7 @@ footer.dark .copywrite
 @media only screen and (max-width: 400px)
 {
     .registration,
-    .log_in,
+    .login,
     .edit_account
     {
         padding: 50px 20px;

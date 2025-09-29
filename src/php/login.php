@@ -151,7 +151,7 @@
 
     $client->setClientId("904461928265-a71ha9f0ijid425muufb1uutouk7os5m.apps.googleusercontent.com");
     $client->setClientSecret("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");
-    $client->setRedirectUri("http://localhost/src/php/log_in.php");
+    $client->setRedirectUri("http://localhost/src/php/login.php");
 
     $client->addScope("email");
     $client->addScope("profile");
@@ -267,14 +267,14 @@
     </header>
 
     <main>
-        <section class="log_in">
+        <section class="login">
             <a href="./domov">
                 <img class="back_icon" title="Späť na domovskú stránku" src="/content/images/back.png" alt="Späť na domovskú stránku"> <!-- https://www.flaticon.com/free-icon/back_2099190 -->
             </a>
 
             <h2><a href="./prihlasenie">Prihlásenie</a></h2>
             
-            <form class="log_in_form" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
+            <form class="login_form" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
                 <input 
                     class="email_address"
                     type="email"
