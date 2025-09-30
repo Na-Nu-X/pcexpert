@@ -377,3 +377,14 @@ User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
 Server IP: 127.0.0.1
 Post Data: []
 
+Chyba:
+[2025-09-30 20:21:50] - Nepodarilo sa prihlásiť.
+Podrobnosti:
+User ID: unknown
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/prihlasenie
+Request Method: POST
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: {"email_address":"behulpatrik@gmail.com","password":"Patrik2007","remember_me":"yes"}
+

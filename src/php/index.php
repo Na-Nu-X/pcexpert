@@ -344,7 +344,15 @@
 
         <?php endif; ?>
 
-        <nav class="navigation_bar">
+        <nav class="navigation_bar
+            <?php if(isset($_SESSION['logged_in_user_id']) and getUserRole($connection, $_SESSION['logged_in_user_id']) === 'admin'): ?>
+                admin
+
+            <?php else: ?>
+                classic
+
+            <?php endif; ?>
+        ">
             <ul>
                 <li class="navigation_bar_item scroll_about_us">
                     <a href="#">O NÁS</a>

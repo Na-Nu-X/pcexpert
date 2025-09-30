@@ -1211,27 +1211,42 @@ footer.dark .copywrite {
   }
 }
 @media only screen and (min-width: 988px) {
-  .navigation_bar ul li {
+  .navigation_bar.admin ul li {
     display: inline-block !important;
   }
 }
 @media only screen and (max-width: 987px) {
-  .navigation_bar ul li {
+  .navigation_bar.admin ul li {
     display: none;
     margin: 5px auto 0px;
     width: 225px;
   }
-  .navigation_icon {
+  .navigation_bar.admin .navigation_icon {
     display: block;
   }
-  .theme_selection {
-    top: 60px;
-  }
-  .account ul {
+  .navigation_bar.admin ~ .theme_selection,
+  .navigation_bar.admin ~ .account ul {
     top: 60px;
   }
 }
+@media only screen and (min-width: 801px) {
+  .navigation_bar.classic ul li {
+    display: inline-block !important;
+  }
+}
 @media only screen and (max-width: 800px) {
+  .navigation_bar.classic ul li {
+    display: none;
+    margin: 5px auto 0px;
+    width: 225px;
+  }
+  .navigation_bar.classic .navigation_icon {
+    display: block;
+  }
+  .navigation_bar.classic ~ .theme_selection,
+  .navigation_bar.classic ~ .account ul {
+    top: 60px;
+  }
   .image h2 {
     font-size: 20px;
   }
