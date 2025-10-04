@@ -5,6 +5,13 @@
     require "../assets/admin_functions.php";
 
     session_start();
+
+    // CSRF Token
+
+    if(!isset($_SESSION["csrf_token"])) {
+        $csrf_token = bin2hex(random_bytes(30)); // Generate Random 60 Characters Long String
+        $_SESSION["csrf_token"] = $csrf_token;
+    }
     
     $connection = connectionDB();
 
@@ -23,6 +30,11 @@
     // Admin Form After Submitting
 
     if($_SERVER["REQUEST_METHOD"] === "POST" and isset($_POST["admin_form_submit"])) {
+        if(!isset($_POST["csrf_token"]) || $_POST["csrf_token"] !== $_SESSION["csrf_token"]) {
+            errorLogSave($connection, "CSRF Token Verification Failed While Editing In Admin Page.", "../errors/error.log");
+            die("CSRF Token nie je platný.");
+        }
+
         // User Role
 
         foreach(allUsers($connection, $_SESSION["logged_in_user_id"], 0, 100) as $one_user) {
@@ -53,6 +65,11 @@
     // Approve or Reject Reviews
 
     if($_SERVER["REQUEST_METHOD"] === "POST" and isset($_POST["approve_review"])) {
+        if(!isset($_POST["csrf_token"]) || $_POST["csrf_token"] !== $_SESSION["csrf_token"]) {
+            errorLogSave($connection, "CSRF Token Verification Failed While Approving A Review In Admin Page.", "../errors/error.log");
+            die("CSRF Token nie je platný.");
+        }
+
         $review_id = $_POST["review_id"];
 
         if(approveReview($connection, $review_id)) {
@@ -63,6 +80,11 @@
     }
 
     if($_SERVER["REQUEST_METHOD"] === "POST" and isset($_POST["reject_review"])) {
+        if(!isset($_POST["csrf_token"]) || $_POST["csrf_token"] !== $_SESSION["csrf_token"]) {
+            errorLogSave($connection, "CSRF Token Verification Failed While Rejecting A Review In Admin Page.", "../errors/error.log");
+            die("CSRF Token nie je platný.");
+        }
+
         $review_id = $_POST["review_id"];
 
         if(rejectReview($connection, $review_id)) {
@@ -222,6 +244,8 @@
 
                         <form class="review_confirmation" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                             <input type="hidden" name="review_id" value="<?php echo $one_review['review_id']; ?>">
+
+                            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
 
                             <button class="approve_review <?php echo $theme; ?>" type="submit" name="approve_review">Potvrdiť</button>
                             <button class="reject_review <?php echo $theme; ?>" type="submit" name="reject_review">Zahodiť</button>
@@ -401,6 +425,8 @@
 
                     <?php endif; ?>
                 </section>
+
+                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
 
                 <button class="admin_form_submit" type="submit" name="admin_form_submit">Uložiť</button>
             </form>

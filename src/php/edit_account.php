@@ -4,6 +4,13 @@
     require "../assets/functions.php";
     
     session_start();
+
+    // CSRF Token
+
+    if(!isset($_SESSION["csrf_token"])) {
+        $csrf_token = bin2hex(random_bytes(30)); // Generate Random 60 Characters Long String
+        $_SESSION["csrf_token"] = $csrf_token;
+    }
     
     $connection = connectionDB();
 
@@ -90,6 +97,11 @@
     }
 
     if($_SERVER["REQUEST_METHOD"] === "POST") {
+        if(!isset($_POST["csrf_token"]) || $_POST["csrf_token"] !== $_SESSION["csrf_token"]) {
+            errorLogSave($connection, "CSRF Token Verification Failed While Editing An Account.", "../errors/error.log");
+            die("CSRF Token nie je platný.");
+        }
+
         $id = $_SESSION["logged_in_user_id"];
 
         $image_name = $_FILES["profile_picture"]["name"];
@@ -408,6 +420,8 @@
                             <?php endif; ?>
                         </p>
                     </article>
+
+                    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
 
                     <button type="submit" name="submit">Uložiť zmeny</button>
 

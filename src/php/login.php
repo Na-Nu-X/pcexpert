@@ -6,6 +6,13 @@
 
     session_start();
 
+    // CSRF Token
+
+    if(!isset($_SESSION["csrf_token"])) {
+        $csrf_token = bin2hex(random_bytes(30)); // Generate Random 60 Characters Long String
+        $_SESSION["csrf_token"] = $csrf_token;
+    }
+
     $connection = connectionDB();
 
     // Theme
@@ -101,7 +108,10 @@
     $email_address = "";
     
     if($_SERVER["REQUEST_METHOD"] === "POST") {
-        $connection = connectionDB();
+        if(!isset($_POST["csrf_token"]) || $_POST["csrf_token"] !== $_SESSION["csrf_token"]) {
+            errorLogSave($connection, "CSRF Token Verification Failed While Logging In.", "../errors/error.log");
+            die("CSRF Token nie je platný.");
+        }
     
         $email_address = $_POST["email_address"];
         $password = $_POST["password"];
@@ -307,6 +317,8 @@
                         <?php endif; ?>
                     </p>
                 </article>
+
+                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
 
                 <button type="submit">Prihlásiť sa</button>
 

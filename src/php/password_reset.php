@@ -4,6 +4,13 @@
     require "../assets/functions.php";
     
     session_start();
+
+    // CSRF Token
+
+    if(!isset($_SESSION["csrf_token"])) {
+        $csrf_token = bin2hex(random_bytes(30)); // Generate Random 60 Characters Long String
+        $_SESSION["csrf_token"] = $csrf_token;
+    }
     
     $connection = connectionDB();
 
@@ -18,6 +25,11 @@
     // Password Reset
 
     if($_SERVER["REQUEST_METHOD"] === "POST") {
+        if(!isset($_POST["csrf_token"]) || $_POST["csrf_token"] !== $_SESSION["csrf_token"]) {
+            errorLogSave($connection, "CSRF Token Verification Failed While Trying To Reset A Password.", "../errors/error.log");
+            die("CSRF Token nie je platný.");
+        }
+
         $user_id = $_SESSION["logged_in_user_id"] ?? getUserId($connection, $_COOKIE["email_address"]);
 
         $password_reset_code_database = getUserInformations($connection, $user_id, "password_reset_code");
@@ -120,6 +132,8 @@
                     </div>
 
                     <p class="form_report_paragraph"></p>
+
+                    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
 
                     <button type="submit" name="submit">Zmeniť heslo</button>
                 </form>

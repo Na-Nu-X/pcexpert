@@ -5,6 +5,13 @@
     require "../assets/reviews.php";
 
     session_start();
+
+    // CSRF Token
+
+    if(!isset($_SESSION["csrf_token"])) {
+        $csrf_token = bin2hex(random_bytes(30)); // Generate Random 60 Characters Long String
+        $_SESSION["csrf_token"] = $csrf_token;
+    }
     
     $connection = connectionDB();
 
@@ -107,6 +114,11 @@
         $minScore = 0.5;
         if(!empty($responseData->success) and isset($responseData->score) and $responseData->score >= $minScore and isset($responseData->action) and $responseData->action === 'submit') {
             // Contact Form
+
+            if(!isset($_POST["csrf_token"]) || $_POST["csrf_token"] !== $_SESSION["csrf_token"]) {
+                errorLogSave($connection, "CSRF Token Verification Failed While Sending An E-mail With Contact Form.", "../errors/error.log");
+                die("CSRF Token nie je platný.");
+            }
         
             $first_name = $_POST["first_name"];
             $last_name = $_POST["last_name"];
@@ -204,6 +216,7 @@
                 $_SESSION["red_report_message"] = "Správu&nbsp;sa&nbsp;nepodarilo&nbsp;odoslať";
 
                 errorLogSave($connection, "Error While Sending An E-mail With Contact Form. (" . $e->getMessage() . ")", "../errors/error.log");
+                exit;
             }
         }
         
@@ -271,6 +284,11 @@
         $minScore = 0.5;
         if(!empty($responseData->success) and isset($responseData->score) and $responseData->score >= $minScore and isset($responseData->action) and $responseData->action === 'submit') {
             // Write Review
+
+            if(!isset($_POST["csrf_token"]) || $_POST["csrf_token"] !== $_SESSION["csrf_token"]) {
+                errorLogSave($connection, "CSRF Token Verification Failed While Posting A Review With Write Review Form.", "../errors/error.log");
+                die("CSRF Token nie je platný.");
+            }
 
             $rating = $_POST["rating"];
             $review = $_POST["review"];
@@ -790,6 +808,8 @@
 
                             <div class="grecaptcha_badge_container"></div>
 
+                            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+
                             <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
 
                             <input type="hidden" name="recaptcha_write_review_submit">
@@ -981,6 +1001,8 @@
                 </div>
 
                 <textarea type="textarea" name="message" placeholder="Zadajte vašu správu" required><?php echo htmlspecialchars($message, ENT_QUOTES, "UTF-8"); ?></textarea>
+
+                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
 
                 <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
                 

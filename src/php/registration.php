@@ -5,6 +5,13 @@
 
     session_start();
 
+    // CSRF Token
+
+    if(!isset($_SESSION["csrf_token"])) {
+        $csrf_token = bin2hex(random_bytes(30)); // Generate Random 60 Characters Long String
+        $_SESSION["csrf_token"] = $csrf_token;
+    }
+
     $connection = connectionDB();
 
     // Theme
@@ -77,7 +84,10 @@
         if(!empty($responseData->success) and isset($responseData->score) and $responseData->score >= $minScore and isset($responseData->action) and $responseData->action === 'submit') {
             // Registration Form
 
-            $connection = connectionDB();
+            if(!isset($_POST["csrf_token"]) || $_POST["csrf_token"] !== $_SESSION["csrf_token"]) {
+                errorLogSave($connection, "CSRF Token Verification Failed While Creating An Account.", "../errors/error.log");
+                die("CSRF Token nie je platný.");
+            }
     
             $first_name = $_POST["first_name"];
             $last_name = $_POST["last_name"];
@@ -299,6 +309,8 @@
                         <?php endif; ?>
                     </p>
                 </article>
+
+                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
 
                 <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
 
