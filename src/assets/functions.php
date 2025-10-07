@@ -66,7 +66,7 @@
 
     function updateUser($connection, $id, $first_name, $last_name, $email_address, $phone_number, $profile_picture_name) {
         $sql = "UPDATE users 
-                SET first_name = ?, last_name = ?, email_address = ?, phone_number = ?, profile_picture_name = ? 
+                SET first_name = ?, last_name = ?, email_address = ?, phone_number = ?, profile_picture_name = ?, last_edit = NOW()
                 WHERE id = ?";
 
         $stmt = mysqli_prepare($connection, $sql);

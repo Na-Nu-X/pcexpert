@@ -97,132 +97,143 @@
     }
 
     if($_SERVER["REQUEST_METHOD"] === "POST") {
-        if(!isset($_POST["csrf_token"]) || $_POST["csrf_token"] !== $_SESSION["csrf_token"]) {
-            errorLogSave($connection, "CSRF Token Verification Failed While Editing An Account.", "../errors/error.log");
-            die("CSRF Token nie je platný.");
-        }
+        $current_time = time();
+        $last_edit = strtotime(getUserInformations($connection, $_SESSION["logged_in_user_id"], "last_edit"));
+        $edit_cooldown = 60 * 60 * 24 * 30; // 30 Days
+        $next_edit = date("j.n.Y", $last_edit + $edit_cooldown);
 
-        $id = $_SESSION["logged_in_user_id"];
-
-        $image_name = $_FILES["profile_picture"]["name"];
-        $image_full_path = $_FILES["profile_picture"]["full_path"];
-        $image_type = $_FILES["profile_picture"]["type"];
-        $image_tmp_name = $_FILES["profile_picture"]["tmp_name"];
-        $image_size = $_FILES["profile_picture"]["size"];
-        $image_error = $_FILES["profile_picture"]["error"];
-        $new_image_name = getProfilePictureName($connection, $id);
-        $delete_profile_picture = isset($_POST["delete_profile_picture"]) ? "yes" : "no";
-
-        $first_name = $_POST["first_name"];
-        $last_name = $_POST["last_name"];
-        $email_address = $_POST["email_address"];
-        $phone_number = str_replace(" ", "", $_POST["phone_number"]);
-        $current_password = $_POST["current_password"];
-        $new_password = password_hash($_POST["new_password"], PASSWORD_DEFAULT);
-
-        $delete_account = isset($_POST["delete_account"]) ? "yes" : "no";
-
-        if($delete_account === "yes") {
-            if(passwordAuthenticationWithId($connection, $id, $current_password)) {
-                if(deleteUser($connection, $id)) {
-                    $old_image_upload_path = "../../content/uploads/" . $id . "/" . $new_image_name;
-                    if(file_exists($old_image_upload_path)) {
-                        unlink($old_image_upload_path);
-                    }
-
-                    session_destroy();
-
-                    session_start();
-                    $_SESSION["red_report_message"] = "Účet&nbsp;bol&nbsp;odstránený";
-
-                    redirectURL("/domov");
-                }
-
-                else {
-                    $message = "Nepodarilo sa vymazať váš účet.";
-                }
+        if($current_time - $last_edit >= $edit_cooldown) {
+            if(!isset($_POST["csrf_token"]) || $_POST["csrf_token"] !== $_SESSION["csrf_token"]) {
+                errorLogSave($connection, "CSRF Token Verification Failed While Editing An Account.", "../errors/error.log");
+                die("CSRF Token nie je platný.");
             }
 
-            else {
-                $message = "Pre vymazanie účtu zadajte heslo.";
-            }
-        }
+            $id = $_SESSION["logged_in_user_id"];
 
-        else if($delete_account === "no") {
-            if($delete_profile_picture === "yes") {
-                if(deleteProfilePicture($connection, $id) === true) {
-                    $old_image_upload_path = "../../content/uploads/" . $id . "/" . $new_image_name;
-                    if(file_exists($old_image_upload_path)) {
-                        unlink($old_image_upload_path);
-                    }
+            $image_name = $_FILES["profile_picture"]["name"];
+            $image_full_path = $_FILES["profile_picture"]["full_path"];
+            $image_type = $_FILES["profile_picture"]["type"];
+            $image_tmp_name = $_FILES["profile_picture"]["tmp_name"];
+            $image_size = $_FILES["profile_picture"]["size"];
+            $image_error = $_FILES["profile_picture"]["error"];
+            $new_image_name = getProfilePictureName($connection, $id);
+            $delete_profile_picture = isset($_POST["delete_profile_picture"]) ? "yes" : "no";
 
-                    $new_image_name = "";
-                }
+            $first_name = $_POST["first_name"];
+            $last_name = $_POST["last_name"];
+            $email_address = $_POST["email_address"];
+            $phone_number = str_replace(" ", "", $_POST["phone_number"]);
+            $current_password = $_POST["current_password"];
+            $new_password = password_hash($_POST["new_password"], PASSWORD_DEFAULT);
 
-                else {
-                    $message = "Obrázok sa nepodarilo vymazať.";
-                }
-            }
+            $delete_account = isset($_POST["delete_account"]) ? "yes" : "no";
 
-            if(!empty(emailAuthentication($connection, $email_address)) and emailAuthentication($connection, $email_address) !== getUserInformations($connection, $id, 'email_address')) {
-                $message = "Tento email už je zaregistrovaný.";
-            }
+            if($delete_account === "yes") {
+                if(passwordAuthenticationWithId($connection, $id, $current_password)) {
+                    if(deleteUser($connection, $id)) {
+                        $old_image_upload_path = "../../content/uploads/" . $id . "/" . $new_image_name;
+                        if(file_exists($old_image_upload_path)) {
+                            unlink($old_image_upload_path);
+                        }
 
-            if(isset($_FILES["profile_picture"]) and !empty($image_name)) {
-                if($image_error === 0) {
-                    if($image_size > 8000000) { // 8MB
-                        $message = "Vybraný súbor je príliš veľký.";
+                        session_destroy();
+
+                        session_start();
+                        $_SESSION["red_report_message"] = "Účet&nbsp;bol&nbsp;odstránený";
+
+                        redirectURL("/domov");
                     }
 
                     else {
-                        $supported_extensions = ["png", "jpg", "jpeg"];
-                        $image_extension = strtolower(pathinfo($image_name, PATHINFO_EXTENSION));
+                        $message = "Nepodarilo sa vymazať váš účet.";
+                    }
+                }
 
-                        if(in_array($image_extension, $supported_extensions)) {
-                            $new_image_name = uniqid("IMG-", true) . "." . $image_extension;
+                else {
+                    $message = "Pre vymazanie účtu zadajte heslo.";
+                }
+            }
 
-                            if(!file_exists("../../content/uploads/" . $id)) {
-                                mkdir("../../content/uploads/" . $id, 0777, true);
-                            }
+            else if($delete_account === "no") {
+                if($delete_profile_picture === "yes") {
+                    if(deleteProfilePicture($connection, $id) === true) {
+                        $old_image_upload_path = "../../content/uploads/" . $id . "/" . $new_image_name;
+                        if(file_exists($old_image_upload_path)) {
+                            unlink($old_image_upload_path);
+                        }
 
-                            $image_upload_path = "../../content/uploads/" . $id . "/" . $new_image_name;
-                            move_uploaded_file($image_tmp_name, $image_upload_path);
+                        $new_image_name = "";
+                    }
+
+                    else {
+                        $message = "Obrázok sa nepodarilo vymazať.";
+                    }
+                }
+
+                if(!empty(emailAuthentication($connection, $email_address)) and emailAuthentication($connection, $email_address) !== getUserInformations($connection, $id, 'email_address')) {
+                    $message = "Tento email už je zaregistrovaný.";
+                }
+
+                if(isset($_FILES["profile_picture"]) and !empty($image_name)) {
+                    if($image_error === 0) {
+                        if($image_size > 8000000) { // 8MB
+                            $message = "Vybraný súbor je príliš veľký.";
                         }
 
                         else {
-                            $message = "Prípona súboru nie je podporovaná.";
+                            $supported_extensions = ["png", "jpg", "jpeg"];
+                            $image_extension = strtolower(pathinfo($image_name, PATHINFO_EXTENSION));
+
+                            if(in_array($image_extension, $supported_extensions)) {
+                                $new_image_name = uniqid("IMG-", true) . "." . $image_extension;
+
+                                if(!file_exists("../../content/uploads/" . $id)) {
+                                    mkdir("../../content/uploads/" . $id, 0777, true);
+                                }
+
+                                $image_upload_path = "../../content/uploads/" . $id . "/" . $new_image_name;
+                                move_uploaded_file($image_tmp_name, $image_upload_path);
+                            }
+
+                            else {
+                                $message = "Prípona súboru nie je podporovaná.";
+                            }
                         }
                     }
-                }
 
-                else {
-                    $message = "Pri nahrávaní obrázku došlo k chybe.";
-                }
-            }
-
-            if(empty($message)) {
-                if(updateUser($connection, $id, $first_name, $last_name, $email_address, $phone_number, $new_image_name) === true) {
-                    $_SESSION["green_report_message"] = "Zmeny&nbsp;boli&nbsp;uložené";
-                } 
-                
-                else {
-                    $message = "Pri úprave vášho účtu došlo k chybe.";
-                }
-
-                if(!empty($current_password) and !empty($_POST["new_password"])) {
-                    if(passwordAuthenticationWithId($connection, $id, $current_password)) {
-                        updatePassword($connection, $id, $new_password);
-                    } 
-                    
                     else {
-                        $message = "Zadali ste nesprávne aktuálne heslo";
+                        $message = "Pri nahrávaní obrázku došlo k chybe.";
                     }
                 }
 
                 if(empty($message)) {
-                    redirectURL("/domov");
+                    if(updateUser($connection, $id, $first_name, $last_name, $email_address, $phone_number, $new_image_name) === true) {
+                        $_SESSION["green_report_message"] = "Zmeny&nbsp;boli&nbsp;uložené";
+                    } 
+                    
+                    else {
+                        $message = "Pri úprave vášho účtu došlo k chybe.";
+                    }
+
+                    if(!empty($current_password) and !empty($_POST["new_password"])) {
+                        if(passwordAuthenticationWithId($connection, $id, $current_password)) {
+                            updatePassword($connection, $id, $new_password);
+                        } 
+                        
+                        else {
+                            $message = "Zadali ste nesprávne aktuálne heslo";
+                        }
+                    }
+
+                    if(empty($message)) {
+                        redirectURL("/domov");
+                    }
                 }
             }
+        }
+
+        else {
+            $message = "Ďalšie úpravy budú možné ${next_edit}";
         }
     }
 ?>
