@@ -12,6 +12,10 @@
 </head>
 
 <body>
+    <div class="preloader">
+        <div class="loader"></div>
+    </div>
+
     <main>
         <section class="error_404">
             <img src="/content/images/error_404.png" alt="Chyba 404"> <!-- https://www.flaticon.com/free-icon/error-404_3855833 -->
@@ -22,5 +26,7 @@
             <a href="./domov">Späť na domovskú stránku</a>
         </section>
     </main>
+
+    <script src="/src/js/preloader.js"></script>
 </body>
 </html>

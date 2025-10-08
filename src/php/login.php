@@ -238,6 +238,10 @@
 </head>
 
 <body class="<?php echo $theme; ?>">
+    <div class="preloader">
+        <div class="loader"></div>
+    </div>
+    
     <header>
         <?php if(isset($_SESSION["green_report_message"]) and !empty($_SESSION["green_report_message"])): ?>
             <p class="green_report_message"><?php echo $_SESSION["green_report_message"]; ?></p>
@@ -406,6 +410,7 @@
         })
     </script>
 
+    <script src="/src/js/preloader.js"></script>
     <script src="/src/js/navigation_bar.js" defer></script>
     <script src="/src/js/cookie_policy.js" defer></script>
 </body>

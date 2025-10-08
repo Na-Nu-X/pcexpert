@@ -82,6 +82,10 @@
 </head>
 
 <body class="<?php echo $theme; ?>">
+    <div class="preloader">
+        <div class="loader"></div>
+    </div>
+
     <header>
         <nav class="navigation_bar">
             <ul>
@@ -304,6 +308,7 @@
         })
     </script>
 
+    <script src="/src/js/preloader.js"></script>
     <script src="/src/js/navigation_bar.js" defer></script>
     <script src="/src/js/cookie_policy.js" defer></script>
 </body>
