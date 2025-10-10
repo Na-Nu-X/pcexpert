@@ -542,7 +542,6 @@ main {
   position: absolute;
   width: 100%;
   text-align: center;
-  transform: translateY(3px);
   font-size: 16px;
   font-family: Poppins, Arial, sans-serif;
 }

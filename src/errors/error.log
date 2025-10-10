@@ -399,3 +399,74 @@ User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
 Server IP: 127.0.0.1
 Post Data: {"email_address":"behulpatrik@gmail.com","password":"Patrik2008","remember_me":"yes"}
 
+Chyba:
+[2025-10-10 21:43:37] - Nepodarilo sa prihlásiť.
+Podrobnosti:
+User ID: 140
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/prihlasenie
+Request Method: POST
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: {"email_address":"a@a.com","password":"a","csrf_token":"bc5d0e641dc8065a6e63c45c8bd58f67a7bc0eecde8ab9340e718cffad71","remember_me":"yes"}
+
+Chyba:
+[2025-10-10 21:43:58] - Nepodarilo sa prihlásiť.
+Podrobnosti:
+User ID: 140
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/prihlasenie
+Request Method: POST
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: {"email_address":"a@a.com","password":"a","csrf_token":"bc5d0e641dc8065a6e63c45c8bd58f67a7bc0eecde8ab9340e718cffad71","remember_me":"yes"}
+
+Chyba:
+[2025-10-10 21:44:34] - Nepodarilo sa prihlásiť.
+Podrobnosti:
+User ID: 140
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/prihlasenie
+Request Method: POST
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: {"email_address":"a@a.com","password":"a","csrf_token":"bc5d0e641dc8065a6e63c45c8bd58f67a7bc0eecde8ab9340e718cffad71","remember_me":"yes"}
+
+Chyba:
+[2025-10-10 21:44:44] - Nepodarilo sa prihlásiť.
+Podrobnosti:
+User ID: 140
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/prihlasenie
+Request Method: POST
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: {"email_address":"a@a.com","password":"a","csrf_token":"bc5d0e641dc8065a6e63c45c8bd58f67a7bc0eecde8ab9340e718cffad71","remember_me":"yes"}
+
+Chyba:
+[2025-10-10 21:45:32] - Nepodarilo sa prihlásiť.
+Podrobnosti:
+User ID: 140
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/prihlasenie
+Request Method: POST
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: {"email_address":"a@a.com","password":"a","csrf_token":"bc5d0e641dc8065a6e63c45c8bd58f67a7bc0eecde8ab9340e718cffad71","remember_me":"yes"}
+
+Chyba:
+[2025-10-10 21:51:34] - reCAPTCHA Failed In Registration Form. ({
+  &quot;success&quot;: false,
+  &quot;error-codes&quot;: [
+    &quot;timeout-or-duplicate&quot;
+  ]
+})
+Podrobnosti:
+User ID: 140
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/registracia
+Request Method: POST
+User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: {"first_name":"a","last_name":"a","email_address":"behulpatrik@gmail.com","phone_number":"a","password":"O7[1qM{$x@9\"Q27","csrf_token":"bc5d0e641dc8065a6e63c45c8bd58f67a7bc0eecde8ab9340e718cffad71","g-recaptcha-response":"0cAFcWeA6ItuGIPPrzUIYRWu54R46ngK6Z3tESclMZf7cy4kznJb1WwlLe-Ue4N6jJdM-E-gIe9_6Cy9_JnImkdcgCckufviC6yOuGUFqeNtOHiIINwQN0WT10q4OvqCNPaxRzYDOASfuQI-BrTv1JCa6DA0-B0tUvY9RAub77dT9uB_4X42ur4T95ekoNtu66haH3pyv5RGs4qwJN9MBobLrLIur3UAfLt2PoqbuWjrdmXpZbpV-jcNpYJzstbkl5EUZF61T6S1TT1LGug7aJFyRqFm9K-AXR0ascCn0UuXhhxznvdy4pscDhbDie6GoiOgPGlpnPira7eiMxZHMGem5VLFl5qwg9KXjRWS4YnPev1ISElK3eHeDsEfEAEGpwrNwyEmK0fNSOI0lOgA5zRyKMJm3a3F0cIdml0I3sNByy4c7C_0u03buxlJP5fXbocPGk8Y7R8ySBx5GZ5b9eYhEWbQKVgal53c_oqw4FHShubQnavfU6j5J8jxJuKjYv3TPP-21mcDmmoBCmrHVn1H_InoLmsbg_SGxTBDA3Aa5Arqb0CEYYiBpUTOsgc9PoUcj3ndZqYg_yS3bAoS31bPp1utJhEXdaouDfhZvqAzNKF7Wp21QB55ObPNG_F9Xjh9MR31MXjE5f_ebmrYtXHIApklo6JPCWgG1iXhr6SIgbNLxbprb4BaR4lYLV3nyeh4fa2BMmXdI3O_dqFvpLUxh2j9DMyYoOmlzOx-McytrPeNr6g-BIcVJYdb66aegJ6d4nstb549zIZmlwWCIlE2lqNGkJsITDSzOKTwOe5xjMV7JyvlKbcr_hcxwhRf_hMiPvPGszZGBaEhkqHP_jbivLl1Si9CcFRvIM-6wpwyDOa3MTXp5R0ypVyQ42yVXXOZFYZJGkrPWrPtEVdm_167XhlCQ_fGKb9paz2iFP3jJi4W6Vq5qRat7gTXQwuL5ZSmkCRU5RXLefwq5jHOrt9FBiZ9TYVTMZHjYRrm70BcpnJ5YL8YTE4VOFXiIYvrIlBeE2qHJJsorP_0NrPlaBiJ2DLdZIFphUqTv5DPyycmBITjsKPW7NfgBbPIHI2ng8Zxzy6HIj5GLavgedM-ejkiseBaWx-fQfIctBNHiOI9BXu8tU-5Sytzf17FJKYTlBwcRx-Ir-nOSuORIoHgnB3dRJ6Z2ExSiabDYry4yWQ_qninJfGAP_QfW5thiBC17N8CXVVOMdwnTXS7W_0lFUaMNQ_tBy3OPapPyhwAcRwRrMKBOTEP8CFTl7lEbIirjQUqJnOnP_RXEC1KWhiiycTPNoPMLJpf_LF0BqbjVjOcKIFiHKnVNMihC_vQbH3hmcCLazG9T4NiX0Wcc4Hrj0i4Xc3unM5UNUOeqtnLTJU7Kw-gdKNf4xbwAp9MOhLNhKH1cMEJCaPkJt6IkATGmQwJTTXC448WxZEef6x8xeLblKQZQ6MMErOY4FSwFbUi_NuwLKWc1RjRnYPa6jc2Rrzi1PEFBcxw3Y-8sBsS62Ny98gNWfpj6P_2HBDM_oBQMYqJNjAMmT1NrykKRzgRNfUB5zigJUf6wYH1s1fxqCjQHQh53hwhh6w3WvZ1rlT8rA8EltIb7F0Wddlrn5iDaHl7MrniVMYWa6OwG5B4zKPXnVMlM2WzTn8o_NtMOLS9WhUxGLSkDgHTEif6HWkGzwzkCSl-UNqzbjtjLT9j6vsGO4vIv8m0hT3e9M63IgXvm7UuP_yxqRdyK8Xr64RfGl8C2eEKH8ptT4MRAl4aiAbMXcKDc97yD3U2U","terms":"on","news":"yes"}
+

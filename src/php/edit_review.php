@@ -26,32 +26,43 @@
     $user_id = $_SESSION["logged_in_user_id"] ?? null;
 
     if($_SERVER["REQUEST_METHOD"] === "POST") {
-        if(!isset($_POST["csrf_token"]) || $_POST["csrf_token"] !== $_SESSION["csrf_token"]) {
-            errorLogSave($connection, "CSRF Token Verification Failed While Editing A Review.", "../errors/error.log");
-            die("CSRF Token nie je platný.");
-        }
+        $current_time = time();
+        $last_edit = strtotime(userReview($connection, $_SESSION["logged_in_user_id"])["review_time"]);
+        $edit_cooldown = 60 * 60 * 24 * 30; // 30 Days
+        $next_edit = date("j.n.Y", $last_edit + $edit_cooldown);
 
-        $rating = $_POST["rating"];
-        $review = $_POST["review"];
+        if($current_time - $last_edit >= $edit_cooldown) {
+            if(!isset($_POST["csrf_token"]) || $_POST["csrf_token"] !== $_SESSION["csrf_token"]) {
+                errorLogSave($connection, "CSRF Token Verification Failed While Editing A Review.", "../errors/error.log");
+                die("CSRF Token nie je platný.");
+            }
 
-        $delete_review = isset($_POST["delete_review"]) ? "yes" : "no";
+            $rating = $_POST["rating"];
+            $review = $_POST["review"];
 
-        if($delete_review === "yes") {
-            if(deleteReview($connection, $_SESSION["logged_in_user_id"])) {
-                $_SESSION["red_report_message"] = "Recenzia&nbsp;bola&nbsp;odstránená";
+            $delete_review = isset($_POST["delete_review"]) ? "yes" : "no";
 
-                redirectURL("/domov");
+            if($delete_review === "yes") {
+                if(deleteReview($connection, $_SESSION["logged_in_user_id"])) {
+                    $_SESSION["red_report_message"] = "Recenzia&nbsp;bola&nbsp;odstránená";
+
+                    redirectURL("/domov");
+                }
+            }
+
+            else if($delete_review === "no") {
+                if(updateReview($connection, $_SESSION["logged_in_user_id"], $rating, $review)) {
+                    redirectURL("/domov");
+                }
+
+                else {
+                    // Error Code
+                }
             }
         }
 
-        else if($delete_review === "no") {
-            if(updateReview($connection, $_SESSION["logged_in_user_id"], $rating, $review)) {
-                redirectURL("/domov");
-            }
-
-            else {
-                // Error Code
-            }
+        else {
+            $message = "Ďalšie úpravy budú možné ${next_edit}";
         }
     }
 ?>
@@ -177,6 +188,18 @@
                     <textarea type="textarea" name="review" placeholder="Zanechajte nám vaše hodnotenie" maxlength=200><?php echo userReview($connection, $_SESSION["logged_in_user_id"])["review"]; ?></textarea>
 
                     <p class="form_report_paragraph"></p>
+
+                    <article>
+                        <p class="dialogue_paragraph invalid" style="top: 229px;">
+                            <?php if(!empty($message)): ?>
+                                <?php
+                                    echo $message; 
+                                    $message = "";
+                                ?>
+
+                            <?php endif; ?>
+                        </p>
+                    </article>
 
                     <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
 

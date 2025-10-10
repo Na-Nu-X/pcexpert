@@ -311,7 +311,7 @@
                 <p class="form_report_paragraph"></p>
 
                 <article>
-                    <p class="dialogue_paragraph invalid">
+                    <p class="dialogue_paragraph invalid" style="top: 122px;">
                         <?php if(!empty($message)): ?>
                             <?php
                                 echo $message; 

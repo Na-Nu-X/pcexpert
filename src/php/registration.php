@@ -117,8 +117,6 @@
                     $message = "Nepodarilo sa registrovať.";
                 }
             }
-
-            exit;
         }
         
         else {
@@ -300,10 +298,10 @@
                     <input class="password_check" type="text" placeholder="Overte heslo" autocomplete="off" required>
                 </div>
 
-                <p class="form_report_paragraph"></p>
+                <p class="form_report_paragraph" style="top: 362px;"></p>
 
                 <article>
-                    <p class="dialogue_paragraph invalid">
+                    <p class="dialogue_paragraph invalid" style="top: 362px;">
                         <?php if(!empty($message)): ?>
                             <?php
                                 echo $message; 

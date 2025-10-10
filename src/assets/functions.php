@@ -309,9 +309,7 @@
             }
         }
 
-        else {
-            echo mysqli_error($connection);
-        }
+        return null;
     }
 
     function passwordAuthentication($connection, $password) {
@@ -567,7 +565,7 @@
 
     function updateReview($connection, $user_id, $rating, $review) {
         $sql = "UPDATE reviews 
-                SET rating = ?, review = ?, edited = 'yes', status = 'pending'
+                SET rating = ?, review = ?, edited = 'yes', status = 'pending', last_edit = NOW()
                 WHERE user_id = ?";
 
         $stmt = mysqli_prepare($connection, $sql);
