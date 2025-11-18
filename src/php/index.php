@@ -613,21 +613,25 @@
                                 <img src="/content/images/processor.jpg" alt="Procesor">
                             </a>
                         </div>
+
                         <div class="slide">
                             <a href="/content/images/motherboard.jpg" title="Klikni pre zobrazenie" data-lightbox="mygallery" data-title="Základná doska">
                                 <img src="/content/images/motherboard.jpg" alt="Základná doska">
                             </a>
                         </div>
+
                         <div class="slide">
                             <a href="/content/images/graphics-card.jpg" title="Klikni pre zobrazenie" data-lightbox="mygallery" data-title="Grafická karta">
                                 <img src="/content/images/graphics-card.jpg" alt="Grafická karta">
                             </a>
                         </div>
+
                         <div class="slide">
                             <a href="/content/images/graphics-card-2.jpg" title="Klikni pre zobrazenie" data-lightbox="mygallery" data-title="2. Grafická karta">
                                 <img src="/content/images/graphics-card-2.jpg" alt="2. Grafická karta">
                             </a>
                         </div>
+                        
                         <div class="slide">
                             <a href="/content/images/ram.jpg" title="Klikni pre zobrazenie" data-lightbox="mygallery" data-title="RAM">
                                 <img src="/content/images/ram.jpg" alt="RAM">
@@ -1028,9 +1032,9 @@
         "use strict"
         
         document.addEventListener("DOMContentLoaded", function(event) {
-            // Secret Print
+            // Secret Message
 
-            console.log("%c PC Expert by Patrik Behul", "color: rgb(170, 255, 50); background-color: rgb(0, 0, 0)")
+            console.log("%cPC Expert by Patrik Behul", "color: rgb(170, 255, 50); background-color: rgb(0, 0, 0)")
 
             // Our Services Buttons
 

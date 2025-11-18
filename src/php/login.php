@@ -80,7 +80,8 @@
                 $mail->isHTML(true);
                 $mail->Subject = "Obnovenie hesla - " . $user_password_reset_code;
                 $mail->Body = "
-                    Dobrý deň, dostali sme žiadosť o obnovenie hesla k vášmu účtu. Ak ste to boli vy, použite nasledujúci odkaz a zadajte overovací kód.<br><br>
+                    Dobrý deň,<br>
+                    dostali sme žiadosť o obnovenie hesla k vášmu účtu. Ak ste to boli vy, použite nasledujúci odkaz a zadajte overovací kód.<br><br>
                     <a href='http://pcexpert.local/password_reset'>Obnoviť heslo</a> - <strong>$user_password_reset_code</strong><br><br>
                     Ak ste o obnovu hesla nežiadali, tento e-mail prosím ignorujte.<br>
                     Tím PCExpert.
