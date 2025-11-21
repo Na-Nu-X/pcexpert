@@ -566,6 +566,7 @@ main p {
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 5px;
+  cursor: pointer;
   transition: background-color 0.3s ease, width 0.3s ease;
 }
 .reviews .user_review .review .pending_review {
@@ -574,8 +575,55 @@ main p {
   font-style: italic;
   color: rgb(150, 150, 150);
 }
+.reviews .user_review .review .reviewer {
+  position: relative;
+  z-index: 0;
+}
+.reviews .user_review .review .reviewer .user_name {
+  position: absolute;
+  top: 7px;
+  left: 50px;
+}
+.reviews .user_review .review .reviewer .user_name .date {
+  font-style: italic;
+  color: rgb(150, 150, 150);
+}
+.reviews .user_review .review p {
+  margin-bottom: 0px;
+}
 .reviews .user_review .write_review {
   position: relative;
+}
+.reviews .user_review .write_review .reviewer {
+  position: relative;
+  z-index: 0;
+}
+.reviews .user_review .write_review .reviewer .user_name {
+  position: absolute;
+  top: 7px;
+  left: 50px;
+}
+.reviews .user_review .write_review .stars img {
+  transition: transform 0.3s ease;
+}
+.reviews .user_review .write_review .stars img:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+.reviews .user_review .write_review textarea {
+  width: 100%;
+  height: 100px;
+  padding: 5px 10px;
+  resize: none;
+  outline: none;
+  font-size: 15px;
+  border-radius: 5px;
+}
+.reviews .user_review .write_review textarea::-moz-placeholder {
+  color: rgb(180, 180, 180);
+}
+.reviews .user_review .write_review textarea::placeholder {
+  color: rgb(180, 180, 180);
 }
 .reviews .user_review .write_review button {
   width: 200px;
@@ -592,43 +640,20 @@ main p {
   background-color: rgb(170, 255, 50);
   cursor: pointer;
 }
+.reviews .user_review .edit_review {
+  font-size: 14px;
+  font-style: italic;
+  text-decoration: none;
+  color: rgb(150, 150, 150);
+}
+.reviews .user_review .edit_review:hover, .reviews .user_review .edit_review:active {
+  text-decoration: underline;
+}
 .reviews .all_reviews_title {
   text-align: center;
   margin-bottom: 10px;
 }
-.reviews textarea {
-  width: 100%;
-  height: 100px;
-  padding: 5px 10px;
-  resize: none;
-  outline: none;
-  font-size: 15px;
-  border-radius: 5px;
-}
-.reviews textarea::-moz-placeholder {
-  color: rgb(180, 180, 180);
-}
-.reviews textarea::placeholder {
-  color: rgb(180, 180, 180);
-}
-.reviews.light .review {
-  border: 1px solid rgb(0, 0, 0);
-  background-color: rgb(245, 245, 245);
-}
-.reviews.light textarea {
-  border: 1px solid rgb(0, 0, 0);
-}
-.reviews.dark .review {
-  border: 1px solid rgb(0, 0, 0);
-  background-color: rgb(245, 245, 245);
-}
-.reviews.dark textarea {
-  color: rgb(255, 255, 255);
-  background-color: rgb(40, 40, 40);
-  border: 2px solid rgb(255, 255, 255);
-}
-
-.reviews .review, .reviews.light .review, .user, .user.light {
+.reviews .all_reviews .review {
   margin: 0px auto;
   width: 70%;
   margin-bottom: 10px;
@@ -636,148 +661,131 @@ main p {
   border: 1px solid rgb(0, 0, 0);
   border-radius: 5px;
   background-color: rgb(245, 245, 245);
+  cursor: pointer;
   transition: background-color 0.3s ease, width 0.3s ease;
 }
-
-.pending_reviews .review {
-  margin-bottom: 0px !important;
-}
-
-.user {
-  position: relative;
-}
-
-.user p {
-  margin: 0px;
-}
-
-.reviews .review:hover, .reviews.light .review:hover, .review, .user:hover, .user.light:hover {
-  background-color: rgb(255, 255, 255);
-  cursor: pointer;
-}
-
-.reviews.dark .review, .user.dark {
-  background-color: rgb(30, 30, 30);
-  border: 2px solid rgb(255, 255, 255);
-}
-
-.reviews.dark .review:hover, .user.dark:hover {
-  background-color: rgb(40, 40, 40);
-}
-
-.all_reviews .review:last-of-type {
+.reviews .all_reviews .review:last-of-type {
   margin-bottom: 0px;
 }
-
-.review p {
-  margin-bottom: 0px;
-}
-
-.reviewer, .basic_info {
+.reviews .all_reviews .review .reviewer {
   position: relative;
   z-index: 0;
 }
-
-.reviewer .user_name, .basic_info .user_name {
+.reviews .all_reviews .review .reviewer .user_name {
   position: absolute;
   top: 7px;
   left: 50px;
 }
-
-.reviewer .user_name .date, .basic_info .user_name .user_role {
+.reviews .all_reviews .review .reviewer .user_name .date {
   font-style: italic;
   color: rgb(150, 150, 150);
 }
-
-.user .form_report_paragraph {
-  top: 141px;
+.reviews .all_reviews .review p {
+  margin-bottom: 0px;
 }
-
-.other_info {
-  display: flex;
-  justify-content: space-between;
-}
-
-.other_info div h3, .other_info div p {
-  text-align: center;
-}
-
-.delete_user_container {
-  margin-top: 30px;
-}
-
-.delete_user_container, .delete_user_container p {
-  text-align: center;
-  font-size: 14px;
-}
-
-.delete_user {
-  opacity: 0.8;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.delete_user:hover {
-  transform: scale(1.1);
+.reviews.light .review {
+  border: 1px solid rgb(0, 0, 0);
+  background-color: rgb(245, 245, 245);
   cursor: pointer;
 }
-
-.user_role_checkbox, .delete_user_checkbox {
-  display: none;
+.reviews.light .review:hover {
+  background-color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+.reviews.light textarea {
+  border: 1px solid rgb(0, 0, 0);
+}
+.reviews.dark .review {
+  background-color: rgb(30, 30, 30);
+  border: 2px solid rgb(255, 255, 255);
+  cursor: pointer;
+}
+.reviews.dark .review:hover {
+  background-color: rgb(40, 40, 40);
+}
+.reviews.dark textarea {
+  color: rgb(255, 255, 255);
+  background-color: rgb(40, 40, 40);
+  border: 2px solid rgb(255, 255, 255);
 }
 
-.review_confirmation {
+.pending_reviews .reviews .review {
+  margin: 0px auto;
+  width: 70%;
+  margin-bottom: 0px;
+  padding: 10px;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 5px;
+  background-color: rgb(245, 245, 245);
+  cursor: pointer;
+  transition: background-color 0.3s ease, width 0.3s ease;
+}
+.pending_reviews .reviews .review .reviewer {
+  position: relative;
+  z-index: 0;
+}
+.pending_reviews .reviews .review .reviewer .user_name {
+  position: absolute;
+  top: 7px;
+  left: 50px;
+}
+.pending_reviews .reviews .review .reviewer .user_name .date {
+  font-style: italic;
+  color: rgb(150, 150, 150);
+}
+.pending_reviews .reviews .review_confirmation {
   text-align: center;
 }
-
-.approve_review, .reject_review, .approve_review.light, .reject_review.light {
+.pending_reviews .reviews .review_confirmation .approve_review {
   width: 200px;
   height: 50px;
   font-size: 16px;
   margin: 10px 20px;
-  border: 1px solid rgb(0, 0, 0);
+  background-color: rgb(155, 230, 50);
   border-radius: 25px;
   transition: letter-spacing 0.3s ease, background-color 0.3s ease;
 }
-
-.approve_review.dark, .reject_review.dark {
-  color: rgb(255, 255, 255);
-  border: 1px solid rgb(255, 255, 255);
-}
-
-.approve_review {
-  background-color: rgb(155, 230, 50);
-}
-
-.approve_review:hover {
+.pending_reviews .reviews .review_confirmation .approve_review:hover {
   letter-spacing: 1px;
   background-color: rgb(170, 255, 50);
   cursor: pointer;
 }
-
-.reject_review {
-  background-color: rgb(250, 90, 55);
+.pending_reviews .reviews .review_confirmation .approve_review.light {
+  border: 1px solid rgb(0, 0, 0);
 }
-
-.reject_review:hover {
+.pending_reviews .reviews .review_confirmation .approve_review.dark {
+  color: rgb(255, 255, 255);
+  border: 1px solid rgb(255, 255, 255);
+}
+.pending_reviews .reviews .review_confirmation .reject_review {
+  width: 200px;
+  height: 50px;
+  font-size: 16px;
+  margin: 10px 20px;
+  background-color: rgb(250, 90, 55);
+  border-radius: 25px;
+  transition: letter-spacing 0.3s ease, background-color 0.3s ease;
+}
+.pending_reviews .reviews .review_confirmation .reject_review:hover {
   letter-spacing: 1px;
   background-color: rgb(255, 75, 35);
   cursor: pointer;
 }
-
-.error_log p {
-  margin-bottom: 0px;
+.pending_reviews .reviews .review_confirmation .reject_review.light {
+  border: 1px solid rgb(0, 0, 0);
 }
-
-.stars img {
-  transition: transform 0.3s ease;
+.pending_reviews .reviews .review_confirmation .reject_review.dark {
+  color: rgb(255, 255, 255);
+  border: 1px solid rgb(255, 255, 255);
 }
-
-.stars img:hover {
-  transform: scale(1.1);
-  cursor: pointer;
+.pending_reviews .reviews.dark .review {
+  background-color: rgb(30, 30, 30);
+  border: 2px solid rgb(255, 255, 255);
 }
-
-.show_more, .show_less, .show_error_details, .hide_error_details, .delete_error_log, .cancel_delete_error_log {
+.pending_reviews .reviews.dark .review:hover {
+  background-color: rgb(40, 40, 40);
+}
+.pending_reviews .show_more {
   display: inline-block;
   margin-top: 5px;
   width: 100%;
@@ -787,32 +795,174 @@ main p {
   border: none;
   background: none;
 }
-
-.show_less, .hide_error_details, .cancel_delete_error_log, .delete_error_log_checkbox {
+.pending_reviews .show_more:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.pending_reviews .show_less {
   display: none;
+  margin-top: 5px;
+  width: 100%;
+  font-size: 14px;
+  font-style: italic;
+  color: rgb(150, 150, 150);
+  border: none;
+  background: none;
 }
-
-.show_error_details, .hide_error_details, .delete_error_log, .cancel_delete_error_log {
-  width: auto;
-  margin: 0px 10px 10px 0px;
-}
-
-.show_more:hover, .show_less:hover, .show_error_details:hover, .hide_error_details:hover, .delete_error_log:hover, .cancel_delete_error_log:hover {
+.pending_reviews .show_less:hover {
   text-decoration: underline;
   cursor: pointer;
 }
 
-.edit_review:link,
-.edit_review:visited {
-  font-size: 14px;
+.users .all_users .user {
+  position: relative;
+  margin: 0px auto;
+  width: 70%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 5px;
+  background-color: rgb(245, 245, 245);
+  cursor: pointer;
+  transition: background-color 0.3s ease, width 0.3s ease;
+}
+.users .all_users .user.light:hover {
+  background-color: rgb(255, 255, 255);
+}
+.users .all_users .user.dark {
+  background-color: rgb(30, 30, 30);
+  border: 2px solid rgb(255, 255, 255);
+}
+.users .all_users .user.dark:hover {
+  background-color: rgb(40, 40, 40);
+}
+.users .all_users .user .basic_info {
+  position: relative;
+  z-index: 0;
+}
+.users .all_users .user .basic_info .user_name {
+  position: absolute;
+  top: 7px;
+  left: 50px;
+}
+.users .all_users .user .basic_info .user_name .user_role {
   font-style: italic;
-  text-decoration: none;
   color: rgb(150, 150, 150);
 }
-
-.edit_review:hover,
-.edit_review:active {
+.users .all_users .user .basic_info .user_name .user_role .user_role_checkbox {
+  display: none;
+}
+.users .all_users .user .other_info {
+  display: flex;
+  justify-content: space-between;
+}
+.users .all_users .user .other_info div h3 {
+  text-align: center;
+}
+.users .all_users .user .other_info div p {
+  text-align: center;
+}
+.users .all_users .user .form_report_paragraph {
+  top: 141px;
+}
+.users .all_users .user .delete_user_container {
+  margin-top: 30px;
+  text-align: center;
+}
+.users .all_users .user .delete_user_container p {
+  text-align: center;
+  font-size: 14px;
+}
+.users .all_users .user .delete_user_container .delete_user {
+  opacity: 0.8;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.users .all_users .user .delete_user_container .delete_user:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+.users .all_users .user .delete_user_container .delete_user_checkbox {
+  display: none;
+}
+.users .all_users .user p {
+  margin: 0px;
+}
+.users .show_more {
+  display: inline-block;
+  margin-top: 5px;
+  width: 100%;
+  font-size: 14px;
+  font-style: italic;
+  color: rgb(150, 150, 150);
+  border: none;
+  background: none;
+}
+.users .show_more:hover {
   text-decoration: underline;
+  cursor: pointer;
+}
+.users .show_less {
+  display: none;
+  margin-top: 5px;
+  width: 100%;
+  font-size: 14px;
+  font-style: italic;
+  color: rgb(150, 150, 150);
+  border: none;
+  background: none;
+}
+.users .show_less:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.error_log .all_errors .error p {
+  margin-bottom: 0px;
+}
+.error_log .all_errors .error .show_error_details, .error_log .all_errors .error .hide_error_details, .error_log .all_errors .error .delete_error_log, .error_log .all_errors .error .cancel_delete_error_log {
+  display: inline-block;
+  margin: 0px 10px 10px 0px;
+  width: auto;
+  font-size: 14px;
+  font-style: italic;
+  color: rgb(150, 150, 150);
+  border: none;
+  background: none;
+}
+.error_log .all_errors .error .show_error_details:hover, .error_log .all_errors .error .hide_error_details:hover, .error_log .all_errors .error .delete_error_log:hover, .error_log .all_errors .error .cancel_delete_error_log:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.error_log .all_errors .error .hide_error_details, .error_log .all_errors .error .cancel_delete_error_log, .error_log .all_errors .error .delete_error_log_checkbox {
+  display: none;
+}
+.error_log .show_more_errors {
+  display: inline-block;
+  margin-top: 5px;
+  width: 100%;
+  font-size: 14px;
+  font-style: italic;
+  color: rgb(150, 150, 150);
+  border: none;
+  background: none;
+}
+.error_log .show_more_errors:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.error_log .show_less_errors {
+  display: none;
+  margin-top: 5px;
+  width: 100%;
+  font-size: 14px;
+  font-style: italic;
+  color: rgb(150, 150, 150);
+  border: none;
+  background: none;
+}
+.error_log .show_less_errors:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .form_report_paragraph {
@@ -823,7 +973,6 @@ main p {
   font-size: 16px;
   font-family: Poppins, Arial, sans-serif;
 }
-
 .form_report_paragraph.invalid {
   color: rgb(250, 50, 50);
 }
