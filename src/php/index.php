@@ -350,6 +350,28 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script> <!-- https://releases.jquery.com/ -->
     <script src="/src/js/lightbox-plus-jquery.min.js"></script> <!-- https://github.com/lokesh/lightbox2/tree/dev -->
     <script src="https://kit.fontawesome.com/069c0938a1.js" crossorigin="anonymous"></script> <!-- Icons -->
+
+    <script src="/src/ts/dist/pages/homepage/components/reviews.js" type="module"></script>
+    <script src="/src/ts/dist/pages/homepage/components/contact_form.js" type="module"></script>
+
+    <script defer>
+        // JavaScript Code
+
+        "use strict"
+        
+        document.addEventListener("DOMContentLoaded", function(event) {
+            // Secret Message
+
+            console.log("%cPC Expert by Patrik Behul", "color: rgb(170, 255, 50); background-color: rgb(0, 0, 0)")
+        })
+    </script>
+    
+    <script src="/src/js/preloader.js" defer></script>
+    <script src="/src/js/navigation_bar.js" defer></script>
+    <script src="/src/js/move_up_icon.js" defer></script>
+    <script src="/src/js/cookie_policy.js" defer></script>
+    <script src="/src/js/theme_selection.js" defer></script>
+    <script src="/src/js/photo_gallery.js" defer></script>
 </head>
 
 <body class="<?php echo $theme; ?>">
@@ -680,7 +702,7 @@
                 <p>Pred objednaním komponentov na stavbu počítača alebo pred odovzdaním vášho zariadenia na údržbu či čistenie je platba za službu a zakúpené komponenty potrebná vopred. Po dokončení práce vám odovzdáme všetky faktúry, doklady o kúpe a originálne balenia komponentov.</p>
             </section>
 
-            <section class="reviews <?php echo $theme; ?>">
+            <section class="reviews <?php echo $theme; ?>" data-logged_in_user_id="<?php echo json_encode($user_id); ?>">
                 <h2>Recenzie</h2>
                 
                 <div class="user_review">
@@ -745,6 +767,8 @@
                         </div>
 
                     <?php else: ?>
+                        <script src="/src/ts/dist/pages/homepage/components/write_review.js" type="module"></script>
+
                         <!-- reCAPTCHA V3 -->
                         <script src="https://www.google.com/recaptcha/api.js?render=6LfbXMYrAAAAAJfSCq3aCjeiFxnhly7K2sgFjiEz&badge=inline"></script>
                         
@@ -805,16 +829,16 @@
                             <?php endif; ?>
 
                             <div class="stars">
-                                <img src="/content/images/empty_star.png" data-rating="1" alt="Prázdna hviezda">
-                                <img src="/content/images/empty_star.png" data-rating="2" alt="Prázdna hviezda">
-                                <img src="/content/images/empty_star.png" data-rating="3" alt="Prázdna hviezda">
-                                <img src="/content/images/empty_star.png" data-rating="4" alt="Prázdna hviezda">
-                                <img src="/content/images/empty_star.png" data-rating="5" alt="Prázdna hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828884 https://www.flaticon.com/free-icon/star_1828970 -->
+                                <img class="star" src="/content/images/empty_star.png" data-rating="1" alt="Prázdna hviezda">
+                                <img class="star" src="/content/images/empty_star.png" data-rating="2" alt="Prázdna hviezda">
+                                <img class="star" src="/content/images/empty_star.png" data-rating="3" alt="Prázdna hviezda">
+                                <img class="star" src="/content/images/empty_star.png" data-rating="4" alt="Prázdna hviezda">
+                                <img class="star" src="/content/images/empty_star.png" data-rating="5" alt="Prázdna hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828884 https://www.flaticon.com/free-icon/star_1828970 -->
 
                                 <input class="rating" type="hidden" name="rating" value="">
                             </div>
 
-                            <p class="form_report_paragraph"></p>
+                            <p class="form_report"></p>
 
                             <textarea type="textarea" name="review" placeholder="Zanechajte nám vaše hodnotenie"><?php echo htmlspecialchars($review, ENT_QUOTES, "UTF-8"); ?></textarea>
 
@@ -1029,194 +1053,5 @@
     <footer class="<?php echo $theme; ?>">
         <?php require "../assets/footer.php"; ?>
     </footer>
-
-    <script defer>
-        // JavaScript Code
-
-        "use strict"
-        
-        document.addEventListener("DOMContentLoaded", function(event) {
-            // Secret Message
-
-            console.log("%cPC Expert by Patrik Behul", "color: rgb(170, 255, 50); background-color: rgb(0, 0, 0)")
-
-            // Our Services Buttons
-
-            const select_menu = document.querySelector(".select_menu")
-
-            const contact = document.querySelector(".contact")
-
-            const build_computer_button = document.querySelector(".build_computer_button")
-            const computer_maintenance_button = document.querySelector(".computer_maintenance_button")
-            const computer_cleaning_button = document.querySelector(".computer_cleaning_button")
-
-            function ourServicesButtons(button, number) {
-                button.addEventListener("click", function(event) {
-                    event.preventDefault()
-
-                    window.scrollTo({
-                        top: contact.offsetTop - 90,
-                        behavior: "smooth"
-                    })
-
-                    select_menu.selectedIndex = number
-                })
-            }
-
-            ourServicesButtons(build_computer_button, 1)
-            ourServicesButtons(computer_maintenance_button, 2)
-            ourServicesButtons(computer_cleaning_button, 3)
-
-            // Selected Attachment
-            
-            const attachment = document.querySelector("#attachment")
-            const attachment_report = document.querySelector(".attachment_report")
-
-            attachment.addEventListener("change", function(event) {
-                const all_attachments_sizes = Array.from(attachment.files).map(file => file.size)
-                let final_size = 0
-
-                for(let i = 0; i < all_attachments_sizes.length; i++) {
-                    final_size = final_size + all_attachments_sizes[i]
-                }
-
-                if(attachment.files.length > 0 && attachment.files.length <= 5 && final_size <= 25000000) {
-                    const all_attachments_names = Array.from(attachment.files).map(file => file.name)
-
-                    attachment_report.textContent = `súbory (${all_attachments_names.length}): ${all_attachments_names.join(", ")}`
-                }
-
-                else if(attachment.files.length > 5) {
-                    attachment_report.textContent = "Vybrali ste príliš mnoho súborov."
-                }
-
-                else if(final_size > 25000000) {
-                    attachment_report.textContent = "Vybrané súbory sú príliš veľké."
-                }
-
-                else {
-                    attachment_report.textContent = "Nie je vybraný žiaden súbor."
-                }
-            })
-
-            // Write Review
-
-            const stars = document.querySelectorAll(".stars img")
-            const rating = document.querySelector(".rating")
-            let selected_rating = 0
-
-            function updateStars(hover_value = 0) {
-                stars.forEach(function(star, index) {
-                    if(hover_value > 0) {
-                        if(index < hover_value) {
-                            star.src = "/content/images/star.png"
-                        }
-
-                        else {
-                            star.src = "/content/images/empty_star.png"
-                        }
-                    }
-
-                    else {
-                        if(index < selected_rating) {
-                            star.src = "/content/images/star.png"
-                        }
-
-                        else {
-                            star.src = "/content/images/empty_star.png"
-                        }
-                    }
-                })
-            }
-
-            stars.forEach(function(star, index) {
-                const rating_number = index + 1
-
-                star.addEventListener("mouseover", function(event) {
-                    updateStars(rating_number)
-                })
-
-                star.addEventListener("mouseout", function(event) {
-                    updateStars()
-                })
-
-                star.addEventListener("click", function(event) {
-                    selected_rating = rating_number
-                    rating.value = rating_number
-                    updateStars()
-                })
-            })
-
-            const form_report_paragraph = document.querySelector(".form_report_paragraph")
-            const write_review_submit = document.querySelector(".write_review_submit")
-
-            write_review_submit.addEventListener("click", function(event) {
-                if(rating.value === "") {
-                    event.preventDefault()
-
-                    form_report_paragraph.textContent = "Ukážte nám vašu spokojnosť."
-                    form_report_paragraph.classList.add("invalid")
-                }
-
-                else {
-                    form_report_paragraph.textContent = ""
-                    form_report_paragraph.classList.remove("invalid")
-                }
-            })
-
-            // Show More / Show Less Reviews
-
-            let offset = 0
-            const limit = 5
-            const user_id = <?php echo json_encode($user_id); ?>
-
-            const all_reviews = document.querySelector(".all_reviews")
-            const show_more_reviews = document.querySelector(".show_more_reviews")
-            const show_less_reviews = document.querySelector(".show_less_reviews")
-
-            show_more_reviews.addEventListener("click", function(event) {
-                offset += limit
-
-                fetch("all_reviews.php", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                    },
-                    body: `offset=${offset}&user_id=${encodeURIComponent(user_id)}`
-                })
-                .then(response => response.text())
-                .then(data => {
-                    all_reviews.insertAdjacentHTML("beforeend", data)
-                    show_more_reviews.style.display = "none"
-                    show_less_reviews.style.display = "inline-block"
-                })
-            })
-
-            show_less_reviews.addEventListener("click", function(event) {
-                offset = 0
-
-                fetch("all_reviews.php", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                    },
-                    body: `offset=${offset}&user_id=${encodeURIComponent(user_id)}`
-                })
-                .then(response => response.text())
-                .then(data => {
-                    all_reviews.innerHTML = data
-                    show_less_reviews.style.display = "none"
-                    show_more_reviews.style.display = "inline-block"
-                })
-            })
-        })
-    </script>
-
-    <script src="/src/js/preloader.js"></script>
-    <script src="/src/js/navigation_bar.js" defer></script>
-    <script src="/src/js/move_up_icon.js" defer></script>
-    <script src="/src/js/cookie_policy.js" defer></script>
-    <script src="/src/js/theme_selection.js" defer></script>
-    <script src="/src/js/photo_gallery.js" defer></script>
 </body>
 </html>

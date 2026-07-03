@@ -236,6 +236,12 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins"> <!-- Poppins Font Style -->
 
     <script src="https://kit.fontawesome.com/069c0938a1.js" crossorigin="anonymous"></script> <!-- Icons -->
+
+    <script src="/src/ts/dist/pages/login/components/login_form.js" type="module"></script>
+
+    <script src="/src/js/preloader.js" defer></script>
+    <script src="/src/js/navigation_bar.js" defer></script>
+    <script src="/src/js/cookie_policy.js" defer></script>
 </head>
 
 <body class="<?php echo $theme; ?>">
@@ -301,15 +307,15 @@
                 >
 
                 <div class="password_container">
-                    <div class="password_icon">
-                        <i class="fa-regular fa-eye-slash" title="zobraziť / skryť heslo..."></i>
+                    <button class="show_hide_password" type="button" title="Zobraziť heslo">
+                        <i class="fa-regular fa-eye-slash"></i>
                         <!-- <i class="fa-regular fa-eye"></i> -->
-                    </div>
+                    </button>
                     
                     <input class="password" type="text" name="password" placeholder="Zadajte vaše heslo" autocomplete="off" required>
                 </div>
 
-                <p class="form_report_paragraph"></p>
+                <p class="form_report"></p>
 
                 <article>
                     <p class="dialogue_paragraph invalid" style="top: 122px;">
@@ -360,59 +366,5 @@
     <footer class="<?php echo $theme; ?>">
         <?php require "../assets/footer.php"; ?>
     </footer>
-
-    <script defer>
-        // JavaScript Code
-
-        "use strict"
-
-        document.addEventListener("DOMContentLoaded", function(event) {
-            // Toggle Show / Hide Password
-
-            const password = document.querySelector(".password")
-            const password_icon = document.querySelector(".fa-regular")
-
-            password_icon.addEventListener("click", function(event) {
-                if(password_icon.classList[1] === "fa-eye-slash") {
-                    password_icon.classList.remove("fa-eye-slash")
-                    password_icon.classList.add("fa-eye")
-
-                    password.style.webkitTextSecurity = "none"
-                }
-
-                else if(password_icon.classList[1] === "fa-eye") {
-                    password_icon.classList.remove("fa-eye")
-                    password_icon.classList.add("fa-eye-slash")
-
-                    password.style.webkitTextSecurity = "disc"
-                }
-            })
-
-            // Password Reset
-
-            const password_reset = document.querySelector(".forgot_password p a")
-            const email_address = document.querySelector(".email_address")
-            const form_report_paragraph = document.querySelector(".form_report_paragraph")
-
-            password_reset.addEventListener("click", function(event) {
-                if(email_address.value !== "" && email_address.value.includes("@") && email_address.value.includes(".")) {
-                    form_report_paragraph.textContent = ""
-
-                    document.cookie = `email_address=${email_address.value}; max-age=` + 60 * 10 + "; path=/"; // 10 Minutes Timed Cookie With User's Email Address
-                }
-
-                else {
-                    event.preventDefault()
-
-                    form_report_paragraph.textContent = "Zadajte váš e-mail."
-                    form_report_paragraph.classList.add("invalid")
-                }
-            })
-        })
-    </script>
-
-    <script src="/src/js/preloader.js"></script>
-    <script src="/src/js/navigation_bar.js" defer></script>
-    <script src="/src/js/cookie_policy.js" defer></script>
 </body>
 </html>

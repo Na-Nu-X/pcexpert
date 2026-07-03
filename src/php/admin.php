@@ -108,6 +108,227 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins"> <!-- Poppins Font Style -->
 
     <script src="https://kit.fontawesome.com/069c0938a1.js" crossorigin="anonymous"></script> <!-- Icons -->
+
+    <script defer>
+        // JavaScript Code
+
+        "use strict"
+
+        document.addEventListener("DOMContentLoaded", function(event) {
+            // User Role
+
+            const all_users = document.querySelector(".all_users")
+
+            all_users.addEventListener("click", function(event) {
+                const user = event.target.closest(".user")
+
+                const user_role_icon = document.querySelector(".user_role_icon")
+
+                if(user_role_icon) {
+                    const user_role_checkbox = user.querySelector(".user_role_checkbox")
+                    const user_role_value = user.querySelector(".user_role_value")
+
+                    if(user_role_value.textContent.trim() == "- user") {
+                        if(user_role_checkbox.checked) {
+                            user_role_checkbox.value = "admin"
+                            user_role_value.textContent = "- admin"
+                            user_role_value.style.color = "rgb(250, 50, 50)"
+                        }
+
+                        else {
+                            user_role_checkbox.value = "user"
+                            user_role_value.textContent = "- user"
+                            user_role_value.style.color = "rgb(150, 150, 150)"
+                        }
+                    }
+
+                    else if(user_role_value.textContent.trim() == "- admin") {
+                        if(user_role_checkbox.checked) {
+                            user_role_checkbox.value = "user"
+                            user_role_value.textContent = "- user"
+                            user_role_value.style.color = "rgb(150, 150, 150)"
+                        }
+
+                        else {
+                            user_role_checkbox.value = "admin"
+                            user_role_value.textContent = "- admin"
+                            user_role_value.style.color = "rgb(250, 50, 50)"
+                        }
+                    }
+                }
+            })
+
+            // Delete User
+
+            all_users.addEventListener("click", function(event) {
+                const user = event.target.closest(".user")
+
+                const delete_user_image = event.target.closest(".delete_user")
+
+                if(delete_user_image) {
+                    const delete_user_input = user.querySelector(".delete_user_checkbox")
+                    const form_report = user.querySelector(".form_report")
+
+                    if(!delete_user_input.checked) {
+                        delete_user_image.style.opacity = 1
+
+                        form_report.textContent = "Účet bude odstránený."
+                        form_report.classList.add("invalid")
+                    }
+
+                    else {
+                        delete_user_image.style.opacity = 0.8
+
+                        form_report.textContent = ""
+                    }
+                }
+            })
+
+            // Show More / Show Less Users
+
+            let offset = 0
+            const limit = 5
+            const user_id = <?php echo json_encode($user_id); ?>
+
+            const show_more_users = document.querySelector(".show_more_users")
+            const show_less_users = document.querySelector(".show_less_users")
+
+            show_more_users.addEventListener("click", async function(event) {
+                offset += limit
+
+                await fetch("all_users.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: `offset=${offset}&user_id=${encodeURIComponent(user_id)}`
+                })
+                .then(response => response.text())
+                .then(data => {
+                    all_users.insertAdjacentHTML("beforeend", data)
+                    show_more_users.style.display = "none"
+                    show_less_users.style.display = "inline-block"
+                })
+            })
+
+            show_less_users.addEventListener("click", async function(event) {
+                offset = 0
+
+                await fetch("all_users.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: `offset=${offset}&user_id=${encodeURIComponent(user_id)}`
+                })
+                .then(response => response.text())
+                .then(data => {
+                    all_users.innerHTML = data
+                    show_less_users.style.display = "none"
+                    show_more_users.style.display = "inline-block"
+                })
+            })
+
+            // Show / Hide Error Details
+
+            const all_errors = document.querySelector(".all_errors")
+
+            all_errors.addEventListener("click", async function(event) {
+                const error = event.target.closest(".error")
+                const error_id = error?.dataset.error_id
+                const error_details = error?.querySelector(".error_details")
+
+                const show_error_details = event.target.closest(".show_error_details")
+                const hide_error_details = event.target.closest(".hide_error_details")
+
+                if(show_error_details) {
+                    const body = new URLSearchParams({ error_id: error_id }).toString()
+                    const res = await fetch("error_details.php", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                        body
+                    })
+
+                    const html = await res.text()
+                    error_details.innerHTML = html
+
+                    show_error_details.style.display = "none"
+                    error.querySelector(".hide_error_details").style.display = "inline-block"
+                }
+
+                if(hide_error_details) {
+                    error_details.innerHTML = ""
+
+                    hide_error_details.style.display = "none"
+                    error.querySelector(".show_error_details").style.display = "inline-block"
+                }
+            })
+
+            // Delete Error
+
+            all_errors.addEventListener("click", function(event) {
+                const error = event.target.closest(".error")
+
+                const delete_error_log = event.target.closest(".delete_error_log")
+                const cancel_delete_error_log = event.target.closest(".cancel_delete_error_log")
+
+                if(delete_error_log) {
+                    delete_error_log.style.display = "none"
+                    error.querySelector(".cancel_delete_error_log").style.display = "inline-block"
+                }
+
+                if(cancel_delete_error_log) {
+                    cancel_delete_error_log.style.display = "none"
+                    error.querySelector(".delete_error_log").style.display = "inline-block"
+                }
+            })
+
+            // Show More / Show Less Errors
+
+            const show_more_errors = document.querySelector(".show_more_errors")
+            const show_less_errors = document.querySelector(".show_less_errors")
+
+            show_more_errors.addEventListener("click", async function(event) {
+                offset += limit
+
+                await fetch("all_errors.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: `offset=${offset}`
+                })
+                .then(response => response.text())
+                .then(data => {
+                    all_errors.insertAdjacentHTML("beforeend", data)
+                    show_more_errors.style.display = "none"
+                    show_less_errors.style.display = "inline-block"
+                })
+            })
+
+            show_less_errors.addEventListener("click", async function(event) {
+                offset = 0
+
+                await fetch("all_errors.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: `offset=${offset}`
+                })
+                .then(response => response.text())
+                .then(data => {
+                    all_errors.innerHTML = data
+                    show_less_errors.style.display = "none"
+                    show_more_errors.style.display = "inline-block"
+                })
+            })
+        })
+    </script>
+
+    <script src="/src/js/preloader.js" defer></script>
+    <script src="/src/js/navigation_bar.js" defer></script>
+    <script src="/src/js/cookie_policy.js" defer></script>
 </head>
 
 <body class="<?php echo $theme; ?>">
@@ -353,7 +574,7 @@
                                     </div>
                                 </div>
                                 
-                                <p class="form_report_paragraph"></p>
+                                <p class="form_report"></p>
 
                                 <div class="delete_user_container">
                                     <p>Chcete nenávratne odstrániť tento účet?</p>
@@ -447,226 +668,5 @@
     <footer class="<?php echo $theme; ?>">
         <?php require "../assets/footer.php"; ?>
     </footer>
-
-    <script defer>
-        // JavaScript Code
-
-        "use strict"
-
-        document.addEventListener("DOMContentLoaded", function(event) {
-            // User Role
-
-            const all_users = document.querySelector(".all_users")
-
-            all_users.addEventListener("click", function(event) {
-                const user = event.target.closest(".user")
-
-                const user_role_icon = document.querySelector(".user_role_icon")
-
-                if(user_role_icon) {
-                    const user_role_checkbox = user.querySelector(".user_role_checkbox")
-                    const user_role_value = user.querySelector(".user_role_value")
-
-                    if(user_role_value.textContent.trim() == "- user") {
-                        if(user_role_checkbox.checked) {
-                            user_role_checkbox.value = "admin"
-                            user_role_value.textContent = "- admin"
-                            user_role_value.style.color = "rgb(250, 50, 50)"
-                        }
-
-                        else {
-                            user_role_checkbox.value = "user"
-                            user_role_value.textContent = "- user"
-                            user_role_value.style.color = "rgb(150, 150, 150)"
-                        }
-                    }
-
-                    else if(user_role_value.textContent.trim() == "- admin") {
-                        if(user_role_checkbox.checked) {
-                            user_role_checkbox.value = "user"
-                            user_role_value.textContent = "- user"
-                            user_role_value.style.color = "rgb(150, 150, 150)"
-                        }
-
-                        else {
-                            user_role_checkbox.value = "admin"
-                            user_role_value.textContent = "- admin"
-                            user_role_value.style.color = "rgb(250, 50, 50)"
-                        }
-                    }
-                }
-            })
-
-            // Delete User
-
-            all_users.addEventListener("click", function(event) {
-                const user = event.target.closest(".user")
-
-                const delete_user_image = event.target.closest(".delete_user")
-
-                if(delete_user_image) {
-                    const delete_user_input = user.querySelector(".delete_user_checkbox")
-                    const form_report_paragraph = user.querySelector(".form_report_paragraph")
-
-                    if(!delete_user_input.checked) {
-                        delete_user_image.style.opacity = 1
-
-                        form_report_paragraph.textContent = "Účet bude odstránený."
-                        form_report_paragraph.classList.add("invalid")
-                    }
-
-                    else {
-                        delete_user_image.style.opacity = 0.8
-
-                        form_report_paragraph.textContent = ""
-                    }
-                }
-            })
-
-            // Show More / Show Less Users
-
-            let offset = 0
-            const limit = 5
-            const user_id = <?php echo json_encode($user_id); ?>
-
-            const show_more_users = document.querySelector(".show_more_users")
-            const show_less_users = document.querySelector(".show_less_users")
-
-            show_more_users.addEventListener("click", async function(event) {
-                offset += limit
-
-                await fetch("all_users.php", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                    },
-                    body: `offset=${offset}&user_id=${encodeURIComponent(user_id)}`
-                })
-                .then(response => response.text())
-                .then(data => {
-                    all_users.insertAdjacentHTML("beforeend", data)
-                    show_more_users.style.display = "none"
-                    show_less_users.style.display = "inline-block"
-                })
-            })
-
-            show_less_users.addEventListener("click", async function(event) {
-                offset = 0
-
-                await fetch("all_users.php", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                    },
-                    body: `offset=${offset}&user_id=${encodeURIComponent(user_id)}`
-                })
-                .then(response => response.text())
-                .then(data => {
-                    all_users.innerHTML = data
-                    show_less_users.style.display = "none"
-                    show_more_users.style.display = "inline-block"
-                })
-            })
-
-            // Show / Hide Error Details
-
-            const all_errors = document.querySelector(".all_errors")
-
-            all_errors.addEventListener("click", async function(event) {
-                const error = event.target.closest(".error")
-                const error_id = error?.dataset.error_id
-                const error_details = error?.querySelector(".error_details")
-
-                const show_error_details = event.target.closest(".show_error_details")
-                const hide_error_details = event.target.closest(".hide_error_details")
-
-                if(show_error_details) {
-                    const body = new URLSearchParams({ error_id: error_id }).toString()
-                    const res = await fetch("error_details.php", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                        body
-                    })
-
-                    const html = await res.text()
-                    error_details.innerHTML = html
-
-                    show_error_details.style.display = "none"
-                    error.querySelector(".hide_error_details").style.display = "inline-block"
-                }
-
-                if(hide_error_details) {
-                    error_details.innerHTML = ""
-
-                    hide_error_details.style.display = "none"
-                    error.querySelector(".show_error_details").style.display = "inline-block"
-                }
-            })
-
-            // Delete Error
-
-            all_errors.addEventListener("click", function(event) {
-                const error = event.target.closest(".error")
-
-                const delete_error_log = event.target.closest(".delete_error_log")
-                const cancel_delete_error_log = event.target.closest(".cancel_delete_error_log")
-
-                if(delete_error_log) {
-                    delete_error_log.style.display = "none"
-                    error.querySelector(".cancel_delete_error_log").style.display = "inline-block"
-                }
-
-                if(cancel_delete_error_log) {
-                    cancel_delete_error_log.style.display = "none"
-                    error.querySelector(".delete_error_log").style.display = "inline-block"
-                }
-            })
-
-            // Show More / Show Less Errors
-
-            const show_more_errors = document.querySelector(".show_more_errors")
-            const show_less_errors = document.querySelector(".show_less_errors")
-
-            show_more_errors.addEventListener("click", async function(event) {
-                offset += limit
-
-                await fetch("all_errors.php", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                    },
-                    body: `offset=${offset}`
-                })
-                .then(response => response.text())
-                .then(data => {
-                    all_errors.insertAdjacentHTML("beforeend", data)
-                    show_more_errors.style.display = "none"
-                    show_less_errors.style.display = "inline-block"
-                })
-            })
-
-            show_less_errors.addEventListener("click", async function(event) {
-                offset = 0
-
-                await fetch("all_errors.php", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                    },
-                    body: `offset=${offset}`
-                })
-                .then(response => response.text())
-                .then(data => {
-                    all_errors.innerHTML = data
-                    show_less_errors.style.display = "none"
-                    show_more_errors.style.display = "inline-block"
-                })
-            })
-        })
-    </script>
-
-    <script src="/src/js/preloader.js"></script>
-    <script src="/src/js/navigation_bar.js" defer></script>
-    <script src="/src/js/cookie_policy.js" defer></script>
 </body>
 </html>

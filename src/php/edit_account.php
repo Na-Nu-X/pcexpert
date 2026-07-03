@@ -261,6 +261,12 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins"> <!-- Poppins Font Style -->
 
     <script src="https://kit.fontawesome.com/069c0938a1.js" crossorigin="anonymous"></script> <!-- Icons -->
+
+    <script src="/src/ts/dist/pages/edit_account/components/edit_account_form.js" type="module"></script>
+
+    <script src="/src/js/preloader.js" defer></script>
+    <script src="/src/js/navigation_bar.js" defer></script>
+    <script src="/src/js/cookie_policy.js" defer></script>
 </head>
 
 <body class="<?php echo $theme; ?>">
@@ -408,21 +414,21 @@
                         </div>
 
                         <div class="new_password_container">
-                            <div class="generate_password">
-                                <i class="fa-solid fa-key" title="vygenerovať heslo..."></i>
-                            </div>
+                            <button class="generate_password" type="button" title="Navrhnúť heslo">
+                                <i class="fa-solid fa-key"></i>
+                            </button>
 
-                            <div class="password_icon">
-                                <i class="fa-regular fa-eye-slash" title="zobraziť / skryť heslo..."></i>
+                            <button class="show_hide_password" type="button" title="Zobraziť heslo">
+                                <i class="fa-regular fa-eye-slash"></i>
                                 <!-- <i class="fa-regular fa-eye"></i> -->
-                            </div>
+                            </button>
 
                             <input class="new_password password" type="text" name="new_password" placeholder="Vytvorte nové heslo" autocomplete="off">
                         </div>
 
                     <?php endif; ?>
 
-                    <p class="form_report_paragraph"></p>
+                    <p class="form_report"></p>
 
                     <article>
                         <p class="dialogue_paragraph invalid" style="top: 470px;">
@@ -467,103 +473,5 @@
     <footer class="<?php echo $theme; ?>">
         <?php require "../assets/footer.php"; ?>
     </footer>
-
-    <script defer>
-        // JavaScript Code
-
-        "use strict"
-        
-        document.addEventListener("DOMContentLoaded", function(event) {
-            // Delete Profile Picture Warning
-
-            const delete_profile_picture_input = document.querySelector("#delete_profile_picture")
-            const delete_profile_picture_image = document.querySelector(".delete_profile_picture")
-
-            delete_profile_picture_input.addEventListener("click", function(event) {
-                if(delete_profile_picture_input.checked) {
-                    delete_profile_picture_image.style.opacity = 1
-                }
-
-                else {
-                    delete_profile_picture_image.style.opacity = 0.8
-                }
-            })
-
-            // Delete Account Warning
-            
-            const delete_account_input = document.querySelector("#delete_account")
-            const delete_account_image = document.querySelector(".delete_account")
-            const form_report_paragraph = document.querySelector(".form_report_paragraph")
-
-            delete_account_input.addEventListener("click", function(event) {
-                if(delete_account_input.checked) {
-                    delete_account_image.style.opacity = 1
-
-                    form_report_paragraph.textContent = "Váš účet bude odstránený."
-                    form_report_paragraph.classList.add("invalid")
-                }
-
-                else {
-                    delete_account_image.style.opacity = 0.8
-
-                    form_report_paragraph.textContent = ""
-                }
-            })
-
-            // Random Password Generator
-
-            const password = document.querySelector(".password")
-            const generate_password = document.querySelector(".fa-key")
-
-            const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
-            const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-            const special_chars = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', '[', ']', '{', '}', ';', ':', "'", '"', ',', '.', '<', '>', '/', '?', '\\', '|', '`', '~']
-
-            generate_password.addEventListener("click", function(event) {
-                function shuffleString(string) {
-                    let array = string.split("")
-
-                    for(let i = array.length - 1; i > 0; i--) {
-                        let j = Math.floor(Math.random() * (i + 1));
-                        [array[i], array[j]] = [array[j], array[i]]
-                    }
-
-                    return array.join("");
-                }
-
-                let generated_password = ""
-
-                for(let x = 0; x < 5; x++) {
-                    generated_password = generated_password + alphabet[Math.floor(Math.random() * alphabet.length)] + numbers[Math.floor(Math.random() * numbers.length)] + special_chars[Math.floor(Math.random() * special_chars.length)]
-                }
-
-                password.value = shuffleString(generated_password)
-            })
-
-            // Toggle Show / Hide Password
-
-            const password_icon = document.querySelector(".fa-regular")
-
-            password_icon.addEventListener("click", function(event) {
-                if(password_icon.classList[1] === "fa-eye-slash") {
-                    password_icon.classList.remove("fa-eye-slash")
-                    password_icon.classList.add("fa-eye")
-
-                    password.style.webkitTextSecurity = "none"
-                }
-
-                else if(password_icon.classList[1] === "fa-eye") {
-                    password_icon.classList.remove("fa-eye")
-                    password_icon.classList.add("fa-eye-slash")
-
-                    password.style.webkitTextSecurity = "disc"
-                }
-            })
-        })
-    </script>
-
-    <script src="/src/js/preloader.js"></script>
-    <script src="/src/js/navigation_bar.js" defer></script>
-    <script src="/src/js/cookie_policy.js" defer></script>
 </body>
 </html>

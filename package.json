@@ -1,0 +1,24 @@
+{
+  "name": "pcexpert",
+  "version": "1.0.0",
+  "description": "## 0. Installation & Setup Guide",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "tsc --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Na-Nu-X/pcexpert.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Na-Nu-X/pcexpert/issues"
+  },
+  "homepage": "https://github.com/Na-Nu-X/pcexpert#readme",
+  "devDependencies": {
+    "typescript": "^6.0.3"
+  }
+}

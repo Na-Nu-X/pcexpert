@@ -1,0 +1,45 @@
+// Function For Verifying Password Inputs Validity
+export function passwordVerification(input_1:HTMLInputElement, input_2:HTMLInputElement, report:HTMLParagraphElement):void {
+    if(input_1.value == input_2.value && input_1.value != "") {
+        report.textContent = "Heslá sa zhodujú" // Shows Valid Report Message
+        report.classList.replace("error", "success") // Adds Success Class
+    }
+
+    else if(input_1.value != input_2.value) {
+        report.textContent = "Heslá sa nezhodujú" // Shows Invalid Report Message
+        report.classList.replace("success", "error") // Adds Error Class
+    }
+
+    else report.textContent = "" // Deletes Report Message
+}
+
+// Function For Showing Password
+export function showPassword(button:HTMLButtonElement, input:HTMLInputElement):void {
+    const icon:HTMLElement = button.querySelector(".fa-eye-slash") as HTMLButtonElement // Gets The Icon
+
+    icon.classList.replace("fa-eye-slash", "fa-eye") // Shows Open Eye
+    button.title = "Skryť heslo" // Changes Title Attribute
+    button.ariaLabel = "Skryť heslo";
+    (input.style as CSSStyleDeclaration & { webkitTextSecurity?: string }).webkitTextSecurity = "none" // Shows Password (input.style.webkitTextSecurity = "none")
+}
+
+// Function For Hiding Password
+export function hidePassword(button:HTMLButtonElement, input:HTMLInputElement):void {
+    const icon:HTMLElement = button.querySelector(".fa-eye") as HTMLButtonElement // Gets The Icon
+
+    icon.classList.replace("fa-eye", "fa-eye-slash") // Shows Slashed Eye
+    button.title = "Zobraziť heslo" // Changes Title Attribute
+    button.ariaLabel = "Zobraziť heslo";
+    (input.style as CSSStyleDeclaration & { webkitTextSecurity?: string }).webkitTextSecurity = "disc" // Hides Password (input.style.webkitTextSecurity = "disc")
+}
+
+// Function For Copying Value From The Input
+export function copy(input:HTMLInputElement):string {
+    input.select() // Selects Everything In The Input
+    return input.value // Returns Copied Value From The Input
+}
+
+// Function For Paste Value To The Input
+export function paste(input:HTMLInputElement, copied_text:string|null = null):void {
+    copied_text !== null ? input.value = copied_text : input.value = ""
+}

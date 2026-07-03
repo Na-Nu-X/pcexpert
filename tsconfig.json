@@ -1,0 +1,54 @@
+{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    "forceConsistentCasingInFileNames": true,
+
+    // File Layout
+    "rootDir": "./src/ts/src",
+    "outDir": "./src/ts/dist",
+
+    // Environment Settings
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "target": "ES2017",
+
+    "lib": [
+      "DOM", 
+      "DOM.Iterable", 
+      "ESNext"
+    ],
+
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+
+    // Other Outputs
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+
+    // Stricter Typechecking Options
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+
+    // Style Options
+    "strict": true,
+    "jsx": "react-jsx",
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true,
+
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "allowUnusedLabels": false,
+    "noFallthroughCasesInSwitch": true,
+    "allowUnreachableCode": false,
+    "noPropertyAccessFromIndexSignature": true,
+    "erasableSyntaxOnly": true,
+    "noImplicitOverride": true,
+  },
+
+  // "include": [],
+  // "exclude": []
+}

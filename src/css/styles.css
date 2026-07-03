@@ -24,8 +24,7 @@ body.dark {
   left: 0;
   width: 100%;
   height: 100%;
-  -webkit-backdrop-filter: blur(2.5px);
-          backdrop-filter: blur(2.5px);
+  backdrop-filter: blur(2.5px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -862,7 +861,7 @@ main p {
 .users .all_users .user .other_info div p {
   text-align: center;
 }
-.users .all_users .user .form_report_paragraph {
+.users .all_users .user .form_report {
   top: 141px;
 }
 .users .all_users .user .delete_user_container {
@@ -965,7 +964,7 @@ main p {
   cursor: pointer;
 }
 
-.form_report_paragraph {
+.form_report {
   position: absolute;
   top: 55px;
   left: 50%;
@@ -973,7 +972,7 @@ main p {
   font-size: 16px;
   font-family: Poppins, Arial, sans-serif;
 }
-.form_report_paragraph.invalid {
+.form_report.invalid {
   color: rgb(250, 50, 50);
 }
 
@@ -1481,7 +1480,7 @@ footer.dark .copywrite {
     width: 180px !important;
     margin: 10px 5px !important;
   }
-  .user .form_report_paragraph {
+  .user .form_report {
     top: 205px;
   }
   .contact_form input, .contact_form select, .contact_form textarea, .contact_form.light input, .contact_form.light select, .contact_form.light textarea {

@@ -23,8 +23,7 @@ body.dark {
   left: 0;
   width: 100%;
   height: 100%;
-  -webkit-backdrop-filter: blur(2.5px);
-          backdrop-filter: blur(2.5px);
+  backdrop-filter: blur(2.5px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -207,8 +206,7 @@ main {
   margin: 98px 0px 50px;
   padding: 50px;
   background-color: rgba(0, 0, 0, 0.1);
-  -webkit-backdrop-filter: blur(2.5px);
-          backdrop-filter: blur(2.5px);
+  backdrop-filter: blur(2.5px);
   border: 1px solid rgb(150, 150, 150);
   border-radius: 30px;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
@@ -404,6 +402,12 @@ main {
 }
 
 .generate_password {
+  all: unset;
+}
+.generate_password:hover {
+  cursor: pointer;
+}
+.generate_password .fa-key {
   position: absolute;
   top: 50%;
   left: 0px;
@@ -416,7 +420,14 @@ main {
   left: -20px;
 }
 
-.password_icon {
+.show_hide_password {
+  all: unset;
+}
+.show_hide_password:hover {
+  cursor: pointer;
+}
+.show_hide_password .fa-eye,
+.show_hide_password .fa-eye-slash {
   position: absolute;
   top: 50%;
   right: 20px;
@@ -424,11 +435,11 @@ main {
   font-size: 16px;
 }
 
-.copy_password i, .generate_password i, .password_icon i, .paste_password i {
+.copy_password i, .generate_password i, .show_hide_password i, .paste_password i {
   color: rgb(180, 180, 180);
 }
 
-.copy_password i:hover, .generate_password i:hover, .password_icon i:hover, .paste_password i:hover {
+.copy_password i:hover, .generate_password i:hover, .show_hide_password i:hover, .paste_password i:hover {
   color: rgb(200, 200, 200);
   cursor: pointer;
   transition: color 0.3s ease;
@@ -537,7 +548,7 @@ main {
   transition: width 0.3s ease, background-color 9999s ease;
 }
 
-.form_report_paragraph,
+.form_report,
 .dialogue_paragraph {
   position: absolute;
   width: 100%;
@@ -546,15 +557,15 @@ main {
   font-family: Poppins, Arial, sans-serif;
 }
 
-.edit_review_form .form_report_paragraph {
+.edit_review_form .form_report {
   transform: translateY(12px);
 }
 
-.form_report_paragraph.valid {
+.form_report.valid {
   color: rgb(170, 255, 50);
 }
 
-.form_report_paragraph.invalid,
+.form_report.invalid,
 .dialogue_paragraph.invalid {
   color: rgb(250, 50, 50);
 }

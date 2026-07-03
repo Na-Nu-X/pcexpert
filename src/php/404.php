@@ -9,6 +9,8 @@
 
     <link rel="stylesheet" href="/src/css/forms.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins"> <!-- Poppins Font Style -->
+
+    <script src="/src/js/preloader.js" defer></script>
 </head>
 
 <body>
@@ -26,7 +28,5 @@
             <a href="./domov">Späť na domovskú stránku</a>
         </section>
     </main>
-
-    <script src="/src/js/preloader.js"></script>
 </body>
 </html>

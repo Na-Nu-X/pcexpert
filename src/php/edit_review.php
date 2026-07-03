@@ -90,6 +90,12 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins"> <!-- Poppins Font Style -->
 
     <script src="https://kit.fontawesome.com/069c0938a1.js" crossorigin="anonymous"></script> <!-- Icons -->
+
+    <script src="/src/ts/dist/pages/edit_review/components/edit_review_form.js" type="module"></script>
+
+    <script src="/src/js/preloader.js" defer></script>
+    <script src="/src/js/navigation_bar.js" defer></script>
+    <script src="/src/js/cookie_policy.js" defer></script>
 </head>
 
 <body class="<?php echo $theme; ?>">
@@ -170,10 +176,10 @@
                         <div class="stars">
                             <?php for($i = 1; $i <=5; $i++): ?>
                                 <?php if($i <= userReview($connection, $_SESSION["logged_in_user_id"])["rating"]): ?>
-                                    <img src="/content/images/star.png" alt="Hviezda" data-rating="<?php echo $i; ?>"> <!-- https://www.flaticon.com/free-icon/star_1828884 -->
+                                    <img class="star" src="/content/images/star.png" alt="Hviezda" data-rating="<?php echo $i; ?>"> <!-- https://www.flaticon.com/free-icon/star_1828884 -->
 
                                 <?php else: ?>
-                                    <img src="/content/images/empty_star.png" alt="Prázdna hviezda" data-rating="<?php echo $i; ?>"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
+                                    <img class="star" src="/content/images/empty_star.png" alt="Prázdna hviezda" data-rating="<?php echo $i; ?>"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
 
                                 <?php endif; ?>
 
@@ -187,7 +193,7 @@
 
                     <textarea type="textarea" name="review" placeholder="Zanechajte nám vaše hodnotenie" maxlength=200><?php echo userReview($connection, $_SESSION["logged_in_user_id"])["review"]; ?></textarea>
 
-                    <p class="form_report_paragraph"></p>
+                    <p class="form_report"></p>
 
                     <article>
                         <p class="dialogue_paragraph invalid" style="top: 229px;">
@@ -233,106 +239,5 @@
     <footer class="<?php echo $theme; ?>">
         <?php require "../assets/footer.php"; ?>
     </footer>
-
-    <script defer>
-        // JavaScript Code
-
-        "use strict"
-
-        document.addEventListener("DOMContentLoaded", function(event) {
-            // Stars
-
-            const stars = document.querySelectorAll(".stars img")
-            const rating = document.querySelector(".rating")
-            let selected_rating = parseInt(rating.value) || 0
-
-            function updateStars(hover_value = 0) {
-                stars.forEach(function(star, index) {
-                    if(hover_value > 0) {
-                        if(index < hover_value) {
-                            star.src = "/content/images/star.png"
-                        }
-
-                        else {
-                            star.src = "/content/images/empty_star.png"
-                        }
-                    }
-
-                    else {
-                        if(index < selected_rating) {
-                            star.src = "/content/images/star.png"
-                        }
-
-                        else {
-                            star.src = "/content/images/empty_star.png"
-                        }
-                    }
-                })
-            }
-
-            stars.forEach(function(star, index) {
-                const rating_number = index + 1
-
-                star.addEventListener("mouseover", function(event) {
-                    updateStars(rating_number)
-                })
-
-                star.addEventListener("mouseout", function(event) {
-                    updateStars()
-                })
-
-                star.addEventListener("click", function(event) {
-                    selected_rating = rating_number
-                    rating.value = rating_number
-                    updateStars()
-                })
-            })
-
-            updateStars()
-
-            // Update Review
-
-            const form_report_paragraph = document.querySelector(".form_report_paragraph")
-            const edit_review_submit = document.querySelector(".edit_review_submit")
-
-            edit_review_submit.addEventListener("click", function(event) {
-                if(rating.value === "" || parseInt(rating.value) === 0) {
-                    event.preventDefault()
-
-                    form_report_paragraph.textContent = "Ukážte nám vašu spokojnosť."
-                    form_report_paragraph.classList.add("invalid")
-                }
-
-                else {
-                    form_report_paragraph.textContent = ""
-                    form_report_paragraph.classList.remove("invalid")
-                }
-            })
-
-            // Delete Review Warning
-
-            const delete_review_input = document.querySelector("#delete_review")
-            const delete_review_image = document.querySelector(".delete_review")
-
-            delete_review_input.addEventListener("click", function(event) {
-                if(delete_review_input.checked) {
-                    delete_review_image.style.opacity = 1
-
-                    form_report_paragraph.textContent = "Vaša recenzia bude odstránená."
-                    form_report_paragraph.classList.add("invalid")
-                }
-
-                else {
-                    delete_review_image.style.opacity = 0.8
-
-                    form_report_paragraph.textContent = ""
-                }
-            })
-        })
-    </script>
-
-    <script src="/src/js/preloader.js"></script>
-    <script src="/src/js/navigation_bar.js" defer></script>
-    <script src="/src/js/cookie_policy.js" defer></script>
 </body>
 </html>

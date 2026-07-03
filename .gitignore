@@ -1,1 +1,14 @@
-TODO.txt
+# IDE
+.cursor/
+.vscode/
+
+# Node / TypeScript
+node_modules/
+**/dist/
+
+# CSS
+*.css
+*.css.map
+
+# Logs
+errors/

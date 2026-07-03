@@ -16,11 +16,12 @@
 - Open **httpd-vhosts.conf** file in **/opt/lampp/etc/extra** directory.
 - Add this code.
 
-```
+```apache
 <VirtualHost *:80>
     ServerName pcexpert.local
-    DocumentRoot "/opt/lampp/htdocs/pcexpert/src/php"
-    <Directory "/opt/lampp/htdocs/pcexpert/src/php">
+    DocumentRoot "/opt/lampp/htdocs/pcexpert"
+
+    <Directory "/opt/lampp/htdocs/pcexpert">
         Options Indexes FollowSymLinks
         AllowOverride All
         Require all granted
