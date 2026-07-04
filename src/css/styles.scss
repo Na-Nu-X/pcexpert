@@ -1,25 +1,29 @@
+@import "partials/variables";
+
 /***************
  General Styles
 ***************/
 
 * {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
     font-family: Poppins, Arial, sans-serif;
 }
 
 body {
-    line-height: 1.6;
-
     &.light {
-        background-color: rgb(245, 245, 245);
+        background-color: darken($secondary-color, 5%);
     }
 
     &.dark {
-        background-color: rgb(30, 30, 30);
+        background-color: lighten($main-color, 5%);
     }
 }
+
+/**************
+ Header Styles
+**************/
 
 // Preloader
 
@@ -27,13 +31,13 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    backdrop-filter: blur(2.5px);
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 9999;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(2.5px);
+    z-index: 1000;
     transition: opacity 0.3s ease;
 
     &.hidden {
@@ -42,8 +46,8 @@ body {
     }
 
     .loader {
-        border: 5px solid rgb(50, 50, 50);
-        border-top: 5px solid rgb(230, 230, 230);
+        border: 5px solid lighten($main-color, 10%);
+        border-top: 5px solid darken($secondary-color, 10%);
         border-radius: 50%;
         width: 50px;
         height: 50px;
@@ -61,19 +65,17 @@ body {
     }
 }
 
-/**************
- Header Styles
-**************/
+// Header
 
 header {
     margin-bottom: 25px;
     height: 100vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5)), url(/content/images/background.jpg); // https://pixabay.com/sk/photos/cpu-procesor-%C4%8Dip-z%C3%A1kladn%C3%A9-dosky-4393376/
+    background: linear-gradient(transparentize($main-color, 0.9), transparentize($main-color, 0.5)), url("/content/images/background.jpg"); // https://pixabay.com/sk/photos/cpu-procesor-%C4%8Dip-z%C3%A1kladn%C3%A9-dosky-4393376/
     background-size: cover;
     background-position: center center;
     background-attachment: fixed;
-    border-bottom: 1px solid rgb(150, 150, 150);
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid darken($secondary-color, 20%);
+    box-shadow: 0px 0px 10px transparentize($main-color, 0.9);
 }
 
 // Navigation Bar
@@ -81,23 +83,26 @@ header {
 .navigation_bar {
     position: fixed;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    border-bottom: 1px solid rgb(150, 150, 150);
+    background-color: transparentize($main-color, 0.2);
+    border-bottom: 1px solid darken($secondary-color, 20%);
     text-align: center;
-    z-index: 100;
+    z-index: 200;
 
     ul {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        padding: 20px;
+
         li {
-            display: inline-block;
-            margin: 20px;
             width: 200px;
-            background-color: rgb(255, 255, 255);
-            border: 2px solid rgb(0, 0, 0);
-            border-radius: 5px;
-            font-size: 15px;
+            background-color: $secondary-color;
+            border: 2px solid $main-color;
+            border-radius: $small-border-radius;
             transition: letter-spacing 0.3s ease, transform 0.3s ease;
 
-            &:hover {
+            &:hover,
+            &:focus-visible {
                 letter-spacing: 1px;
                 transform: scale(1.1);
                 cursor: pointer;
@@ -107,27 +112,29 @@ header {
                 display: block;
                 padding: 10px;
                 text-decoration: none;
-                color: rgb(0, 0, 0);
+                color: $main-color;
                 font-family: Arial, Helvetica, sans-serif;
                 text-transform: uppercase;
             }
         }
+    }
 
-        .hamburger {
-            all: unset;
-            display: none;
-            margin: 0px auto;
-            font-size: 30px;
-            color: rgb(255, 255, 255);
+    .hamburger {
+        all: unset;
+        display: none;
+        margin: 0px auto;
+        font-size: 2em;
+        color: $secondary-color;
 
-            &:hover {
-                transform: scale(1.1);
-                cursor: pointer;
-                transition: transform 0.3s ease;
-            }
+        &:hover {
+            transform: scale(1.1);
+            cursor: pointer;
+            transition: transform 0.3s ease;
         }
     }
 }
+
+// Move Up
 
 .move_up {
     opacity: 0;
@@ -136,11 +143,10 @@ header {
     right: 10px;
     width: 50px;
     height: 50px;
-    padding: 5px 7px;
-    background-color: rgba(255, 255, 255, 0.8);
-    border: 2px solid rgb(150, 150, 150);
+    background-color: transparentize($secondary-color, 0.2);
+    border: 2px solid darken($secondary-color, 20%);
     border-radius: 50%;
-    z-index: 200;
+    z-index: 100;
     transition: opacity 0.3s ease;
 
     &:hover {
@@ -160,8 +166,8 @@ header {
     width: 100%;
     bottom: 0;
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-top: 1px solid rgb(150, 150, 150);
+    background-color: transparentize($secondary-color, 0.2);
+    border-top: 1px solid darken($secondary-color, 20%);
     text-align: center;
     z-index: 100;
 
@@ -178,19 +184,18 @@ header {
     h2 {
         display: inline-block;
         vertical-align: middle;
-        font-size: 30px;
+        font-size: 2em;
     }
 
     .accept_all {
         width: 200px;
         height: 50px;
         background-color: rgb(50, 125, 200);
-        color: rgb(255, 255, 255);
-        border: 1px solid rgb(0, 0, 0);
+        color: $secondary-color;
+        border: 1px solid $main-color;
         outline: none;
-        border-radius: 30px;
+        border-radius: $big-border-radius;
         font-family: Arial, Helvetica, sans-serif;
-        font-size: 15px;
         text-transform: uppercase;
         transition: letter-spacing 0.3s ease, transform 0.3s ease;
 
@@ -205,7 +210,8 @@ header {
 
 // Messages
 
-.green_report_message, .red_report_message {
+.green_report_message, 
+.red_report_message {
     visibility: hidden;
     position: fixed;
     text-align: center;
@@ -219,76 +225,40 @@ header {
 }
 
 .green_report_message {
-    color: rgb(170, 255, 50);
+    color: $green-color;
 }
 
 .red_report_message {
-    color: rgb(250, 50, 50);
+    color: $red-color;
 }
 
-.theme_selection {
-    position: absolute;
-    top: 100px;
-    left: 20px;
-    z-index: 90;
+// Account
 
-    .light_theme,
-    .dark_theme {
-        width: 40px;
-        height: 40px;
-        margin: 0px 5px;
-        padding: 2px;
-        background-color: rgba(255, 255, 255, 0.8);
-        border-radius: 50%;
-        transition: transform 0.3s ease;
-
-        &:hover {
-            transform: scale(1.1);
-            cursor: pointer;
-        }
-    }
-
-    .light_theme {
-        background-color: rgb(250, 250, 210);
-        border: 1px solid rgb(230, 230, 100)
-    }
-
-    .dark_theme {
-        background-color: rgb(240, 240, 255);
-        border: 1px solid rgb(170, 170, 250);
-    }
-}
-
-.account ul {
+.account {
     position: absolute;
     top: 100px;
     right: 20px;
-    z-index: 90;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 100;
 
-    li {
-        display: inline-block;
-        margin: 7px 10px;
+    a {
+        color: $secondary-color;
+        text-decoration: none;
 
-        a {
-            font-size: 16px;
-            color: rgb(255, 255, 255);
-            text-decoration: none;
+        &:hover,
+        &:active {
+            text-decoration: underline;
+        }
 
-            &:hover,
-            &:active {
-                text-decoration: underline;
-            }
+        img {
+            display: block;
+            transition: transform 0.3s ease;
 
-            img {
-                position: absolute;
-                top: 0px;
-                left: -40px;
-                transition: transform 0.3s ease;
-
-                &:hover {
-                    transform: scale(1.1);
-                    cursor: pointer;
-                }
+            &:hover {
+                transform: scale(1.1);
+                cursor: pointer;
             }
         }
     }
@@ -298,12 +268,11 @@ header {
     width: 40px;
     height: 40px;
     padding: 2px;
-    border: 1px solid rgb(150, 150, 150);
+    border: 1px solid darken($secondary-color, 20%);
     border-radius: 50%;
 }
 
-.google_profile_picture_frame
-{
+.google_profile_picture_frame {
     position: absolute;
     left: 0px;
     top: 0px;
@@ -312,143 +281,29 @@ header {
     z-index: -10;
 }
 
-.header_box {
-    width: 100%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    h1 {
-        z-index: 80;
-        text-align: center;
-
-        a {
-            text-decoration: none;
-            font-family: "Bruno Ace", sans-serif;
-            font-weight: 500;
-            font-size: 70px;
-            color: rgba(255, 255, 255, 0.8);
-            transition: letter-spacing 0.3s ease;
-            animation: fade_in_animation 2s ease-out;
-
-            &:hover,
-            &:active {
-                letter-spacing: 1px;
-            }
-        }
-    }
-}
-
-// Header Text
-
-.header_text { // Move to index.scss
-    width: 100%;
-    padding: 10px 20px;
-    position: absolute;
-    bottom: 0%;
-    background-color: rgba(0, 0, 0, 0.2);
-
-    .user_rating {
-        position: absolute;
-        top: 50%;
-        left: 20px;
-        transform: translateY(-50%);
-
-        &:hover {
-            cursor: pointer;
-        }
-
-        img {
-            width: 12px;
-            height: 12px;
-        }
-    }
-
-    p {
-        text-align: center;
-        color: rgb(230, 230, 230);
-        font-size: 12px;
-    }
-}
-
-// Photo Gallery
-
-.photo_gallery {
-    display: flex;
-    justify-content: center;
-    padding: 0px 10px;
-    overflow: hidden;
-
-    .image {
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-        height: 500px;
-        border: 1px solid rgb(0, 0, 0);
-        border-radius: 25px;
-        color: rgb(255, 255, 255);
-        cursor: pointer;
-        margin: 0px 10px 25px;
-        position: relative;
-        min-width: 0px;
-        width: 100%;
-        transition: min-width 0.5s ease-in-out;
-
-        &.active {
-            min-width: 800px;
-
-            h2 {
-                opacity: 1;
-                transition: opacity 1s ease;
-            }
-        }
-
-        &.dark {
-            border: 2px solid rgb(255, 255, 255);
-        }
-
-        h2 {
-            font-size: 30px;
-            position: absolute;
-            bottom: 10px;
-            left: 20px;
-            opacity: 0;
-        }
-    }
-
-    $photo_gallery_images: (image_1: url(/content/images/processor.jpg), image_2: url(/content/images/motherboard.jpg), image_3: url(/content/images/graphics-card.jpg), image_4: url(/content/images/graphics-card-2.jpg), image_5: url(/content/images/ram.jpg));
-
-    @each $name, $path in $photo_gallery_images {
-        .#{$name} {
-            background-image: $path;
-        }
-    }
-}
-
 /************
  Main Styles
 ************/
 
 main {
-    max-width: 800px;
+    max-width: $main-width;
     margin: 0px auto;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    border-radius: $small-border-radius;
+    box-shadow: 0px 0px 10px transparentize($main-color, 0.9);
 
     &.light {
-        color: rgb(0, 0, 0);
-        border: 1px solid rgb(150, 150, 150);
+        color: $main-color;
+        border: 1px solid darken($secondary-color, 20%);
     }
 
     &.dark {
-        color: rgb(255, 255, 255);
-        border: 1px solid rgb(255, 255, 255);
+        color: $secondary-color;
+        border: 1px solid $secondary-color;
     }
 
     h2 {
         margin-bottom: 5px;
-        font-size: 30px;
+        font-size: 2em;
         text-align: center;
         transition: letter-spacing 0.3s ease;
 
@@ -459,979 +314,9 @@ main {
     }
 
     p {
-        font-size: 16px;
         text-align: justify;
         margin-bottom: 30px;
     }
-}
-
-.about_us {
-    padding: 10px 20px;
-    border-radius: 5px 5px 0px 0px;
-
-    &.light {
-        background-image: linear-gradient(rgb(235, 235, 235), rgb(255, 255, 255));
-    }
-
-    &.dark {
-        background-image: linear-gradient(rgb(20, 20, 20), rgb(40, 40, 40));
-    }
-}
-
-.contact {
-    padding: 10px 20px;
-    border-radius: 0px 0px 5px 5px;
-    background-image: linear-gradient(rgb(255, 255, 255), rgb(235, 235, 235));
-
-    &.light {
-        background-image: linear-gradient(rgb(255, 255, 255), rgb(235, 235, 235));
-    }
-
-    &.dark {
-        background-image: linear-gradient(rgb(40, 40, 40), rgb(20, 20, 20));
-    }
-}
-
-.main_content {
-    padding: 10px 20px;
-    max-width: 800px;
-    margin: 0px auto;
-    border-radius: 0px 0px 5px 5px;
-
-    &.light {
-        background-color: rgb(255, 255, 255);
-    }
-
-    &.dark {
-        background-color: rgb(40, 40, 40);
-    }
-}
-
-.discount_icon
-{
-    position: absolute;
-    transform: translate(-26px, 26px);
-}
-
-.price
-{
-    font-style: italic;
-}
-
-.contact_us_button {
-    font-style: italic;
-    font-size: 18px;
-    color: rgb(160, 229, 165);
-    text-decoration: none;
-
-    &:hover,
-    &:active {
-        text-decoration: underline;
-    }
-}
-
-// Slider
-
-.slider { // Move to index.scss
-    margin: 30px auto;
-    max-width: 800px;
-    max-height: 25em;
-    overflow: hidden;
-    top: 50%;
-    left: 50%;
-    transform: translate(0%, 0%);
-    border-radius: 5px;
-
-    &.light {
-        border: 1px solid rgb(0, 0, 0);
-    }
-
-    &.dark {
-        border: 2px solid rgb(255, 255, 255);
-    }
-
-    .slides {
-        width: 500%;
-        height: 100%;
-        display: flex;
-
-        input[name="r"] {
-            display: none;
-        }
-
-        @for $i from 1 through 5 {
-            #r#{$i}:checked ~ .s1 {
-                margin-left: (-($i - 1%) * 40) / 2; // 0%, -20%, -40%, -60%, -80%
-            }
-        }
-
-        .slide {
-            width: 20%;
-            transition: margin-left 1s ease;
-
-            img {
-                width: 100%;
-                height: 100%;
-                transition: transform 0.3s ease-in-out;
-
-                &:hover {
-                    transform: scale(1.1);
-                }
-            }
-        }
-    }
-
-    .navigation {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        bottom: 0px;
-        display: flex;
-
-        .bar {
-            width: 60px;
-            height: 15px;
-            border: 2px solid #fff;
-            margin: 10px;
-            cursor: pointer;
-
-            &:hover {
-                transform: scale(1.1);
-                transition: transform 0.3s ease;
-            }
-        }
-    }
-}
-
-// Google Map
-
-.map {
-    iframe {
-        border-radius: 5px;
-        margin-bottom: 30px;
-        width: 100%;
-        height: 25em;
-        overflow: hidden;
-        opacity: 0.8;
-        transition: transform 0.3s ease-in-out, opacity 0.3s ease;
-
-        &:hover {
-            transform: scale(1.1);
-            opacity: 1;
-        }
-    }
-
-    &.light {
-        iframe {
-            border: 1px solid rgb(0, 0, 0);
-        }
-    }
-
-    &.dark {
-        iframe {
-            border: 2px solid rgb(255, 255, 255);
-        }
-    }
-}
-
-.faq h3 {
-    text-align: center;
-}
-
-// Reviews
-
-.reviews {
-    .user_review {
-        h3 {
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .review {
-            margin: 0px auto;
-            width: 70%;
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, width 0.3s ease;
-
-            .pending_review {
-                text-align: center;
-                font-size: 14px;
-                font-style: italic;
-                color: rgb(150, 150, 150);
-            }
-
-            .reviewer {
-                position: relative;
-                z-index: 0;
-
-                .user_name {
-                    position: absolute;
-                    top: 7px;
-                    left: 50px;
-
-                    .date {
-                        font-style: italic;
-                        color: rgb(150, 150, 150);
-                    }
-                }
-            }
-
-            p {
-                margin-bottom: 0px;
-            }
-        }
-
-        .write_review {
-            position: relative;
-
-            .reviewer {
-                position: relative;
-                z-index: 0;
-
-                .user_name {
-                    position: absolute;
-                    top: 7px;
-                    left: 50px;
-                }
-            }
-
-            .stars {
-                img {
-                    transition: transform 0.3s ease;
-
-                    &:hover {
-                        transform: scale(1.1);
-                        cursor: pointer;
-                    }
-                }
-            }
-
-            textarea {
-                width: 100%;
-                height: 100px;
-                padding: 5px 10px;
-                resize: none;
-                outline: none;
-                font-size: 15px;
-                border-radius: 5px;
-
-                &::placeholder {
-                    color: rgb(180, 180, 180);
-                }
-            }
-
-            button {
-                width: 200px;
-                height: 50px;
-                margin-bottom: 30px;
-                font-size: 16px;
-                border: 1px solid rgb(0, 0, 0);
-                border-radius: 25px;
-                background-color: rgb(155, 230, 50);
-                transition: letter-spacing 0.3s ease, background-color 0.3s ease;
-
-                &:hover {
-                    letter-spacing: 1px;
-                    background-color: rgb(170, 255, 50);
-                    cursor: pointer;
-                }
-            }
-        }
-
-        .edit_review {
-            font-size: 14px;
-            font-style: italic;
-            text-decoration: none;
-            color: rgb(150, 150, 150);
-
-            &:hover,
-            &:active {
-                text-decoration: underline;
-            }
-        }
-    }
-
-    .all_reviews_title {
-        text-align: center;
-        margin-bottom: 10px;
-    }
-
-    .all_reviews {
-        .review {
-            margin: 0px auto;
-            width: 70%;
-            margin-bottom: 10px;
-            padding: 10px;
-            border: 1px solid rgb(0, 0, 0);
-            border-radius: 5px;
-            background-color: rgb(245, 245, 245);
-            cursor: pointer;
-            transition: background-color 0.3s ease, width 0.3s ease;
-
-            &:last-of-type {
-                margin-bottom: 0px;
-            }
-
-            .reviewer {
-                position: relative;
-                z-index: 0;
-
-                .user_name {
-                    position: absolute;
-                    top: 7px;
-                    left: 50px;
-
-                    .date {
-                        font-style: italic;
-                        color: rgb(150, 150, 150);
-                    }
-                }
-            }
-
-            p {
-                margin-bottom: 0px;
-            }
-        }
-    }
-
-    &.light {
-        .review {
-            border: 1px solid rgb(0, 0, 0);
-            background-color: rgb(245, 245, 245);
-            cursor: pointer;
-
-            &:hover {
-                background-color: rgb(255, 255, 255);
-                cursor: pointer;
-            }
-        }
-    
-        textarea {
-            border: 1px solid rgb(0, 0, 0);
-        }
-    }
-
-    &.dark {
-        .review {
-            background-color: rgb(30, 30, 30);
-            border: 2px solid rgb(255, 255, 255);
-            cursor: pointer;
-
-            &:hover {
-                background-color: rgb(40, 40, 40);
-            }
-        }
-
-        textarea {
-            color: rgb(255, 255, 255);
-            background-color: rgb(40, 40, 40);
-            border: 2px solid rgb(255, 255, 255);
-        }
-    }
-}
-
-.pending_reviews {
-    .reviews {
-        .review {
-            margin: 0px auto;
-            width: 70%;
-            margin-bottom: 0px;
-            padding: 10px;
-            border: 1px solid rgb(0, 0, 0);
-            border-radius: 5px;
-            background-color: rgb(245, 245, 245);
-            cursor: pointer;
-            transition: background-color 0.3s ease, width 0.3s ease;
-
-            .reviewer {
-                position: relative;
-                z-index: 0;
-
-                .user_name {
-                    position: absolute;
-                    top: 7px;
-                    left: 50px;
-
-                    .date {
-                        font-style: italic;
-                        color: rgb(150, 150, 150);
-                    }
-                }
-            }
-        }
-
-        .review_confirmation {
-            text-align: center;
-
-            .approve_review {
-                width: 200px;
-                height: 50px;
-                font-size: 16px;
-                margin: 10px 20px;
-                background-color: rgb(155, 230, 50);
-                border-radius: 25px;
-                transition: letter-spacing 0.3s ease, background-color 0.3s ease;
-
-                &:hover {
-                    letter-spacing: 1px;
-                    background-color: rgb(170, 255, 50);
-                    cursor: pointer;
-                }
-
-                &.light {
-                    border: 1px solid rgb(0, 0, 0);
-                }
-
-                &.dark {
-                    color: rgb(255, 255, 255);
-                    border: 1px solid rgb(255, 255, 255);
-                }
-            }
-
-            .reject_review {
-                width: 200px;
-                height: 50px;
-                font-size: 16px;
-                margin: 10px 20px;
-                background-color: rgb(250, 90, 55);
-                border-radius: 25px;
-                transition: letter-spacing 0.3s ease, background-color 0.3s ease;
-
-                &:hover {
-                    letter-spacing: 1px;
-                    background-color: rgb(255, 75, 35);
-                    cursor: pointer;
-                }
-
-                &.light {
-                    border: 1px solid rgb(0, 0, 0);
-                }
-
-                &.dark {
-                    color: rgb(255, 255, 255);
-                    border: 1px solid rgb(255, 255, 255);
-                }
-            }
-        }
-
-        &.dark {
-            .review {
-                background-color: rgb(30, 30, 30);
-                border: 2px solid rgb(255, 255, 255);
-
-                &:hover {
-                    background-color: rgb(40, 40, 40);
-                }
-            }
-        }
-    }
-
-    .show_more {
-        display: inline-block;
-        margin-top: 5px;
-        width: 100%;
-        font-size: 14px;
-        font-style: italic;
-        color: rgb(150, 150, 150);
-        border: none;
-        background: none;
-
-        &:hover {
-            text-decoration: underline;
-            cursor: pointer;
-        }
-    }
-
-    .show_less {
-        display: none;
-        margin-top: 5px;
-        width: 100%;
-        font-size: 14px;
-        font-style: italic;
-        color: rgb(150, 150, 150);
-        border: none;
-        background: none;
-
-        &:hover {
-            text-decoration: underline;
-            cursor: pointer;
-        }
-    }
-}
-
-.users { // Move to admin.scss
-    .all_users {
-        .user {
-            position: relative;
-            margin: 0px auto;
-            width: 70%;
-            margin-bottom: 10px;
-            padding: 10px;
-            border: 1px solid rgb(0, 0, 0);
-            border-radius: 5px;
-            background-color: rgb(245, 245, 245);
-            cursor: pointer;
-            transition: background-color 0.3s ease, width 0.3s ease;
-
-            &.light {
-                &:hover {
-                    background-color: rgb(255, 255, 255);
-                }
-            }
-
-            &.dark {
-                background-color: rgb(30, 30, 30);
-                border: 2px solid rgb(255, 255, 255);
-
-                &:hover {
-                    background-color: rgb(40, 40, 40);
-                }
-            }
-
-            .basic_info {
-                position: relative;
-                z-index: 0;
-
-                .user_name {
-                    position: absolute;
-                    top: 7px;
-                    left: 50px;
-
-                    .user_role {
-                        font-style: italic;
-                        color: rgb(150, 150, 150);
-
-                        .user_role_checkbox {
-                            display: none;
-                        }
-                    }
-                }
-            }
-
-            .other_info {
-                display: flex;
-                justify-content: space-between;
-
-                div {
-                    h3 {
-                        text-align: center;
-                    }
-
-                    p {
-                        text-align: center;
-                    }
-                }
-            }
-
-            .form_report {
-                top: 141px;
-            }
-
-            .delete_user_container {
-                margin-top: 30px;
-                text-align: center;
-
-                p {
-                    text-align: center;
-                    font-size: 14px;
-                }
-
-                .delete_user {
-                    opacity: 0.8;
-                    transition: transform 0.3s ease, opacity 0.3s ease;
-
-                    &:hover {
-                        transform: scale(1.1);
-                        cursor: pointer;
-                    }
-                }
-
-                .delete_user_checkbox {
-                    display: none;
-                }
-            }
-
-            p {
-                margin: 0px;
-            }
-        }
-    }
-
-    .show_more {
-        display: inline-block;
-        margin-top: 5px;
-        width: 100%;
-        font-size: 14px;
-        font-style: italic;
-        color: rgb(150, 150, 150);
-        border: none;
-        background: none;
-
-        &:hover {
-            text-decoration: underline;
-            cursor: pointer;
-        }
-    }
-
-    .show_less {
-        display: none;
-        margin-top: 5px;
-        width: 100%;
-        font-size: 14px;
-        font-style: italic;
-        color: rgb(150, 150, 150);
-        border: none;
-        background: none;
-
-        &:hover {
-            text-decoration: underline;
-            cursor: pointer;
-        }
-    }
-}
-
-.error_log {
-    .all_errors {
-        .error {
-            p {
-                margin-bottom: 0px;
-            }
-
-            .show_error_details, .hide_error_details, .delete_error_log, .cancel_delete_error_log {
-                display: inline-block;
-                margin: 0px 10px 10px 0px;
-                width: auto;
-                font-size: 14px;
-                font-style: italic;
-                color: rgb(150, 150, 150);
-                border: none;
-                background: none;
-
-                &:hover {
-                    text-decoration: underline;
-                    cursor: pointer;
-                }
-            }
-
-            .hide_error_details, .cancel_delete_error_log, .delete_error_log_checkbox {
-                display: none;
-            }
-        }
-    }
-
-    .show_more_errors {
-        display: inline-block;
-        margin-top: 5px;
-        width: 100%;
-        font-size: 14px;
-        font-style: italic;
-        color: rgb(150, 150, 150);
-        border: none;
-        background: none;
-
-        &:hover {
-            text-decoration: underline;
-            cursor: pointer;
-        }
-    }
-
-    .show_less_errors {
-        display: none;
-        margin-top: 5px;
-        width: 100%;
-        font-size: 14px;
-        font-style: italic;
-        color: rgb(150, 150, 150);
-        border: none;
-        background: none;
-
-        &:hover {
-            text-decoration: underline;
-            cursor: pointer;
-        }
-    }
-}
-
-.form_report {
-    position: absolute;
-    top: 55px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 16px;
-    font-family: Poppins, Arial, sans-serif;
-
-    &.invalid {
-        color: rgb(250, 50, 50);
-    }
-}
-
-// Contact Form
-
-.contact_form {
-    position: relative;
-
-    &:has(textarea:focus) .attachment_container {
-        right: 10%;
-        width: 80%;
-    }
-
-    input {
-        display: block;
-        width: 70%;
-        margin: 0px auto;
-        padding: 10px;
-        outline: none;
-        font-size: 15px;
-        border-radius: 5px;
-        margin-bottom: 10px;
-        height: 50px;
-        color: rgb(0, 0, 0);
-        background-color: rgb(255, 255, 255);
-        border: 1px solid rgb(0, 0, 0);
-        transition: width 0.3s ease;
-
-        &:focus {
-            width: 80%;
-        }
-
-        &::placeholder {
-            color: rgb(180, 180, 180);
-        }
-    }
-
-    select {
-        display: block;
-        width: 70%;
-        margin: 0px auto;
-        padding: 10px;
-        outline: none;
-        font-size: 15px;
-        border-radius: 5px;
-        margin-bottom: 10px;
-        height: 50px;
-        color: rgb(0, 0, 0);
-        background-color: rgb(255, 255, 255);
-        border: 1px solid rgb(0, 0, 0);
-        transition: width 0.3s ease;
-
-        &:hover {
-            width: 80%;
-            cursor: pointer;
-        }
-    }
-
-    .attachment_container {
-        position: absolute;
-        bottom: 140px;
-        right: 15%;
-        width: 70%;
-        height: 20px;
-        transition: right 0.3s ease, width 0.3s ease;
-
-        .attachment_report {
-            position: absolute;
-            bottom: 0px;
-            background-color: rgb(230, 230, 230);
-            width: 100%;
-            margin: 0px auto;
-            border-bottom: 1px solid rgb(0, 0, 0);
-            border-left: 1px solid rgb(0, 0, 0);
-            border-right: 1px solid rgb(0, 0, 0);
-            border-radius: 0px 0px 5px 5px;
-            text-align: center;
-            font-size: 12px;
-
-            &.dark{
-                background-color: rgb(15, 15, 15);
-                border-bottom: 2px solid rgb(255, 255, 255);
-                border-left: 2px solid rgb(255, 255, 255);
-                border-right: 2px solid rgb(255, 255, 255);
-            }
-        }
-
-        .attachment {
-            position: absolute;
-            top: -73px;
-            right: 11px;
-            transition: right 0.3s ease;
-
-            i {
-                color: rgb(180, 180, 180);
-
-                &:hover {
-                    color: rgb(200, 200, 200);
-                    cursor: pointer;
-                    transition: color 0.3s ease;
-                }
-            }
-        }
-
-        input[type="file"] {
-            display: none;
-        }
-    }
-
-    textarea {
-        display: block;
-        width: 70%;
-        margin: 0px auto;
-        padding: 10px;
-        outline: none;
-        font-size: 15px;
-        border-radius: 5px;
-        margin-bottom: 20px;
-        padding: 5px 10px;
-        height: 100px;
-        resize: none;
-        color: rgb(0, 0, 0);
-        background-color: rgb(255, 255, 255);
-        border: 1px solid rgb(0, 0, 0);
-        transition: width 0.3s ease;
-
-        &:focus {
-            width: 80%;
-        }
-
-        &::placeholder {
-            color: rgb(180, 180, 180);
-        }
-    }
-
-    .contact_form_submit {
-        display: block;
-        width: 70%;
-        margin: 0px auto;
-        padding: 10px;
-        outline: none;
-        font-size: 15px;
-        border-radius: 5px;
-        margin-bottom: 10px;
-        height: 50px;
-        color: rgb(0, 0, 0);
-        background-color: rgb(255, 255, 255);
-        border: 1px solid rgb(0, 0, 0);
-        margin-bottom: 10px;
-        cursor: pointer;
-        font-size: 16px;
-        background-color: rgb(230, 230, 230);
-        transition: width 0.3s ease, letter-spacing 0.3s ease, background-color 0.3s ease;
-
-        &:hover {
-            width: 80%;
-            letter-spacing: 1px;
-            background-color: rgb(245, 245, 245);
-        }
-    }
-
-    &.dark {
-        input {
-            color: rgb(255, 255, 255);
-            background-color: rgb(40, 40, 40);
-            border: 2px solid rgb(255, 255, 255);
-        }
-
-        select {
-            color: rgb(255, 255, 255);
-            background-color: rgb(40, 40, 40);
-            border: 2px solid rgb(255, 255, 255);
-        }
-
-        textarea {
-            color: rgb(255, 255, 255);
-            background-color: rgb(40, 40, 40);
-            border: 2px solid rgb(255, 255, 255);
-        }
-
-        .contact_form_submit {
-            color: rgb(255, 255, 255);
-            border: 2px solid rgb(255, 255, 255);
-            background-color: rgb(15, 15, 15);
-
-            &:hover {
-                background-color: rgb(30, 30, 30);
-            }
-        }
-    }
-}
-
-.admin_form .admin_form_submit,
-.admin_form.light .admin_form_submit
-{
-    display: block;
-    width: 70%;
-    margin: 0px auto;
-    padding: 10px;
-    outline: none;
-    font-size: 15px;
-    border: 1px solid rgb(0, 0, 0);
-    border-radius: 5px;
-    transition: width 0.3s ease;
-}
-
-.admin_form.dark .admin_form_submit
-{
-    color: rgb(255, 255, 255);
-    background-color: rgb(40, 40, 40);
-    border: 2px solid rgb(255, 255, 255);
-}
-
-.admin_form .admin_form_submit, .admin_form.light .admin_form_submit
-{
-    margin-bottom: 10px;
-    height: 50px;
-}
-
-.admin_form .admin_form_submit, .admin_form.light .admin_form_submit
-{
-    margin-bottom: 10px;
-    cursor: pointer;
-    font-size: 16px;
-    background-color: rgb(230, 230, 230);
-    transition: width 0.3s ease, letter-spacing 0.3s ease, background-color 0.3s ease;
-}
-
-.admin_form .admin_form_submit:hover, .admin_form.light .admin_form_submit:hover
-{
-    width: 80%;
-    letter-spacing: 1px;
-    background-color: rgb(245, 245, 245);
-}
-
-.admin_form.dark .admin_form_submit
-{
-    background-color: rgb(15, 15, 15);
-}
-
-.admin_form.dark .admin_form_submit:hover
-{
-    background-color: rgb(30, 30, 30);
-}
-
-.contact_form input:-webkit-autofill, .contact_form input:-webkit-autofill:hover, .contact_form input:-webkit-autofill:focus, .contact_form.light input:-webkit-autofill, .contact_form.light input:-webkit-autofill:hover, .contact_form.light input:-webkit-autofill:focus
-{
-    transition: width 0.3s ease, background-color 9999s ease;
-}
-
-.contact_form.dark input:-webkit-autofill, .contact_form.dark input:-webkit-autofill:hover, .contact_form.dark input:-webkit-autofill:focus
-{
-    -webkit-text-fill-color: rgb(255, 255, 255);
-}
-
-.no_admin a:link,
-.no_admin a:visited
-{
-    color: rgb(0, 0, 0);
-    text-decoration: none;
-    font-style: italic;
-}
-
-.no_admin a:hover,
-.no_admin a:active
-{
-    text-decoration: underline;
 }
 
 /**************
@@ -1442,25 +327,25 @@ footer {
     margin-top: 25px;
     padding-top: 20px;
     text-align: center;
-    background-color: rgb(230, 230, 230);
-    border-top: 1px solid rgb(150, 150, 150);
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    background-color: darken($secondary-color, 10%);
+    border-top: 1px solid darken($secondary-color, 20%);
+    box-shadow: 0px 0px 10px transparentize($main-color, 0.9);
 
     p {
         font-weight: bold;
-        font-size: 16px;
     }
 
     a {
-        font-size: 14px;
+        font-size: 0.9em;
         font-weight: normal;
         font-style: italic;
         text-decoration: none;
-        color: rgb(50, 50, 50);
+        color: lighten($main-color, 5%);
 
         &:hover,
-        &:active {
-            text-decoration: underline !important;
+        &:active,
+        &:focus-visible {
+            text-decoration: underline;
         }
 
         img {
@@ -1477,189 +362,29 @@ footer {
     }
 
     .copywrite {
-        font-family: 'Courier New', Courier, monospace, sans-serif;
+        font-family: "Courier New", Courier, monospace, sans-serif;
         margin-top: 20px;
-        font-size: 12px;
-        color: rgb(50, 50, 50);
+        font-size: 0.8em;
+        color: lighten($main-color, 5%);
     }
 
     &.dark {
-        color: rgb(255, 255, 255);
-        background-color: rgb(15, 15, 15);
+        color: $secondary-color;
+        background-color: lighten($main-color, 5%);
 
         a {
-            color: rgb(150, 150, 150);
+            color: darken($secondary-color, 20%);
         }
 
         .copywrite {
-            color: rgb(150, 150, 150);
+            color: darken($secondary-color, 20%);
         }
-    }
-}
-
-// Blob Buttons
-
-.buttons {
-    width: 100%;
-    height: 64px;
-    text-align: center;
-    animation: fade_in_animation 1s ease-out forwards;
-}
-
-.blob-btn.login_button {
-    background-color: rgba(255, 255, 255, 0.8);
-    color: rgb(0, 0, 0);
-}
-
-.blob-btn.registration_button {
-    background-color: rgba(0, 0, 0, 0.2);
-    color: rgb(255, 255, 255);
-}
-
-*:before, *:after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-.blob-btn {
-    text-decoration: none;
-    display: inline-block;
-    width: 225px;
-    $numOfBlobs: 4;
-    z-index: 1;
-    position: relative;
-    padding: 20px 46px;
-    margin: 0px 20px;
-    text-align: center;
-    font-size: 15px;
-    font-weight: bold;
-    background-color: transparent;
-    outline: none;
-    border: none;
-    transition: color 0.5s;
-    cursor: pointer;
-    border-radius: 30px;
-    transition: transform 0.3s ease;
-  
-    &:before {
-        content: "";
-        z-index: 1;
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        border: 1px solid rgb(0, 0, 0);
-        border-radius: 30px;
-    }
-  
-    &:after {
-        content: "";
-        z-index: -2;
-        position: absolute;
-        left: 1*1.5px;
-        top: 1*1.5px;
-        width: 100%;
-        height: 100%;
-        transition: all 0.3s 0.2s;
-        border-radius: 30px;
-    }
-  
-    &:hover {
-        color: rgb(255, 255, 255);
-        border-radius: 30px;
-    
-        &:after {
-            transition: all 0.3s;
-            left: 0;
-            top: 0;
-            border-radius: 30px;
-        }
-    }
-  
-    &__inner {
-        z-index: -1;
-        overflow: hidden;
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        border-radius: 30px;
-    }
-
-    &__blobs {
-        position: relative;
-        display: block;
-        height: 100%;
-        filter: url('#goo');
-    }
-  
-    &__blob {
-        position: absolute;
-        top: 0px;
-        width: 100% / $numOfBlobs;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        border-radius: 100%;
-        transform: translate3d(0,150%,0) scale(1.7);
-        transition: transform 0.45s;
-    
-        @supports(filter: url('#goo')) {
-            transform: translate3d(0,150%,0) scale(1.4);
-        }
-    
-        @for $i from 1 through $numOfBlobs {
-            &:nth-child(#{$i}) 
-            {
-                left: ($i - 1) * (120% / $numOfBlobs);
-                transition-delay: ($i - 1) * 0.08s;
-            }
-        }
-    
-        .blob-btn:hover & {
-            transform: translateZ(0) scale(1.7);
-            
-            @supports(filter: url('#goo')) {
-                transform: translateZ(0) scale(1.4);
-            }
-        }
-    }
-
-    &:hover,
-    &:focus {
-        transform: scale(1.1);
     }
 }
 
 /**************
  Media Queries
 **************/
-
-@media only screen and (max-width: 1400px) {
-    .photo_gallery {
-        padding: 0px;
-
-        .image {
-            height: 300px;
-            border-radius: 15px;
-
-            &:nth-of-type(1) {
-                margin: 0px 10px 25px 0px;
-            }
-
-            &:nth-of-type(5) {
-                margin: 0px 0px 25px 10px;
-            }
-
-            &.active {
-                min-width: 50%;
-                height: 300px;
-            }
-        }
-    }
-}
 
 @media only screen and (min-width: 988px) {
     .navigation_bar ul li {
@@ -1681,73 +406,6 @@ footer {
     .navigation_bar ~ .theme_selection,
     .navigation_bar ~ .account ul {
         top: 60px;
-    }
-}
-
-@media only screen and (max-width: 800px) {
-    .image h2 {
-        font-size: 20px;
-    }
-
-    main {
-        border-radius: 3px;
-
-        h2 {
-            font-size: 35px;
-        }
-
-        p {
-            font-size: 18px;
-        }
-    }
-
-    .map iframe:hover {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
-@media only screen and (max-width: 600px) {
-    .reviews .review, .user {
-        width: 100% !important;
-    }
-
-    .approve_review, .reject_review {
-        width: 180px !important;
-        margin: 10px 5px !important;
-    }
-
-    .user .form_report {
-        top: 205px;
-    }
-
-    .contact_form input, .contact_form select, .contact_form textarea, .contact_form.light input, .contact_form.light select, .contact_form.light textarea {
-        width: 100%;
-    }
-
-    .contact_form input[type="text"]:focus, .contact_form input[type="email"]:focus, .contact_form textarea:focus {
-        width: 100%;
-    }
-
-    .contact_form select:hover, .contact_form button[type="submit"]:hover, .contact_form.light button[type="submit"], .contact_form.light button[type="submit"]:hover, .contact_form.dark button[type="submit"], .contact_form.dark button[type="submit"]:hover {
-        width: 100%;
-    }
-    
-    .attachment_container {
-        width: 100%;
-        right: 0%;
-    }
-
-    .contact_form:has(textarea:focus) .attachment_container {
-        width: 100%;
-        right: 0%;
-    }
-}
-
-@media only screen and (max-width: 550px) {
-    .blob-btn {
-        width: 80% !important;
-        margin: 10px 0px !important;
     }
 }
 

@@ -343,6 +343,8 @@
     <link rel="icon" href="/content/images/favicon.png"> <!-- https://www.flaticon.com/free-icon/pc-tower_4275113 -->
 
     <link rel="stylesheet" href="/src/css/styles.css">
+    <link rel="stylesheet" href="/src/css/index.css">
+
     <link rel="stylesheet" href="/src/css/lightbox.min.css"> <!-- https://github.com/lokesh/lightbox2/tree/dev -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins"> <!-- Poppins Font Style -->
     <link href="https://fonts.googleapis.com/css2?family=Bruno+Ace&display=swap" rel="stylesheet"> <!-- Bruno Ace Font Style -->
@@ -410,13 +412,13 @@
                         <a href="./administracia">ADMINISTRÁCIA</a>
                     </li>
 
-                <?php endif; ?>
-                
-                <button class="hamburger">
-                    <i class="fa-solid fa-bars"></i>
-                    <!-- <i class="fa-solid fa-xmark"></i> -->
-                </button>
+                <?php endif; ?>    
             </ul>
+
+            <button class="hamburger">
+                <i class="fa-solid fa-bars"></i>
+                <!-- <i class="fa-solid fa-xmark"></i> -->
+            </button>
         </nav>
 
         <button class="move_up" title="Posunúť nahor" aria-label="Posunúť nahor">
@@ -437,39 +439,33 @@
         
         <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true): ?>
             <div class="account">
-                <ul>
-                    <li>
-                        <a href="./moj-ucet" title="Môj účet">
-                            <?php if(!empty(getProfilePictureName($connection, $_SESSION["logged_in_user_id"])) or !empty(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'))): ?>
-                                <img 
-                                    class="profile_picture" 
-                                    src="
-                                        <?php if(!empty(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url')) and empty(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'profile_picture_name'))): ?>
-                                            <?php echo getUserInformations($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'); ?>
+                <a href="./moj-ucet" title="Môj účet">
+                    <?php if(!empty(getProfilePictureName($connection, $_SESSION["logged_in_user_id"])) or !empty(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'))): ?>
+                        <img 
+                            class="profile_picture" 
+                            src="
+                                <?php if(!empty(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url')) and empty(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'profile_picture_name'))): ?>
+                                    <?php echo getUserInformations($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'); ?>
 
-                                        <?php else: ?>
-                                            /content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo getProfilePictureName($connection, $_SESSION['logged_in_user_id']); ?>
+                                <?php else: ?>
+                                    /content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo getProfilePictureName($connection, $_SESSION['logged_in_user_id']); ?>
 
-                                        <?php endif; ?>
-                                    "
-                                    alt="Môj účet"
-                                >
+                                <?php endif; ?>
+                            "
+                            alt="Môj účet"
+                        >
 
-                            <?php else: ?>
-                                <img class="profile_picture" src="/content/images/user.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
+                    <?php else: ?>
+                        <img class="profile_picture" src="/content/images/user.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
 
-                            <?php endif; ?>
-                        </a>
+                    <?php endif; ?>
+                </a>
 
-                        <a href="./moj-ucet" title="Môj účet">
-                            <?php echo htmlspecialchars(getUserName($connection, $_SESSION["logged_in_user_id"]), ENT_QUOTES, "UTF-8"); ?>
-                        </a>
-                    </li>
+                <a href="./moj-ucet" title="Môj účet">
+                    <?php echo htmlspecialchars(getUserName($connection, $_SESSION["logged_in_user_id"]), ENT_QUOTES, "UTF-8"); ?>
+                </a>
 
-                    <li>
-                        <a href="./logout.php" title="Odhlásiť sa z účtu <?php echo htmlspecialchars(getUserName($connection, $_SESSION["logged_in_user_id"]), ENT_QUOTES, "UTF-8"); ?>">Odhlásiť</a>
-                    </li>
-                </ul>
+                <a href="./logout.php" title="Odhlásiť sa z účtu <?php echo htmlspecialchars(getUserName($connection, $_SESSION["logged_in_user_id"]), ENT_QUOTES, "UTF-8"); ?>">Odhlásiť</a>
             </div>
 
         <?php else: ?>
@@ -883,17 +879,19 @@
                                         </span>
                                     </p>
                                 </div>
-
-                                <?php for($i = 1; $i <= 5; $i++): ?>
-                                    <?php if($i <= $one_review["rating"]): ?>
-                                        <img src="/content/images/star.png" alt="Hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828884 -->
-
-                                    <?php else: ?>
-                                        <img src="/content/images/empty_star.png" alt="Prázdna hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
-
-                                    <?php endif; ?>
-                                    
-                                <?php endfor; ?>
+                                
+                                <div class="stars">
+                                    <?php for($i = 1; $i <= 5; $i++): ?>
+                                        <?php if($i <= $one_review["rating"]): ?>
+                                            <img class="star" src="/content/images/star.png" alt="Hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828884 -->
+    
+                                        <?php else: ?>
+                                            <img class="star" src="/content/images/empty_tar.png" alt="Prázdna hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
+    
+                                        <?php endif; ?>
+                                        
+                                    <?php endfor; ?>
+                                </div>
 
                                 <p><?php echo htmlspecialchars($one_review["review"], ENT_QUOTES, "UTF-8"); ?></p>
 

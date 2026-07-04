@@ -78,6 +78,401 @@ main.dark
     border: 1px solid rgb(255, 255, 255);
 }
 
+.pending_reviews {
+    .reviews {
+        .review {
+            margin: 0px auto;
+            width: 70%;
+            margin-bottom: 0px;
+            padding: 10px;
+            border: 1px solid rgb(0, 0, 0);
+            border-radius: 5px;
+            background-color: rgb(245, 245, 245);
+            cursor: pointer;
+            transition: background-color 0.3s ease, width 0.3s ease;
+
+            .reviewer {
+                position: relative;
+                z-index: 0;
+
+                .user_name {
+                    position: absolute;
+                    top: 7px;
+                    left: 50px;
+
+                    .date {
+                        font-style: italic;
+                        color: rgb(150, 150, 150);
+                    }
+                }
+            }
+        }
+
+        .review_confirmation {
+            text-align: center;
+
+            .approve_review {
+                width: 200px;
+                height: 50px;
+                font-size: 16px;
+                margin: 10px 20px;
+                background-color: rgb(155, 230, 50);
+                border-radius: 25px;
+                transition: letter-spacing 0.3s ease, background-color 0.3s ease;
+
+                &:hover {
+                    letter-spacing: 1px;
+                    background-color: rgb(170, 255, 50);
+                    cursor: pointer;
+                }
+
+                &.light {
+                    border: 1px solid rgb(0, 0, 0);
+                }
+
+                &.dark {
+                    color: rgb(255, 255, 255);
+                    border: 1px solid rgb(255, 255, 255);
+                }
+            }
+
+            .reject_review {
+                width: 200px;
+                height: 50px;
+                font-size: 16px;
+                margin: 10px 20px;
+                background-color: rgb(250, 90, 55);
+                border-radius: 25px;
+                transition: letter-spacing 0.3s ease, background-color 0.3s ease;
+
+                &:hover {
+                    letter-spacing: 1px;
+                    background-color: rgb(255, 75, 35);
+                    cursor: pointer;
+                }
+
+                &.light {
+                    border: 1px solid rgb(0, 0, 0);
+                }
+
+                &.dark {
+                    color: rgb(255, 255, 255);
+                    border: 1px solid rgb(255, 255, 255);
+                }
+            }
+        }
+
+        &.dark {
+            .review {
+                background-color: rgb(30, 30, 30);
+                border: 2px solid rgb(255, 255, 255);
+
+                &:hover {
+                    background-color: rgb(40, 40, 40);
+                }
+            }
+        }
+    }
+
+    .show_more {
+        display: inline-block;
+        margin-top: 5px;
+        width: 100%;
+        font-size: 14px;
+        font-style: italic;
+        color: rgb(150, 150, 150);
+        border: none;
+        background: none;
+
+        &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+
+    .show_less {
+        display: none;
+        margin-top: 5px;
+        width: 100%;
+        font-size: 14px;
+        font-style: italic;
+        color: rgb(150, 150, 150);
+        border: none;
+        background: none;
+
+        &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+}
+
+.users {
+    .all_users {
+        .user {
+            position: relative;
+            margin: 0px auto;
+            width: 70%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid rgb(0, 0, 0);
+            border-radius: 5px;
+            background-color: rgb(245, 245, 245);
+            cursor: pointer;
+            transition: background-color 0.3s ease, width 0.3s ease;
+
+            &.light {
+                &:hover {
+                    background-color: rgb(255, 255, 255);
+                }
+            }
+
+            &.dark {
+                background-color: rgb(30, 30, 30);
+                border: 2px solid rgb(255, 255, 255);
+
+                &:hover {
+                    background-color: rgb(40, 40, 40);
+                }
+            }
+
+            .basic_info {
+                position: relative;
+                z-index: 0;
+
+                .user_name {
+                    position: absolute;
+                    top: 7px;
+                    left: 50px;
+
+                    .user_role {
+                        font-style: italic;
+                        color: rgb(150, 150, 150);
+
+                        .user_role_checkbox {
+                            display: none;
+                        }
+                    }
+                }
+            }
+
+            .other_info {
+                display: flex;
+                justify-content: space-between;
+
+                div {
+                    h3 {
+                        text-align: center;
+                    }
+
+                    p {
+                        text-align: center;
+                    }
+                }
+            }
+
+            .form_report {
+                top: 141px;
+            }
+
+            .delete_user_container {
+                margin-top: 30px;
+                text-align: center;
+
+                p {
+                    text-align: center;
+                    font-size: 14px;
+                }
+
+                .delete_user {
+                    opacity: 0.8;
+                    transition: transform 0.3s ease, opacity 0.3s ease;
+
+                    &:hover {
+                        transform: scale(1.1);
+                        cursor: pointer;
+                    }
+                }
+
+                .delete_user_checkbox {
+                    display: none;
+                }
+            }
+
+            p {
+                margin: 0px;
+            }
+        }
+    }
+
+    .show_more {
+        display: inline-block;
+        margin-top: 5px;
+        width: 100%;
+        font-size: 14px;
+        font-style: italic;
+        color: rgb(150, 150, 150);
+        border: none;
+        background: none;
+
+        &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+
+    .show_less {
+        display: none;
+        margin-top: 5px;
+        width: 100%;
+        font-size: 14px;
+        font-style: italic;
+        color: rgb(150, 150, 150);
+        border: none;
+        background: none;
+
+        &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+}
+
+.error_log {
+    .all_errors {
+        .error {
+            p {
+                margin-bottom: 0px;
+            }
+
+            .show_error_details, .hide_error_details, .delete_error_log, .cancel_delete_error_log {
+                display: inline-block;
+                margin: 0px 10px 10px 0px;
+                width: auto;
+                font-size: 14px;
+                font-style: italic;
+                color: rgb(150, 150, 150);
+                border: none;
+                background: none;
+
+                &:hover {
+                    text-decoration: underline;
+                    cursor: pointer;
+                }
+            }
+
+            .hide_error_details, .cancel_delete_error_log, .delete_error_log_checkbox {
+                display: none;
+            }
+        }
+    }
+
+    .show_more_errors {
+        display: inline-block;
+        margin-top: 5px;
+        width: 100%;
+        font-size: 14px;
+        font-style: italic;
+        color: rgb(150, 150, 150);
+        border: none;
+        background: none;
+
+        &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+
+    .show_less_errors {
+        display: none;
+        margin-top: 5px;
+        width: 100%;
+        font-size: 14px;
+        font-style: italic;
+        color: rgb(150, 150, 150);
+        border: none;
+        background: none;
+
+        &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+}
+
+.admin_form .admin_form_submit,
+.admin_form.light .admin_form_submit {
+    display: block;
+    width: 70%;
+    margin: 0px auto;
+    padding: 10px;
+    outline: none;
+    font-size: 15px;
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 5px;
+    transition: width 0.3s ease;
+}
+
+.admin_form.dark .admin_form_submit {
+    color: rgb(255, 255, 255);
+    background-color: rgb(40, 40, 40);
+    border: 2px solid rgb(255, 255, 255);
+}
+
+.admin_form .admin_form_submit, .admin_form.light .admin_form_submit {
+    margin-bottom: 10px;
+    height: 50px;
+}
+
+.admin_form .admin_form_submit, .admin_form.light .admin_form_submit {
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    background-color: rgb(230, 230, 230);
+    transition: width 0.3s ease, letter-spacing 0.3s ease, background-color 0.3s ease;
+}
+
+.admin_form .admin_form_submit:hover, .admin_form.light .admin_form_submit:hover {
+    width: 80%;
+    letter-spacing: 1px;
+    background-color: rgb(245, 245, 245);
+}
+
+.admin_form.dark .admin_form_submit {
+    background-color: rgb(15, 15, 15);
+}
+
+.admin_form.dark .admin_form_submit:hover {
+    background-color: rgb(30, 30, 30);
+}
+
+.form_report {
+    position: absolute;
+    top: 55px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 16px;
+    font-family: Poppins, Arial, sans-serif;
+
+    &.invalid {
+        color: rgb(250, 50, 50);
+    }
+}
+
+.no_admin a:link,
+.no_admin a:visited
+{
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-style: italic;
+}
+
+.no_admin a:hover,
+.no_admin a:active
+{
+    text-decoration: underline;
+}
+
 /**************
  Footer Styles
 **************/
@@ -153,4 +548,19 @@ footer .copywrite, footer.light .copywrite
 footer.dark .copywrite
 {
     color: rgb(150, 150, 150);
+}
+
+/**************
+ Media Queries
+**************/
+
+@media only screen and (max-width: 600px) {
+    .approve_review, .reject_review {
+        width: 180px !important;
+        margin: 10px 5px !important;
+    }
+
+    .user .form_report {
+        top: 205px;
+    }
 }

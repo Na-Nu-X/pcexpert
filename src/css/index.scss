@@ -1,0 +1,933 @@
+@import "partials/variables";
+
+/**************
+ Header Styles
+**************/
+
+// Theme Selection
+
+.theme_selection {
+    position: absolute;
+    top: 100px;
+    left: 20px;
+    display: flex;
+    gap: 10px;
+    z-index: 50;
+
+    .light_theme,
+    .dark_theme {
+        width: 40px;
+        height: 40px;
+        padding: 2px;
+        background-color: transparentize($secondary-color, 0.2);
+        border-radius: 50%;
+        transition: transform 0.3s ease;
+
+        &:hover {
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+    }
+
+    .light_theme {
+        background-color: rgb(250, 250, 210);
+        border: 1px solid rgb(230, 230, 100)
+    }
+
+    .dark_theme {
+        background-color: rgb(240, 240, 255);
+        border: 1px solid rgb(170, 170, 250);
+    }
+}
+
+// Header Box
+
+.header_box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+
+    h1 {
+        z-index: 50;
+        text-align: center;
+
+        a {
+            text-decoration: none;
+            font-family: "Bruno Ace", sans-serif;
+            font-weight: 500;
+            font-size: 70px;
+            color: transparentize($secondary-color, 0.2);
+            transition: letter-spacing 0.3s ease;
+            animation: fade_in_animation 2s ease-out;
+
+            &:hover,
+            &:active {
+                letter-spacing: 1px;
+            }
+        }
+    }
+}
+
+// Blob Buttons
+
+.buttons {
+    width: 100%;
+    height: 64px;
+    text-align: center;
+    animation: fade_in_animation 1s ease-out forwards;
+}
+
+.blob-btn.login_button {
+    background-color: transparentize($secondary-color, 0.2);
+    color: $main-color;
+}
+
+.blob-btn.registration_button {
+    background-color: transparentize($main-color, 0.8);
+    color: $secondary-color;
+}
+
+*:before, *:after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.blob-btn {
+    text-decoration: none;
+    display: inline-block;
+    width: 225px;
+    $numOfBlobs: 4;
+    z-index: 1;
+    position: relative;
+    padding: 20px 46px;
+    margin: 0px 20px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    transition: color 0.5s;
+    cursor: pointer;
+    border-radius: 30px;
+    transition: transform 0.3s ease;
+
+    &:before {
+        content: "";
+        z-index: 1;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        border: 1px solid rgb(0, 0, 0);
+        border-radius: 30px;
+    }
+
+    &:after {
+        content: "";
+        z-index: -2;
+        position: absolute;
+        left: 1*1.5px;
+        top: 1*1.5px;
+        width: 100%;
+        height: 100%;
+        transition: all 0.3s 0.2s;
+        border-radius: 30px;
+    }
+
+    &:hover {
+        color: $secondary-color;
+        border-radius: 30px;
+    
+        &:after {
+            transition: all 0.3s;
+            left: 0;
+            top: 0;
+            border-radius: 30px;
+        }
+    }
+
+    &__inner {
+        z-index: -1;
+        overflow: hidden;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 30px;
+    }
+
+    &__blobs {
+        position: relative;
+        display: block;
+        height: 100%;
+        filter: url('#goo');
+    }
+
+    &__blob {
+        position: absolute;
+        top: 0px;
+        width: 100% / $numOfBlobs;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        border-radius: 100%;
+        transform: translate3d(0,150%,0) scale(1.7);
+        transition: transform 0.45s;
+    
+        @supports(filter: url('#goo')) {
+            transform: translate3d(0,150%,0) scale(1.4);
+        }
+    
+        @for $i from 1 through $numOfBlobs {
+            &:nth-child(#{$i}) 
+            {
+                left: ($i - 1) * (120% / $numOfBlobs);
+                transition-delay: ($i - 1) * 0.08s;
+            }
+        }
+    
+        .blob-btn:hover & {
+            transform: translateZ(0) scale(1.7);
+            
+            @supports(filter: url('#goo')) {
+                transform: translateZ(0) scale(1.4);
+            }
+        }
+    }
+
+    &:hover,
+    &:focus {
+        transform: scale(1.1);
+    }
+}
+
+// Header Text
+
+.header_text {
+    position: absolute;
+    bottom: 0%;
+    width: 100%;
+    padding: 10px 20px;
+    background-color: transparentize($main-color, 0.8);
+
+    .user_rating {
+        position: absolute;
+        top: 50%;
+        left: 20px;
+        transform: translateY(-50%);
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        img {
+            width: 12px;
+            height: 12px;
+        }
+    }
+
+    p {
+        text-align: center;
+        color: darken($secondary-color, 5%);
+        font-size: 12px;
+    }
+}
+
+// Photo Gallery
+
+.photo_gallery {
+    display: flex;
+    justify-content: center;
+    padding: 0px 10px;
+    overflow: hidden;
+
+    .image {
+        position: relative;
+        width: 100%;
+        min-width: 0px;
+        height: 500px;
+        margin: 0px 10px 25px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        color: $secondary-color;
+        border: 1px solid $main-color;
+        border-radius: $big-border-radius;
+        cursor: pointer;
+        transition: min-width 0.5s ease-in-out;
+
+        &.active {
+            min-width: $main-width;
+
+            h2 {
+                opacity: 1;
+                transition: opacity 1s ease;
+            }
+        }
+
+        &.dark {
+            border: 2px solid $secondary-color;
+        }
+
+        h2 {
+            position: absolute;
+            bottom: 10px;
+            left: 20px;
+            opacity: 0;
+            font-size: 2em;
+        }
+    }
+
+    $photo_gallery_images: (image_1: url(/content/images/processor.jpg), image_2: url(/content/images/motherboard.jpg), image_3: url(/content/images/graphics-card.jpg), image_4: url(/content/images/graphics-card-2.jpg), image_5: url("/content/images/ram.jpg"));
+
+    @each $name, $path in $photo_gallery_images {
+        .#{$name} {
+            background-image: $path;
+        }
+    }
+}
+
+/************
+ Main Styles
+************/
+
+.about_us {
+    padding: 10px 20px;
+    border-radius: $small-border-radius $small-border-radius 0px 0px;
+
+    &.light {
+        background-image: linear-gradient(darken($secondary-color, 5%), $secondary-color);
+    }
+
+    &.dark {
+        background-image: linear-gradient(lighten($main-color, 2%), lighten($main-color, 5%));
+    }
+}
+
+.contact {
+    padding: 10px 20px;
+    border-radius: 0px 0px $small-border-radius $small-border-radius;
+    background-image: linear-gradient($secondary-color, darken($secondary-color, 5%));
+
+    &.light {
+        background-image: linear-gradient($secondary-color, darken($secondary-color, 5%));
+    }
+
+    &.dark {
+        background-image: linear-gradient(lighten($main-color, 5%), lighten($main-color, 2%));
+    }
+}
+
+.main_content {
+    padding: 10px 20px;
+    max-width: $main-width;
+    margin: 0px auto;
+    border-radius: 0px 0px $small-border-radius $small-border-radius;
+
+    &.light {
+        background-color: $secondary-color;
+    }
+
+    &.dark {
+        background-color: lighten($main-color, 5%);
+    }
+}
+
+.discount_icon {
+    position: absolute;
+    transform: translate(-26px, 26px);
+}
+
+.price {
+    font-style: italic;
+}
+
+.contact_us_button {
+    font-style: italic;
+    font-size: 1.2em;
+    color: rgb(160, 229, 165);
+    text-decoration: none;
+
+    &:hover,
+    &:active {
+        text-decoration: underline;
+    }
+}
+
+// Slider
+
+.slider {
+    transform: translate(0%, 0%);
+    max-width: $main-width;
+    max-height: 400px;
+    margin: 30px auto;
+    border-radius: $small-border-radius;
+    overflow: hidden;
+
+    &.light {
+        border: 1px solid $main-color;
+    }
+
+    &.dark {
+        border: 2px solid $secondary-color;
+    }
+
+    .slides {
+        display: flex;
+        width: 500%;
+        height: 100%;
+
+        input[name="r"] {
+            display: none;
+        }
+
+        @for $i from 1 through 5 {
+            #r#{$i}:checked ~ .s1 {
+                margin-left: (-($i - 1%) * 40) / 2; // 0%, -20%, -40%, -60%, -80%
+            }
+        }
+
+        .slide {
+            width: 20%;
+            transition: margin-left 1s ease;
+
+            img {
+                width: 100%;
+                height: 100%;
+                transition: transform 0.3s ease-in-out;
+
+                &:hover {
+                    transform: scale(1.1);
+                }
+            }
+        }
+    }
+
+    .navigation {
+        position: absolute;
+        left: 50%;
+        bottom: 0px;
+        transform: translateX(-50%);
+        display: flex;
+
+        .bar {
+            width: 60px;
+            height: 15px;
+            border: 2px solid $secondary-color;
+            margin: 10px;
+            cursor: pointer;
+
+            &:hover {
+                transform: scale(1.1);
+                transition: transform 0.3s ease;
+            }
+        }
+    }
+}
+
+// Google Map
+
+.map {
+    iframe {
+        width: 100%;
+        height: 400px;
+        margin-bottom: 30px;
+        border-radius: $small-border-radius;
+        opacity: 0.8;
+        overflow: hidden;
+        transition: transform 0.3s ease-in-out, opacity 0.3s ease;
+
+        &:hover {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+    }
+
+    &.light {
+        iframe {
+            border: 1px solid $main-color;
+        }
+    }
+
+    &.dark {
+        iframe {
+            border: 2px solid $secondary-color;
+        }
+    }
+}
+
+.faq h3 {
+    text-align: center;
+}
+
+// Reviews
+
+.reviews {
+    .user_review {
+        h3 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .review {
+            margin: 0px auto;
+            width: 70%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: $small-border-radius;
+            cursor: pointer;
+            transition: background-color 0.3s ease, width 0.3s ease;
+
+            .pending_review {
+                text-align: center;
+                font-size: 0.9em;
+                font-style: italic;
+                color: darken($secondary-color, 20%);
+            }
+
+            .reviewer {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 10px;
+
+                .user_name {
+                    .date {
+                        font-style: italic;
+                        color: darken($secondary-color, 20%);
+                    }
+                }
+            }
+
+            p {
+                margin-bottom: 0px;
+            }
+        }
+
+        .write_review {
+            position: relative;
+
+            .reviewer {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 10px;
+
+                .user_name {
+                    margin-bottom: 0px;
+
+                    .date {
+                        font-style: italic;
+                        color: darken($secondary-color, 20%);
+                    }
+                }
+            }
+
+            .stars {
+                .star {
+                    transition: transform 0.3s ease;
+
+                    &:hover {
+                        transform: scale(1.1);
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            textarea {
+                width: 100%;
+                height: 100px;
+                padding: 5px 10px;
+                resize: none;
+                outline: none;
+                border-radius: $small-border-radius;
+
+                &::placeholder {
+                    color: darken($secondary-color, 10%);
+                }
+            }
+
+            button {
+                width: 200px;
+                height: 50px;
+                margin-bottom: 30px;
+                border: 1px solid $main-color;
+                border-radius: $big-border-radius;
+                background-color: rgb(155, 230, 50);
+                transition: letter-spacing 0.3s ease, background-color 0.3s ease;
+
+                &:hover {
+                    letter-spacing: 1px;
+                    background-color: rgb(170, 255, 50);
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .edit_review {
+            font-size: 0.9em;
+            font-style: italic;
+            text-decoration: none;
+            color: darken($secondary-color, 20%);
+
+            &:hover,
+            &:active {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .all_reviews_title {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .all_reviews {
+        .review {
+            margin: 0px auto;
+            width: 70%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid $main-color;
+            border-radius: $small-border-radius;
+            background-color: darken($secondary-color, 5%);
+            cursor: pointer;
+            transition: background-color 0.3s ease, width 0.3s ease;
+
+            &:last-of-type {
+                margin-bottom: 0px;
+            }
+
+            .reviewer {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 10px;
+
+                .user_name {
+                    .date {
+                        font-style: italic;
+                        color: darken($secondary-color, 20%);
+                    }
+                }
+            }
+
+            p {
+                margin-bottom: 0px;
+            }
+        }
+    }
+
+    &.light {
+        .review {
+            border: 1px solid $main-color;
+            background-color: darken($secondary-color, 5%);
+            cursor: pointer;
+
+            &:hover {
+                background-color: $secondary-color;
+                cursor: pointer;
+            }
+        }
+    
+        textarea {
+            border: 1px solid $main-color;
+        }
+    }
+
+    &.dark {
+        .review {
+            background-color: lighten($main-color, 10%);
+            border: 2px solid $secondary-color;
+            cursor: pointer;
+
+            &:hover {
+                background-color: lighten($main-color, 5%);
+            }
+        }
+
+        textarea {
+            color: $secondary-color;
+            background-color: lighten($main-color, 5%);
+            border: 2px solid $secondary-color;
+        }
+    }
+}
+
+// Contact Form
+
+.contact_form {
+    position: relative;
+
+    &:has(textarea:focus) .attachment_container {
+        right: 10%;
+        width: 80%;
+    }
+
+    input {
+        display: block;
+        width: 70%;
+        height: 50px;
+        margin: 0px auto 10px;
+        padding: 10px;
+        outline: none;
+        color: $main-color;
+        background-color: $secondary-color;
+        border: 1px solid $main-color;
+        border-radius: $small-border-radius;
+        transition: width 0.3s ease;
+
+        &:focus {
+            width: 80%;
+        }
+
+        &::placeholder {
+            color: darken($secondary-color, 10%);
+        }
+    }
+
+    select {
+        display: block;
+        width: 70%;
+        height: 50px;
+        margin: 0px auto 10px;
+        padding: 10px;
+        outline: none;
+        background-color: $secondary-color;
+        color: $main-color;
+        border: 1px solid $main-color;
+        border-radius: $small-border-radius;
+        transition: width 0.3s ease;
+
+        &:hover {
+            width: 80%;
+            cursor: pointer;
+        }
+    }
+
+    .attachment_container {
+        position: absolute;
+        bottom: 140px;
+        right: 15%;
+        width: 70%;
+        height: 20px;
+        transition: right 0.3s ease, width 0.3s ease;
+
+        .attachment_report {
+            position: absolute;
+            bottom: 0px;
+            background-color: darken($secondary-color, 5%);
+            width: 100%;
+            margin: 0px auto;
+            border-bottom: 1px solid $main-color;
+            border-left: 1px solid $main-color;
+            border-right: 1px solid $main-color;
+            border-radius: 0px 0px 5px 5px;
+            text-align: center;
+            font-size: 12px;
+
+            &.dark{
+                background-color: lighten($main-color, 2%);
+                border-bottom: 2px solid $secondary-color;
+                border-left: 2px solid $secondary-color;
+                border-right: 2px solid $secondary-color;
+            }
+        }
+
+        .attachment {
+            position: absolute;
+            top: -73px;
+            right: 11px;
+            transition: right 0.3s ease;
+
+            i {
+                color: darken($secondary-color, 10%);
+
+                &:hover {
+                    color: darken($secondary-color, 20%);
+                    cursor: pointer;
+                    transition: color 0.3s ease;
+                }
+            }
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+    }
+
+    textarea {
+        display: block;
+        width: 70%;
+        height: 100px;
+        margin: 0px auto 20px;
+        padding: 5px 10px;
+        outline: none;
+        resize: none;
+        background-color: $secondary-color;
+        color: $main-color;
+        border-radius: $small-border-radius;
+        border: 1px solid $main-color;
+        transition: width 0.3s ease;
+
+        &:focus {
+            width: 80%;
+        }
+
+        &::placeholder {
+            color: darken($secondary-color, 10%);
+        }
+    }
+
+    .contact_form_submit {
+        display: block;
+        width: 70%;
+        height: 50px;
+        margin: 0px auto 10px;
+        padding: 10px;
+        outline: none;
+        background-color: darken($secondary-color, 2%);
+        color: $main-color;
+        border: 1px solid $main-color;
+        border-radius: $small-border-radius;
+        cursor: pointer;
+        transition: width 0.3s ease, letter-spacing 0.3s ease, background-color 0.3s ease;
+
+        &:hover {
+            width: 80%;
+            letter-spacing: 1px;
+            background-color: darken($secondary-color, 5%);
+        }
+    }
+
+    &.dark {
+        input {
+            color: $secondary-color;
+            background-color: lighten($main-color, 5%);
+            border: 2px solid $secondary-color;
+        }
+
+        select {
+            color: $secondary-color;
+            background-color: lighten($main-color, 5%);
+            border: 2px solid $secondary-color;
+        }
+
+        textarea {
+            color: $secondary-color;
+            background-color: lighten($main-color, 5%);
+            border: 2px solid $secondary-color;
+        }
+
+        .contact_form_submit {
+            color: $secondary-color;
+            background-color: lighten($main-color, 2%);
+            border: 2px solid $secondary-color;
+
+            &:hover {
+                background-color: lighten($main-color, 5%);
+            }
+        }
+    }
+}
+
+.contact_form input:-webkit-autofill, .contact_form input:-webkit-autofill:hover, .contact_form input:-webkit-autofill:focus, .contact_form.light input:-webkit-autofill, .contact_form.light input:-webkit-autofill:hover, .contact_form.light input:-webkit-autofill:focus {
+    transition: width 0.3s ease, background-color 9999s ease;
+}
+
+.contact_form.dark input:-webkit-autofill, .contact_form.dark input:-webkit-autofill:hover, .contact_form.dark input:-webkit-autofill:focus {
+    -webkit-text-fill-color: $secondary-color;
+}
+
+/**************
+ Media Queries
+**************/
+
+@media only screen and (max-width: 1400px) {
+    .photo_gallery {
+        padding: 0px;
+
+        .image {
+            height: 300px;
+            border-radius: $medium-border-radius;
+
+            &:nth-of-type(1) {
+                margin: 0px 10px 25px 0px;
+            }
+
+            &:nth-of-type(5) {
+                margin: 0px 0px 25px 10px;
+            }
+
+            &.active {
+                min-width: 50%;
+                height: 300px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .image h2 {
+        font-size: 1.5em;
+    }
+
+    main {
+        border-radius: $small-border-radius;
+
+        h2 {
+            font-size: 2em;
+        }
+
+        p {
+            font-size: 1.2em;
+        }
+    }
+
+    .map iframe:hover {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .reviews .review, .user {
+        width: 100% !important;
+    }
+
+    .contact_form input, .contact_form select, .contact_form textarea, .contact_form.light input, .contact_form.light select, .contact_form.light textarea {
+        width: 100%;
+    }
+
+    .contact_form input[type="text"]:focus, .contact_form input[type="email"]:focus, .contact_form textarea:focus {
+        width: 100%;
+    }
+
+    .contact_form select:hover, .contact_form button[type="submit"]:hover, .contact_form.light button[type="submit"], .contact_form.light button[type="submit"]:hover, .contact_form.dark button[type="submit"], .contact_form.dark button[type="submit"]:hover {
+        width: 100%;
+    }
+    
+    .attachment_container {
+        width: 100%;
+        right: 0%;
+    }
+
+    .contact_form:has(textarea:focus) .attachment_container {
+        width: 100%;
+        right: 0%;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .blob-btn {
+        width: 80% !important;
+        margin: 10px 0px !important;
+    }
+}

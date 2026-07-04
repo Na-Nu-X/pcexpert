@@ -67,7 +67,9 @@
     <title>PC Expert - Obnova hesla</title>
     <link rel="icon" href="/content/images/favicon.png"> <!-- https://www.flaticon.com/free-icon/pc-tower_4275113 -->
 
+    <link rel="stylesheet" href="/src/css/styles.css">
     <link rel="stylesheet" href="/src/css/forms.css">
+    
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins"> <!-- Poppins Font Style -->
 
     <script src="https://kit.fontawesome.com/069c0938a1.js" crossorigin="anonymous"></script> <!-- Icons -->
