@@ -351,6 +351,12 @@
     <script src="/src/js/lightbox-plus-jquery.min.js"></script> <!-- https://github.com/lokesh/lightbox2/tree/dev -->
     <script src="https://kit.fontawesome.com/069c0938a1.js" crossorigin="anonymous"></script> <!-- Icons -->
 
+    <script src="/src/ts/dist/components/preloader.js" type="module"></script>
+    <script src="/src/ts/dist/components/cookie_policy.js" type="module"></script>
+    <script src="/src/ts/dist/components/theme_selection.js" type="module"></script>
+    <script src="/src/ts/dist/components/move_up.js" type="module"></script>
+    <script src="/src/ts/dist/components/navigation_bar.js" type="module"></script>
+    <script src="/src/ts/dist/components/photo_gallery.js" type="module"></script>
     <script src="/src/ts/dist/pages/homepage/components/reviews.js" type="module"></script>
     <script src="/src/ts/dist/pages/homepage/components/contact_form.js" type="module"></script>
 
@@ -365,13 +371,6 @@
             console.log("%cPC Expert by Patrik Behul", "color: rgb(170, 255, 50); background-color: rgb(0, 0, 0)")
         })
     </script>
-    
-    <script src="/src/js/preloader.js" defer></script>
-    <script src="/src/js/navigation_bar.js" defer></script>
-    <script src="/src/js/move_up_icon.js" defer></script>
-    <script src="/src/js/cookie_policy.js" defer></script>
-    <script src="/src/js/theme_selection.js" defer></script>
-    <script src="/src/js/photo_gallery.js" defer></script>
 </head>
 
 <body class="<?php echo $theme; ?>">
@@ -392,15 +391,7 @@
 
         <?php endif; ?>
 
-        <nav class="navigation_bar
-            <?php if(isset($_SESSION['logged_in_user_id']) and getUserRole($connection, $_SESSION['logged_in_user_id']) === 'admin'): ?>
-                admin
-
-            <?php else: ?>
-                classic
-
-            <?php endif; ?>
-        ">
+        <nav class="navigation_bar">
             <ul>
                 <li class="navigation_bar_item scroll_about_us">
                     <a href="#">O NÁS</a>
@@ -421,27 +412,27 @@
 
                 <?php endif; ?>
                 
-                <div class="navigation_icon">
+                <button class="hamburger">
                     <i class="fa-solid fa-bars"></i>
                     <!-- <i class="fa-solid fa-xmark"></i> -->
-                </div>
+                </button>
             </ul>
         </nav>
 
-        <div class="move_up_icon">
-            <img src="/content/images/up-arrow.png" title="Posunúť nahor" alt="Posunúť nahor"> <!-- https://www.flaticon.com/free-icon/up-arrow_271239 -->
-        </div>
+        <button class="move_up" title="Posunúť nahor" aria-label="Posunúť nahor">
+            <img src="/content/images/up-arrow.png" alt="Posunúť nahor"> <!-- https://www.flaticon.com/free-icon/up-arrow_271239 -->
+        </button>
 
         <div class="cookie_policy">
             <img src="/content/images/cookie.png" alt="Cookie"> <!-- https://www.flaticon.com/free-icon/cookie_1047711 -->
             <h2>Cookie Policy</h2>
             <p>Táto&nbsp;stránka&nbsp;používa&nbsp;súbory&nbsp;cookies.</p>
-            <button class="cookie_policy_button">ROZUMIEM</button>
+            <button class="accept_all">ROZUMIEM</button>
         </div>
 
         <div class="theme_selection">
-            <img class="light_theme" src="/content/images/sun.png" title="Svetlé zobrazenie" alt="Svetlé zobrazenie"> <!-- https://www.flaticon.com/free-icon/day-mode_11457488 -->
-            <img class="dark_theme" src="/content/images/moon.png" title="Tmavé zobrazenie" alt="Tmavé zobrazenie"> <!-- https://www.flaticon.com/free-icon/moon_11735139 -->
+            <button class="light_theme" title="Svetlé zobrazenie" aria-label="Svetlé zobrazenie"><img src="/content/images/sun.png" alt="Svetlé zobrazenie"></button> <!-- https://www.flaticon.com/free-icon/day-mode_11457488 -->
+            <button class="dark_theme" title="Tmavé zobrazenie" aria-label="Tmavé zobrazenie"><img src="/content/images/moon.png" alt="Tmavé zobrazenie"></button> <!-- https://www.flaticon.com/free-icon/moon_11735139 -->
         </div>
         
         <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true): ?>

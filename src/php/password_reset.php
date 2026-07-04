@@ -72,11 +72,10 @@
 
     <script src="https://kit.fontawesome.com/069c0938a1.js" crossorigin="anonymous"></script> <!-- Icons -->
 
+    <script src="/src/ts/dist/components/preloader.js" type="module"></script>
+    <script src="/src/ts/dist/components/cookie_policy.js" type="module"></script>
+    <script src="/src/ts/dist/components/navigation_bar.js" type="module"></script>
     <script src="/src/ts/dist/pages/password_reset/components/password_reset_form.js" type="module"></script>
-
-    <script src="/src/js/preloader.js" defer></script>
-    <script src="/src/js/navigation_bar.js" defer></script>
-    <script src="/src/js/cookie_policy.js" defer></script>
 </head>
 
 <body class="<?php echo $theme; ?>">
@@ -101,10 +100,10 @@
                     <a href="./moj-ucet">MÔJ ÚČET</a>
                 </li>
 
-                <div class="navigation_icon">
+                <button class="hamburger">
                     <i class="fa-solid fa-bars"></i>
                     <!-- <i class="fa-solid fa-xmark"></i> -->
-                </div>
+                </button>
             </ul>
         </nav>
 
@@ -112,7 +111,7 @@
             <img src="/content/images/cookie.png" alt="Cookie"> <!-- https://www.flaticon.com/free-icon/cookie_1047711 -->
             <h2>Cookie Policy</h2>
             <p>Táto&nbsp;stránka&nbsp;používa&nbsp;súbory&nbsp;cookies.</p>
-            <button class="cookie_policy_button">ROZUMIEM</button>
+            <button class="accept_all">ROZUMIEM</button>
         </div>
     </header>
 

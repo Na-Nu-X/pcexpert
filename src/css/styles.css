@@ -97,18 +97,20 @@ header {
   font-family: Arial, Helvetica, sans-serif;
   text-transform: uppercase;
 }
-.navigation_bar ul .navigation_icon {
+.navigation_bar ul .hamburger {
+  all: unset;
   display: none;
+  margin: 0px auto;
   font-size: 30px;
   color: rgb(255, 255, 255);
 }
-.navigation_bar ul .navigation_icon:hover {
+.navigation_bar ul .hamburger:hover {
   transform: scale(1.1);
   cursor: pointer;
   transition: transform 0.3s ease;
 }
 
-.move_up_icon {
+.move_up {
   opacity: 0;
   position: fixed;
   bottom: 20px;
@@ -122,10 +124,10 @@ header {
   z-index: 200;
   transition: opacity 0.3s ease;
 }
-.move_up_icon:hover {
+.move_up:hover {
   cursor: pointer;
 }
-.move_up_icon:hover img {
+.move_up:hover img {
   transform: scale(1.1);
   transition: transform 0.3s ease;
 }
@@ -153,7 +155,7 @@ header {
   vertical-align: middle;
   font-size: 30px;
 }
-.cookie_policy .cookie_policy_button {
+.cookie_policy .accept_all {
   width: 200px;
   height: 50px;
   background-color: rgb(50, 125, 200);
@@ -166,7 +168,7 @@ header {
   text-transform: uppercase;
   transition: letter-spacing 0.3s ease, transform 0.3s ease;
 }
-.cookie_policy .cookie_policy_button:hover, .cookie_policy .cookie_policy_button:focus {
+.cookie_policy .accept_all:hover, .cookie_policy .accept_all:focus {
   letter-spacing: 1px;
   transform: scale(1.1);
   cursor: pointer;
@@ -180,9 +182,7 @@ header {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 20px;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
+  user-select: none;
   z-index: 100;
   animation: fade_out_animation 5s ease-out;
 }
@@ -201,7 +201,8 @@ header {
   left: 20px;
   z-index: 90;
 }
-.theme_selection img {
+.theme_selection .light_theme,
+.theme_selection .dark_theme {
   width: 40px;
   height: 40px;
   margin: 0px 5px;
@@ -210,7 +211,8 @@ header {
   border-radius: 50%;
   transition: transform 0.3s ease;
 }
-.theme_selection img:hover {
+.theme_selection .light_theme:hover,
+.theme_selection .dark_theme:hover {
   transform: scale(1.1);
   cursor: pointer;
 }
@@ -618,9 +620,6 @@ main p {
   font-size: 15px;
   border-radius: 5px;
 }
-.reviews .user_review .write_review textarea::-moz-placeholder {
-  color: rgb(180, 180, 180);
-}
 .reviews .user_review .write_review textarea::placeholder {
   color: rgb(180, 180, 180);
 }
@@ -1001,9 +1000,6 @@ main p {
 .contact_form input:focus {
   width: 80%;
 }
-.contact_form input::-moz-placeholder {
-  color: rgb(180, 180, 180);
-}
 .contact_form input::placeholder {
   color: rgb(180, 180, 180);
 }
@@ -1089,9 +1085,6 @@ main p {
 }
 .contact_form textarea:focus {
   width: 80%;
-}
-.contact_form textarea::-moz-placeholder {
-  color: rgb(180, 180, 180);
 }
 .contact_form textarea::placeholder {
   color: rgb(180, 180, 180);
@@ -1191,7 +1184,6 @@ main p {
 }
 
 .contact_form input:-webkit-autofill, .contact_form input:-webkit-autofill:hover, .contact_form input:-webkit-autofill:focus, .contact_form.light input:-webkit-autofill, .contact_form.light input:-webkit-autofill:hover, .contact_form.light input:-webkit-autofill:focus {
-  -webkit-transition: width 0.3s ease, background-color 9999s ease;
   transition: width 0.3s ease, background-color 9999s ease;
 }
 
@@ -1419,42 +1411,25 @@ footer.dark .copywrite {
   }
 }
 @media only screen and (min-width: 988px) {
-  .navigation_bar.admin ul li {
+  .navigation_bar ul li {
     display: inline-block !important;
   }
 }
 @media only screen and (max-width: 987px) {
-  .navigation_bar.admin ul li {
+  .navigation_bar ul li {
     display: none;
     margin: 5px auto 0px;
     width: 225px;
   }
-  .navigation_bar.admin .navigation_icon {
-    display: block;
+  .navigation_bar .hamburger {
+    display: block !important;
   }
-  .navigation_bar.admin ~ .theme_selection,
-  .navigation_bar.admin ~ .account ul {
+  .navigation_bar ~ .theme_selection,
+  .navigation_bar ~ .account ul {
     top: 60px;
-  }
-}
-@media only screen and (min-width: 801px) {
-  .navigation_bar.classic ul li {
-    display: inline-block !important;
   }
 }
 @media only screen and (max-width: 800px) {
-  .navigation_bar.classic ul li {
-    display: none;
-    margin: 5px auto 0px;
-    width: 225px;
-  }
-  .navigation_bar.classic .navigation_icon {
-    display: block;
-  }
-  .navigation_bar.classic ~ .theme_selection,
-  .navigation_bar.classic ~ .account ul {
-    top: 60px;
-  }
   .image h2 {
     font-size: 20px;
   }
@@ -1529,4 +1504,6 @@ footer.dark .copywrite {
     opacity: 0;
     top: 50%;
   }
-}/*# sourceMappingURL=styles.css.map */
+}
+
+/*# sourceMappingURL=styles.css.map */

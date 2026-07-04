@@ -56,53 +56,6 @@ body.dark {
 /**************
  Header Styles
 **************/
-.navigation_bar {
-  position: fixed;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
-  border-bottom: 1px solid rgb(150, 150, 150);
-  text-align: center;
-  z-index: 100;
-}
-
-.navigation_bar ul li {
-  display: inline-block;
-  margin: 20px;
-  width: 200px;
-  background-color: rgb(255, 255, 255);
-  border: 2px solid rgb(0, 0, 0);
-  border-radius: 5px;
-  font-size: 15px;
-  transition: letter-spacing 0.3s ease, transform 0.3s ease;
-}
-
-.navigation_bar ul li:hover {
-  letter-spacing: 1px;
-  transform: scale(1.1);
-  cursor: pointer;
-}
-
-.navigation_bar ul li a {
-  display: block;
-  padding: 10px;
-  text-decoration: none;
-  color: rgb(0, 0, 0);
-  font-family: Arial, Helvetica, sans-serif;
-  text-transform: uppercase;
-}
-
-.navigation_icon {
-  display: none;
-  font-size: 30px;
-  color: rgb(255, 255, 255);
-}
-
-.navigation_icon:hover {
-  transform: scale(1.1);
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
 .cookie_policy {
   position: fixed;
   width: 100%;
@@ -135,7 +88,7 @@ body.dark {
   font-family: Poppins, Arial, sans-serif;
 }
 
-.cookie_policy_button {
+.accept_all {
   width: 200px;
   height: 50px;
   background-color: rgb(50, 125, 200);
@@ -149,8 +102,8 @@ body.dark {
   transition: letter-spacing 0.3s ease, transform 0.3s ease;
 }
 
-.cookie_policy_button:hover,
-.cookie_policy_button:focus {
+.accept_all:hover,
+.accept_all:focus {
   letter-spacing: 1px;
   transform: scale(1.1);
   cursor: pointer;
@@ -164,9 +117,7 @@ body.dark {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 20px;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
+  user-select: none;
   z-index: 100;
   animation: fade_out_animation 5s ease-out;
 }
@@ -445,10 +396,6 @@ main {
   transition: color 0.3s ease;
 }
 
-.registration_form input::-moz-placeholder, .login_form input::-moz-placeholder, .edit_account_form input::-moz-placeholder, .edit_review_form textarea::-moz-placeholder, .edit_account_form input::-moz-placeholder, .edit_review_form textarea::-moz-placeholder, .password_reset_form input::-moz-placeholder {
-  color: rgb(180, 180, 180);
-}
-
 .registration_form input::placeholder,
 .login_form input::placeholder,
 .edit_account_form input::placeholder,
@@ -544,7 +491,6 @@ main {
 .login_form input[type=text]:-webkit-autofill, .login_form input[type=text]:-webkit-autofill:hover, .login_form input[type=text]:-webkit-autofill:focus, .login_form input[type=email]:-webkit-autofill, .login_form input[type=email]:-webkit-autofill:hover, .login_form input[type=email]:-webkit-autofill:focus,
 .edit_account_form input[type=text]:-webkit-autofill, .edit_account_form input[type=text]:-webkit-autofill:hover, .edit_account_form input[type=text]:-webkit-autofill:focus, .edit_account_form input[type=email]:-webkit-autofill, .edit_account_form input[type=email]:-webkit-autofill:hover, .edit_account_form input[type=email]:-webkit-autofill:focus {
   -webkit-text-fill-color: rgb(255, 255, 255);
-  -webkit-transition: width 0.3s ease, background-color 9999s ease;
   transition: width 0.3s ease, background-color 9999s ease;
 }
 
@@ -653,9 +599,7 @@ main {
   font-family: Poppins, Arial, sans-serif;
   font-size: 14px;
   color: rgb(255, 255, 255);
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
+  user-select: none;
   transition: letter-spacing 0.3s ease;
 }
 
@@ -820,14 +764,6 @@ footer.dark .copywrite {
  Media Queries
 **************/
 @media only screen and (max-width: 800px) {
-  .navigation_bar ul li {
-    display: none;
-    margin: 5px auto 0px;
-    width: 225px;
-  }
-  .navigation_icon {
-    display: block;
-  }
   .registration_form input[type=text], .registration_form input[type=email], .registration_form button[type=submit],
   .login_form input[type=text], .login_form input[type=email], .login_form button[type=submit],
   .login_method a,
@@ -846,11 +782,6 @@ footer.dark .copywrite {
   }
   .agree input + label::before, .agree input:checked + label::before, .agree input:checked + label::after, .agree input:not(:checked) + label::after {
     left: -16px;
-  }
-}
-@media only screen and (min-width: 801px) {
-  .navigation_bar ul li {
-    display: inline-block !important;
   }
 }
 @media only screen and (max-width: 500px) {
@@ -892,4 +823,6 @@ footer.dark .copywrite {
     opacity: 0;
     top: 50%;
   }
-}/*# sourceMappingURL=forms.css.map */
+}
+
+/*# sourceMappingURL=forms.css.map */

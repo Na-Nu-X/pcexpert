@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/src/css/forms.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins"> <!-- Poppins Font Style -->
 
-    <script src="/src/js/preloader.js" defer></script>
+    <script src="/src/ts/dist/components/preloader.js" type="module"></script>
 </head>
 
 <body>

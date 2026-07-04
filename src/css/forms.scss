@@ -71,61 +71,6 @@ body.dark
  Header Styles
 **************/
 
-// Navigation Bar
-
-.navigation_bar
-{
-    position: fixed;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    border-bottom: 1px solid rgb(150, 150, 150);
-    text-align: center;
-    z-index: 100;
-}
-
-.navigation_bar ul li
-{
-    display: inline-block;
-    margin: 20px;
-    width: 200px;
-    background-color: rgb(255, 255, 255);
-    border: 2px solid rgb(0, 0, 0);
-    border-radius: 5px;
-    font-size: 15px;
-    transition: letter-spacing 0.3s ease, transform 0.3s ease;
-}
-
-.navigation_bar ul li:hover
-{
-    letter-spacing: 1px;
-    transform: scale(1.1);
-    cursor: pointer;
-}
-
-.navigation_bar ul li a
-{
-    display: block;
-    padding: 10px;
-    text-decoration: none;
-    color: rgb(0, 0, 0);
-    font-family: Arial, Helvetica, sans-serif;
-    text-transform: uppercase;
-}
-
-.navigation_icon
-{
-    display: none;
-    font-size: 30px;
-    color: rgb(255, 255, 255);
-}
-
-.navigation_icon:hover
-{
-    transform: scale(1.1);
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
 // Cookie Policy
 
 .cookie_policy
@@ -140,33 +85,28 @@ body.dark
     z-index: 100;
 }
 
-.cookie_policy.hide
-{
+.cookie_policy.hide {
     display: none;
 }
 
-.cookie_policy img
-{
+.cookie_policy img {
     display: inline-block;
     vertical-align: middle;
     margin-right: 20px;
 }
 
-.cookie_policy h2
-{
+.cookie_policy h2 {
     display: inline-block;
     vertical-align: middle;
     font-family: Poppins, Arial, sans-serif;
     font-size: 30px;
 }
 
-.cookie_policy p
-{
+.cookie_policy p {
     font-family: Poppins, Arial, sans-serif;
 }
 
-.cookie_policy_button
-{
+.accept_all {
     width: 200px;
     height: 50px;
     background-color: rgb(50, 125, 200);
@@ -180,9 +120,8 @@ body.dark
     transition: letter-spacing 0.3s ease, transform 0.3s ease;
 }
 
-.cookie_policy_button:hover,
-.cookie_policy_button:focus
-{
+.accept_all:hover,
+.accept_all:focus {
     letter-spacing: 1px;
     transform: scale(1.1);
     cursor: pointer;
@@ -938,19 +877,6 @@ footer.dark .copywrite
 
 @media only screen and (max-width: 800px)
 {
-    .navigation_bar ul li
-    {
-        // display: block;
-        display: none;
-        margin: 5px auto 0px;
-        width: 225px;
-    }
-
-    .navigation_icon
-    {
-        display: block;
-    }
-
     .registration_form input[type="text"], .registration_form input[type="email"], .registration_form button[type="submit"],
     .login_form input[type="text"], .login_form input[type="email"], .login_form button[type="submit"],
     .login_method a,
@@ -958,8 +884,7 @@ footer.dark .copywrite
     .edit_review_form textarea, .edit_review_form button[type="submit"]
     .edit_account_form input[type="text"], .edit_account_form input[type="email"], .edit_account_form button[type="submit"],
     .edit_review_form textarea, .edit_review_form button[type="submit"],
-    .password_reset_form input[type="text"], .password_reset_form button[type="submit"]
-    {
+    .password_reset_form input[type="text"], .password_reset_form button[type="submit"] {
         width: 100%;
     }
 
@@ -976,14 +901,6 @@ footer.dark .copywrite
     .agree input + label::before, .agree input:checked + label::before, .agree input:checked + label::after, .agree input:not(:checked) + label::after
     {
         left: -16px;
-    }
-}
-
-@media only screen and (min-width: 801px)
-{
-    .navigation_bar ul li
-    {
-        display: inline-block !important;
     }
 }
 
