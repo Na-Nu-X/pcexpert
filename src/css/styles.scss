@@ -82,6 +82,7 @@ header {
 
 .navigation_bar {
     position: fixed;
+    top: 0;
     width: 100%;
     background-color: transparentize($main-color, 0.2);
     border-bottom: 1px solid darken($secondary-color, 20%);

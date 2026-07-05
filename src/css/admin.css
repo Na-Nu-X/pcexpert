@@ -2,452 +2,290 @@
  Header Styles
 **************/
 header {
-  margin-bottom: 25px;
-  height: 100vh;
-  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5)), url(/content/images/background.jpg);
-  background-size: cover;
-  background-position: center center;
-  background-attachment: fixed;
-  border-bottom: 1px solid rgb(150, 150, 150);
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-}
-
-header h1 a:link,
-header h1 a:visited {
-  text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
-  text-decoration: none;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 80px;
-  letter-spacing: 1px;
-  color: rgb(255, 255, 255);
-  -webkit-text-stroke: 2px rgb(0, 0, 0);
-  transition: letter-spacing 0.3s ease;
-  animation: fade_in_animation 2s ease-out;
-}
-
-header h1 a:hover,
-header h1 a:active {
-  letter-spacing: 5px;
+  height: auto;
+  margin-bottom: 0px;
+  background: none;
+  border: none;
+  box-shadow: none;
 }
 
 /************
  Main Styles
 ************/
-main, main.light {
-  max-width: 800px;
-  margin: 0px auto;
-  border: 1px solid rgb(150, 150, 150);
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  color: rgb(0, 0, 0);
+main {
+  margin-top: 102px;
 }
-
-main.dark {
-  color: rgb(255, 255, 255);
-  border: 1px solid rgb(255, 255, 255);
-}
-
-.pending_reviews .reviews .review {
-  margin: 0px auto;
+main .pending_reviews .reviews .review,
+main .pending_reviews .reviews .user,
+main .pending_reviews .all_users .review,
+main .pending_reviews .all_users .user,
+main .pending_reviews .all_errors .review,
+main .pending_reviews .all_errors .user,
+main .users .reviews .review,
+main .users .reviews .user,
+main .users .all_users .review,
+main .users .all_users .user,
+main .users .all_errors .review,
+main .users .all_errors .user,
+main .error_log .reviews .review,
+main .error_log .reviews .user,
+main .error_log .all_users .review,
+main .error_log .all_users .user,
+main .error_log .all_errors .review,
+main .error_log .all_errors .user {
   width: 70%;
-  margin-bottom: 0px;
+  margin: 0px auto 10px;
   padding: 10px;
-  border: 1px solid rgb(0, 0, 0);
+  background-color: rgb(242.25, 242.25, 242.25);
+  border: 1px solid #000;
   border-radius: 5px;
-  background-color: rgb(245, 245, 245);
   cursor: pointer;
   transition: background-color 0.3s ease, width 0.3s ease;
 }
-.pending_reviews .reviews .review .reviewer {
-  position: relative;
-  z-index: 0;
-}
-.pending_reviews .reviews .review .reviewer .user_name {
-  position: absolute;
-  top: 7px;
-  left: 50px;
-}
-.pending_reviews .reviews .review .reviewer .user_name .date {
+main .pending_reviews .show_more,
+main .pending_reviews .show_less,
+main .users .show_more,
+main .users .show_less,
+main .error_log .show_more,
+main .error_log .show_less {
+  display: inline-block;
+  width: 100%;
+  margin-top: 5px;
+  font-size: 0.9em;
   font-style: italic;
-  color: rgb(150, 150, 150);
+  color: #cccccc;
+  border: none;
+  background: none;
 }
-.pending_reviews .reviews .review_confirmation {
+main .pending_reviews .show_more:hover,
+main .pending_reviews .show_less:hover,
+main .users .show_more:hover,
+main .users .show_less:hover,
+main .error_log .show_more:hover,
+main .error_log .show_less:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+main .pending_reviews .show_less,
+main .users .show_less,
+main .error_log .show_less {
+  display: none;
+}
+main .pending_reviews .reviews .review:last-of-type {
+  margin-bottom: 0px;
+}
+main .pending_reviews .reviews .review .reviewer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+main .pending_reviews .reviews .review .reviewer .user_name .date {
+  font-style: italic;
+  color: #cccccc;
+}
+main .pending_reviews .reviews .review p {
+  margin-bottom: 0px;
+}
+main .pending_reviews .reviews.light .review:hover {
+  background-color: #fff;
+}
+main .pending_reviews .reviews.light textarea {
+  border: 1px solid #000;
+}
+main .pending_reviews .reviews.dark .review {
+  background-color: rgb(25.5, 25.5, 25.5);
+  border: 2px solid #fff;
+}
+main .pending_reviews .reviews.dark .review:hover {
+  background-color: rgb(12.75, 12.75, 12.75);
+}
+main .pending_reviews .reviews.dark textarea {
+  color: #fff;
+  background-color: rgb(12.75, 12.75, 12.75);
+  border: 2px solid #fff;
+}
+main .pending_reviews .reviews .review_confirmation {
   text-align: center;
 }
-.pending_reviews .reviews .review_confirmation .approve_review {
+main .pending_reviews .reviews .review_confirmation .approve_review,
+main .pending_reviews .reviews .review_confirmation .reject_review {
   width: 200px;
   height: 50px;
-  font-size: 16px;
   margin: 10px 20px;
-  background-color: rgb(155, 230, 50);
   border-radius: 25px;
   transition: letter-spacing 0.3s ease, background-color 0.3s ease;
 }
-.pending_reviews .reviews .review_confirmation .approve_review:hover {
+main .pending_reviews .reviews .review_confirmation .approve_review:hover,
+main .pending_reviews .reviews .review_confirmation .reject_review:hover {
   letter-spacing: 1px;
-  background-color: rgb(170, 255, 50);
   cursor: pointer;
 }
-.pending_reviews .reviews .review_confirmation .approve_review.light {
-  border: 1px solid rgb(0, 0, 0);
+main .pending_reviews .reviews .review_confirmation .approve_review.light,
+main .pending_reviews .reviews .review_confirmation .reject_review.light {
+  border: 1px solid #000;
 }
-.pending_reviews .reviews .review_confirmation .approve_review.dark {
-  color: rgb(255, 255, 255);
-  border: 1px solid rgb(255, 255, 255);
+main .pending_reviews .reviews .review_confirmation .approve_review.dark,
+main .pending_reviews .reviews .review_confirmation .reject_review.dark {
+  color: #fff;
+  border: 1px solid #fff;
 }
-.pending_reviews .reviews .review_confirmation .reject_review {
-  width: 200px;
-  height: 50px;
-  font-size: 16px;
-  margin: 10px 20px;
-  background-color: rgb(250, 90, 55);
-  border-radius: 25px;
-  transition: letter-spacing 0.3s ease, background-color 0.3s ease;
+main .pending_reviews .reviews .review_confirmation .approve_review {
+  background-color: #52cf20;
 }
-.pending_reviews .reviews .review_confirmation .reject_review:hover {
-  letter-spacing: 1px;
-  background-color: rgb(255, 75, 35);
-  cursor: pointer;
+main .pending_reviews .reviews .review_confirmation .approve_review:hover {
+  background-color: rgb(93.730125523, 222.129707113, 42.370292887);
 }
-.pending_reviews .reviews .review_confirmation .reject_review.light {
-  border: 1px solid rgb(0, 0, 0);
+main .pending_reviews .reviews .review_confirmation .reject_review {
+  background-color: #df3535;
 }
-.pending_reviews .reviews .review_confirmation .reject_review.dark {
-  color: rgb(255, 255, 255);
-  border: 1px solid rgb(255, 255, 255);
+main .pending_reviews .reviews .review_confirmation .reject_review:hover {
+  background-color: rgb(226.4871794872, 75.0128205128, 75.0128205128);
 }
-.pending_reviews .reviews.dark .review {
-  background-color: rgb(30, 30, 30);
-  border: 2px solid rgb(255, 255, 255);
-}
-.pending_reviews .reviews.dark .review:hover {
-  background-color: rgb(40, 40, 40);
-}
-.pending_reviews .show_more {
-  display: inline-block;
-  margin-top: 5px;
-  width: 100%;
-  font-size: 14px;
-  font-style: italic;
-  color: rgb(150, 150, 150);
-  border: none;
-  background: none;
-}
-.pending_reviews .show_more:hover {
-  text-decoration: underline;
-  cursor: pointer;
-}
-.pending_reviews .show_less {
-  display: none;
-  margin-top: 5px;
-  width: 100%;
-  font-size: 14px;
-  font-style: italic;
-  color: rgb(150, 150, 150);
-  border: none;
-  background: none;
-}
-.pending_reviews .show_less:hover {
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.users .all_users .user {
+main .users .all_users .user {
   position: relative;
-  margin: 0px auto;
-  width: 70%;
-  margin-bottom: 10px;
-  padding: 10px;
-  border: 1px solid rgb(0, 0, 0);
-  border-radius: 5px;
-  background-color: rgb(245, 245, 245);
-  cursor: pointer;
-  transition: background-color 0.3s ease, width 0.3s ease;
 }
-.users .all_users .user.light:hover {
-  background-color: rgb(255, 255, 255);
+main .users .all_users .user.light:hover {
+  background-color: #fff;
 }
-.users .all_users .user.dark {
-  background-color: rgb(30, 30, 30);
-  border: 2px solid rgb(255, 255, 255);
+main .users .all_users .user.dark {
+  background-color: rgb(25.5, 25.5, 25.5);
+  border: 2px solid #fff;
 }
-.users .all_users .user.dark:hover {
-  background-color: rgb(40, 40, 40);
+main .users .all_users .user.dark:hover {
+  background-color: rgb(12.75, 12.75, 12.75);
 }
-.users .all_users .user .basic_info {
+main .users .all_users .user .basic_info {
   position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   z-index: 0;
 }
-.users .all_users .user .basic_info .user_name {
-  position: absolute;
-  top: 7px;
-  left: 50px;
-}
-.users .all_users .user .basic_info .user_name .user_role {
+main .users .all_users .user .basic_info .user_name .user_role {
   font-style: italic;
-  color: rgb(150, 150, 150);
+  color: #cccccc;
 }
-.users .all_users .user .basic_info .user_name .user_role .user_role_checkbox {
+main .users .all_users .user .basic_info .user_name .user_role .user_role_checkbox {
   display: none;
 }
-.users .all_users .user .other_info {
+main .users .all_users .user .other_info {
   display: flex;
   justify-content: space-between;
 }
-.users .all_users .user .other_info div h3 {
+main .users .all_users .user .other_info div h3 {
   text-align: center;
 }
-.users .all_users .user .other_info div p {
+main .users .all_users .user .other_info div p {
   text-align: center;
 }
-.users .all_users .user .form_report {
-  top: 141px;
-}
-.users .all_users .user .delete_user_container {
-  margin-top: 30px;
-  text-align: center;
-}
-.users .all_users .user .delete_user_container p {
-  text-align: center;
-  font-size: 14px;
-}
-.users .all_users .user .delete_user_container .delete_user {
-  opacity: 0.8;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-.users .all_users .user .delete_user_container .delete_user:hover {
-  transform: scale(1.1);
-  cursor: pointer;
-}
-.users .all_users .user .delete_user_container .delete_user_checkbox {
-  display: none;
-}
-.users .all_users .user p {
-  margin: 0px;
-}
-.users .show_more {
-  display: inline-block;
-  margin-top: 5px;
-  width: 100%;
-  font-size: 14px;
-  font-style: italic;
-  color: rgb(150, 150, 150);
-  border: none;
-  background: none;
-}
-.users .show_more:hover {
-  text-decoration: underline;
-  cursor: pointer;
-}
-.users .show_less {
-  display: none;
-  margin-top: 5px;
-  width: 100%;
-  font-size: 14px;
-  font-style: italic;
-  color: rgb(150, 150, 150);
-  border: none;
-  background: none;
-}
-.users .show_less:hover {
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.error_log .all_errors .error p {
-  margin-bottom: 0px;
-}
-.error_log .all_errors .error .show_error_details, .error_log .all_errors .error .hide_error_details, .error_log .all_errors .error .delete_error_log, .error_log .all_errors .error .cancel_delete_error_log {
-  display: inline-block;
-  margin: 0px 10px 10px 0px;
-  width: auto;
-  font-size: 14px;
-  font-style: italic;
-  color: rgb(150, 150, 150);
-  border: none;
-  background: none;
-}
-.error_log .all_errors .error .show_error_details:hover, .error_log .all_errors .error .hide_error_details:hover, .error_log .all_errors .error .delete_error_log:hover, .error_log .all_errors .error .cancel_delete_error_log:hover {
-  text-decoration: underline;
-  cursor: pointer;
-}
-.error_log .all_errors .error .hide_error_details, .error_log .all_errors .error .cancel_delete_error_log, .error_log .all_errors .error .delete_error_log_checkbox {
-  display: none;
-}
-.error_log .show_more_errors {
-  display: inline-block;
-  margin-top: 5px;
-  width: 100%;
-  font-size: 14px;
-  font-style: italic;
-  color: rgb(150, 150, 150);
-  border: none;
-  background: none;
-}
-.error_log .show_more_errors:hover {
-  text-decoration: underline;
-  cursor: pointer;
-}
-.error_log .show_less_errors {
-  display: none;
-  margin-top: 5px;
-  width: 100%;
-  font-size: 14px;
-  font-style: italic;
-  color: rgb(150, 150, 150);
-  border: none;
-  background: none;
-}
-.error_log .show_less_errors:hover {
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.admin_form .admin_form_submit,
-.admin_form.light .admin_form_submit {
-  display: block;
-  width: 70%;
-  margin: 0px auto;
-  padding: 10px;
-  outline: none;
-  font-size: 15px;
-  border: 1px solid rgb(0, 0, 0);
-  border-radius: 5px;
-  transition: width 0.3s ease;
-}
-
-.admin_form.dark .admin_form_submit {
-  color: rgb(255, 255, 255);
-  background-color: rgb(40, 40, 40);
-  border: 2px solid rgb(255, 255, 255);
-}
-
-.admin_form .admin_form_submit, .admin_form.light .admin_form_submit {
-  margin-bottom: 10px;
-  height: 50px;
-}
-
-.admin_form .admin_form_submit, .admin_form.light .admin_form_submit {
-  margin-bottom: 10px;
-  cursor: pointer;
-  font-size: 16px;
-  background-color: rgb(230, 230, 230);
-  transition: width 0.3s ease, letter-spacing 0.3s ease, background-color 0.3s ease;
-}
-
-.admin_form .admin_form_submit:hover, .admin_form.light .admin_form_submit:hover {
-  width: 80%;
-  letter-spacing: 1px;
-  background-color: rgb(245, 245, 245);
-}
-
-.admin_form.dark .admin_form_submit {
-  background-color: rgb(15, 15, 15);
-}
-
-.admin_form.dark .admin_form_submit:hover {
-  background-color: rgb(30, 30, 30);
-}
-
-.form_report {
+main .users .all_users .user .form_report {
   position: absolute;
   top: 55px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 16px;
-  font-family: Poppins, Arial, sans-serif;
 }
-.form_report.invalid {
-  color: rgb(250, 50, 50);
+main .users .all_users .user .form_report.invalid {
+  color: #df3535;
 }
-
-.no_admin a:link,
-.no_admin a:visited {
-  color: rgb(0, 0, 0);
-  text-decoration: none;
-  font-style: italic;
-}
-
-.no_admin a:hover,
-.no_admin a:active {
-  text-decoration: underline;
-}
-
-/**************
- Footer Styles
-**************/
-footer, footer.light {
-  margin-top: 25px;
-  padding-top: 20px;
+main .users .all_users .user .delete_user_container {
+  margin-top: 30px;
   text-align: center;
-  background-color: rgb(230, 230, 230);
-  border-top: 1px solid rgb(150, 150, 150);
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
-
-footer.dark {
-  color: rgb(255, 255, 255);
-  background-color: rgb(15, 15, 15);
+main .users .all_users .user .delete_user_container p {
+  text-align: center;
+  font-size: 0.9em;
 }
-
-footer p {
-  font-weight: bold;
-  font-size: 16px;
-}
-
-footer a:link,
-footer a:visited,
-footer.light a:link,
-footer.light a:visited {
-  font-size: 14px;
-  font-weight: normal;
-  font-style: italic;
-  text-decoration: none;
-  color: rgb(50, 50, 50);
-}
-
-footer.dark a:link,
-footer.dark a:visited {
-  color: rgb(150, 150, 150);
-}
-
-footer a:hover,
-footer a:active {
-  text-decoration: underline;
-}
-
-footer a img {
-  margin: 0px 5px;
-  transform: scale(1);
+main .users .all_users .user .delete_user_container .delete_user {
   opacity: 0.8;
-}
-
-footer a img:hover {
-  opacity: 1;
-  transform: scale(1.1);
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
-
-footer .copywrite, footer.light .copywrite {
-  font-family: "Courier New", Courier, monospace, sans-serif;
-  margin-top: 20px;
-  font-size: 12px;
-  color: rgb(50, 50, 50);
+main .users .all_users .user .delete_user_container .delete_user:hover {
+  transform: scale(1.1);
+  cursor: pointer;
 }
-
-footer.dark .copywrite {
-  color: rgb(150, 150, 150);
+main .users .all_users .user .delete_user_container .delete_user_checkbox {
+  display: none;
+}
+main .users .all_users .user p {
+  margin: 0px;
+}
+main .error_log .all_errors .error p {
+  margin-bottom: 0px;
+}
+main .error_log .all_errors .error .show_error_details,
+main .error_log .all_errors .error .hide_error_details,
+main .error_log .all_errors .error .delete_error_log,
+main .error_log .all_errors .error .cancel_delete_error_log {
+  display: inline-block;
+  width: auto;
+  margin: 0px 10px 10px 0px;
+  font-size: 0.9em;
+  font-style: italic;
+  color: #cccccc;
+  border: none;
+  background: none;
+}
+main .error_log .all_errors .error .show_error_details:hover,
+main .error_log .all_errors .error .hide_error_details:hover,
+main .error_log .all_errors .error .delete_error_log:hover,
+main .error_log .all_errors .error .cancel_delete_error_log:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+main .error_log .all_errors .error .hide_error_details, main .error_log .all_errors .error .cancel_delete_error_log, main .error_log .all_errors .error .delete_error_log_checkbox {
+  display: none;
+}
+main .admin_form .admin_form_submit,
+main .admin_form.light .admin_form_submit {
+  display: block;
+  width: 70%;
+  height: 50px;
+  margin: 0px auto 10px;
+  padding: 10px;
+  background-color: rgb(229.5, 229.5, 229.5);
+  outline: none;
+  border: 1px solid #000;
+  border-radius: 5px;
+  transition: width 0.3s ease, letter-spacing 0.3s ease, background-color 0.3s ease;
+}
+main .admin_form .admin_form_submit:hover,
+main .admin_form.light .admin_form_submit:hover {
+  width: 80%;
+  letter-spacing: 1px;
+  background-color: rgb(242.25, 242.25, 242.25);
+}
+main .admin_form.dark .admin_form_submit,
+main .admin_form.light.dark .admin_form_submit {
+  color: #fff;
+  background-color: rgb(12.75, 12.75, 12.75);
+  border: 2px solid #fff;
+}
+main .admin_form.dark .admin_form_submit:hover,
+main .admin_form.light.dark .admin_form_submit:hover {
+  background-color: rgb(25.5, 25.5, 25.5);
+}
+main .no_admin a:link,
+main .no_admin a:visited {
+  color: #000;
+  text-decoration: none;
+  font-style: italic;
+}
+main .no_admin a:hover,
+main .no_admin a:active {
+  text-decoration: underline;
 }
 
 /**************
  Media Queries
 **************/
 @media only screen and (max-width: 600px) {
-  .approve_review, .reject_review {
+  .pending_reviews .reviews .review_confirmation .approve_review,
+  .pending_reviews .reviews .review_confirmation .reject_review {
     width: 180px !important;
     margin: 10px 5px !important;
   }
-  .user .form_report {
+  .users .all_users .user .user .form_report {
     top: 205px;
   }
 }
