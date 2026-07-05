@@ -68,8 +68,8 @@ body {
 // Header
 
 header {
-    margin-bottom: 25px;
     height: 100vh;
+    margin-bottom: 25px;
     background: linear-gradient(transparentize($main-color, 0.9), transparentize($main-color, 0.5)), url("/content/images/background.jpg"); // https://pixabay.com/sk/photos/cpu-procesor-%C4%8Dip-z%C3%A1kladn%C3%A9-dosky-4393376/
     background-size: cover;
     background-position: center center;
@@ -89,13 +89,9 @@ header {
     z-index: 200;
 
     ul {
-        display: flex;
-        justify-content: center;
-        gap: 40px;
-        padding: 20px;
-
         li {
             width: 200px;
+            margin: 20px;
             background-color: $secondary-color;
             border: 2px solid $main-color;
             border-radius: $small-border-radius;
@@ -404,7 +400,7 @@ footer {
     }
     
     .navigation_bar ~ .theme_selection,
-    .navigation_bar ~ .account ul {
+    .navigation_bar ~ .account {
         top: 60px;
     }
 }

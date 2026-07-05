@@ -290,8 +290,8 @@
 
     <main>
         <section class="login">
-            <a href="./domov">
-                <img class="back_icon" title="Späť na domovskú stránku" src="/content/images/back.png" alt="Späť na domovskú stránku"> <!-- https://www.flaticon.com/free-icon/back_2099190 -->
+            <a href="./domov" class="back_icon" title="Späť na domovskú stránku" aria-label="Späť na domovskú stránku">
+                <img src="/content/images/back.png" alt=""> <!-- https://www.flaticon.com/free-icon/back_2099190 -->
             </a>
 
             <h2><a href="./prihlasenie">Prihlásenie</a></h2>
@@ -337,13 +337,11 @@
                 <div class="login_method">
                     <a href="<?php echo $url ?>">
                         <img src="/content/images/google.png" alt="Prihlásiť sa Google účtom"> <!-- https://www.flaticon.com/free-icon/search_281764 -->
-
                         <span>Použiť&nbsp;Google&nbsp;účet</span>
                     </a>
                     
                     <a href="#">
                         <img src="/content/images/facebook_2.png" alt="Prihlásiť sa Facebook účtom"> <!-- https://www.flaticon.com/free-icon/facebook_5968764 -->
-
                         <span>Použiť&nbsp;Facebook&nbsp;účet</span>
                     </a>
                 </div>

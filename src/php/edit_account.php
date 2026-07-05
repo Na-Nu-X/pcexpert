@@ -311,8 +311,8 @@
 
     <main>
         <section class="edit_account">
-            <a href="./domov">
-                <img class="back_icon" title="Späť na domovskú stránku" src="/content/images/back.png" alt="Späť na domovskú stránku"> <!-- https://www.flaticon.com/free-icon/back_2099190 -->
+            <a href="./domov" class="back_icon" title="Späť na domovskú stránku" aria-label="Späť na domovskú stránku">
+                <img src="/content/images/back.png" alt=""> <!-- https://www.flaticon.com/free-icon/back_2099190 -->
             </a>
             
             <h2><a href="./moj-ucet">Môj&nbsp;účet</a></h2>

@@ -128,8 +128,8 @@
 
     <main>
         <section class="edit_review">
-            <a href="./domov">
-                <img class="back_icon" title="Späť na domovskú stránku" src="/content/images/back.png" alt="Späť na domovskú stránku"> <!-- https://www.flaticon.com/free-icon/back_2099190 -->
+            <a href="./domov" class="back_icon" title="Späť na domovskú stránku" aria-label="Späť na domovskú stránku">
+                <img src="/content/images/back.png" alt=""> <!-- https://www.flaticon.com/free-icon/back_2099190 -->
             </a>
 
             <h2><a href="./upravit-recenziu">Recenzia</a></h2>
@@ -137,40 +137,42 @@
             <?php if(userReview($connection, $user_id) !== null and userReview($connection, $user_id) !== false): ?>
                 <form class="edit_review_form" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
                     <div class="review_container">
-                        <?php if(!empty(getProfilePictureName($connection, $_SESSION["logged_in_user_id"])) or !empty(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'))): ?>
-                            <img 
-                                class="profile_picture"
-                                src="
-                                    <?php if(!empty(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url')) and empty(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'profile_picture_name'))): ?>
-                                        <?php echo getUserInformations($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'); ?>
-
-                                    <?php else: ?>
-                                        /content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo getProfilePictureName($connection, $_SESSION['logged_in_user_id']); ?>
-
-                                    <?php endif; ?>
-                                "
-                                alt="Profilový obrázok"
-                            >
-
-                        <?php else: ?>
-                            <img class="profile_picture" src="/content/images/user.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
-
-                        <?php endif; ?>
-
-                        <p>
-                            <?php echo htmlspecialchars(getUserInformations($connection, $_SESSION["logged_in_user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
-
-                            <?php echo htmlspecialchars(getUserInformations($connection, $_SESSION["logged_in_user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
-
-                            -
-
-                            <?php echo htmlspecialchars(date("j.n.Y", strtotime(userReview($connection, $_SESSION["logged_in_user_id"])["review_time"])), ENT_QUOTES, "UTF-8"); ?>
-
-                            <?php if(userReview($connection, $_SESSION["logged_in_user_id"])["edited"] === "yes"): ?>
-                                (upravená)
-
+                        <div class="user">
+                            <?php if(!empty(getProfilePictureName($connection, $_SESSION["logged_in_user_id"])) or !empty(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'))): ?>
+                                <img 
+                                    class="profile_picture"
+                                    src="
+                                        <?php if(!empty(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url')) and empty(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'profile_picture_name'))): ?>
+                                            <?php echo getUserInformations($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'); ?>
+    
+                                        <?php else: ?>
+                                            /content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo getProfilePictureName($connection, $_SESSION['logged_in_user_id']); ?>
+    
+                                        <?php endif; ?>
+                                    "
+                                    alt="Profilový obrázok"
+                                >
+    
+                            <?php else: ?>
+                                <img class="profile_picture" src="/content/images/user.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
+    
                             <?php endif; ?>
-                        </p>
+    
+                            <p class="name">
+                                <?php echo htmlspecialchars(getUserInformations($connection, $_SESSION["logged_in_user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
+    
+                                <?php echo htmlspecialchars(getUserInformations($connection, $_SESSION["logged_in_user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
+    
+                                -
+    
+                                <?php echo htmlspecialchars(date("j.n.Y", strtotime(userReview($connection, $_SESSION["logged_in_user_id"])["review_time"])), ENT_QUOTES, "UTF-8"); ?>
+    
+                                <?php if(userReview($connection, $_SESSION["logged_in_user_id"])["edited"] === "yes"): ?>
+                                    (upravená)
+    
+                                <?php endif; ?>
+                            </p>
+                        </div>
                         
                         <!-- Rating -->
                         

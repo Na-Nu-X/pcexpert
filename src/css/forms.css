@@ -1,135 +1,12 @@
-/***************
- General Styles
-***************/
-* {
-  margin: 0px;
-  padding: 0px;
-  box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-body, body.light {
-  line-height: 1.6;
-  background-color: rgb(245, 245, 245);
-}
-
-body.dark {
-  background-color: rgb(30, 30, 30);
-}
-
-.preloader {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  backdrop-filter: blur(2.5px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  transition: opacity 0.3s ease;
-}
-
-.preloader.hidden {
-  opacity: 0;
-  visibility: hidden;
-}
-
-.loader {
-  border: 5px solid rgb(50, 50, 50);
-  border-top: 5px solid rgb(230, 230, 230);
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  animation: loader_spin 1s linear infinite;
-}
-
-@keyframes loader_spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
 /**************
  Header Styles
 **************/
-.cookie_policy {
-  position: fixed;
-  width: 100%;
-  bottom: 0;
-  padding: 20px;
-  background-color: rgba(255, 255, 255, 0.8);
-  border-top: 1px solid rgb(150, 150, 150);
-  text-align: center;
-  z-index: 100;
-}
-
-.cookie_policy.hide {
-  display: none;
-}
-
-.cookie_policy img {
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 20px;
-}
-
-.cookie_policy h2 {
-  display: inline-block;
-  vertical-align: middle;
-  font-family: Poppins, Arial, sans-serif;
-  font-size: 30px;
-}
-
-.cookie_policy p {
-  font-family: Poppins, Arial, sans-serif;
-}
-
-.accept_all {
-  width: 200px;
-  height: 50px;
-  background-color: rgb(50, 125, 200);
-  color: rgb(255, 255, 255);
-  border: 1px solid rgb(0, 0, 0);
-  outline: none;
-  border-radius: 30px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 15px;
-  text-transform: uppercase;
-  transition: letter-spacing 0.3s ease, transform 0.3s ease;
-}
-
-.accept_all:hover,
-.accept_all:focus {
-  letter-spacing: 1px;
-  transform: scale(1.1);
-  cursor: pointer;
-}
-
-.green_report_message, .red_report_message {
-  visibility: hidden;
-  position: fixed;
-  text-align: center;
-  top: 75%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 20px;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
-  z-index: 100;
-  animation: fade_out_animation 5s ease-out;
-}
-
-.green_report_message {
-  color: rgb(170, 255, 50);
-}
-
-.red_report_message {
-  color: rgb(250, 50, 50);
+header {
+  height: auto;
+  margin-bottom: 0px;
+  background: none;
+  border: none;
+  box-shadow: none;
 }
 
 /************
@@ -137,199 +14,2148 @@ body.dark {
 ************/
 main {
   min-height: 100vh;
-  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5)), url(/content/images/background.jpg);
-  background-size: cover;
-  background-position: center center;
-  background-attachment: fixed;
+  max-width: 100%;
+  width: 100%;
+  margin: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-bottom: 1px solid rgb(150, 150, 150);
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5)), url("/content/images/background.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
 }
 
 .registration,
 .login,
 .edit_account,
-.account,
 .edit_review,
 .password_reset {
-  width: 450px;
-  margin: 98px 0px 50px;
+  max-width: 500px;
+  width: 100%;
+  margin-top: 83px;
   padding: 50px;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(2.5px);
-  border: 1px solid rgb(150, 150, 150);
+  border: 1px solid #cccccc;
   border-radius: 30px;
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
-
-.back_icon {
+.registration .back_icon,
+.login .back_icon,
+.edit_account .back_icon,
+.edit_review .back_icon,
+.password_reset .back_icon {
   position: absolute;
   top: 60px;
   left: 60px;
   transition: transform 0.3s ease;
 }
-
-.back_icon:hover {
+.registration .back_icon:hover,
+.login .back_icon:hover,
+.edit_account .back_icon:hover,
+.edit_review .back_icon:hover,
+.password_reset .back_icon:hover {
   transform: scale(1.1);
 }
-
+.registration .back_icon img,
+.login .back_icon img,
+.edit_account .back_icon img,
+.edit_review .back_icon img,
+.password_reset .back_icon img {
+  display: block;
+}
 .registration h2,
 .login h2,
 .edit_account h2,
-.account h2,
 .edit_review h2,
 .password_reset h2 {
   text-align: center;
-  font-size: 35px;
+  font-size: 2em;
   transition: letter-spacing 0.3s ease;
 }
-
 .registration h2:hover,
 .login h2:hover,
 .edit_account h2:hover,
-.account h2:hover,
 .edit_review h2:hover,
 .password_reset h2:hover {
   letter-spacing: 1px;
   cursor: pointer;
 }
-
 .registration h2 a,
 .login h2 a,
 .edit_account h2 a,
-.account h2 a,
 .edit_review h2 a,
 .password_reset h2 a {
   text-decoration: none;
-  color: rgb(255, 255, 255);
+  color: #fff;
 }
-
-.registration_form,
-.login_form,
-.edit_account_form,
-.edit_review_form,
-.password_reset_form {
+.registration form,
+.login form,
+.edit_account form,
+.edit_review form,
+.password_reset form {
   position: relative;
 }
-
-.have_account,
-.forgot_password,
-.delete_account_container,
-.delete_review_container {
-  text-align: center;
-  font-size: 14px;
+.registration form input:focus,
+.registration form textarea:focus,
+.login form input:focus,
+.login form textarea:focus,
+.edit_account form input:focus,
+.edit_account form textarea:focus,
+.edit_review form input:focus,
+.edit_review form textarea:focus,
+.password_reset form input:focus,
+.password_reset form textarea:focus {
+  width: 100%;
 }
-
-.have_account p,
-.forgot_password p,
-.account p,
-.delete_account_container p,
-.delete_review_container p,
-.no_logged_in p,
-.no_review p,
-.code_expired p {
-  font-family: Poppins, Arial, sans-serif;
-  color: rgb(255, 255, 255);
-  text-align: center;
+.registration form input::placeholder,
+.registration form textarea::placeholder,
+.login form input::placeholder,
+.login form textarea::placeholder,
+.edit_account form input::placeholder,
+.edit_account form textarea::placeholder,
+.edit_review form input::placeholder,
+.edit_review form textarea::placeholder,
+.password_reset form input::placeholder,
+.password_reset form textarea::placeholder {
+  color: rgb(229.5, 229.5, 229.5);
 }
-
-.have_account a:link,
-.have_account a:visited,
-.forgot_password a:link,
-.forgot_password a:visited,
-.no_logged_in p a:link,
-.no_logged_in p a:visited {
-  font-family: Poppins, Arial, sans-serif;
-  color: rgb(255, 255, 255);
-  text-decoration: none;
-}
-
-.no_logged_in p a:link,
-.no_logged_in p a:visited {
-  font-style: italic;
-}
-
-.have_account a:hover,
-.have_account a:active,
-.forgot_password a:hover,
-.forgot_password a:active,
-.no_logged_in p a:hover,
-.no_logged_in p a:active {
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.registration_form input[type=text], .registration_form input[type=email],
-.login_form input[type=text], .login_form input[type=email],
-.edit_account_form input[type=text], .edit_account_form input[type=email], .password_reset_form input[type=text] {
-  font-family: Poppins, Arial, sans-serif;
-  color: rgb(255, 255, 255);
+.registration form input[type=text],
+.registration form input[type=email],
+.login form input[type=text],
+.login form input[type=email],
+.edit_account form input[type=text],
+.edit_account form input[type=email],
+.edit_review form input[type=text],
+.edit_review form input[type=email],
+.password_reset form input[type=text],
+.password_reset form input[type=email] {
   display: block;
   width: 90%;
-  margin: 0px auto 10px;
   height: 50px;
+  margin: 0px auto 10px;
   padding: 5px;
-  outline: none;
-  font-size: 16px;
-  border: none;
-  border-bottom: 1px solid rgb(255, 255, 255);
   background: none;
+  color: #fff;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
   transition: width 0.3s ease;
 }
-
-.review_container {
+.registration form input[type=text]:-webkit-autofill, .registration form input[type=text]:-webkit-autofill:hover,
+.registration form input[type=text] :-webkit-autofill:focus,
+.registration form input[type=email]:-webkit-autofill,
+.registration form input[type=email]:-webkit-autofill:hover,
+.registration form input[type=email] :-webkit-autofill:focus,
+.login form input[type=text]:-webkit-autofill,
+.login form input[type=text]:-webkit-autofill:hover,
+.login form input[type=text] :-webkit-autofill:focus,
+.login form input[type=email]:-webkit-autofill,
+.login form input[type=email]:-webkit-autofill:hover,
+.login form input[type=email] :-webkit-autofill:focus,
+.edit_account form input[type=text]:-webkit-autofill,
+.edit_account form input[type=text]:-webkit-autofill:hover,
+.edit_account form input[type=text] :-webkit-autofill:focus,
+.edit_account form input[type=email]:-webkit-autofill,
+.edit_account form input[type=email]:-webkit-autofill:hover,
+.edit_account form input[type=email] :-webkit-autofill:focus,
+.edit_review form input[type=text]:-webkit-autofill,
+.edit_review form input[type=text]:-webkit-autofill:hover,
+.edit_review form input[type=text] :-webkit-autofill:focus,
+.edit_review form input[type=email]:-webkit-autofill,
+.edit_review form input[type=email]:-webkit-autofill:hover,
+.edit_review form input[type=email] :-webkit-autofill:focus,
+.password_reset form input[type=text]:-webkit-autofill,
+.password_reset form input[type=text]:-webkit-autofill:hover,
+.password_reset form input[type=text] :-webkit-autofill:focus,
+.password_reset form input[type=email]:-webkit-autofill,
+.password_reset form input[type=email]:-webkit-autofill:hover,
+.password_reset form input[type=email] :-webkit-autofill:focus {
+  -webkit-text-fill-color: #fff;
+  transition: width 0.3s ease, background-color 9999s ease;
+}
+.registration form textarea,
+.login form textarea,
+.edit_account form textarea,
+.edit_review form textarea,
+.password_reset form textarea {
+  display: block;
+  width: 90%;
+  height: 100px;
+  margin: 0px auto;
+  padding: 0px 5px;
+  background: none;
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  outline: none;
+  resize: none;
+  transition: width 0.3s ease;
+}
+.registration form .form_report,
+.registration form .dialogue_paragraph,
+.login form .form_report,
+.login form .dialogue_paragraph,
+.edit_account form .form_report,
+.edit_account form .dialogue_paragraph,
+.edit_review form .form_report,
+.edit_review form .dialogue_paragraph,
+.password_reset form .form_report,
+.password_reset form .dialogue_paragraph {
+  position: absolute;
+  width: 100%;
   text-align: center;
-  margin-bottom: 30px;
-}
-
-.review_container p {
-  display: inline-block;
+  font-size: 16px;
   font-family: Poppins, Arial, sans-serif;
-  position: relative;
-  bottom: 14px;
-  left: 6px;
-  color: rgb(255, 255, 255);
 }
-
-.stars img {
-  transition: transform 0.3s ease;
+.registration form .form_report.valid,
+.registration form .dialogue_paragraph.valid,
+.login form .form_report.valid,
+.login form .dialogue_paragraph.valid,
+.edit_account form .form_report.valid,
+.edit_account form .dialogue_paragraph.valid,
+.edit_review form .form_report.valid,
+.edit_review form .dialogue_paragraph.valid,
+.password_reset form .form_report.valid,
+.password_reset form .dialogue_paragraph.valid {
+  color: #52cf20;
 }
-
-.stars img:hover {
+.registration form .form_report.invalid,
+.registration form .dialogue_paragraph.invalid,
+.login form .form_report.invalid,
+.login form .dialogue_paragraph.invalid,
+.edit_account form .form_report.invalid,
+.edit_account form .dialogue_paragraph.invalid,
+.edit_review form .form_report.invalid,
+.edit_review form .dialogue_paragraph.invalid,
+.password_reset form .form_report.invalid,
+.password_reset form .dialogue_paragraph.invalid {
+  color: #df3535;
+}
+.registration form button[type=submit],
+.registration form .login_method a,
+.login form button[type=submit],
+.login form .login_method a,
+.edit_account form button[type=submit],
+.edit_account form .login_method a,
+.edit_review form button[type=submit],
+.edit_review form .login_method a,
+.password_reset form button[type=submit],
+.password_reset form .login_method a {
+  display: block;
+  width: 90%;
+  height: 50px;
+  margin: 50px auto 10px;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 25px;
+  outline: none;
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease, transform 0.3s ease;
+  animation: fade_in_animation 0.5s ease-out;
+}
+.registration form button[type=submit]:hover, .registration form button[type=submit]:focus,
+.registration form .login_method a:hover,
+.registration form .login_method a:focus,
+.login form button[type=submit]:hover,
+.login form button[type=submit]:focus,
+.login form .login_method a:hover,
+.login form .login_method a:focus,
+.edit_account form button[type=submit]:hover,
+.edit_account form button[type=submit]:focus,
+.edit_account form .login_method a:hover,
+.edit_account form .login_method a:focus,
+.edit_review form button[type=submit]:hover,
+.edit_review form button[type=submit]:focus,
+.edit_review form .login_method a:hover,
+.edit_review form .login_method a:focus,
+.password_reset form button[type=submit]:hover,
+.password_reset form button[type=submit]:focus,
+.password_reset form .login_method a:hover,
+.password_reset form .login_method a:focus {
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #000;
+  border: 1px solid #000;
   transform: scale(1.1);
   cursor: pointer;
 }
-
-.edit_review_form textarea {
-  font-family: Poppins, Arial, sans-serif;
-  color: rgb(255, 255, 255);
-  display: block;
-  width: 90%;
-  margin: 0px auto;
-  height: 100px;
-  padding: 0px 5px;
-  outline: none;
-  resize: none;
-  font-size: 16px;
-  border: 1px solid rgb(255, 255, 255);
-  border-radius: 5px;
-  background: none;
-  transition: width 0.3s ease;
+.registration form .login_form button[type=submit],
+.login form .login_form button[type=submit],
+.edit_account form .login_form button[type=submit],
+.edit_review form .login_form button[type=submit],
+.password_reset form .login_form button[type=submit] {
+  animation: fade_in_animation 0.3s ease-out;
 }
-
-.password, .password_check, .current_password, .new_password {
+.registration form .login_method a,
+.login form .login_method a,
+.edit_account form .login_method a,
+.edit_review form .login_method a,
+.password_reset form .login_method a {
+  position: relative;
+  margin: 10px auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.registration form .login_method a:hover, .registration form .login_method a:focus,
+.login form .login_method a:hover,
+.login form .login_method a:focus,
+.edit_account form .login_method a:hover,
+.edit_account form .login_method a:focus,
+.edit_review form .login_method a:hover,
+.edit_review form .login_method a:focus,
+.password_reset form .login_method a:hover,
+.password_reset form .login_method a:focus {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+.registration form .login_method a:nth-child(1),
+.login form .login_method a:nth-child(1),
+.edit_account form .login_method a:nth-child(1),
+.edit_review form .login_method a:nth-child(1),
+.password_reset form .login_method a:nth-child(1) {
+  animation: fade_in_animation 0.4s ease-out;
+}
+.registration form .login_method a:nth-child(2),
+.login form .login_method a:nth-child(2),
+.edit_account form .login_method a:nth-child(2),
+.edit_review form .login_method a:nth-child(2),
+.password_reset form .login_method a:nth-child(2) {
+  animation: fade_in_animation 0.5s ease-out;
+}
+.registration form .login_method a img,
+.login form .login_method a img,
+.edit_account form .login_method a img,
+.edit_review form .login_method a img,
+.password_reset form .login_method a img {
+  margin: 8px;
+}
+.registration form .login_method a span,
+.login form .login_method a span,
+.edit_account form .login_method a span,
+.edit_review form .login_method a span,
+.password_reset form .login_method a span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.registration form .have_account,
+.registration form .forgot_password,
+.registration form .delete_account_container,
+.registration form .delete_review_container,
+.login form .have_account,
+.login form .forgot_password,
+.login form .delete_account_container,
+.login form .delete_review_container,
+.edit_account form .have_account,
+.edit_account form .forgot_password,
+.edit_account form .delete_account_container,
+.edit_account form .delete_review_container,
+.edit_review form .have_account,
+.edit_review form .forgot_password,
+.edit_review form .delete_account_container,
+.edit_review form .delete_review_container,
+.password_reset form .have_account,
+.password_reset form .forgot_password,
+.password_reset form .delete_account_container,
+.password_reset form .delete_review_container {
+  text-align: center;
+  font-size: 0.9em;
+}
+.registration form .have_account p,
+.registration form .forgot_password p,
+.registration form .delete_account_container p,
+.registration form .delete_review_container p,
+.registration form .no_logged_in p,
+.registration form .no_review p,
+.registration form .code_expired p,
+.login form .have_account p,
+.login form .forgot_password p,
+.login form .delete_account_container p,
+.login form .delete_review_container p,
+.login form .no_logged_in p,
+.login form .no_review p,
+.login form .code_expired p,
+.edit_account form .have_account p,
+.edit_account form .forgot_password p,
+.edit_account form .delete_account_container p,
+.edit_account form .delete_review_container p,
+.edit_account form .no_logged_in p,
+.edit_account form .no_review p,
+.edit_account form .code_expired p,
+.edit_review form .have_account p,
+.edit_review form .forgot_password p,
+.edit_review form .delete_account_container p,
+.edit_review form .delete_review_container p,
+.edit_review form .no_logged_in p,
+.edit_review form .no_review p,
+.edit_review form .code_expired p,
+.password_reset form .have_account p,
+.password_reset form .forgot_password p,
+.password_reset form .delete_account_container p,
+.password_reset form .delete_review_container p,
+.password_reset form .no_logged_in p,
+.password_reset form .no_review p,
+.password_reset form .code_expired p {
+  color: #fff;
+  text-align: center;
+}
+.registration form .have_account p a:link,
+.registration form .have_account p a:visited,
+.registration form .forgot_password p a:link,
+.registration form .forgot_password p a:visited,
+.registration form .delete_account_container p a:link,
+.registration form .delete_account_container p a:visited,
+.registration form .delete_review_container p a:link,
+.registration form .delete_review_container p a:visited,
+.registration form .no_logged_in p a:link,
+.registration form .no_logged_in p a:visited,
+.registration form .no_review p a:link,
+.registration form .no_review p a:visited,
+.registration form .code_expired p a:link,
+.registration form .code_expired p a:visited,
+.login form .have_account p a:link,
+.login form .have_account p a:visited,
+.login form .forgot_password p a:link,
+.login form .forgot_password p a:visited,
+.login form .delete_account_container p a:link,
+.login form .delete_account_container p a:visited,
+.login form .delete_review_container p a:link,
+.login form .delete_review_container p a:visited,
+.login form .no_logged_in p a:link,
+.login form .no_logged_in p a:visited,
+.login form .no_review p a:link,
+.login form .no_review p a:visited,
+.login form .code_expired p a:link,
+.login form .code_expired p a:visited,
+.edit_account form .have_account p a:link,
+.edit_account form .have_account p a:visited,
+.edit_account form .forgot_password p a:link,
+.edit_account form .forgot_password p a:visited,
+.edit_account form .delete_account_container p a:link,
+.edit_account form .delete_account_container p a:visited,
+.edit_account form .delete_review_container p a:link,
+.edit_account form .delete_review_container p a:visited,
+.edit_account form .no_logged_in p a:link,
+.edit_account form .no_logged_in p a:visited,
+.edit_account form .no_review p a:link,
+.edit_account form .no_review p a:visited,
+.edit_account form .code_expired p a:link,
+.edit_account form .code_expired p a:visited,
+.edit_review form .have_account p a:link,
+.edit_review form .have_account p a:visited,
+.edit_review form .forgot_password p a:link,
+.edit_review form .forgot_password p a:visited,
+.edit_review form .delete_account_container p a:link,
+.edit_review form .delete_account_container p a:visited,
+.edit_review form .delete_review_container p a:link,
+.edit_review form .delete_review_container p a:visited,
+.edit_review form .no_logged_in p a:link,
+.edit_review form .no_logged_in p a:visited,
+.edit_review form .no_review p a:link,
+.edit_review form .no_review p a:visited,
+.edit_review form .code_expired p a:link,
+.edit_review form .code_expired p a:visited,
+.password_reset form .have_account p a:link,
+.password_reset form .have_account p a:visited,
+.password_reset form .forgot_password p a:link,
+.password_reset form .forgot_password p a:visited,
+.password_reset form .delete_account_container p a:link,
+.password_reset form .delete_account_container p a:visited,
+.password_reset form .delete_review_container p a:link,
+.password_reset form .delete_review_container p a:visited,
+.password_reset form .no_logged_in p a:link,
+.password_reset form .no_logged_in p a:visited,
+.password_reset form .no_review p a:link,
+.password_reset form .no_review p a:visited,
+.password_reset form .code_expired p a:link,
+.password_reset form .code_expired p a:visited {
+  color: #fff;
+  text-decoration: none;
+}
+.registration form .have_account p a:hover,
+.registration form .have_account p a:active,
+.registration form .forgot_password p a:hover,
+.registration form .forgot_password p a:active,
+.registration form .delete_account_container p a:hover,
+.registration form .delete_account_container p a:active,
+.registration form .delete_review_container p a:hover,
+.registration form .delete_review_container p a:active,
+.registration form .no_logged_in p a:hover,
+.registration form .no_logged_in p a:active,
+.registration form .no_review p a:hover,
+.registration form .no_review p a:active,
+.registration form .code_expired p a:hover,
+.registration form .code_expired p a:active,
+.login form .have_account p a:hover,
+.login form .have_account p a:active,
+.login form .forgot_password p a:hover,
+.login form .forgot_password p a:active,
+.login form .delete_account_container p a:hover,
+.login form .delete_account_container p a:active,
+.login form .delete_review_container p a:hover,
+.login form .delete_review_container p a:active,
+.login form .no_logged_in p a:hover,
+.login form .no_logged_in p a:active,
+.login form .no_review p a:hover,
+.login form .no_review p a:active,
+.login form .code_expired p a:hover,
+.login form .code_expired p a:active,
+.edit_account form .have_account p a:hover,
+.edit_account form .have_account p a:active,
+.edit_account form .forgot_password p a:hover,
+.edit_account form .forgot_password p a:active,
+.edit_account form .delete_account_container p a:hover,
+.edit_account form .delete_account_container p a:active,
+.edit_account form .delete_review_container p a:hover,
+.edit_account form .delete_review_container p a:active,
+.edit_account form .no_logged_in p a:hover,
+.edit_account form .no_logged_in p a:active,
+.edit_account form .no_review p a:hover,
+.edit_account form .no_review p a:active,
+.edit_account form .code_expired p a:hover,
+.edit_account form .code_expired p a:active,
+.edit_review form .have_account p a:hover,
+.edit_review form .have_account p a:active,
+.edit_review form .forgot_password p a:hover,
+.edit_review form .forgot_password p a:active,
+.edit_review form .delete_account_container p a:hover,
+.edit_review form .delete_account_container p a:active,
+.edit_review form .delete_review_container p a:hover,
+.edit_review form .delete_review_container p a:active,
+.edit_review form .no_logged_in p a:hover,
+.edit_review form .no_logged_in p a:active,
+.edit_review form .no_review p a:hover,
+.edit_review form .no_review p a:active,
+.edit_review form .code_expired p a:hover,
+.edit_review form .code_expired p a:active,
+.password_reset form .have_account p a:hover,
+.password_reset form .have_account p a:active,
+.password_reset form .forgot_password p a:hover,
+.password_reset form .forgot_password p a:active,
+.password_reset form .delete_account_container p a:hover,
+.password_reset form .delete_account_container p a:active,
+.password_reset form .delete_review_container p a:hover,
+.password_reset form .delete_review_container p a:active,
+.password_reset form .no_logged_in p a:hover,
+.password_reset form .no_logged_in p a:active,
+.password_reset form .no_review p a:hover,
+.password_reset form .no_review p a:active,
+.password_reset form .code_expired p a:hover,
+.password_reset form .code_expired p a:active {
+  text-decoration: underline;
+}
+.registration form .no_logged_in p a:link,
+.registration form .no_logged_in p a:visited,
+.login form .no_logged_in p a:link,
+.login form .no_logged_in p a:visited,
+.edit_account form .no_logged_in p a:link,
+.edit_account form .no_logged_in p a:visited,
+.edit_review form .no_logged_in p a:link,
+.edit_review form .no_logged_in p a:visited,
+.password_reset form .no_logged_in p a:link,
+.password_reset form .no_logged_in p a:visited {
+  font-style: italic;
+}
+.registration .login_form .password_container,
+.registration .login_form .password_check_container,
+.registration .login_form .current_password_container,
+.registration .login_form .new_password_container,
+.registration .registration_form .password_container,
+.registration .registration_form .password_check_container,
+.registration .registration_form .current_password_container,
+.registration .registration_form .new_password_container,
+.registration .edit_account_form .password_container,
+.registration .edit_account_form .password_check_container,
+.registration .edit_account_form .current_password_container,
+.registration .edit_account_form .new_password_container,
+.registration .password_reset_form .password_container,
+.registration .password_reset_form .password_check_container,
+.registration .password_reset_form .current_password_container,
+.registration .password_reset_form .new_password_container,
+.login .login_form .password_container,
+.login .login_form .password_check_container,
+.login .login_form .current_password_container,
+.login .login_form .new_password_container,
+.login .registration_form .password_container,
+.login .registration_form .password_check_container,
+.login .registration_form .current_password_container,
+.login .registration_form .new_password_container,
+.login .edit_account_form .password_container,
+.login .edit_account_form .password_check_container,
+.login .edit_account_form .current_password_container,
+.login .edit_account_form .new_password_container,
+.login .password_reset_form .password_container,
+.login .password_reset_form .password_check_container,
+.login .password_reset_form .current_password_container,
+.login .password_reset_form .new_password_container,
+.edit_account .login_form .password_container,
+.edit_account .login_form .password_check_container,
+.edit_account .login_form .current_password_container,
+.edit_account .login_form .new_password_container,
+.edit_account .registration_form .password_container,
+.edit_account .registration_form .password_check_container,
+.edit_account .registration_form .current_password_container,
+.edit_account .registration_form .new_password_container,
+.edit_account .edit_account_form .password_container,
+.edit_account .edit_account_form .password_check_container,
+.edit_account .edit_account_form .current_password_container,
+.edit_account .edit_account_form .new_password_container,
+.edit_account .password_reset_form .password_container,
+.edit_account .password_reset_form .password_check_container,
+.edit_account .password_reset_form .current_password_container,
+.edit_account .password_reset_form .new_password_container,
+.edit_review .login_form .password_container,
+.edit_review .login_form .password_check_container,
+.edit_review .login_form .current_password_container,
+.edit_review .login_form .new_password_container,
+.edit_review .registration_form .password_container,
+.edit_review .registration_form .password_check_container,
+.edit_review .registration_form .current_password_container,
+.edit_review .registration_form .new_password_container,
+.edit_review .edit_account_form .password_container,
+.edit_review .edit_account_form .password_check_container,
+.edit_review .edit_account_form .current_password_container,
+.edit_review .edit_account_form .new_password_container,
+.edit_review .password_reset_form .password_container,
+.edit_review .password_reset_form .password_check_container,
+.edit_review .password_reset_form .current_password_container,
+.edit_review .password_reset_form .new_password_container,
+.password_reset .login_form .password_container,
+.password_reset .login_form .password_check_container,
+.password_reset .login_form .current_password_container,
+.password_reset .login_form .new_password_container,
+.password_reset .registration_form .password_container,
+.password_reset .registration_form .password_check_container,
+.password_reset .registration_form .current_password_container,
+.password_reset .registration_form .new_password_container,
+.password_reset .edit_account_form .password_container,
+.password_reset .edit_account_form .password_check_container,
+.password_reset .edit_account_form .current_password_container,
+.password_reset .edit_account_form .new_password_container,
+.password_reset .password_reset_form .password_container,
+.password_reset .password_reset_form .password_check_container,
+.password_reset .password_reset_form .current_password_container,
+.password_reset .password_reset_form .new_password_container {
+  position: relative;
+}
+.registration .login_form .password_container input,
+.registration .login_form .password_check_container input,
+.registration .login_form .current_password_container input,
+.registration .login_form .new_password_container input,
+.registration .registration_form .password_container input,
+.registration .registration_form .password_check_container input,
+.registration .registration_form .current_password_container input,
+.registration .registration_form .new_password_container input,
+.registration .edit_account_form .password_container input,
+.registration .edit_account_form .password_check_container input,
+.registration .edit_account_form .current_password_container input,
+.registration .edit_account_form .new_password_container input,
+.registration .password_reset_form .password_container input,
+.registration .password_reset_form .password_check_container input,
+.registration .password_reset_form .current_password_container input,
+.registration .password_reset_form .new_password_container input,
+.login .login_form .password_container input,
+.login .login_form .password_check_container input,
+.login .login_form .current_password_container input,
+.login .login_form .new_password_container input,
+.login .registration_form .password_container input,
+.login .registration_form .password_check_container input,
+.login .registration_form .current_password_container input,
+.login .registration_form .new_password_container input,
+.login .edit_account_form .password_container input,
+.login .edit_account_form .password_check_container input,
+.login .edit_account_form .current_password_container input,
+.login .edit_account_form .new_password_container input,
+.login .password_reset_form .password_container input,
+.login .password_reset_form .password_check_container input,
+.login .password_reset_form .current_password_container input,
+.login .password_reset_form .new_password_container input,
+.edit_account .login_form .password_container input,
+.edit_account .login_form .password_check_container input,
+.edit_account .login_form .current_password_container input,
+.edit_account .login_form .new_password_container input,
+.edit_account .registration_form .password_container input,
+.edit_account .registration_form .password_check_container input,
+.edit_account .registration_form .current_password_container input,
+.edit_account .registration_form .new_password_container input,
+.edit_account .edit_account_form .password_container input,
+.edit_account .edit_account_form .password_check_container input,
+.edit_account .edit_account_form .current_password_container input,
+.edit_account .edit_account_form .new_password_container input,
+.edit_account .password_reset_form .password_container input,
+.edit_account .password_reset_form .password_check_container input,
+.edit_account .password_reset_form .current_password_container input,
+.edit_account .password_reset_form .new_password_container input,
+.edit_review .login_form .password_container input,
+.edit_review .login_form .password_check_container input,
+.edit_review .login_form .current_password_container input,
+.edit_review .login_form .new_password_container input,
+.edit_review .registration_form .password_container input,
+.edit_review .registration_form .password_check_container input,
+.edit_review .registration_form .current_password_container input,
+.edit_review .registration_form .new_password_container input,
+.edit_review .edit_account_form .password_container input,
+.edit_review .edit_account_form .password_check_container input,
+.edit_review .edit_account_form .current_password_container input,
+.edit_review .edit_account_form .new_password_container input,
+.edit_review .password_reset_form .password_container input,
+.edit_review .password_reset_form .password_check_container input,
+.edit_review .password_reset_form .current_password_container input,
+.edit_review .password_reset_form .new_password_container input,
+.password_reset .login_form .password_container input,
+.password_reset .login_form .password_check_container input,
+.password_reset .login_form .current_password_container input,
+.password_reset .login_form .new_password_container input,
+.password_reset .registration_form .password_container input,
+.password_reset .registration_form .password_check_container input,
+.password_reset .registration_form .current_password_container input,
+.password_reset .registration_form .new_password_container input,
+.password_reset .edit_account_form .password_container input,
+.password_reset .edit_account_form .password_check_container input,
+.password_reset .edit_account_form .current_password_container input,
+.password_reset .edit_account_form .new_password_container input,
+.password_reset .password_reset_form .password_container input,
+.password_reset .password_reset_form .password_check_container input,
+.password_reset .password_reset_form .current_password_container input,
+.password_reset .password_reset_form .new_password_container input {
   -webkit-text-security: disc;
   padding-right: 55px !important;
 }
-
-.phone_number_container {
+.registration .login_form .password_container .generate_password i,
+.registration .login_form .password_container .show_hide_password i,
+.registration .login_form .password_container .copy_password i,
+.registration .login_form .password_container .paste_password i,
+.registration .login_form .password_check_container .generate_password i,
+.registration .login_form .password_check_container .show_hide_password i,
+.registration .login_form .password_check_container .copy_password i,
+.registration .login_form .password_check_container .paste_password i,
+.registration .login_form .current_password_container .generate_password i,
+.registration .login_form .current_password_container .show_hide_password i,
+.registration .login_form .current_password_container .copy_password i,
+.registration .login_form .current_password_container .paste_password i,
+.registration .login_form .new_password_container .generate_password i,
+.registration .login_form .new_password_container .show_hide_password i,
+.registration .login_form .new_password_container .copy_password i,
+.registration .login_form .new_password_container .paste_password i,
+.registration .registration_form .password_container .generate_password i,
+.registration .registration_form .password_container .show_hide_password i,
+.registration .registration_form .password_container .copy_password i,
+.registration .registration_form .password_container .paste_password i,
+.registration .registration_form .password_check_container .generate_password i,
+.registration .registration_form .password_check_container .show_hide_password i,
+.registration .registration_form .password_check_container .copy_password i,
+.registration .registration_form .password_check_container .paste_password i,
+.registration .registration_form .current_password_container .generate_password i,
+.registration .registration_form .current_password_container .show_hide_password i,
+.registration .registration_form .current_password_container .copy_password i,
+.registration .registration_form .current_password_container .paste_password i,
+.registration .registration_form .new_password_container .generate_password i,
+.registration .registration_form .new_password_container .show_hide_password i,
+.registration .registration_form .new_password_container .copy_password i,
+.registration .registration_form .new_password_container .paste_password i,
+.registration .edit_account_form .password_container .generate_password i,
+.registration .edit_account_form .password_container .show_hide_password i,
+.registration .edit_account_form .password_container .copy_password i,
+.registration .edit_account_form .password_container .paste_password i,
+.registration .edit_account_form .password_check_container .generate_password i,
+.registration .edit_account_form .password_check_container .show_hide_password i,
+.registration .edit_account_form .password_check_container .copy_password i,
+.registration .edit_account_form .password_check_container .paste_password i,
+.registration .edit_account_form .current_password_container .generate_password i,
+.registration .edit_account_form .current_password_container .show_hide_password i,
+.registration .edit_account_form .current_password_container .copy_password i,
+.registration .edit_account_form .current_password_container .paste_password i,
+.registration .edit_account_form .new_password_container .generate_password i,
+.registration .edit_account_form .new_password_container .show_hide_password i,
+.registration .edit_account_form .new_password_container .copy_password i,
+.registration .edit_account_form .new_password_container .paste_password i,
+.registration .password_reset_form .password_container .generate_password i,
+.registration .password_reset_form .password_container .show_hide_password i,
+.registration .password_reset_form .password_container .copy_password i,
+.registration .password_reset_form .password_container .paste_password i,
+.registration .password_reset_form .password_check_container .generate_password i,
+.registration .password_reset_form .password_check_container .show_hide_password i,
+.registration .password_reset_form .password_check_container .copy_password i,
+.registration .password_reset_form .password_check_container .paste_password i,
+.registration .password_reset_form .current_password_container .generate_password i,
+.registration .password_reset_form .current_password_container .show_hide_password i,
+.registration .password_reset_form .current_password_container .copy_password i,
+.registration .password_reset_form .current_password_container .paste_password i,
+.registration .password_reset_form .new_password_container .generate_password i,
+.registration .password_reset_form .new_password_container .show_hide_password i,
+.registration .password_reset_form .new_password_container .copy_password i,
+.registration .password_reset_form .new_password_container .paste_password i,
+.login .login_form .password_container .generate_password i,
+.login .login_form .password_container .show_hide_password i,
+.login .login_form .password_container .copy_password i,
+.login .login_form .password_container .paste_password i,
+.login .login_form .password_check_container .generate_password i,
+.login .login_form .password_check_container .show_hide_password i,
+.login .login_form .password_check_container .copy_password i,
+.login .login_form .password_check_container .paste_password i,
+.login .login_form .current_password_container .generate_password i,
+.login .login_form .current_password_container .show_hide_password i,
+.login .login_form .current_password_container .copy_password i,
+.login .login_form .current_password_container .paste_password i,
+.login .login_form .new_password_container .generate_password i,
+.login .login_form .new_password_container .show_hide_password i,
+.login .login_form .new_password_container .copy_password i,
+.login .login_form .new_password_container .paste_password i,
+.login .registration_form .password_container .generate_password i,
+.login .registration_form .password_container .show_hide_password i,
+.login .registration_form .password_container .copy_password i,
+.login .registration_form .password_container .paste_password i,
+.login .registration_form .password_check_container .generate_password i,
+.login .registration_form .password_check_container .show_hide_password i,
+.login .registration_form .password_check_container .copy_password i,
+.login .registration_form .password_check_container .paste_password i,
+.login .registration_form .current_password_container .generate_password i,
+.login .registration_form .current_password_container .show_hide_password i,
+.login .registration_form .current_password_container .copy_password i,
+.login .registration_form .current_password_container .paste_password i,
+.login .registration_form .new_password_container .generate_password i,
+.login .registration_form .new_password_container .show_hide_password i,
+.login .registration_form .new_password_container .copy_password i,
+.login .registration_form .new_password_container .paste_password i,
+.login .edit_account_form .password_container .generate_password i,
+.login .edit_account_form .password_container .show_hide_password i,
+.login .edit_account_form .password_container .copy_password i,
+.login .edit_account_form .password_container .paste_password i,
+.login .edit_account_form .password_check_container .generate_password i,
+.login .edit_account_form .password_check_container .show_hide_password i,
+.login .edit_account_form .password_check_container .copy_password i,
+.login .edit_account_form .password_check_container .paste_password i,
+.login .edit_account_form .current_password_container .generate_password i,
+.login .edit_account_form .current_password_container .show_hide_password i,
+.login .edit_account_form .current_password_container .copy_password i,
+.login .edit_account_form .current_password_container .paste_password i,
+.login .edit_account_form .new_password_container .generate_password i,
+.login .edit_account_form .new_password_container .show_hide_password i,
+.login .edit_account_form .new_password_container .copy_password i,
+.login .edit_account_form .new_password_container .paste_password i,
+.login .password_reset_form .password_container .generate_password i,
+.login .password_reset_form .password_container .show_hide_password i,
+.login .password_reset_form .password_container .copy_password i,
+.login .password_reset_form .password_container .paste_password i,
+.login .password_reset_form .password_check_container .generate_password i,
+.login .password_reset_form .password_check_container .show_hide_password i,
+.login .password_reset_form .password_check_container .copy_password i,
+.login .password_reset_form .password_check_container .paste_password i,
+.login .password_reset_form .current_password_container .generate_password i,
+.login .password_reset_form .current_password_container .show_hide_password i,
+.login .password_reset_form .current_password_container .copy_password i,
+.login .password_reset_form .current_password_container .paste_password i,
+.login .password_reset_form .new_password_container .generate_password i,
+.login .password_reset_form .new_password_container .show_hide_password i,
+.login .password_reset_form .new_password_container .copy_password i,
+.login .password_reset_form .new_password_container .paste_password i,
+.edit_account .login_form .password_container .generate_password i,
+.edit_account .login_form .password_container .show_hide_password i,
+.edit_account .login_form .password_container .copy_password i,
+.edit_account .login_form .password_container .paste_password i,
+.edit_account .login_form .password_check_container .generate_password i,
+.edit_account .login_form .password_check_container .show_hide_password i,
+.edit_account .login_form .password_check_container .copy_password i,
+.edit_account .login_form .password_check_container .paste_password i,
+.edit_account .login_form .current_password_container .generate_password i,
+.edit_account .login_form .current_password_container .show_hide_password i,
+.edit_account .login_form .current_password_container .copy_password i,
+.edit_account .login_form .current_password_container .paste_password i,
+.edit_account .login_form .new_password_container .generate_password i,
+.edit_account .login_form .new_password_container .show_hide_password i,
+.edit_account .login_form .new_password_container .copy_password i,
+.edit_account .login_form .new_password_container .paste_password i,
+.edit_account .registration_form .password_container .generate_password i,
+.edit_account .registration_form .password_container .show_hide_password i,
+.edit_account .registration_form .password_container .copy_password i,
+.edit_account .registration_form .password_container .paste_password i,
+.edit_account .registration_form .password_check_container .generate_password i,
+.edit_account .registration_form .password_check_container .show_hide_password i,
+.edit_account .registration_form .password_check_container .copy_password i,
+.edit_account .registration_form .password_check_container .paste_password i,
+.edit_account .registration_form .current_password_container .generate_password i,
+.edit_account .registration_form .current_password_container .show_hide_password i,
+.edit_account .registration_form .current_password_container .copy_password i,
+.edit_account .registration_form .current_password_container .paste_password i,
+.edit_account .registration_form .new_password_container .generate_password i,
+.edit_account .registration_form .new_password_container .show_hide_password i,
+.edit_account .registration_form .new_password_container .copy_password i,
+.edit_account .registration_form .new_password_container .paste_password i,
+.edit_account .edit_account_form .password_container .generate_password i,
+.edit_account .edit_account_form .password_container .show_hide_password i,
+.edit_account .edit_account_form .password_container .copy_password i,
+.edit_account .edit_account_form .password_container .paste_password i,
+.edit_account .edit_account_form .password_check_container .generate_password i,
+.edit_account .edit_account_form .password_check_container .show_hide_password i,
+.edit_account .edit_account_form .password_check_container .copy_password i,
+.edit_account .edit_account_form .password_check_container .paste_password i,
+.edit_account .edit_account_form .current_password_container .generate_password i,
+.edit_account .edit_account_form .current_password_container .show_hide_password i,
+.edit_account .edit_account_form .current_password_container .copy_password i,
+.edit_account .edit_account_form .current_password_container .paste_password i,
+.edit_account .edit_account_form .new_password_container .generate_password i,
+.edit_account .edit_account_form .new_password_container .show_hide_password i,
+.edit_account .edit_account_form .new_password_container .copy_password i,
+.edit_account .edit_account_form .new_password_container .paste_password i,
+.edit_account .password_reset_form .password_container .generate_password i,
+.edit_account .password_reset_form .password_container .show_hide_password i,
+.edit_account .password_reset_form .password_container .copy_password i,
+.edit_account .password_reset_form .password_container .paste_password i,
+.edit_account .password_reset_form .password_check_container .generate_password i,
+.edit_account .password_reset_form .password_check_container .show_hide_password i,
+.edit_account .password_reset_form .password_check_container .copy_password i,
+.edit_account .password_reset_form .password_check_container .paste_password i,
+.edit_account .password_reset_form .current_password_container .generate_password i,
+.edit_account .password_reset_form .current_password_container .show_hide_password i,
+.edit_account .password_reset_form .current_password_container .copy_password i,
+.edit_account .password_reset_form .current_password_container .paste_password i,
+.edit_account .password_reset_form .new_password_container .generate_password i,
+.edit_account .password_reset_form .new_password_container .show_hide_password i,
+.edit_account .password_reset_form .new_password_container .copy_password i,
+.edit_account .password_reset_form .new_password_container .paste_password i,
+.edit_review .login_form .password_container .generate_password i,
+.edit_review .login_form .password_container .show_hide_password i,
+.edit_review .login_form .password_container .copy_password i,
+.edit_review .login_form .password_container .paste_password i,
+.edit_review .login_form .password_check_container .generate_password i,
+.edit_review .login_form .password_check_container .show_hide_password i,
+.edit_review .login_form .password_check_container .copy_password i,
+.edit_review .login_form .password_check_container .paste_password i,
+.edit_review .login_form .current_password_container .generate_password i,
+.edit_review .login_form .current_password_container .show_hide_password i,
+.edit_review .login_form .current_password_container .copy_password i,
+.edit_review .login_form .current_password_container .paste_password i,
+.edit_review .login_form .new_password_container .generate_password i,
+.edit_review .login_form .new_password_container .show_hide_password i,
+.edit_review .login_form .new_password_container .copy_password i,
+.edit_review .login_form .new_password_container .paste_password i,
+.edit_review .registration_form .password_container .generate_password i,
+.edit_review .registration_form .password_container .show_hide_password i,
+.edit_review .registration_form .password_container .copy_password i,
+.edit_review .registration_form .password_container .paste_password i,
+.edit_review .registration_form .password_check_container .generate_password i,
+.edit_review .registration_form .password_check_container .show_hide_password i,
+.edit_review .registration_form .password_check_container .copy_password i,
+.edit_review .registration_form .password_check_container .paste_password i,
+.edit_review .registration_form .current_password_container .generate_password i,
+.edit_review .registration_form .current_password_container .show_hide_password i,
+.edit_review .registration_form .current_password_container .copy_password i,
+.edit_review .registration_form .current_password_container .paste_password i,
+.edit_review .registration_form .new_password_container .generate_password i,
+.edit_review .registration_form .new_password_container .show_hide_password i,
+.edit_review .registration_form .new_password_container .copy_password i,
+.edit_review .registration_form .new_password_container .paste_password i,
+.edit_review .edit_account_form .password_container .generate_password i,
+.edit_review .edit_account_form .password_container .show_hide_password i,
+.edit_review .edit_account_form .password_container .copy_password i,
+.edit_review .edit_account_form .password_container .paste_password i,
+.edit_review .edit_account_form .password_check_container .generate_password i,
+.edit_review .edit_account_form .password_check_container .show_hide_password i,
+.edit_review .edit_account_form .password_check_container .copy_password i,
+.edit_review .edit_account_form .password_check_container .paste_password i,
+.edit_review .edit_account_form .current_password_container .generate_password i,
+.edit_review .edit_account_form .current_password_container .show_hide_password i,
+.edit_review .edit_account_form .current_password_container .copy_password i,
+.edit_review .edit_account_form .current_password_container .paste_password i,
+.edit_review .edit_account_form .new_password_container .generate_password i,
+.edit_review .edit_account_form .new_password_container .show_hide_password i,
+.edit_review .edit_account_form .new_password_container .copy_password i,
+.edit_review .edit_account_form .new_password_container .paste_password i,
+.edit_review .password_reset_form .password_container .generate_password i,
+.edit_review .password_reset_form .password_container .show_hide_password i,
+.edit_review .password_reset_form .password_container .copy_password i,
+.edit_review .password_reset_form .password_container .paste_password i,
+.edit_review .password_reset_form .password_check_container .generate_password i,
+.edit_review .password_reset_form .password_check_container .show_hide_password i,
+.edit_review .password_reset_form .password_check_container .copy_password i,
+.edit_review .password_reset_form .password_check_container .paste_password i,
+.edit_review .password_reset_form .current_password_container .generate_password i,
+.edit_review .password_reset_form .current_password_container .show_hide_password i,
+.edit_review .password_reset_form .current_password_container .copy_password i,
+.edit_review .password_reset_form .current_password_container .paste_password i,
+.edit_review .password_reset_form .new_password_container .generate_password i,
+.edit_review .password_reset_form .new_password_container .show_hide_password i,
+.edit_review .password_reset_form .new_password_container .copy_password i,
+.edit_review .password_reset_form .new_password_container .paste_password i,
+.password_reset .login_form .password_container .generate_password i,
+.password_reset .login_form .password_container .show_hide_password i,
+.password_reset .login_form .password_container .copy_password i,
+.password_reset .login_form .password_container .paste_password i,
+.password_reset .login_form .password_check_container .generate_password i,
+.password_reset .login_form .password_check_container .show_hide_password i,
+.password_reset .login_form .password_check_container .copy_password i,
+.password_reset .login_form .password_check_container .paste_password i,
+.password_reset .login_form .current_password_container .generate_password i,
+.password_reset .login_form .current_password_container .show_hide_password i,
+.password_reset .login_form .current_password_container .copy_password i,
+.password_reset .login_form .current_password_container .paste_password i,
+.password_reset .login_form .new_password_container .generate_password i,
+.password_reset .login_form .new_password_container .show_hide_password i,
+.password_reset .login_form .new_password_container .copy_password i,
+.password_reset .login_form .new_password_container .paste_password i,
+.password_reset .registration_form .password_container .generate_password i,
+.password_reset .registration_form .password_container .show_hide_password i,
+.password_reset .registration_form .password_container .copy_password i,
+.password_reset .registration_form .password_container .paste_password i,
+.password_reset .registration_form .password_check_container .generate_password i,
+.password_reset .registration_form .password_check_container .show_hide_password i,
+.password_reset .registration_form .password_check_container .copy_password i,
+.password_reset .registration_form .password_check_container .paste_password i,
+.password_reset .registration_form .current_password_container .generate_password i,
+.password_reset .registration_form .current_password_container .show_hide_password i,
+.password_reset .registration_form .current_password_container .copy_password i,
+.password_reset .registration_form .current_password_container .paste_password i,
+.password_reset .registration_form .new_password_container .generate_password i,
+.password_reset .registration_form .new_password_container .show_hide_password i,
+.password_reset .registration_form .new_password_container .copy_password i,
+.password_reset .registration_form .new_password_container .paste_password i,
+.password_reset .edit_account_form .password_container .generate_password i,
+.password_reset .edit_account_form .password_container .show_hide_password i,
+.password_reset .edit_account_form .password_container .copy_password i,
+.password_reset .edit_account_form .password_container .paste_password i,
+.password_reset .edit_account_form .password_check_container .generate_password i,
+.password_reset .edit_account_form .password_check_container .show_hide_password i,
+.password_reset .edit_account_form .password_check_container .copy_password i,
+.password_reset .edit_account_form .password_check_container .paste_password i,
+.password_reset .edit_account_form .current_password_container .generate_password i,
+.password_reset .edit_account_form .current_password_container .show_hide_password i,
+.password_reset .edit_account_form .current_password_container .copy_password i,
+.password_reset .edit_account_form .current_password_container .paste_password i,
+.password_reset .edit_account_form .new_password_container .generate_password i,
+.password_reset .edit_account_form .new_password_container .show_hide_password i,
+.password_reset .edit_account_form .new_password_container .copy_password i,
+.password_reset .edit_account_form .new_password_container .paste_password i,
+.password_reset .password_reset_form .password_container .generate_password i,
+.password_reset .password_reset_form .password_container .show_hide_password i,
+.password_reset .password_reset_form .password_container .copy_password i,
+.password_reset .password_reset_form .password_container .paste_password i,
+.password_reset .password_reset_form .password_check_container .generate_password i,
+.password_reset .password_reset_form .password_check_container .show_hide_password i,
+.password_reset .password_reset_form .password_check_container .copy_password i,
+.password_reset .password_reset_form .password_check_container .paste_password i,
+.password_reset .password_reset_form .current_password_container .generate_password i,
+.password_reset .password_reset_form .current_password_container .show_hide_password i,
+.password_reset .password_reset_form .current_password_container .copy_password i,
+.password_reset .password_reset_form .current_password_container .paste_password i,
+.password_reset .password_reset_form .new_password_container .generate_password i,
+.password_reset .password_reset_form .new_password_container .show_hide_password i,
+.password_reset .password_reset_form .new_password_container .copy_password i,
+.password_reset .password_reset_form .new_password_container .paste_password i {
+  color: #cccccc;
+}
+.registration .login_form .password_container .generate_password i:hover,
+.registration .login_form .password_container .show_hide_password i:hover,
+.registration .login_form .password_container .copy_password i:hover,
+.registration .login_form .password_container .paste_password i:hover,
+.registration .login_form .password_check_container .generate_password i:hover,
+.registration .login_form .password_check_container .show_hide_password i:hover,
+.registration .login_form .password_check_container .copy_password i:hover,
+.registration .login_form .password_check_container .paste_password i:hover,
+.registration .login_form .current_password_container .generate_password i:hover,
+.registration .login_form .current_password_container .show_hide_password i:hover,
+.registration .login_form .current_password_container .copy_password i:hover,
+.registration .login_form .current_password_container .paste_password i:hover,
+.registration .login_form .new_password_container .generate_password i:hover,
+.registration .login_form .new_password_container .show_hide_password i:hover,
+.registration .login_form .new_password_container .copy_password i:hover,
+.registration .login_form .new_password_container .paste_password i:hover,
+.registration .registration_form .password_container .generate_password i:hover,
+.registration .registration_form .password_container .show_hide_password i:hover,
+.registration .registration_form .password_container .copy_password i:hover,
+.registration .registration_form .password_container .paste_password i:hover,
+.registration .registration_form .password_check_container .generate_password i:hover,
+.registration .registration_form .password_check_container .show_hide_password i:hover,
+.registration .registration_form .password_check_container .copy_password i:hover,
+.registration .registration_form .password_check_container .paste_password i:hover,
+.registration .registration_form .current_password_container .generate_password i:hover,
+.registration .registration_form .current_password_container .show_hide_password i:hover,
+.registration .registration_form .current_password_container .copy_password i:hover,
+.registration .registration_form .current_password_container .paste_password i:hover,
+.registration .registration_form .new_password_container .generate_password i:hover,
+.registration .registration_form .new_password_container .show_hide_password i:hover,
+.registration .registration_form .new_password_container .copy_password i:hover,
+.registration .registration_form .new_password_container .paste_password i:hover,
+.registration .edit_account_form .password_container .generate_password i:hover,
+.registration .edit_account_form .password_container .show_hide_password i:hover,
+.registration .edit_account_form .password_container .copy_password i:hover,
+.registration .edit_account_form .password_container .paste_password i:hover,
+.registration .edit_account_form .password_check_container .generate_password i:hover,
+.registration .edit_account_form .password_check_container .show_hide_password i:hover,
+.registration .edit_account_form .password_check_container .copy_password i:hover,
+.registration .edit_account_form .password_check_container .paste_password i:hover,
+.registration .edit_account_form .current_password_container .generate_password i:hover,
+.registration .edit_account_form .current_password_container .show_hide_password i:hover,
+.registration .edit_account_form .current_password_container .copy_password i:hover,
+.registration .edit_account_form .current_password_container .paste_password i:hover,
+.registration .edit_account_form .new_password_container .generate_password i:hover,
+.registration .edit_account_form .new_password_container .show_hide_password i:hover,
+.registration .edit_account_form .new_password_container .copy_password i:hover,
+.registration .edit_account_form .new_password_container .paste_password i:hover,
+.registration .password_reset_form .password_container .generate_password i:hover,
+.registration .password_reset_form .password_container .show_hide_password i:hover,
+.registration .password_reset_form .password_container .copy_password i:hover,
+.registration .password_reset_form .password_container .paste_password i:hover,
+.registration .password_reset_form .password_check_container .generate_password i:hover,
+.registration .password_reset_form .password_check_container .show_hide_password i:hover,
+.registration .password_reset_form .password_check_container .copy_password i:hover,
+.registration .password_reset_form .password_check_container .paste_password i:hover,
+.registration .password_reset_form .current_password_container .generate_password i:hover,
+.registration .password_reset_form .current_password_container .show_hide_password i:hover,
+.registration .password_reset_form .current_password_container .copy_password i:hover,
+.registration .password_reset_form .current_password_container .paste_password i:hover,
+.registration .password_reset_form .new_password_container .generate_password i:hover,
+.registration .password_reset_form .new_password_container .show_hide_password i:hover,
+.registration .password_reset_form .new_password_container .copy_password i:hover,
+.registration .password_reset_form .new_password_container .paste_password i:hover,
+.login .login_form .password_container .generate_password i:hover,
+.login .login_form .password_container .show_hide_password i:hover,
+.login .login_form .password_container .copy_password i:hover,
+.login .login_form .password_container .paste_password i:hover,
+.login .login_form .password_check_container .generate_password i:hover,
+.login .login_form .password_check_container .show_hide_password i:hover,
+.login .login_form .password_check_container .copy_password i:hover,
+.login .login_form .password_check_container .paste_password i:hover,
+.login .login_form .current_password_container .generate_password i:hover,
+.login .login_form .current_password_container .show_hide_password i:hover,
+.login .login_form .current_password_container .copy_password i:hover,
+.login .login_form .current_password_container .paste_password i:hover,
+.login .login_form .new_password_container .generate_password i:hover,
+.login .login_form .new_password_container .show_hide_password i:hover,
+.login .login_form .new_password_container .copy_password i:hover,
+.login .login_form .new_password_container .paste_password i:hover,
+.login .registration_form .password_container .generate_password i:hover,
+.login .registration_form .password_container .show_hide_password i:hover,
+.login .registration_form .password_container .copy_password i:hover,
+.login .registration_form .password_container .paste_password i:hover,
+.login .registration_form .password_check_container .generate_password i:hover,
+.login .registration_form .password_check_container .show_hide_password i:hover,
+.login .registration_form .password_check_container .copy_password i:hover,
+.login .registration_form .password_check_container .paste_password i:hover,
+.login .registration_form .current_password_container .generate_password i:hover,
+.login .registration_form .current_password_container .show_hide_password i:hover,
+.login .registration_form .current_password_container .copy_password i:hover,
+.login .registration_form .current_password_container .paste_password i:hover,
+.login .registration_form .new_password_container .generate_password i:hover,
+.login .registration_form .new_password_container .show_hide_password i:hover,
+.login .registration_form .new_password_container .copy_password i:hover,
+.login .registration_form .new_password_container .paste_password i:hover,
+.login .edit_account_form .password_container .generate_password i:hover,
+.login .edit_account_form .password_container .show_hide_password i:hover,
+.login .edit_account_form .password_container .copy_password i:hover,
+.login .edit_account_form .password_container .paste_password i:hover,
+.login .edit_account_form .password_check_container .generate_password i:hover,
+.login .edit_account_form .password_check_container .show_hide_password i:hover,
+.login .edit_account_form .password_check_container .copy_password i:hover,
+.login .edit_account_form .password_check_container .paste_password i:hover,
+.login .edit_account_form .current_password_container .generate_password i:hover,
+.login .edit_account_form .current_password_container .show_hide_password i:hover,
+.login .edit_account_form .current_password_container .copy_password i:hover,
+.login .edit_account_form .current_password_container .paste_password i:hover,
+.login .edit_account_form .new_password_container .generate_password i:hover,
+.login .edit_account_form .new_password_container .show_hide_password i:hover,
+.login .edit_account_form .new_password_container .copy_password i:hover,
+.login .edit_account_form .new_password_container .paste_password i:hover,
+.login .password_reset_form .password_container .generate_password i:hover,
+.login .password_reset_form .password_container .show_hide_password i:hover,
+.login .password_reset_form .password_container .copy_password i:hover,
+.login .password_reset_form .password_container .paste_password i:hover,
+.login .password_reset_form .password_check_container .generate_password i:hover,
+.login .password_reset_form .password_check_container .show_hide_password i:hover,
+.login .password_reset_form .password_check_container .copy_password i:hover,
+.login .password_reset_form .password_check_container .paste_password i:hover,
+.login .password_reset_form .current_password_container .generate_password i:hover,
+.login .password_reset_form .current_password_container .show_hide_password i:hover,
+.login .password_reset_form .current_password_container .copy_password i:hover,
+.login .password_reset_form .current_password_container .paste_password i:hover,
+.login .password_reset_form .new_password_container .generate_password i:hover,
+.login .password_reset_form .new_password_container .show_hide_password i:hover,
+.login .password_reset_form .new_password_container .copy_password i:hover,
+.login .password_reset_form .new_password_container .paste_password i:hover,
+.edit_account .login_form .password_container .generate_password i:hover,
+.edit_account .login_form .password_container .show_hide_password i:hover,
+.edit_account .login_form .password_container .copy_password i:hover,
+.edit_account .login_form .password_container .paste_password i:hover,
+.edit_account .login_form .password_check_container .generate_password i:hover,
+.edit_account .login_form .password_check_container .show_hide_password i:hover,
+.edit_account .login_form .password_check_container .copy_password i:hover,
+.edit_account .login_form .password_check_container .paste_password i:hover,
+.edit_account .login_form .current_password_container .generate_password i:hover,
+.edit_account .login_form .current_password_container .show_hide_password i:hover,
+.edit_account .login_form .current_password_container .copy_password i:hover,
+.edit_account .login_form .current_password_container .paste_password i:hover,
+.edit_account .login_form .new_password_container .generate_password i:hover,
+.edit_account .login_form .new_password_container .show_hide_password i:hover,
+.edit_account .login_form .new_password_container .copy_password i:hover,
+.edit_account .login_form .new_password_container .paste_password i:hover,
+.edit_account .registration_form .password_container .generate_password i:hover,
+.edit_account .registration_form .password_container .show_hide_password i:hover,
+.edit_account .registration_form .password_container .copy_password i:hover,
+.edit_account .registration_form .password_container .paste_password i:hover,
+.edit_account .registration_form .password_check_container .generate_password i:hover,
+.edit_account .registration_form .password_check_container .show_hide_password i:hover,
+.edit_account .registration_form .password_check_container .copy_password i:hover,
+.edit_account .registration_form .password_check_container .paste_password i:hover,
+.edit_account .registration_form .current_password_container .generate_password i:hover,
+.edit_account .registration_form .current_password_container .show_hide_password i:hover,
+.edit_account .registration_form .current_password_container .copy_password i:hover,
+.edit_account .registration_form .current_password_container .paste_password i:hover,
+.edit_account .registration_form .new_password_container .generate_password i:hover,
+.edit_account .registration_form .new_password_container .show_hide_password i:hover,
+.edit_account .registration_form .new_password_container .copy_password i:hover,
+.edit_account .registration_form .new_password_container .paste_password i:hover,
+.edit_account .edit_account_form .password_container .generate_password i:hover,
+.edit_account .edit_account_form .password_container .show_hide_password i:hover,
+.edit_account .edit_account_form .password_container .copy_password i:hover,
+.edit_account .edit_account_form .password_container .paste_password i:hover,
+.edit_account .edit_account_form .password_check_container .generate_password i:hover,
+.edit_account .edit_account_form .password_check_container .show_hide_password i:hover,
+.edit_account .edit_account_form .password_check_container .copy_password i:hover,
+.edit_account .edit_account_form .password_check_container .paste_password i:hover,
+.edit_account .edit_account_form .current_password_container .generate_password i:hover,
+.edit_account .edit_account_form .current_password_container .show_hide_password i:hover,
+.edit_account .edit_account_form .current_password_container .copy_password i:hover,
+.edit_account .edit_account_form .current_password_container .paste_password i:hover,
+.edit_account .edit_account_form .new_password_container .generate_password i:hover,
+.edit_account .edit_account_form .new_password_container .show_hide_password i:hover,
+.edit_account .edit_account_form .new_password_container .copy_password i:hover,
+.edit_account .edit_account_form .new_password_container .paste_password i:hover,
+.edit_account .password_reset_form .password_container .generate_password i:hover,
+.edit_account .password_reset_form .password_container .show_hide_password i:hover,
+.edit_account .password_reset_form .password_container .copy_password i:hover,
+.edit_account .password_reset_form .password_container .paste_password i:hover,
+.edit_account .password_reset_form .password_check_container .generate_password i:hover,
+.edit_account .password_reset_form .password_check_container .show_hide_password i:hover,
+.edit_account .password_reset_form .password_check_container .copy_password i:hover,
+.edit_account .password_reset_form .password_check_container .paste_password i:hover,
+.edit_account .password_reset_form .current_password_container .generate_password i:hover,
+.edit_account .password_reset_form .current_password_container .show_hide_password i:hover,
+.edit_account .password_reset_form .current_password_container .copy_password i:hover,
+.edit_account .password_reset_form .current_password_container .paste_password i:hover,
+.edit_account .password_reset_form .new_password_container .generate_password i:hover,
+.edit_account .password_reset_form .new_password_container .show_hide_password i:hover,
+.edit_account .password_reset_form .new_password_container .copy_password i:hover,
+.edit_account .password_reset_form .new_password_container .paste_password i:hover,
+.edit_review .login_form .password_container .generate_password i:hover,
+.edit_review .login_form .password_container .show_hide_password i:hover,
+.edit_review .login_form .password_container .copy_password i:hover,
+.edit_review .login_form .password_container .paste_password i:hover,
+.edit_review .login_form .password_check_container .generate_password i:hover,
+.edit_review .login_form .password_check_container .show_hide_password i:hover,
+.edit_review .login_form .password_check_container .copy_password i:hover,
+.edit_review .login_form .password_check_container .paste_password i:hover,
+.edit_review .login_form .current_password_container .generate_password i:hover,
+.edit_review .login_form .current_password_container .show_hide_password i:hover,
+.edit_review .login_form .current_password_container .copy_password i:hover,
+.edit_review .login_form .current_password_container .paste_password i:hover,
+.edit_review .login_form .new_password_container .generate_password i:hover,
+.edit_review .login_form .new_password_container .show_hide_password i:hover,
+.edit_review .login_form .new_password_container .copy_password i:hover,
+.edit_review .login_form .new_password_container .paste_password i:hover,
+.edit_review .registration_form .password_container .generate_password i:hover,
+.edit_review .registration_form .password_container .show_hide_password i:hover,
+.edit_review .registration_form .password_container .copy_password i:hover,
+.edit_review .registration_form .password_container .paste_password i:hover,
+.edit_review .registration_form .password_check_container .generate_password i:hover,
+.edit_review .registration_form .password_check_container .show_hide_password i:hover,
+.edit_review .registration_form .password_check_container .copy_password i:hover,
+.edit_review .registration_form .password_check_container .paste_password i:hover,
+.edit_review .registration_form .current_password_container .generate_password i:hover,
+.edit_review .registration_form .current_password_container .show_hide_password i:hover,
+.edit_review .registration_form .current_password_container .copy_password i:hover,
+.edit_review .registration_form .current_password_container .paste_password i:hover,
+.edit_review .registration_form .new_password_container .generate_password i:hover,
+.edit_review .registration_form .new_password_container .show_hide_password i:hover,
+.edit_review .registration_form .new_password_container .copy_password i:hover,
+.edit_review .registration_form .new_password_container .paste_password i:hover,
+.edit_review .edit_account_form .password_container .generate_password i:hover,
+.edit_review .edit_account_form .password_container .show_hide_password i:hover,
+.edit_review .edit_account_form .password_container .copy_password i:hover,
+.edit_review .edit_account_form .password_container .paste_password i:hover,
+.edit_review .edit_account_form .password_check_container .generate_password i:hover,
+.edit_review .edit_account_form .password_check_container .show_hide_password i:hover,
+.edit_review .edit_account_form .password_check_container .copy_password i:hover,
+.edit_review .edit_account_form .password_check_container .paste_password i:hover,
+.edit_review .edit_account_form .current_password_container .generate_password i:hover,
+.edit_review .edit_account_form .current_password_container .show_hide_password i:hover,
+.edit_review .edit_account_form .current_password_container .copy_password i:hover,
+.edit_review .edit_account_form .current_password_container .paste_password i:hover,
+.edit_review .edit_account_form .new_password_container .generate_password i:hover,
+.edit_review .edit_account_form .new_password_container .show_hide_password i:hover,
+.edit_review .edit_account_form .new_password_container .copy_password i:hover,
+.edit_review .edit_account_form .new_password_container .paste_password i:hover,
+.edit_review .password_reset_form .password_container .generate_password i:hover,
+.edit_review .password_reset_form .password_container .show_hide_password i:hover,
+.edit_review .password_reset_form .password_container .copy_password i:hover,
+.edit_review .password_reset_form .password_container .paste_password i:hover,
+.edit_review .password_reset_form .password_check_container .generate_password i:hover,
+.edit_review .password_reset_form .password_check_container .show_hide_password i:hover,
+.edit_review .password_reset_form .password_check_container .copy_password i:hover,
+.edit_review .password_reset_form .password_check_container .paste_password i:hover,
+.edit_review .password_reset_form .current_password_container .generate_password i:hover,
+.edit_review .password_reset_form .current_password_container .show_hide_password i:hover,
+.edit_review .password_reset_form .current_password_container .copy_password i:hover,
+.edit_review .password_reset_form .current_password_container .paste_password i:hover,
+.edit_review .password_reset_form .new_password_container .generate_password i:hover,
+.edit_review .password_reset_form .new_password_container .show_hide_password i:hover,
+.edit_review .password_reset_form .new_password_container .copy_password i:hover,
+.edit_review .password_reset_form .new_password_container .paste_password i:hover,
+.password_reset .login_form .password_container .generate_password i:hover,
+.password_reset .login_form .password_container .show_hide_password i:hover,
+.password_reset .login_form .password_container .copy_password i:hover,
+.password_reset .login_form .password_container .paste_password i:hover,
+.password_reset .login_form .password_check_container .generate_password i:hover,
+.password_reset .login_form .password_check_container .show_hide_password i:hover,
+.password_reset .login_form .password_check_container .copy_password i:hover,
+.password_reset .login_form .password_check_container .paste_password i:hover,
+.password_reset .login_form .current_password_container .generate_password i:hover,
+.password_reset .login_form .current_password_container .show_hide_password i:hover,
+.password_reset .login_form .current_password_container .copy_password i:hover,
+.password_reset .login_form .current_password_container .paste_password i:hover,
+.password_reset .login_form .new_password_container .generate_password i:hover,
+.password_reset .login_form .new_password_container .show_hide_password i:hover,
+.password_reset .login_form .new_password_container .copy_password i:hover,
+.password_reset .login_form .new_password_container .paste_password i:hover,
+.password_reset .registration_form .password_container .generate_password i:hover,
+.password_reset .registration_form .password_container .show_hide_password i:hover,
+.password_reset .registration_form .password_container .copy_password i:hover,
+.password_reset .registration_form .password_container .paste_password i:hover,
+.password_reset .registration_form .password_check_container .generate_password i:hover,
+.password_reset .registration_form .password_check_container .show_hide_password i:hover,
+.password_reset .registration_form .password_check_container .copy_password i:hover,
+.password_reset .registration_form .password_check_container .paste_password i:hover,
+.password_reset .registration_form .current_password_container .generate_password i:hover,
+.password_reset .registration_form .current_password_container .show_hide_password i:hover,
+.password_reset .registration_form .current_password_container .copy_password i:hover,
+.password_reset .registration_form .current_password_container .paste_password i:hover,
+.password_reset .registration_form .new_password_container .generate_password i:hover,
+.password_reset .registration_form .new_password_container .show_hide_password i:hover,
+.password_reset .registration_form .new_password_container .copy_password i:hover,
+.password_reset .registration_form .new_password_container .paste_password i:hover,
+.password_reset .edit_account_form .password_container .generate_password i:hover,
+.password_reset .edit_account_form .password_container .show_hide_password i:hover,
+.password_reset .edit_account_form .password_container .copy_password i:hover,
+.password_reset .edit_account_form .password_container .paste_password i:hover,
+.password_reset .edit_account_form .password_check_container .generate_password i:hover,
+.password_reset .edit_account_form .password_check_container .show_hide_password i:hover,
+.password_reset .edit_account_form .password_check_container .copy_password i:hover,
+.password_reset .edit_account_form .password_check_container .paste_password i:hover,
+.password_reset .edit_account_form .current_password_container .generate_password i:hover,
+.password_reset .edit_account_form .current_password_container .show_hide_password i:hover,
+.password_reset .edit_account_form .current_password_container .copy_password i:hover,
+.password_reset .edit_account_form .current_password_container .paste_password i:hover,
+.password_reset .edit_account_form .new_password_container .generate_password i:hover,
+.password_reset .edit_account_form .new_password_container .show_hide_password i:hover,
+.password_reset .edit_account_form .new_password_container .copy_password i:hover,
+.password_reset .edit_account_form .new_password_container .paste_password i:hover,
+.password_reset .password_reset_form .password_container .generate_password i:hover,
+.password_reset .password_reset_form .password_container .show_hide_password i:hover,
+.password_reset .password_reset_form .password_container .copy_password i:hover,
+.password_reset .password_reset_form .password_container .paste_password i:hover,
+.password_reset .password_reset_form .password_check_container .generate_password i:hover,
+.password_reset .password_reset_form .password_check_container .show_hide_password i:hover,
+.password_reset .password_reset_form .password_check_container .copy_password i:hover,
+.password_reset .password_reset_form .password_check_container .paste_password i:hover,
+.password_reset .password_reset_form .current_password_container .generate_password i:hover,
+.password_reset .password_reset_form .current_password_container .show_hide_password i:hover,
+.password_reset .password_reset_form .current_password_container .copy_password i:hover,
+.password_reset .password_reset_form .current_password_container .paste_password i:hover,
+.password_reset .password_reset_form .new_password_container .generate_password i:hover,
+.password_reset .password_reset_form .new_password_container .show_hide_password i:hover,
+.password_reset .password_reset_form .new_password_container .copy_password i:hover,
+.password_reset .password_reset_form .new_password_container .paste_password i:hover {
+  color: rgb(229.5, 229.5, 229.5);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+.registration .login_form .password_container .generate_password,
+.registration .login_form .password_check_container .generate_password,
+.registration .login_form .current_password_container .generate_password,
+.registration .login_form .new_password_container .generate_password,
+.registration .registration_form .password_container .generate_password,
+.registration .registration_form .password_check_container .generate_password,
+.registration .registration_form .current_password_container .generate_password,
+.registration .registration_form .new_password_container .generate_password,
+.registration .edit_account_form .password_container .generate_password,
+.registration .edit_account_form .password_check_container .generate_password,
+.registration .edit_account_form .current_password_container .generate_password,
+.registration .edit_account_form .new_password_container .generate_password,
+.registration .password_reset_form .password_container .generate_password,
+.registration .password_reset_form .password_check_container .generate_password,
+.registration .password_reset_form .current_password_container .generate_password,
+.registration .password_reset_form .new_password_container .generate_password,
+.login .login_form .password_container .generate_password,
+.login .login_form .password_check_container .generate_password,
+.login .login_form .current_password_container .generate_password,
+.login .login_form .new_password_container .generate_password,
+.login .registration_form .password_container .generate_password,
+.login .registration_form .password_check_container .generate_password,
+.login .registration_form .current_password_container .generate_password,
+.login .registration_form .new_password_container .generate_password,
+.login .edit_account_form .password_container .generate_password,
+.login .edit_account_form .password_check_container .generate_password,
+.login .edit_account_form .current_password_container .generate_password,
+.login .edit_account_form .new_password_container .generate_password,
+.login .password_reset_form .password_container .generate_password,
+.login .password_reset_form .password_check_container .generate_password,
+.login .password_reset_form .current_password_container .generate_password,
+.login .password_reset_form .new_password_container .generate_password,
+.edit_account .login_form .password_container .generate_password,
+.edit_account .login_form .password_check_container .generate_password,
+.edit_account .login_form .current_password_container .generate_password,
+.edit_account .login_form .new_password_container .generate_password,
+.edit_account .registration_form .password_container .generate_password,
+.edit_account .registration_form .password_check_container .generate_password,
+.edit_account .registration_form .current_password_container .generate_password,
+.edit_account .registration_form .new_password_container .generate_password,
+.edit_account .edit_account_form .password_container .generate_password,
+.edit_account .edit_account_form .password_check_container .generate_password,
+.edit_account .edit_account_form .current_password_container .generate_password,
+.edit_account .edit_account_form .new_password_container .generate_password,
+.edit_account .password_reset_form .password_container .generate_password,
+.edit_account .password_reset_form .password_check_container .generate_password,
+.edit_account .password_reset_form .current_password_container .generate_password,
+.edit_account .password_reset_form .new_password_container .generate_password,
+.edit_review .login_form .password_container .generate_password,
+.edit_review .login_form .password_check_container .generate_password,
+.edit_review .login_form .current_password_container .generate_password,
+.edit_review .login_form .new_password_container .generate_password,
+.edit_review .registration_form .password_container .generate_password,
+.edit_review .registration_form .password_check_container .generate_password,
+.edit_review .registration_form .current_password_container .generate_password,
+.edit_review .registration_form .new_password_container .generate_password,
+.edit_review .edit_account_form .password_container .generate_password,
+.edit_review .edit_account_form .password_check_container .generate_password,
+.edit_review .edit_account_form .current_password_container .generate_password,
+.edit_review .edit_account_form .new_password_container .generate_password,
+.edit_review .password_reset_form .password_container .generate_password,
+.edit_review .password_reset_form .password_check_container .generate_password,
+.edit_review .password_reset_form .current_password_container .generate_password,
+.edit_review .password_reset_form .new_password_container .generate_password,
+.password_reset .login_form .password_container .generate_password,
+.password_reset .login_form .password_check_container .generate_password,
+.password_reset .login_form .current_password_container .generate_password,
+.password_reset .login_form .new_password_container .generate_password,
+.password_reset .registration_form .password_container .generate_password,
+.password_reset .registration_form .password_check_container .generate_password,
+.password_reset .registration_form .current_password_container .generate_password,
+.password_reset .registration_form .new_password_container .generate_password,
+.password_reset .edit_account_form .password_container .generate_password,
+.password_reset .edit_account_form .password_check_container .generate_password,
+.password_reset .edit_account_form .current_password_container .generate_password,
+.password_reset .edit_account_form .new_password_container .generate_password,
+.password_reset .password_reset_form .password_container .generate_password,
+.password_reset .password_reset_form .password_check_container .generate_password,
+.password_reset .password_reset_form .current_password_container .generate_password,
+.password_reset .password_reset_form .new_password_container .generate_password {
+  all: unset;
+  position: absolute;
+  top: 50%;
+  left: 0px;
+  transform: translateY(-50%);
+  transition: left 0.3s ease;
+}
+.registration .login_form .password_container .generate_password:hover,
+.registration .login_form .password_check_container .generate_password:hover,
+.registration .login_form .current_password_container .generate_password:hover,
+.registration .login_form .new_password_container .generate_password:hover,
+.registration .registration_form .password_container .generate_password:hover,
+.registration .registration_form .password_check_container .generate_password:hover,
+.registration .registration_form .current_password_container .generate_password:hover,
+.registration .registration_form .new_password_container .generate_password:hover,
+.registration .edit_account_form .password_container .generate_password:hover,
+.registration .edit_account_form .password_check_container .generate_password:hover,
+.registration .edit_account_form .current_password_container .generate_password:hover,
+.registration .edit_account_form .new_password_container .generate_password:hover,
+.registration .password_reset_form .password_container .generate_password:hover,
+.registration .password_reset_form .password_check_container .generate_password:hover,
+.registration .password_reset_form .current_password_container .generate_password:hover,
+.registration .password_reset_form .new_password_container .generate_password:hover,
+.login .login_form .password_container .generate_password:hover,
+.login .login_form .password_check_container .generate_password:hover,
+.login .login_form .current_password_container .generate_password:hover,
+.login .login_form .new_password_container .generate_password:hover,
+.login .registration_form .password_container .generate_password:hover,
+.login .registration_form .password_check_container .generate_password:hover,
+.login .registration_form .current_password_container .generate_password:hover,
+.login .registration_form .new_password_container .generate_password:hover,
+.login .edit_account_form .password_container .generate_password:hover,
+.login .edit_account_form .password_check_container .generate_password:hover,
+.login .edit_account_form .current_password_container .generate_password:hover,
+.login .edit_account_form .new_password_container .generate_password:hover,
+.login .password_reset_form .password_container .generate_password:hover,
+.login .password_reset_form .password_check_container .generate_password:hover,
+.login .password_reset_form .current_password_container .generate_password:hover,
+.login .password_reset_form .new_password_container .generate_password:hover,
+.edit_account .login_form .password_container .generate_password:hover,
+.edit_account .login_form .password_check_container .generate_password:hover,
+.edit_account .login_form .current_password_container .generate_password:hover,
+.edit_account .login_form .new_password_container .generate_password:hover,
+.edit_account .registration_form .password_container .generate_password:hover,
+.edit_account .registration_form .password_check_container .generate_password:hover,
+.edit_account .registration_form .current_password_container .generate_password:hover,
+.edit_account .registration_form .new_password_container .generate_password:hover,
+.edit_account .edit_account_form .password_container .generate_password:hover,
+.edit_account .edit_account_form .password_check_container .generate_password:hover,
+.edit_account .edit_account_form .current_password_container .generate_password:hover,
+.edit_account .edit_account_form .new_password_container .generate_password:hover,
+.edit_account .password_reset_form .password_container .generate_password:hover,
+.edit_account .password_reset_form .password_check_container .generate_password:hover,
+.edit_account .password_reset_form .current_password_container .generate_password:hover,
+.edit_account .password_reset_form .new_password_container .generate_password:hover,
+.edit_review .login_form .password_container .generate_password:hover,
+.edit_review .login_form .password_check_container .generate_password:hover,
+.edit_review .login_form .current_password_container .generate_password:hover,
+.edit_review .login_form .new_password_container .generate_password:hover,
+.edit_review .registration_form .password_container .generate_password:hover,
+.edit_review .registration_form .password_check_container .generate_password:hover,
+.edit_review .registration_form .current_password_container .generate_password:hover,
+.edit_review .registration_form .new_password_container .generate_password:hover,
+.edit_review .edit_account_form .password_container .generate_password:hover,
+.edit_review .edit_account_form .password_check_container .generate_password:hover,
+.edit_review .edit_account_form .current_password_container .generate_password:hover,
+.edit_review .edit_account_form .new_password_container .generate_password:hover,
+.edit_review .password_reset_form .password_container .generate_password:hover,
+.edit_review .password_reset_form .password_check_container .generate_password:hover,
+.edit_review .password_reset_form .current_password_container .generate_password:hover,
+.edit_review .password_reset_form .new_password_container .generate_password:hover,
+.password_reset .login_form .password_container .generate_password:hover,
+.password_reset .login_form .password_check_container .generate_password:hover,
+.password_reset .login_form .current_password_container .generate_password:hover,
+.password_reset .login_form .new_password_container .generate_password:hover,
+.password_reset .registration_form .password_container .generate_password:hover,
+.password_reset .registration_form .password_check_container .generate_password:hover,
+.password_reset .registration_form .current_password_container .generate_password:hover,
+.password_reset .registration_form .new_password_container .generate_password:hover,
+.password_reset .edit_account_form .password_container .generate_password:hover,
+.password_reset .edit_account_form .password_check_container .generate_password:hover,
+.password_reset .edit_account_form .current_password_container .generate_password:hover,
+.password_reset .edit_account_form .new_password_container .generate_password:hover,
+.password_reset .password_reset_form .password_container .generate_password:hover,
+.password_reset .password_reset_form .password_check_container .generate_password:hover,
+.password_reset .password_reset_form .current_password_container .generate_password:hover,
+.password_reset .password_reset_form .new_password_container .generate_password:hover {
+  cursor: pointer;
+}
+.registration .login_form .password_container .show_hide_password,
+.registration .login_form .password_check_container .show_hide_password,
+.registration .login_form .current_password_container .show_hide_password,
+.registration .login_form .new_password_container .show_hide_password,
+.registration .registration_form .password_container .show_hide_password,
+.registration .registration_form .password_check_container .show_hide_password,
+.registration .registration_form .current_password_container .show_hide_password,
+.registration .registration_form .new_password_container .show_hide_password,
+.registration .edit_account_form .password_container .show_hide_password,
+.registration .edit_account_form .password_check_container .show_hide_password,
+.registration .edit_account_form .current_password_container .show_hide_password,
+.registration .edit_account_form .new_password_container .show_hide_password,
+.registration .password_reset_form .password_container .show_hide_password,
+.registration .password_reset_form .password_check_container .show_hide_password,
+.registration .password_reset_form .current_password_container .show_hide_password,
+.registration .password_reset_form .new_password_container .show_hide_password,
+.login .login_form .password_container .show_hide_password,
+.login .login_form .password_check_container .show_hide_password,
+.login .login_form .current_password_container .show_hide_password,
+.login .login_form .new_password_container .show_hide_password,
+.login .registration_form .password_container .show_hide_password,
+.login .registration_form .password_check_container .show_hide_password,
+.login .registration_form .current_password_container .show_hide_password,
+.login .registration_form .new_password_container .show_hide_password,
+.login .edit_account_form .password_container .show_hide_password,
+.login .edit_account_form .password_check_container .show_hide_password,
+.login .edit_account_form .current_password_container .show_hide_password,
+.login .edit_account_form .new_password_container .show_hide_password,
+.login .password_reset_form .password_container .show_hide_password,
+.login .password_reset_form .password_check_container .show_hide_password,
+.login .password_reset_form .current_password_container .show_hide_password,
+.login .password_reset_form .new_password_container .show_hide_password,
+.edit_account .login_form .password_container .show_hide_password,
+.edit_account .login_form .password_check_container .show_hide_password,
+.edit_account .login_form .current_password_container .show_hide_password,
+.edit_account .login_form .new_password_container .show_hide_password,
+.edit_account .registration_form .password_container .show_hide_password,
+.edit_account .registration_form .password_check_container .show_hide_password,
+.edit_account .registration_form .current_password_container .show_hide_password,
+.edit_account .registration_form .new_password_container .show_hide_password,
+.edit_account .edit_account_form .password_container .show_hide_password,
+.edit_account .edit_account_form .password_check_container .show_hide_password,
+.edit_account .edit_account_form .current_password_container .show_hide_password,
+.edit_account .edit_account_form .new_password_container .show_hide_password,
+.edit_account .password_reset_form .password_container .show_hide_password,
+.edit_account .password_reset_form .password_check_container .show_hide_password,
+.edit_account .password_reset_form .current_password_container .show_hide_password,
+.edit_account .password_reset_form .new_password_container .show_hide_password,
+.edit_review .login_form .password_container .show_hide_password,
+.edit_review .login_form .password_check_container .show_hide_password,
+.edit_review .login_form .current_password_container .show_hide_password,
+.edit_review .login_form .new_password_container .show_hide_password,
+.edit_review .registration_form .password_container .show_hide_password,
+.edit_review .registration_form .password_check_container .show_hide_password,
+.edit_review .registration_form .current_password_container .show_hide_password,
+.edit_review .registration_form .new_password_container .show_hide_password,
+.edit_review .edit_account_form .password_container .show_hide_password,
+.edit_review .edit_account_form .password_check_container .show_hide_password,
+.edit_review .edit_account_form .current_password_container .show_hide_password,
+.edit_review .edit_account_form .new_password_container .show_hide_password,
+.edit_review .password_reset_form .password_container .show_hide_password,
+.edit_review .password_reset_form .password_check_container .show_hide_password,
+.edit_review .password_reset_form .current_password_container .show_hide_password,
+.edit_review .password_reset_form .new_password_container .show_hide_password,
+.password_reset .login_form .password_container .show_hide_password,
+.password_reset .login_form .password_check_container .show_hide_password,
+.password_reset .login_form .current_password_container .show_hide_password,
+.password_reset .login_form .new_password_container .show_hide_password,
+.password_reset .registration_form .password_container .show_hide_password,
+.password_reset .registration_form .password_check_container .show_hide_password,
+.password_reset .registration_form .current_password_container .show_hide_password,
+.password_reset .registration_form .new_password_container .show_hide_password,
+.password_reset .edit_account_form .password_container .show_hide_password,
+.password_reset .edit_account_form .password_check_container .show_hide_password,
+.password_reset .edit_account_form .current_password_container .show_hide_password,
+.password_reset .edit_account_form .new_password_container .show_hide_password,
+.password_reset .password_reset_form .password_container .show_hide_password,
+.password_reset .password_reset_form .password_check_container .show_hide_password,
+.password_reset .password_reset_form .current_password_container .show_hide_password,
+.password_reset .password_reset_form .new_password_container .show_hide_password {
+  all: unset;
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+}
+.registration .login_form .password_container .show_hide_password:hover,
+.registration .login_form .password_check_container .show_hide_password:hover,
+.registration .login_form .current_password_container .show_hide_password:hover,
+.registration .login_form .new_password_container .show_hide_password:hover,
+.registration .registration_form .password_container .show_hide_password:hover,
+.registration .registration_form .password_check_container .show_hide_password:hover,
+.registration .registration_form .current_password_container .show_hide_password:hover,
+.registration .registration_form .new_password_container .show_hide_password:hover,
+.registration .edit_account_form .password_container .show_hide_password:hover,
+.registration .edit_account_form .password_check_container .show_hide_password:hover,
+.registration .edit_account_form .current_password_container .show_hide_password:hover,
+.registration .edit_account_form .new_password_container .show_hide_password:hover,
+.registration .password_reset_form .password_container .show_hide_password:hover,
+.registration .password_reset_form .password_check_container .show_hide_password:hover,
+.registration .password_reset_form .current_password_container .show_hide_password:hover,
+.registration .password_reset_form .new_password_container .show_hide_password:hover,
+.login .login_form .password_container .show_hide_password:hover,
+.login .login_form .password_check_container .show_hide_password:hover,
+.login .login_form .current_password_container .show_hide_password:hover,
+.login .login_form .new_password_container .show_hide_password:hover,
+.login .registration_form .password_container .show_hide_password:hover,
+.login .registration_form .password_check_container .show_hide_password:hover,
+.login .registration_form .current_password_container .show_hide_password:hover,
+.login .registration_form .new_password_container .show_hide_password:hover,
+.login .edit_account_form .password_container .show_hide_password:hover,
+.login .edit_account_form .password_check_container .show_hide_password:hover,
+.login .edit_account_form .current_password_container .show_hide_password:hover,
+.login .edit_account_form .new_password_container .show_hide_password:hover,
+.login .password_reset_form .password_container .show_hide_password:hover,
+.login .password_reset_form .password_check_container .show_hide_password:hover,
+.login .password_reset_form .current_password_container .show_hide_password:hover,
+.login .password_reset_form .new_password_container .show_hide_password:hover,
+.edit_account .login_form .password_container .show_hide_password:hover,
+.edit_account .login_form .password_check_container .show_hide_password:hover,
+.edit_account .login_form .current_password_container .show_hide_password:hover,
+.edit_account .login_form .new_password_container .show_hide_password:hover,
+.edit_account .registration_form .password_container .show_hide_password:hover,
+.edit_account .registration_form .password_check_container .show_hide_password:hover,
+.edit_account .registration_form .current_password_container .show_hide_password:hover,
+.edit_account .registration_form .new_password_container .show_hide_password:hover,
+.edit_account .edit_account_form .password_container .show_hide_password:hover,
+.edit_account .edit_account_form .password_check_container .show_hide_password:hover,
+.edit_account .edit_account_form .current_password_container .show_hide_password:hover,
+.edit_account .edit_account_form .new_password_container .show_hide_password:hover,
+.edit_account .password_reset_form .password_container .show_hide_password:hover,
+.edit_account .password_reset_form .password_check_container .show_hide_password:hover,
+.edit_account .password_reset_form .current_password_container .show_hide_password:hover,
+.edit_account .password_reset_form .new_password_container .show_hide_password:hover,
+.edit_review .login_form .password_container .show_hide_password:hover,
+.edit_review .login_form .password_check_container .show_hide_password:hover,
+.edit_review .login_form .current_password_container .show_hide_password:hover,
+.edit_review .login_form .new_password_container .show_hide_password:hover,
+.edit_review .registration_form .password_container .show_hide_password:hover,
+.edit_review .registration_form .password_check_container .show_hide_password:hover,
+.edit_review .registration_form .current_password_container .show_hide_password:hover,
+.edit_review .registration_form .new_password_container .show_hide_password:hover,
+.edit_review .edit_account_form .password_container .show_hide_password:hover,
+.edit_review .edit_account_form .password_check_container .show_hide_password:hover,
+.edit_review .edit_account_form .current_password_container .show_hide_password:hover,
+.edit_review .edit_account_form .new_password_container .show_hide_password:hover,
+.edit_review .password_reset_form .password_container .show_hide_password:hover,
+.edit_review .password_reset_form .password_check_container .show_hide_password:hover,
+.edit_review .password_reset_form .current_password_container .show_hide_password:hover,
+.edit_review .password_reset_form .new_password_container .show_hide_password:hover,
+.password_reset .login_form .password_container .show_hide_password:hover,
+.password_reset .login_form .password_check_container .show_hide_password:hover,
+.password_reset .login_form .current_password_container .show_hide_password:hover,
+.password_reset .login_form .new_password_container .show_hide_password:hover,
+.password_reset .registration_form .password_container .show_hide_password:hover,
+.password_reset .registration_form .password_check_container .show_hide_password:hover,
+.password_reset .registration_form .current_password_container .show_hide_password:hover,
+.password_reset .registration_form .new_password_container .show_hide_password:hover,
+.password_reset .edit_account_form .password_container .show_hide_password:hover,
+.password_reset .edit_account_form .password_check_container .show_hide_password:hover,
+.password_reset .edit_account_form .current_password_container .show_hide_password:hover,
+.password_reset .edit_account_form .new_password_container .show_hide_password:hover,
+.password_reset .password_reset_form .password_container .show_hide_password:hover,
+.password_reset .password_reset_form .password_check_container .show_hide_password:hover,
+.password_reset .password_reset_form .current_password_container .show_hide_password:hover,
+.password_reset .password_reset_form .new_password_container .show_hide_password:hover {
+  cursor: pointer;
+}
+.registration .login_form .password_container .copy_password,
+.registration .login_form .password_container .paste_password,
+.registration .login_form .password_check_container .copy_password,
+.registration .login_form .password_check_container .paste_password,
+.registration .login_form .current_password_container .copy_password,
+.registration .login_form .current_password_container .paste_password,
+.registration .login_form .new_password_container .copy_password,
+.registration .login_form .new_password_container .paste_password,
+.registration .registration_form .password_container .copy_password,
+.registration .registration_form .password_container .paste_password,
+.registration .registration_form .password_check_container .copy_password,
+.registration .registration_form .password_check_container .paste_password,
+.registration .registration_form .current_password_container .copy_password,
+.registration .registration_form .current_password_container .paste_password,
+.registration .registration_form .new_password_container .copy_password,
+.registration .registration_form .new_password_container .paste_password,
+.registration .edit_account_form .password_container .copy_password,
+.registration .edit_account_form .password_container .paste_password,
+.registration .edit_account_form .password_check_container .copy_password,
+.registration .edit_account_form .password_check_container .paste_password,
+.registration .edit_account_form .current_password_container .copy_password,
+.registration .edit_account_form .current_password_container .paste_password,
+.registration .edit_account_form .new_password_container .copy_password,
+.registration .edit_account_form .new_password_container .paste_password,
+.registration .password_reset_form .password_container .copy_password,
+.registration .password_reset_form .password_container .paste_password,
+.registration .password_reset_form .password_check_container .copy_password,
+.registration .password_reset_form .password_check_container .paste_password,
+.registration .password_reset_form .current_password_container .copy_password,
+.registration .password_reset_form .current_password_container .paste_password,
+.registration .password_reset_form .new_password_container .copy_password,
+.registration .password_reset_form .new_password_container .paste_password,
+.login .login_form .password_container .copy_password,
+.login .login_form .password_container .paste_password,
+.login .login_form .password_check_container .copy_password,
+.login .login_form .password_check_container .paste_password,
+.login .login_form .current_password_container .copy_password,
+.login .login_form .current_password_container .paste_password,
+.login .login_form .new_password_container .copy_password,
+.login .login_form .new_password_container .paste_password,
+.login .registration_form .password_container .copy_password,
+.login .registration_form .password_container .paste_password,
+.login .registration_form .password_check_container .copy_password,
+.login .registration_form .password_check_container .paste_password,
+.login .registration_form .current_password_container .copy_password,
+.login .registration_form .current_password_container .paste_password,
+.login .registration_form .new_password_container .copy_password,
+.login .registration_form .new_password_container .paste_password,
+.login .edit_account_form .password_container .copy_password,
+.login .edit_account_form .password_container .paste_password,
+.login .edit_account_form .password_check_container .copy_password,
+.login .edit_account_form .password_check_container .paste_password,
+.login .edit_account_form .current_password_container .copy_password,
+.login .edit_account_form .current_password_container .paste_password,
+.login .edit_account_form .new_password_container .copy_password,
+.login .edit_account_form .new_password_container .paste_password,
+.login .password_reset_form .password_container .copy_password,
+.login .password_reset_form .password_container .paste_password,
+.login .password_reset_form .password_check_container .copy_password,
+.login .password_reset_form .password_check_container .paste_password,
+.login .password_reset_form .current_password_container .copy_password,
+.login .password_reset_form .current_password_container .paste_password,
+.login .password_reset_form .new_password_container .copy_password,
+.login .password_reset_form .new_password_container .paste_password,
+.edit_account .login_form .password_container .copy_password,
+.edit_account .login_form .password_container .paste_password,
+.edit_account .login_form .password_check_container .copy_password,
+.edit_account .login_form .password_check_container .paste_password,
+.edit_account .login_form .current_password_container .copy_password,
+.edit_account .login_form .current_password_container .paste_password,
+.edit_account .login_form .new_password_container .copy_password,
+.edit_account .login_form .new_password_container .paste_password,
+.edit_account .registration_form .password_container .copy_password,
+.edit_account .registration_form .password_container .paste_password,
+.edit_account .registration_form .password_check_container .copy_password,
+.edit_account .registration_form .password_check_container .paste_password,
+.edit_account .registration_form .current_password_container .copy_password,
+.edit_account .registration_form .current_password_container .paste_password,
+.edit_account .registration_form .new_password_container .copy_password,
+.edit_account .registration_form .new_password_container .paste_password,
+.edit_account .edit_account_form .password_container .copy_password,
+.edit_account .edit_account_form .password_container .paste_password,
+.edit_account .edit_account_form .password_check_container .copy_password,
+.edit_account .edit_account_form .password_check_container .paste_password,
+.edit_account .edit_account_form .current_password_container .copy_password,
+.edit_account .edit_account_form .current_password_container .paste_password,
+.edit_account .edit_account_form .new_password_container .copy_password,
+.edit_account .edit_account_form .new_password_container .paste_password,
+.edit_account .password_reset_form .password_container .copy_password,
+.edit_account .password_reset_form .password_container .paste_password,
+.edit_account .password_reset_form .password_check_container .copy_password,
+.edit_account .password_reset_form .password_check_container .paste_password,
+.edit_account .password_reset_form .current_password_container .copy_password,
+.edit_account .password_reset_form .current_password_container .paste_password,
+.edit_account .password_reset_form .new_password_container .copy_password,
+.edit_account .password_reset_form .new_password_container .paste_password,
+.edit_review .login_form .password_container .copy_password,
+.edit_review .login_form .password_container .paste_password,
+.edit_review .login_form .password_check_container .copy_password,
+.edit_review .login_form .password_check_container .paste_password,
+.edit_review .login_form .current_password_container .copy_password,
+.edit_review .login_form .current_password_container .paste_password,
+.edit_review .login_form .new_password_container .copy_password,
+.edit_review .login_form .new_password_container .paste_password,
+.edit_review .registration_form .password_container .copy_password,
+.edit_review .registration_form .password_container .paste_password,
+.edit_review .registration_form .password_check_container .copy_password,
+.edit_review .registration_form .password_check_container .paste_password,
+.edit_review .registration_form .current_password_container .copy_password,
+.edit_review .registration_form .current_password_container .paste_password,
+.edit_review .registration_form .new_password_container .copy_password,
+.edit_review .registration_form .new_password_container .paste_password,
+.edit_review .edit_account_form .password_container .copy_password,
+.edit_review .edit_account_form .password_container .paste_password,
+.edit_review .edit_account_form .password_check_container .copy_password,
+.edit_review .edit_account_form .password_check_container .paste_password,
+.edit_review .edit_account_form .current_password_container .copy_password,
+.edit_review .edit_account_form .current_password_container .paste_password,
+.edit_review .edit_account_form .new_password_container .copy_password,
+.edit_review .edit_account_form .new_password_container .paste_password,
+.edit_review .password_reset_form .password_container .copy_password,
+.edit_review .password_reset_form .password_container .paste_password,
+.edit_review .password_reset_form .password_check_container .copy_password,
+.edit_review .password_reset_form .password_check_container .paste_password,
+.edit_review .password_reset_form .current_password_container .copy_password,
+.edit_review .password_reset_form .current_password_container .paste_password,
+.edit_review .password_reset_form .new_password_container .copy_password,
+.edit_review .password_reset_form .new_password_container .paste_password,
+.password_reset .login_form .password_container .copy_password,
+.password_reset .login_form .password_container .paste_password,
+.password_reset .login_form .password_check_container .copy_password,
+.password_reset .login_form .password_check_container .paste_password,
+.password_reset .login_form .current_password_container .copy_password,
+.password_reset .login_form .current_password_container .paste_password,
+.password_reset .login_form .new_password_container .copy_password,
+.password_reset .login_form .new_password_container .paste_password,
+.password_reset .registration_form .password_container .copy_password,
+.password_reset .registration_form .password_container .paste_password,
+.password_reset .registration_form .password_check_container .copy_password,
+.password_reset .registration_form .password_check_container .paste_password,
+.password_reset .registration_form .current_password_container .copy_password,
+.password_reset .registration_form .current_password_container .paste_password,
+.password_reset .registration_form .new_password_container .copy_password,
+.password_reset .registration_form .new_password_container .paste_password,
+.password_reset .edit_account_form .password_container .copy_password,
+.password_reset .edit_account_form .password_container .paste_password,
+.password_reset .edit_account_form .password_check_container .copy_password,
+.password_reset .edit_account_form .password_check_container .paste_password,
+.password_reset .edit_account_form .current_password_container .copy_password,
+.password_reset .edit_account_form .current_password_container .paste_password,
+.password_reset .edit_account_form .new_password_container .copy_password,
+.password_reset .edit_account_form .new_password_container .paste_password,
+.password_reset .password_reset_form .password_container .copy_password,
+.password_reset .password_reset_form .password_container .paste_password,
+.password_reset .password_reset_form .password_check_container .copy_password,
+.password_reset .password_reset_form .password_check_container .paste_password,
+.password_reset .password_reset_form .current_password_container .copy_password,
+.password_reset .password_reset_form .current_password_container .paste_password,
+.password_reset .password_reset_form .new_password_container .copy_password,
+.password_reset .password_reset_form .new_password_container .paste_password {
+  all: unset;
+  position: absolute;
+  top: 50%;
+  right: 0px;
+  transform: translateY(-50%);
+}
+.registration .login_form .password_container .copy_password:hover,
+.registration .login_form .password_container .paste_password:hover,
+.registration .login_form .password_check_container .copy_password:hover,
+.registration .login_form .password_check_container .paste_password:hover,
+.registration .login_form .current_password_container .copy_password:hover,
+.registration .login_form .current_password_container .paste_password:hover,
+.registration .login_form .new_password_container .copy_password:hover,
+.registration .login_form .new_password_container .paste_password:hover,
+.registration .registration_form .password_container .copy_password:hover,
+.registration .registration_form .password_container .paste_password:hover,
+.registration .registration_form .password_check_container .copy_password:hover,
+.registration .registration_form .password_check_container .paste_password:hover,
+.registration .registration_form .current_password_container .copy_password:hover,
+.registration .registration_form .current_password_container .paste_password:hover,
+.registration .registration_form .new_password_container .copy_password:hover,
+.registration .registration_form .new_password_container .paste_password:hover,
+.registration .edit_account_form .password_container .copy_password:hover,
+.registration .edit_account_form .password_container .paste_password:hover,
+.registration .edit_account_form .password_check_container .copy_password:hover,
+.registration .edit_account_form .password_check_container .paste_password:hover,
+.registration .edit_account_form .current_password_container .copy_password:hover,
+.registration .edit_account_form .current_password_container .paste_password:hover,
+.registration .edit_account_form .new_password_container .copy_password:hover,
+.registration .edit_account_form .new_password_container .paste_password:hover,
+.registration .password_reset_form .password_container .copy_password:hover,
+.registration .password_reset_form .password_container .paste_password:hover,
+.registration .password_reset_form .password_check_container .copy_password:hover,
+.registration .password_reset_form .password_check_container .paste_password:hover,
+.registration .password_reset_form .current_password_container .copy_password:hover,
+.registration .password_reset_form .current_password_container .paste_password:hover,
+.registration .password_reset_form .new_password_container .copy_password:hover,
+.registration .password_reset_form .new_password_container .paste_password:hover,
+.login .login_form .password_container .copy_password:hover,
+.login .login_form .password_container .paste_password:hover,
+.login .login_form .password_check_container .copy_password:hover,
+.login .login_form .password_check_container .paste_password:hover,
+.login .login_form .current_password_container .copy_password:hover,
+.login .login_form .current_password_container .paste_password:hover,
+.login .login_form .new_password_container .copy_password:hover,
+.login .login_form .new_password_container .paste_password:hover,
+.login .registration_form .password_container .copy_password:hover,
+.login .registration_form .password_container .paste_password:hover,
+.login .registration_form .password_check_container .copy_password:hover,
+.login .registration_form .password_check_container .paste_password:hover,
+.login .registration_form .current_password_container .copy_password:hover,
+.login .registration_form .current_password_container .paste_password:hover,
+.login .registration_form .new_password_container .copy_password:hover,
+.login .registration_form .new_password_container .paste_password:hover,
+.login .edit_account_form .password_container .copy_password:hover,
+.login .edit_account_form .password_container .paste_password:hover,
+.login .edit_account_form .password_check_container .copy_password:hover,
+.login .edit_account_form .password_check_container .paste_password:hover,
+.login .edit_account_form .current_password_container .copy_password:hover,
+.login .edit_account_form .current_password_container .paste_password:hover,
+.login .edit_account_form .new_password_container .copy_password:hover,
+.login .edit_account_form .new_password_container .paste_password:hover,
+.login .password_reset_form .password_container .copy_password:hover,
+.login .password_reset_form .password_container .paste_password:hover,
+.login .password_reset_form .password_check_container .copy_password:hover,
+.login .password_reset_form .password_check_container .paste_password:hover,
+.login .password_reset_form .current_password_container .copy_password:hover,
+.login .password_reset_form .current_password_container .paste_password:hover,
+.login .password_reset_form .new_password_container .copy_password:hover,
+.login .password_reset_form .new_password_container .paste_password:hover,
+.edit_account .login_form .password_container .copy_password:hover,
+.edit_account .login_form .password_container .paste_password:hover,
+.edit_account .login_form .password_check_container .copy_password:hover,
+.edit_account .login_form .password_check_container .paste_password:hover,
+.edit_account .login_form .current_password_container .copy_password:hover,
+.edit_account .login_form .current_password_container .paste_password:hover,
+.edit_account .login_form .new_password_container .copy_password:hover,
+.edit_account .login_form .new_password_container .paste_password:hover,
+.edit_account .registration_form .password_container .copy_password:hover,
+.edit_account .registration_form .password_container .paste_password:hover,
+.edit_account .registration_form .password_check_container .copy_password:hover,
+.edit_account .registration_form .password_check_container .paste_password:hover,
+.edit_account .registration_form .current_password_container .copy_password:hover,
+.edit_account .registration_form .current_password_container .paste_password:hover,
+.edit_account .registration_form .new_password_container .copy_password:hover,
+.edit_account .registration_form .new_password_container .paste_password:hover,
+.edit_account .edit_account_form .password_container .copy_password:hover,
+.edit_account .edit_account_form .password_container .paste_password:hover,
+.edit_account .edit_account_form .password_check_container .copy_password:hover,
+.edit_account .edit_account_form .password_check_container .paste_password:hover,
+.edit_account .edit_account_form .current_password_container .copy_password:hover,
+.edit_account .edit_account_form .current_password_container .paste_password:hover,
+.edit_account .edit_account_form .new_password_container .copy_password:hover,
+.edit_account .edit_account_form .new_password_container .paste_password:hover,
+.edit_account .password_reset_form .password_container .copy_password:hover,
+.edit_account .password_reset_form .password_container .paste_password:hover,
+.edit_account .password_reset_form .password_check_container .copy_password:hover,
+.edit_account .password_reset_form .password_check_container .paste_password:hover,
+.edit_account .password_reset_form .current_password_container .copy_password:hover,
+.edit_account .password_reset_form .current_password_container .paste_password:hover,
+.edit_account .password_reset_form .new_password_container .copy_password:hover,
+.edit_account .password_reset_form .new_password_container .paste_password:hover,
+.edit_review .login_form .password_container .copy_password:hover,
+.edit_review .login_form .password_container .paste_password:hover,
+.edit_review .login_form .password_check_container .copy_password:hover,
+.edit_review .login_form .password_check_container .paste_password:hover,
+.edit_review .login_form .current_password_container .copy_password:hover,
+.edit_review .login_form .current_password_container .paste_password:hover,
+.edit_review .login_form .new_password_container .copy_password:hover,
+.edit_review .login_form .new_password_container .paste_password:hover,
+.edit_review .registration_form .password_container .copy_password:hover,
+.edit_review .registration_form .password_container .paste_password:hover,
+.edit_review .registration_form .password_check_container .copy_password:hover,
+.edit_review .registration_form .password_check_container .paste_password:hover,
+.edit_review .registration_form .current_password_container .copy_password:hover,
+.edit_review .registration_form .current_password_container .paste_password:hover,
+.edit_review .registration_form .new_password_container .copy_password:hover,
+.edit_review .registration_form .new_password_container .paste_password:hover,
+.edit_review .edit_account_form .password_container .copy_password:hover,
+.edit_review .edit_account_form .password_container .paste_password:hover,
+.edit_review .edit_account_form .password_check_container .copy_password:hover,
+.edit_review .edit_account_form .password_check_container .paste_password:hover,
+.edit_review .edit_account_form .current_password_container .copy_password:hover,
+.edit_review .edit_account_form .current_password_container .paste_password:hover,
+.edit_review .edit_account_form .new_password_container .copy_password:hover,
+.edit_review .edit_account_form .new_password_container .paste_password:hover,
+.edit_review .password_reset_form .password_container .copy_password:hover,
+.edit_review .password_reset_form .password_container .paste_password:hover,
+.edit_review .password_reset_form .password_check_container .copy_password:hover,
+.edit_review .password_reset_form .password_check_container .paste_password:hover,
+.edit_review .password_reset_form .current_password_container .copy_password:hover,
+.edit_review .password_reset_form .current_password_container .paste_password:hover,
+.edit_review .password_reset_form .new_password_container .copy_password:hover,
+.edit_review .password_reset_form .new_password_container .paste_password:hover,
+.password_reset .login_form .password_container .copy_password:hover,
+.password_reset .login_form .password_container .paste_password:hover,
+.password_reset .login_form .password_check_container .copy_password:hover,
+.password_reset .login_form .password_check_container .paste_password:hover,
+.password_reset .login_form .current_password_container .copy_password:hover,
+.password_reset .login_form .current_password_container .paste_password:hover,
+.password_reset .login_form .new_password_container .copy_password:hover,
+.password_reset .login_form .new_password_container .paste_password:hover,
+.password_reset .registration_form .password_container .copy_password:hover,
+.password_reset .registration_form .password_container .paste_password:hover,
+.password_reset .registration_form .password_check_container .copy_password:hover,
+.password_reset .registration_form .password_check_container .paste_password:hover,
+.password_reset .registration_form .current_password_container .copy_password:hover,
+.password_reset .registration_form .current_password_container .paste_password:hover,
+.password_reset .registration_form .new_password_container .copy_password:hover,
+.password_reset .registration_form .new_password_container .paste_password:hover,
+.password_reset .edit_account_form .password_container .copy_password:hover,
+.password_reset .edit_account_form .password_container .paste_password:hover,
+.password_reset .edit_account_form .password_check_container .copy_password:hover,
+.password_reset .edit_account_form .password_check_container .paste_password:hover,
+.password_reset .edit_account_form .current_password_container .copy_password:hover,
+.password_reset .edit_account_form .current_password_container .paste_password:hover,
+.password_reset .edit_account_form .new_password_container .copy_password:hover,
+.password_reset .edit_account_form .new_password_container .paste_password:hover,
+.password_reset .password_reset_form .password_container .copy_password:hover,
+.password_reset .password_reset_form .password_container .paste_password:hover,
+.password_reset .password_reset_form .password_check_container .copy_password:hover,
+.password_reset .password_reset_form .password_check_container .paste_password:hover,
+.password_reset .password_reset_form .current_password_container .copy_password:hover,
+.password_reset .password_reset_form .current_password_container .paste_password:hover,
+.password_reset .password_reset_form .new_password_container .copy_password:hover,
+.password_reset .password_reset_form .new_password_container .paste_password:hover {
+  cursor: pointer;
+}
+.registration .login_form .password_container:has(.password:focus) .generate_password, .registration .login_form .password_container:has(.new_password:focus) .generate_password,
+.registration .login_form .new_password_container:has(.password:focus) .generate_password,
+.registration .login_form .new_password_container:has(.new_password:focus) .generate_password,
+.registration .registration_form .password_container:has(.password:focus) .generate_password,
+.registration .registration_form .password_container:has(.new_password:focus) .generate_password,
+.registration .registration_form .new_password_container:has(.password:focus) .generate_password,
+.registration .registration_form .new_password_container:has(.new_password:focus) .generate_password,
+.registration .edit_account_form .password_container:has(.password:focus) .generate_password,
+.registration .edit_account_form .password_container:has(.new_password:focus) .generate_password,
+.registration .edit_account_form .new_password_container:has(.password:focus) .generate_password,
+.registration .edit_account_form .new_password_container:has(.new_password:focus) .generate_password,
+.registration .password_reset_form .password_container:has(.password:focus) .generate_password,
+.registration .password_reset_form .password_container:has(.new_password:focus) .generate_password,
+.registration .password_reset_form .new_password_container:has(.password:focus) .generate_password,
+.registration .password_reset_form .new_password_container:has(.new_password:focus) .generate_password,
+.login .login_form .password_container:has(.password:focus) .generate_password,
+.login .login_form .password_container:has(.new_password:focus) .generate_password,
+.login .login_form .new_password_container:has(.password:focus) .generate_password,
+.login .login_form .new_password_container:has(.new_password:focus) .generate_password,
+.login .registration_form .password_container:has(.password:focus) .generate_password,
+.login .registration_form .password_container:has(.new_password:focus) .generate_password,
+.login .registration_form .new_password_container:has(.password:focus) .generate_password,
+.login .registration_form .new_password_container:has(.new_password:focus) .generate_password,
+.login .edit_account_form .password_container:has(.password:focus) .generate_password,
+.login .edit_account_form .password_container:has(.new_password:focus) .generate_password,
+.login .edit_account_form .new_password_container:has(.password:focus) .generate_password,
+.login .edit_account_form .new_password_container:has(.new_password:focus) .generate_password,
+.login .password_reset_form .password_container:has(.password:focus) .generate_password,
+.login .password_reset_form .password_container:has(.new_password:focus) .generate_password,
+.login .password_reset_form .new_password_container:has(.password:focus) .generate_password,
+.login .password_reset_form .new_password_container:has(.new_password:focus) .generate_password,
+.edit_account .login_form .password_container:has(.password:focus) .generate_password,
+.edit_account .login_form .password_container:has(.new_password:focus) .generate_password,
+.edit_account .login_form .new_password_container:has(.password:focus) .generate_password,
+.edit_account .login_form .new_password_container:has(.new_password:focus) .generate_password,
+.edit_account .registration_form .password_container:has(.password:focus) .generate_password,
+.edit_account .registration_form .password_container:has(.new_password:focus) .generate_password,
+.edit_account .registration_form .new_password_container:has(.password:focus) .generate_password,
+.edit_account .registration_form .new_password_container:has(.new_password:focus) .generate_password,
+.edit_account .edit_account_form .password_container:has(.password:focus) .generate_password,
+.edit_account .edit_account_form .password_container:has(.new_password:focus) .generate_password,
+.edit_account .edit_account_form .new_password_container:has(.password:focus) .generate_password,
+.edit_account .edit_account_form .new_password_container:has(.new_password:focus) .generate_password,
+.edit_account .password_reset_form .password_container:has(.password:focus) .generate_password,
+.edit_account .password_reset_form .password_container:has(.new_password:focus) .generate_password,
+.edit_account .password_reset_form .new_password_container:has(.password:focus) .generate_password,
+.edit_account .password_reset_form .new_password_container:has(.new_password:focus) .generate_password,
+.edit_review .login_form .password_container:has(.password:focus) .generate_password,
+.edit_review .login_form .password_container:has(.new_password:focus) .generate_password,
+.edit_review .login_form .new_password_container:has(.password:focus) .generate_password,
+.edit_review .login_form .new_password_container:has(.new_password:focus) .generate_password,
+.edit_review .registration_form .password_container:has(.password:focus) .generate_password,
+.edit_review .registration_form .password_container:has(.new_password:focus) .generate_password,
+.edit_review .registration_form .new_password_container:has(.password:focus) .generate_password,
+.edit_review .registration_form .new_password_container:has(.new_password:focus) .generate_password,
+.edit_review .edit_account_form .password_container:has(.password:focus) .generate_password,
+.edit_review .edit_account_form .password_container:has(.new_password:focus) .generate_password,
+.edit_review .edit_account_form .new_password_container:has(.password:focus) .generate_password,
+.edit_review .edit_account_form .new_password_container:has(.new_password:focus) .generate_password,
+.edit_review .password_reset_form .password_container:has(.password:focus) .generate_password,
+.edit_review .password_reset_form .password_container:has(.new_password:focus) .generate_password,
+.edit_review .password_reset_form .new_password_container:has(.password:focus) .generate_password,
+.edit_review .password_reset_form .new_password_container:has(.new_password:focus) .generate_password,
+.password_reset .login_form .password_container:has(.password:focus) .generate_password,
+.password_reset .login_form .password_container:has(.new_password:focus) .generate_password,
+.password_reset .login_form .new_password_container:has(.password:focus) .generate_password,
+.password_reset .login_form .new_password_container:has(.new_password:focus) .generate_password,
+.password_reset .registration_form .password_container:has(.password:focus) .generate_password,
+.password_reset .registration_form .password_container:has(.new_password:focus) .generate_password,
+.password_reset .registration_form .new_password_container:has(.password:focus) .generate_password,
+.password_reset .registration_form .new_password_container:has(.new_password:focus) .generate_password,
+.password_reset .edit_account_form .password_container:has(.password:focus) .generate_password,
+.password_reset .edit_account_form .password_container:has(.new_password:focus) .generate_password,
+.password_reset .edit_account_form .new_password_container:has(.password:focus) .generate_password,
+.password_reset .edit_account_form .new_password_container:has(.new_password:focus) .generate_password,
+.password_reset .password_reset_form .password_container:has(.password:focus) .generate_password,
+.password_reset .password_reset_form .password_container:has(.new_password:focus) .generate_password,
+.password_reset .password_reset_form .new_password_container:has(.password:focus) .generate_password,
+.password_reset .password_reset_form .new_password_container:has(.new_password:focus) .generate_password {
+  left: -20px;
+}
+.registration .login_form .phone_number_container,
+.registration .registration_form .phone_number_container,
+.registration .edit_account_form .phone_number_container,
+.registration .password_reset_form .phone_number_container,
+.login .login_form .phone_number_container,
+.login .registration_form .phone_number_container,
+.login .edit_account_form .phone_number_container,
+.login .password_reset_form .phone_number_container,
+.edit_account .login_form .phone_number_container,
+.edit_account .registration_form .phone_number_container,
+.edit_account .edit_account_form .phone_number_container,
+.edit_account .password_reset_form .phone_number_container,
+.edit_review .login_form .phone_number_container,
+.edit_review .registration_form .phone_number_container,
+.edit_review .edit_account_form .phone_number_container,
+.edit_review .password_reset_form .phone_number_container,
+.password_reset .login_form .phone_number_container,
+.password_reset .registration_form .phone_number_container,
+.password_reset .edit_account_form .phone_number_container,
+.password_reset .password_reset_form .phone_number_container {
   position: relative;
 }
-
-.phone_number_icon img {
+.registration .login_form .phone_number_container .phone_number_icon img,
+.registration .registration_form .phone_number_container .phone_number_icon img,
+.registration .edit_account_form .phone_number_container .phone_number_icon img,
+.registration .password_reset_form .phone_number_container .phone_number_icon img,
+.login .login_form .phone_number_container .phone_number_icon img,
+.login .registration_form .phone_number_container .phone_number_icon img,
+.login .edit_account_form .phone_number_container .phone_number_icon img,
+.login .password_reset_form .phone_number_container .phone_number_icon img,
+.edit_account .login_form .phone_number_container .phone_number_icon img,
+.edit_account .registration_form .phone_number_container .phone_number_icon img,
+.edit_account .edit_account_form .phone_number_container .phone_number_icon img,
+.edit_account .password_reset_form .phone_number_container .phone_number_icon img,
+.edit_review .login_form .phone_number_container .phone_number_icon img,
+.edit_review .registration_form .phone_number_container .phone_number_icon img,
+.edit_review .edit_account_form .phone_number_container .phone_number_icon img,
+.edit_review .password_reset_form .phone_number_container .phone_number_icon img,
+.password_reset .login_form .phone_number_container .phone_number_icon img,
+.password_reset .registration_form .phone_number_container .phone_number_icon img,
+.password_reset .edit_account_form .phone_number_container .phone_number_icon img,
+.password_reset .password_reset_form .phone_number_container .phone_number_icon img {
   visibility: hidden;
   position: absolute;
   top: 50%;
@@ -337,299 +2163,343 @@ main {
   transform: translateY(-50%);
   opacity: 0.8;
 }
-
-.phone_number {
+.registration .login_form .phone_number_container .phone_number,
+.registration .registration_form .phone_number_container .phone_number,
+.registration .edit_account_form .phone_number_container .phone_number,
+.registration .password_reset_form .phone_number_container .phone_number,
+.login .login_form .phone_number_container .phone_number,
+.login .registration_form .phone_number_container .phone_number,
+.login .edit_account_form .phone_number_container .phone_number,
+.login .password_reset_form .phone_number_container .phone_number,
+.edit_account .login_form .phone_number_container .phone_number,
+.edit_account .registration_form .phone_number_container .phone_number,
+.edit_account .edit_account_form .phone_number_container .phone_number,
+.edit_account .password_reset_form .phone_number_container .phone_number,
+.edit_review .login_form .phone_number_container .phone_number,
+.edit_review .registration_form .phone_number_container .phone_number,
+.edit_review .edit_account_form .phone_number_container .phone_number,
+.edit_review .password_reset_form .phone_number_container .phone_number,
+.password_reset .login_form .phone_number_container .phone_number,
+.password_reset .registration_form .phone_number_container .phone_number,
+.password_reset .edit_account_form .phone_number_container .phone_number,
+.password_reset .password_reset_form .phone_number_container .phone_number {
   padding-right: 55px !important;
 }
-
-.password_container, .password_check_container, .current_password_container, .new_password_container {
-  position: relative;
-}
-
-.copy_password, .paste_password {
-  position: absolute;
-  top: 50%;
-  right: 0px;
-  transform: translateY(-50%);
-  font-size: 16px;
-}
-
-.generate_password {
-  all: unset;
-}
-.generate_password:hover {
-  cursor: pointer;
-}
-.generate_password .fa-key {
-  position: absolute;
-  top: 50%;
-  left: 0px;
-  transform: translateY(-50%);
-  font-size: 16px;
-  transition: left 0.3s ease;
-}
-
-.password_container:has(.password:focus) .generate_password, .new_password_container:has(.new_password:focus) .generate_password {
-  left: -20px;
-}
-
-.show_hide_password {
-  all: unset;
-}
-.show_hide_password:hover {
-  cursor: pointer;
-}
-.show_hide_password .fa-eye,
-.show_hide_password .fa-eye-slash {
-  position: absolute;
-  top: 50%;
-  right: 20px;
-  transform: translateY(-50%);
-  font-size: 16px;
-}
-
-.copy_password i, .generate_password i, .show_hide_password i, .paste_password i {
-  color: rgb(180, 180, 180);
-}
-
-.copy_password i:hover, .generate_password i:hover, .show_hide_password i:hover, .paste_password i:hover {
-  color: rgb(200, 200, 200);
-  cursor: pointer;
-  transition: color 0.3s ease;
-}
-
-.registration_form input::-moz-placeholder, .login_form input::-moz-placeholder, .edit_account_form input::-moz-placeholder, .edit_review_form textarea::-moz-placeholder, .edit_account_form input::-moz-placeholder, .edit_review_form textarea::-moz-placeholder, .password_reset_form input::-moz-placeholder {
-  color: rgb(180, 180, 180);
-}
-
-.registration_form input::placeholder,
-.login_form input::placeholder,
-.edit_account_form input::placeholder,
-.edit_review_form textarea::placeholder,
-.edit_account_form input::placeholder,
-.edit_review_form textarea::placeholder,
-.password_reset_form input::placeholder {
-  color: rgb(180, 180, 180);
-}
-
-.registration_form button[type=submit],
-.login_form button[type=submit],
-.login_method a,
-.edit_account_form button[type=submit],
-.edit_review_form button[type=submit] .edit_account_form button[type=submit],
-.edit_review_form button[type=submit],
-.password_reset_form button[type=submit] {
-  font-family: Poppins, Arial, sans-serif;
-  margin: 50px auto 10px;
-  background-color: rgba(0, 0, 0, 0.2);
-  color: rgb(255, 255, 255);
-  border: 1px solid rgb(255, 255, 255);
-  border-radius: 25px;
-  display: block;
-  width: 90%;
-  height: 50px;
-  outline: none;
-  font-size: 16px;
-  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease, transform 0.3s ease;
-  animation: fade_in_animation 0.5s ease-out;
-}
-
-.login_form button[type=submit] {
-  animation: fade_in_animation 0.3s ease-out;
-}
-
-.login_method a {
-  position: relative;
-  margin: 10px auto;
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
-.login_method a:nth-child(1) {
-  animation: fade_in_animation 0.4s ease-out;
-}
-
-.login_method a:nth-child(2) {
-  animation: fade_in_animation 0.5s ease-out;
-}
-
-.login_method a img {
-  margin: 8px;
-}
-
-.login_method a span {
-  font-family: Poppins, Arial, sans-serif;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.registration_form button[type=submit]:hover, .registration_form button[type=submit]:focus,
-.login_form button[type=submit]:hover, .login_form button[type=submit]:focus,
-.login_method a:hover, .login_method a:focus,
-.edit_account_form button[type=submit]:hover, .edit_account_form button[type=submit]:focus,
-.edit_review_form button[type=submit]:hover, .edit_review_form button[type=submit]:focus .edit_account_form button[type=submit]:hover,
-.edit_account_form button[type=submit]:focus,
-.edit_review_form button[type=submit]:hover, .edit_review_form button[type=submit]:focus,
-.password_reset_form button[type=submit]:hover, .password_reset_form button[type=submit]:focus {
-  background-color: rgba(255, 255, 255, 0.8);
-  color: rgb(0, 0, 0);
-  border: 1px solid rgb(0, 0, 0);
-  transform: scale(1.1);
-  cursor: pointer;
-}
-
-.login_method a:hover, .login_method a:focus {
-  background-color: rgba(255, 255, 255, 0.6);
-}
-
-.registration_form input[type=text]:focus, .registration_form input[type=email]:focus,
-.login_form input[type=text]:focus, .login_form input[type=email]:focus,
-.edit_account_form input[type=text]:focus, .edit_account_form input[type=email]:focus,
-.edit_review_form textarea:focus .edit_account_form input[type=text]:focus,
-.edit_account_form input[type=email]:focus,
-.edit_review_form textarea:focus,
-.password_reset_form input[type=text]:focus {
-  width: 100%;
-}
-
-.registration_form input[type=text]:-webkit-autofill, .registration_form input[type=text]:-webkit-autofill:hover, .registration_form input[type=text]:-webkit-autofill:focus, .registration_form input[type=email]:-webkit-autofill, .registration_form input[type=email]:-webkit-autofill:hover, .registration_form input[type=email]:-webkit-autofill:focus,
-.login_form input[type=text]:-webkit-autofill, .login_form input[type=text]:-webkit-autofill:hover, .login_form input[type=text]:-webkit-autofill:focus, .login_form input[type=email]:-webkit-autofill, .login_form input[type=email]:-webkit-autofill:hover, .login_form input[type=email]:-webkit-autofill:focus,
-.edit_account_form input[type=text]:-webkit-autofill, .edit_account_form input[type=text]:-webkit-autofill:hover, .edit_account_form input[type=text]:-webkit-autofill:focus, .edit_account_form input[type=email]:-webkit-autofill, .edit_account_form input[type=email]:-webkit-autofill:hover, .edit_account_form input[type=email]:-webkit-autofill:focus {
-  -webkit-text-fill-color: rgb(255, 255, 255);
-  -webkit-transition: width 0.3s ease, background-color 9999s ease;
-  transition: width 0.3s ease, background-color 9999s ease;
-}
-
-.form_report,
-.dialogue_paragraph {
-  position: absolute;
-  width: 100%;
-  text-align: center;
-  font-size: 16px;
-  font-family: Poppins, Arial, sans-serif;
-}
-
-.edit_review_form .form_report {
-  transform: translateY(12px);
-}
-
-.form_report.valid {
-  color: rgb(170, 255, 50);
-}
-
-.form_report.invalid,
-.dialogue_paragraph.invalid {
-  color: rgb(250, 50, 50);
-}
-
-.agree {
+.registration .login_form .agree,
+.registration .registration_form .agree,
+.registration .edit_account_form .agree,
+.registration .password_reset_form .agree,
+.login .login_form .agree,
+.login .registration_form .agree,
+.login .edit_account_form .agree,
+.login .password_reset_form .agree,
+.edit_account .login_form .agree,
+.edit_account .registration_form .agree,
+.edit_account .edit_account_form .agree,
+.edit_account .password_reset_form .agree,
+.edit_review .login_form .agree,
+.edit_review .registration_form .agree,
+.edit_review .edit_account_form .agree,
+.edit_review .password_reset_form .agree,
+.password_reset .login_form .agree,
+.password_reset .registration_form .agree,
+.password_reset .edit_account_form .agree,
+.password_reset .password_reset_form .agree {
   text-align: center;
   margin: 35px auto 0px;
   padding-left: 5px;
   width: 90%;
   height: 100%;
 }
-
-.agree input {
+.registration .login_form .agree input,
+.registration .registration_form .agree input,
+.registration .edit_account_form .agree input,
+.registration .password_reset_form .agree input,
+.login .login_form .agree input,
+.login .registration_form .agree input,
+.login .edit_account_form .agree input,
+.login .password_reset_form .agree input,
+.edit_account .login_form .agree input,
+.edit_account .registration_form .agree input,
+.edit_account .edit_account_form .agree input,
+.edit_account .password_reset_form .agree input,
+.edit_review .login_form .agree input,
+.edit_review .registration_form .agree input,
+.edit_review .edit_account_form .agree input,
+.edit_review .password_reset_form .agree input,
+.password_reset .login_form .agree input,
+.password_reset .registration_form .agree input,
+.password_reset .edit_account_form .agree input,
+.password_reset .password_reset_form .agree input {
   display: none;
 }
-
-.agree input + label {
-  position: relative;
-  padding-left: 30px;
-  display: inline-block;
-  color: rgb(180, 180, 180);
-  cursor: pointer;
-}
-
-.agree input + label::before {
+.registration .login_form .agree input:checked + label::before,
+.registration .registration_form .agree input:checked + label::before,
+.registration .edit_account_form .agree input:checked + label::before,
+.registration .password_reset_form .agree input:checked + label::before,
+.login .login_form .agree input:checked + label::before,
+.login .registration_form .agree input:checked + label::before,
+.login .edit_account_form .agree input:checked + label::before,
+.login .password_reset_form .agree input:checked + label::before,
+.edit_account .login_form .agree input:checked + label::before,
+.edit_account .registration_form .agree input:checked + label::before,
+.edit_account .edit_account_form .agree input:checked + label::before,
+.edit_account .password_reset_form .agree input:checked + label::before,
+.edit_review .login_form .agree input:checked + label::before,
+.edit_review .registration_form .agree input:checked + label::before,
+.edit_review .edit_account_form .agree input:checked + label::before,
+.edit_review .password_reset_form .agree input:checked + label::before,
+.password_reset .login_form .agree input:checked + label::before,
+.password_reset .registration_form .agree input:checked + label::before,
+.password_reset .edit_account_form .agree input:checked + label::before,
+.password_reset .password_reset_form .agree input:checked + label::before {
   content: "";
   position: absolute;
+  top: 3px;
+  left: 0px;
   width: 14px;
   height: 14px;
-  left: 0px;
-  top: 3px;
-  outline: 1px solid rgb(150, 150, 150);
+  outline: 1px solid #52cf20;
   background: rgba(255, 255, 255, 0.2);
 }
-
-.agree input:checked + label::before {
+.registration .login_form .agree input:checked + label::after,
+.registration .registration_form .agree input:checked + label::after,
+.registration .edit_account_form .agree input:checked + label::after,
+.registration .password_reset_form .agree input:checked + label::after,
+.login .login_form .agree input:checked + label::after,
+.login .registration_form .agree input:checked + label::after,
+.login .edit_account_form .agree input:checked + label::after,
+.login .password_reset_form .agree input:checked + label::after,
+.edit_account .login_form .agree input:checked + label::after,
+.edit_account .registration_form .agree input:checked + label::after,
+.edit_account .edit_account_form .agree input:checked + label::after,
+.edit_account .password_reset_form .agree input:checked + label::after,
+.edit_review .login_form .agree input:checked + label::after,
+.edit_review .registration_form .agree input:checked + label::after,
+.edit_review .edit_account_form .agree input:checked + label::after,
+.edit_review .password_reset_form .agree input:checked + label::after,
+.password_reset .login_form .agree input:checked + label::after,
+.password_reset .registration_form .agree input:checked + label::after,
+.password_reset .edit_account_form .agree input:checked + label::after,
+.password_reset .password_reset_form .agree input:checked + label::after {
   content: "";
   position: absolute;
+  top: 3px;
+  left: 0px;
   width: 14px;
   height: 14px;
-  left: 0px;
-  top: 3px;
-  outline: 1px solid rgb(100, 200, 100);
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.terms + .terms_label::before {
-  outline: 1px solid rgb(250, 50, 50);
-}
-
-.terms:checked + .terms_label::before {
-  outline: 1px solid rgb(100, 200, 100);
-}
-
-.agree input:checked + label::after {
-  content: "";
-  position: absolute;
-  width: 14px;
-  height: 14px;
-  left: 0px;
-  top: 3px;
-  background-image: url(/content/images/check.png);
+  background-image: url("/content/images/check.png");
   background-size: contain;
   transform: scale(1.5);
   opacity: 1;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
-
-.agree input:not(:checked) + label::after {
+.registration .login_form .agree input:not(:checked) + label::after,
+.registration .registration_form .agree input:not(:checked) + label::after,
+.registration .edit_account_form .agree input:not(:checked) + label::after,
+.registration .password_reset_form .agree input:not(:checked) + label::after,
+.login .login_form .agree input:not(:checked) + label::after,
+.login .registration_form .agree input:not(:checked) + label::after,
+.login .edit_account_form .agree input:not(:checked) + label::after,
+.login .password_reset_form .agree input:not(:checked) + label::after,
+.edit_account .login_form .agree input:not(:checked) + label::after,
+.edit_account .registration_form .agree input:not(:checked) + label::after,
+.edit_account .edit_account_form .agree input:not(:checked) + label::after,
+.edit_account .password_reset_form .agree input:not(:checked) + label::after,
+.edit_review .login_form .agree input:not(:checked) + label::after,
+.edit_review .registration_form .agree input:not(:checked) + label::after,
+.edit_review .edit_account_form .agree input:not(:checked) + label::after,
+.edit_review .password_reset_form .agree input:not(:checked) + label::after,
+.password_reset .login_form .agree input:not(:checked) + label::after,
+.password_reset .registration_form .agree input:not(:checked) + label::after,
+.password_reset .edit_account_form .agree input:not(:checked) + label::after,
+.password_reset .password_reset_form .agree input:not(:checked) + label::after {
   content: "";
   position: absolute;
+  top: 3px;
+  left: 0px;
   width: 14px;
   height: 14px;
-  left: 0px;
-  top: 3px;
-  background-image: url(/content/images/check.png);
+  background-image: url("/content/images/check.png");
   background-size: contain;
   transform: scale(0);
   opacity: 0;
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
-
-.agree label {
+.registration .login_form .agree input + label,
+.registration .registration_form .agree input + label,
+.registration .edit_account_form .agree input + label,
+.registration .password_reset_form .agree input + label,
+.login .login_form .agree input + label,
+.login .registration_form .agree input + label,
+.login .edit_account_form .agree input + label,
+.login .password_reset_form .agree input + label,
+.edit_account .login_form .agree input + label,
+.edit_account .registration_form .agree input + label,
+.edit_account .edit_account_form .agree input + label,
+.edit_account .password_reset_form .agree input + label,
+.edit_review .login_form .agree input + label,
+.edit_review .registration_form .agree input + label,
+.edit_review .edit_account_form .agree input + label,
+.edit_review .password_reset_form .agree input + label,
+.password_reset .login_form .agree input + label,
+.password_reset .registration_form .agree input + label,
+.password_reset .edit_account_form .agree input + label,
+.password_reset .password_reset_form .agree input + label {
+  position: relative;
+  padding-left: 30px;
+  display: inline-block;
+  color: #cccccc;
+  cursor: pointer;
+}
+.registration .login_form .agree input + label::before,
+.registration .registration_form .agree input + label::before,
+.registration .edit_account_form .agree input + label::before,
+.registration .password_reset_form .agree input + label::before,
+.login .login_form .agree input + label::before,
+.login .registration_form .agree input + label::before,
+.login .edit_account_form .agree input + label::before,
+.login .password_reset_form .agree input + label::before,
+.edit_account .login_form .agree input + label::before,
+.edit_account .registration_form .agree input + label::before,
+.edit_account .edit_account_form .agree input + label::before,
+.edit_account .password_reset_form .agree input + label::before,
+.edit_review .login_form .agree input + label::before,
+.edit_review .registration_form .agree input + label::before,
+.edit_review .edit_account_form .agree input + label::before,
+.edit_review .password_reset_form .agree input + label::before,
+.password_reset .login_form .agree input + label::before,
+.password_reset .registration_form .agree input + label::before,
+.password_reset .edit_account_form .agree input + label::before,
+.password_reset .password_reset_form .agree input + label::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 0px;
+  width: 14px;
+  height: 14px;
+  outline: 1px solid #cccccc;
+  background: rgba(255, 255, 255, 0.2);
+}
+.registration .login_form .agree label,
+.registration .registration_form .agree label,
+.registration .edit_account_form .agree label,
+.registration .password_reset_form .agree label,
+.login .login_form .agree label,
+.login .registration_form .agree label,
+.login .edit_account_form .agree label,
+.login .password_reset_form .agree label,
+.edit_account .login_form .agree label,
+.edit_account .registration_form .agree label,
+.edit_account .edit_account_form .agree label,
+.edit_account .password_reset_form .agree label,
+.edit_review .login_form .agree label,
+.edit_review .registration_form .agree label,
+.edit_review .edit_account_form .agree label,
+.edit_review .password_reset_form .agree label,
+.password_reset .login_form .agree label,
+.password_reset .registration_form .agree label,
+.password_reset .edit_account_form .agree label,
+.password_reset .password_reset_form .agree label {
   margin-left: 0px;
-  font-family: Poppins, Arial, sans-serif;
-  font-size: 14px;
-  color: rgb(255, 255, 255);
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
+  font-size: 0.9em;
+  color: #fff;
+  user-select: none;
   transition: letter-spacing 0.3s ease;
 }
-
-.agree label:hover {
+.registration .login_form .agree label:hover,
+.registration .registration_form .agree label:hover,
+.registration .edit_account_form .agree label:hover,
+.registration .password_reset_form .agree label:hover,
+.login .login_form .agree label:hover,
+.login .registration_form .agree label:hover,
+.login .edit_account_form .agree label:hover,
+.login .password_reset_form .agree label:hover,
+.edit_account .login_form .agree label:hover,
+.edit_account .registration_form .agree label:hover,
+.edit_account .edit_account_form .agree label:hover,
+.edit_account .password_reset_form .agree label:hover,
+.edit_review .login_form .agree label:hover,
+.edit_review .registration_form .agree label:hover,
+.edit_review .edit_account_form .agree label:hover,
+.edit_review .password_reset_form .agree label:hover,
+.password_reset .login_form .agree label:hover,
+.password_reset .registration_form .agree label:hover,
+.password_reset .edit_account_form .agree label:hover,
+.password_reset .password_reset_form .agree label:hover {
   letter-spacing: 0.5px;
 }
-
-.profile_picture_container {
+.registration .login_form .agree .terms + .terms_label::before,
+.registration .registration_form .agree .terms + .terms_label::before,
+.registration .edit_account_form .agree .terms + .terms_label::before,
+.registration .password_reset_form .agree .terms + .terms_label::before,
+.login .login_form .agree .terms + .terms_label::before,
+.login .registration_form .agree .terms + .terms_label::before,
+.login .edit_account_form .agree .terms + .terms_label::before,
+.login .password_reset_form .agree .terms + .terms_label::before,
+.edit_account .login_form .agree .terms + .terms_label::before,
+.edit_account .registration_form .agree .terms + .terms_label::before,
+.edit_account .edit_account_form .agree .terms + .terms_label::before,
+.edit_account .password_reset_form .agree .terms + .terms_label::before,
+.edit_review .login_form .agree .terms + .terms_label::before,
+.edit_review .registration_form .agree .terms + .terms_label::before,
+.edit_review .edit_account_form .agree .terms + .terms_label::before,
+.edit_review .password_reset_form .agree .terms + .terms_label::before,
+.password_reset .login_form .agree .terms + .terms_label::before,
+.password_reset .registration_form .agree .terms + .terms_label::before,
+.password_reset .edit_account_form .agree .terms + .terms_label::before,
+.password_reset .password_reset_form .agree .terms + .terms_label::before {
+  outline: 1px solid #df3535;
+}
+.registration .login_form .agree .terms + .terms_label::before:checked + .terms_label::before,
+.registration .registration_form .agree .terms + .terms_label::before:checked + .terms_label::before,
+.registration .edit_account_form .agree .terms + .terms_label::before:checked + .terms_label::before,
+.registration .password_reset_form .agree .terms + .terms_label::before:checked + .terms_label::before,
+.login .login_form .agree .terms + .terms_label::before:checked + .terms_label::before,
+.login .registration_form .agree .terms + .terms_label::before:checked + .terms_label::before,
+.login .edit_account_form .agree .terms + .terms_label::before:checked + .terms_label::before,
+.login .password_reset_form .agree .terms + .terms_label::before:checked + .terms_label::before,
+.edit_account .login_form .agree .terms + .terms_label::before:checked + .terms_label::before,
+.edit_account .registration_form .agree .terms + .terms_label::before:checked + .terms_label::before,
+.edit_account .edit_account_form .agree .terms + .terms_label::before:checked + .terms_label::before,
+.edit_account .password_reset_form .agree .terms + .terms_label::before:checked + .terms_label::before,
+.edit_review .login_form .agree .terms + .terms_label::before:checked + .terms_label::before,
+.edit_review .registration_form .agree .terms + .terms_label::before:checked + .terms_label::before,
+.edit_review .edit_account_form .agree .terms + .terms_label::before:checked + .terms_label::before,
+.edit_review .password_reset_form .agree .terms + .terms_label::before:checked + .terms_label::before,
+.password_reset .login_form .agree .terms + .terms_label::before:checked + .terms_label::before,
+.password_reset .registration_form .agree .terms + .terms_label::before:checked + .terms_label::before,
+.password_reset .edit_account_form .agree .terms + .terms_label::before:checked + .terms_label::before,
+.password_reset .password_reset_form .agree .terms + .terms_label::before:checked + .terms_label::before {
+  outline: 1px solid #52cf20;
+}
+.registration .edit_account_form .profile_picture_container,
+.login .edit_account_form .profile_picture_container,
+.edit_account .edit_account_form .profile_picture_container,
+.edit_review .edit_account_form .profile_picture_container,
+.password_reset .edit_account_form .profile_picture_container {
   text-align: center;
 }
-
-.profile_picture {
-  width: 40px;
-  height: 40px;
-  padding: 2px;
-  border: 1px solid rgb(150, 150, 150);
-  border-radius: 50%;
+.registration .edit_account_form .profile_picture_container .profile_picture,
+.login .edit_account_form .profile_picture_container .profile_picture,
+.edit_account .edit_account_form .profile_picture_container .profile_picture,
+.edit_review .edit_account_form .profile_picture_container .profile_picture,
+.password_reset .edit_account_form .profile_picture_container .profile_picture {
   transition: transform 0.3s ease;
 }
-
-.google_profile_picture_frame {
+.registration .edit_account_form .profile_picture_container .profile_picture:hover,
+.login .edit_account_form .profile_picture_container .profile_picture:hover,
+.edit_account .edit_account_form .profile_picture_container .profile_picture:hover,
+.edit_review .edit_account_form .profile_picture_container .profile_picture:hover,
+.password_reset .edit_account_form .profile_picture_container .profile_picture:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+.registration .edit_account_form .profile_picture_container .profile_picture .google_profile_picture_frame,
+.login .edit_account_form .profile_picture_container .profile_picture .google_profile_picture_frame,
+.edit_account .edit_account_form .profile_picture_container .profile_picture .google_profile_picture_frame,
+.edit_review .edit_account_form .profile_picture_container .profile_picture .google_profile_picture_frame,
+.password_reset .edit_account_form .profile_picture_container .profile_picture .google_profile_picture_frame {
   position: absolute;
   left: 130px;
   top: 30px;
@@ -637,68 +2507,167 @@ main {
   height: 40px;
   z-index: -10;
 }
-
-.delete_profile_picture, .delete_review {
+.registration .edit_account_form .profile_picture_container input[type=file],
+.login .edit_account_form .profile_picture_container input[type=file],
+.edit_account .edit_account_form .profile_picture_container input[type=file],
+.edit_review .edit_account_form .profile_picture_container input[type=file],
+.password_reset .edit_account_form .profile_picture_container input[type=file] {
+  display: none;
+}
+.registration .edit_account_form .profile_picture_container .delete_profile_picture,
+.login .edit_account_form .profile_picture_container .delete_profile_picture,
+.edit_account .edit_account_form .profile_picture_container .delete_profile_picture,
+.edit_review .edit_account_form .profile_picture_container .delete_profile_picture,
+.password_reset .edit_account_form .profile_picture_container .delete_profile_picture {
   width: 40px;
   height: 40px;
   margin-left: 5px;
   padding: 2px;
-  border: 1px solid rgb(150, 150, 150);
+  border: 1px solid #cccccc;
   border-radius: 50%;
   opacity: 0.8;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
-
-.delete_account {
+.registration .edit_account_form .profile_picture_container #delete_profile_picture,
+.login .edit_account_form .profile_picture_container #delete_profile_picture,
+.edit_account .edit_account_form .profile_picture_container #delete_profile_picture,
+.edit_review .edit_account_form .profile_picture_container #delete_profile_picture,
+.password_reset .edit_account_form .profile_picture_container #delete_profile_picture {
+  display: none;
+}
+.registration .edit_account_form h3,
+.login .edit_account_form h3,
+.edit_account .edit_account_form h3,
+.edit_review .edit_account_form h3,
+.password_reset .edit_account_form h3 {
+  color: #fff;
+  text-align: center;
+}
+.registration .edit_account_form .delete_account_container .delete_account,
+.login .edit_account_form .delete_account_container .delete_account,
+.edit_account .edit_account_form .delete_account_container .delete_account,
+.edit_review .edit_account_form .delete_account_container .delete_account,
+.password_reset .edit_account_form .delete_account_container .delete_account {
   opacity: 0.8;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
-
-.profile_picture:hover, .delete_profile_picture:hover, .delete_account:hover, .delete_review:hover {
+.registration .edit_account_form .delete_account_container .delete_account:hover,
+.login .edit_account_form .delete_account_container .delete_account:hover,
+.edit_account .edit_account_form .delete_account_container .delete_account:hover,
+.edit_review .edit_account_form .delete_account_container .delete_account:hover,
+.password_reset .edit_account_form .delete_account_container .delete_account:hover {
   transform: scale(1.1);
   cursor: pointer;
 }
-
-#delete_profile_picture, #delete_account, #delete_review {
+.registration .edit_account_form .delete_account_container #delete_account,
+.login .edit_account_form .delete_account_container #delete_account,
+.edit_account .edit_account_form .delete_account_container #delete_account,
+.edit_review .edit_account_form .delete_account_container #delete_account,
+.password_reset .edit_account_form .delete_account_container #delete_account {
   display: none;
 }
-
-.edit_account_form input[type=file] {
-  display: none;
-}
-
-.edit_account_form h3 {
-  color: rgb(255, 255, 255);
+.registration .edit_review_form .review_container,
+.login .edit_review_form .review_container,
+.edit_account .edit_review_form .review_container,
+.edit_review .edit_review_form .review_container,
+.password_reset .edit_review_form .review_container {
   text-align: center;
+  margin-bottom: 30px;
+}
+.registration .edit_review_form .review_container .user,
+.login .edit_review_form .review_container .user,
+.edit_account .edit_review_form .review_container .user,
+.edit_review .edit_review_form .review_container .user,
+.password_reset .edit_review_form .review_container .user {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+.registration .edit_review_form .review_container .user .name,
+.login .edit_review_form .review_container .user .name,
+.edit_account .edit_review_form .review_container .user .name,
+.edit_review .edit_review_form .review_container .user .name,
+.password_reset .edit_review_form .review_container .user .name {
+  margin-bottom: 0px;
+  color: #fff;
+}
+.registration .edit_review_form .review_container .stars,
+.login .edit_review_form .review_container .stars,
+.edit_account .edit_review_form .review_container .stars,
+.edit_review .edit_review_form .review_container .stars,
+.password_reset .edit_review_form .review_container .stars {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+.registration .edit_review_form .review_container .stars .star,
+.login .edit_review_form .review_container .stars .star,
+.edit_account .edit_review_form .review_container .stars .star,
+.edit_review .edit_review_form .review_container .stars .star,
+.password_reset .edit_review_form .review_container .stars .star {
+  transition: transform 0.3s ease;
+}
+.registration .edit_review_form .review_container .stars .star:hover,
+.login .edit_review_form .review_container .stars .star:hover,
+.edit_account .edit_review_form .review_container .stars .star:hover,
+.edit_review .edit_review_form .review_container .stars .star:hover,
+.password_reset .edit_review_form .review_container .stars .star:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+.registration .edit_review_form .delete_review_container .delete_review,
+.login .edit_review_form .delete_review_container .delete_review,
+.edit_account .edit_review_form .delete_review_container .delete_review,
+.edit_review .edit_review_form .delete_review_container .delete_review,
+.password_reset .edit_review_form .delete_review_container .delete_review {
+  width: 40px;
+  height: 40px;
+  margin-left: 5px;
+  padding: 2px;
+  border: 1px solid #cccccc;
+  border-radius: 50%;
+  opacity: 0.8;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.registration .edit_review_form .delete_review_container .delete_review:hover,
+.login .edit_review_form .delete_review_container .delete_review:hover,
+.edit_account .edit_review_form .delete_review_container .delete_review:hover,
+.edit_review .edit_review_form .delete_review_container .delete_review:hover,
+.password_reset .edit_review_form .delete_review_container .delete_review:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+.registration .edit_review_form .delete_review_container #delete_review,
+.login .edit_review_form .delete_review_container #delete_review,
+.edit_account .edit_review_form .delete_review_container #delete_review,
+.edit_review .edit_review_form .delete_review_container #delete_review,
+.password_reset .edit_review_form .delete_review_container #delete_review {
+  display: none;
 }
 
 .error_404 {
   text-align: center;
-  color: rgb(255, 255, 255);
+  color: #fff;
 }
-
 .error_404 img {
   transition: transform 0.3s ease;
 }
-
 .error_404 img:hover {
   transform: scale(1.1);
   cursor: pointer;
 }
-
 .error_404 h2 {
-  font-family: Poppins, Arial, sans-serif;
-  font-size: 35px;
+  font-size: 2em;
 }
-
-.error_404 a:link, .error_404 a:visited {
-  font-family: Poppins, Arial, sans-serif;
-  font-size: 16px;
-  color: rgb(255, 255, 255);
+.error_404 a:link,
+.error_404 a:visited {
+  color: #fff;
   text-decoration: none;
 }
-
-.error_404 a:hover, .error_404 a:active {
+.error_404 a:hover,
+.error_404 a:active {
   text-decoration: underline;
   cursor: pointer;
 }
@@ -706,130 +2675,115 @@ main {
 /**************
  Footer Styles
 **************/
-footer, footer.light {
-  margin-top: 25px;
-  padding-top: 20px;
-  text-align: center;
-  background-color: rgb(230, 230, 230);
-  border-top: 1px solid rgb(150, 150, 150);
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-}
-
-footer.dark {
-  color: rgb(255, 255, 255);
-  background-color: rgb(15, 15, 15);
-}
-
-footer p {
-  font-weight: bold;
-  font-size: 16px;
-}
-
-footer a:link,
-footer a:visited,
-footer.light a:link,
-footer.light a:visited {
-  font-size: 14px;
-  font-weight: normal;
-  font-style: italic;
-  text-decoration: none;
-  color: rgb(50, 50, 50);
-}
-
-footer.dark a:link,
-footer.dark a:visited {
-  color: rgb(150, 150, 150);
-}
-
-footer a:hover,
-footer a:active {
-  text-decoration: underline;
-}
-
-footer a img {
-  margin: 0px 5px;
-  transform: scale(1);
-  opacity: 0.8;
-}
-
-footer a img:hover {
-  opacity: 1;
-  transform: scale(1.1);
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-footer .copywrite, footer.light .copywrite {
-  font-family: "Courier New", Courier, monospace, sans-serif;
-  margin-top: 20px;
-  font-size: 12px;
-  color: rgb(50, 50, 50);
-}
-
-footer.dark .copywrite {
-  color: rgb(150, 150, 150);
+footer {
+  margin-top: 0px;
+  border: none;
+  box-shadow: none;
 }
 
 /**************
  Media Queries
 **************/
 @media only screen and (max-width: 800px) {
-  .registration_form input[type=text], .registration_form input[type=email], .registration_form button[type=submit],
-  .login_form input[type=text], .login_form input[type=email], .login_form button[type=submit],
-  .login_method a,
-  .edit_account_form input[type=text], .edit_account_form input[type=email], .edit_account_form button[type=submit],
-  .edit_review_form textarea, .edit_review_form button[type=submit] .edit_account_form input[type=text],
-  .edit_account_form input[type=email], .edit_account_form button[type=submit],
-  .edit_review_form textarea, .edit_review_form button[type=submit],
-  .password_reset_form input[type=text], .password_reset_form button[type=submit] {
+  .registration form input[type=text],
+  .registration form input[type=email],
+  .registration form button[type=submit],
+  .login form input[type=text],
+  .login form input[type=email],
+  .login form button[type=submit],
+  .edit_account form input[type=text],
+  .edit_account form input[type=email],
+  .edit_account form button[type=submit],
+  .edit_review form input[type=text],
+  .edit_review form input[type=email],
+  .edit_review form button[type=submit],
+  .password_reset form input[type=text],
+  .password_reset form input[type=email],
+  .password_reset form button[type=submit] {
     width: 100%;
   }
-  .generate_password {
+  .registration .login_form .password_container .generate_password,
+  .registration .login_form .password_check_container .generate_password,
+  .registration .login_form .current_password_container .generate_password,
+  .registration .login_form .new_password_container .generate_password,
+  .registration .registration_form .password_container .generate_password,
+  .registration .registration_form .password_check_container .generate_password,
+  .registration .registration_form .current_password_container .generate_password,
+  .registration .registration_form .new_password_container .generate_password,
+  .registration .edit_account_form .password_container .generate_password,
+  .registration .edit_account_form .password_check_container .generate_password,
+  .registration .edit_account_form .current_password_container .generate_password,
+  .registration .edit_account_form .new_password_container .generate_password,
+  .registration .password_reset_form .password_container .generate_password,
+  .registration .password_reset_form .password_check_container .generate_password,
+  .registration .password_reset_form .current_password_container .generate_password,
+  .registration .password_reset_form .new_password_container .generate_password,
+  .login .login_form .password_container .generate_password,
+  .login .login_form .password_check_container .generate_password,
+  .login .login_form .current_password_container .generate_password,
+  .login .login_form .new_password_container .generate_password,
+  .login .registration_form .password_container .generate_password,
+  .login .registration_form .password_check_container .generate_password,
+  .login .registration_form .current_password_container .generate_password,
+  .login .registration_form .new_password_container .generate_password,
+  .login .edit_account_form .password_container .generate_password,
+  .login .edit_account_form .password_check_container .generate_password,
+  .login .edit_account_form .current_password_container .generate_password,
+  .login .edit_account_form .new_password_container .generate_password,
+  .login .password_reset_form .password_container .generate_password,
+  .login .password_reset_form .password_check_container .generate_password,
+  .login .password_reset_form .current_password_container .generate_password,
+  .login .password_reset_form .new_password_container .generate_password,
+  .edit_account .login_form .password_container .generate_password,
+  .edit_account .login_form .password_check_container .generate_password,
+  .edit_account .login_form .current_password_container .generate_password,
+  .edit_account .login_form .new_password_container .generate_password,
+  .edit_account .registration_form .password_container .generate_password,
+  .edit_account .registration_form .password_check_container .generate_password,
+  .edit_account .registration_form .current_password_container .generate_password,
+  .edit_account .registration_form .new_password_container .generate_password,
+  .edit_account .edit_account_form .password_container .generate_password,
+  .edit_account .edit_account_form .password_check_container .generate_password,
+  .edit_account .edit_account_form .current_password_container .generate_password,
+  .edit_account .edit_account_form .new_password_container .generate_password,
+  .edit_account .password_reset_form .password_container .generate_password,
+  .edit_account .password_reset_form .password_check_container .generate_password,
+  .edit_account .password_reset_form .current_password_container .generate_password,
+  .edit_account .password_reset_form .new_password_container .generate_password,
+  .edit_review .login_form .password_container .generate_password,
+  .edit_review .login_form .password_check_container .generate_password,
+  .edit_review .login_form .current_password_container .generate_password,
+  .edit_review .login_form .new_password_container .generate_password,
+  .edit_review .registration_form .password_container .generate_password,
+  .edit_review .registration_form .password_check_container .generate_password,
+  .edit_review .registration_form .current_password_container .generate_password,
+  .edit_review .registration_form .new_password_container .generate_password,
+  .edit_review .edit_account_form .password_container .generate_password,
+  .edit_review .edit_account_form .password_check_container .generate_password,
+  .edit_review .edit_account_form .current_password_container .generate_password,
+  .edit_review .edit_account_form .new_password_container .generate_password,
+  .edit_review .password_reset_form .password_container .generate_password,
+  .edit_review .password_reset_form .password_check_container .generate_password,
+  .edit_review .password_reset_form .current_password_container .generate_password,
+  .edit_review .password_reset_form .new_password_container .generate_password,
+  .password_reset .login_form .password_container .generate_password,
+  .password_reset .login_form .password_check_container .generate_password,
+  .password_reset .login_form .current_password_container .generate_password,
+  .password_reset .login_form .new_password_container .generate_password,
+  .password_reset .registration_form .password_container .generate_password,
+  .password_reset .registration_form .password_check_container .generate_password,
+  .password_reset .registration_form .current_password_container .generate_password,
+  .password_reset .registration_form .new_password_container .generate_password,
+  .password_reset .edit_account_form .password_container .generate_password,
+  .password_reset .edit_account_form .password_check_container .generate_password,
+  .password_reset .edit_account_form .current_password_container .generate_password,
+  .password_reset .edit_account_form .new_password_container .generate_password,
+  .password_reset .password_reset_form .password_container .generate_password,
+  .password_reset .password_reset_form .password_check_container .generate_password,
+  .password_reset .password_reset_form .current_password_container .generate_password,
+  .password_reset .password_reset_form .new_password_container .generate_password {
     left: -20px;
   }
-  .agree input + label {
-    padding-left: 14px;
-  }
-  .agree input + label::before, .agree input:checked + label::before, .agree input:checked + label::after, .agree input:not(:checked) + label::after {
-    left: -16px;
-  }
 }
-@media only screen and (max-width: 500px) {
-  .registration,
-  .login,
-  .edit_account {
-    width: 90%;
-  }
-}
-@media only screen and (max-width: 400px) {
-  .registration,
-  .login,
-  .edit_account {
-    padding: 50px 20px;
-  }
-}
-/***********
- Key Frames
-***********/
-/***********
- Key Frames
-***********/
-@keyframes fade_in_animation {
-  0% {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-@keyframes fade_out_animation {
-  0% {
-    opacity: 1;
-    visibility: visible;
-  }
-  100% {
-    opacity: 0;
-    top: 50%;
-  }
-}/*# sourceMappingURL=forms.css.map */
+
+/*# sourceMappingURL=forms.css.map */

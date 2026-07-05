@@ -1,173 +1,36 @@
-/***************
- General Styles
-***************/
-
-*
-{
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-body, body.light
-{
-    line-height: 1.6;
-    background-color: rgb(245, 245, 245);
-}
-
-body.dark
-{
-    background-color: rgb(30, 30, 30);
-}
-
-// Preloader
-
-.preloader 
-{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    backdrop-filter: blur(2.5px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-    transition: opacity 0.3s ease;
-}
-
-.preloader.hidden 
-{
-    opacity: 0;
-    visibility: hidden;
-}
-
-.loader 
-{
-    border: 5px solid rgb(50, 50, 50);
-    border-top: 5px solid rgb(230, 230, 230);
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: loader_spin 1s linear infinite;
-}
-
-@keyframes loader_spin 
-{
-    0% 
-    { 
-        transform: rotate(0deg); 
-    }
-
-    100% 
-    { 
-        transform: rotate(360deg); 
-    }
-}
+@import "partials/variables";
 
 /**************
  Header Styles
 **************/
 
-// Cookie Policy
+// Header
 
-.cookie_policy
-{
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-top: 1px solid rgb(150, 150, 150);
-    text-align: center;
-    z-index: 100;
-}
-
-.cookie_policy.hide {
-    display: none;
-}
-
-.cookie_policy img {
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 20px;
-}
-
-.cookie_policy h2 {
-    display: inline-block;
-    vertical-align: middle;
-    font-family: Poppins, Arial, sans-serif;
-    font-size: 30px;
-}
-
-.cookie_policy p {
-    font-family: Poppins, Arial, sans-serif;
-}
-
-.accept_all {
-    width: 200px;
-    height: 50px;
-    background-color: rgb(50, 125, 200);
-    color: rgb(255, 255, 255);
-    border: 1px solid rgb(0, 0, 0);
-    outline: none;
-    border-radius: 30px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 15px;
-    text-transform: uppercase;
-    transition: letter-spacing 0.3s ease, transform 0.3s ease;
-}
-
-.accept_all:hover,
-.accept_all:focus {
-    letter-spacing: 1px;
-    transform: scale(1.1);
-    cursor: pointer;
-}
-
-.green_report_message, .red_report_message
-{
-    visibility: hidden;
-    position: fixed;
-    text-align: center;
-    top: 75%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 20px;
-    user-select: none;
-    z-index: 100;
-    animation: fade_out_animation 5s ease-out;
-}
-
-.green_report_message
-{
-    color: rgb(170, 255, 50);
-}
-
-.red_report_message
-{
-    color: rgb(250, 50, 50);
+header {
+    height: auto;
+    margin-bottom: 0px;
+    background: none;
+    border: none;
+    box-shadow: none;
 }
 
 /************
  Main Styles
 ************/
 
-main
-{
+main {
     min-height: 100vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5)), url(/content/images/background.jpg); // https://pixabay.com/sk/photos/cpu-procesor-%C4%8Dip-z%C3%A1kladn%C3%A9-dosky-4393376/
-    background-size: cover;
-    background-position: center center;
-    background-attachment: fixed;
+    max-width: 100%;
+    width: 100%;
+    margin: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid rgb(150, 150, 150);
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(transparentize($main-color, 0.9), transparentize($main-color, 0.5)), url("/content/images/background.jpg"); // https://pixabay.com/sk/photos/cpu-procesor-%C4%8Dip-z%C3%A1kladn%C3%A9-dosky-4393376/
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
 }
 
 // Forms
@@ -175,789 +38,601 @@ main
 .registration, 
 .login,
 .edit_account,
-.account,
 .edit_review,
-.password_reset
-{
-    width: 450px;
-    margin: 98px 0px 50px;
+.password_reset {
+    max-width: 500px;
+    width: 100%;
+    margin-top: 83px;
     padding: 50px;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: transparentize($main-color, 0.8);
     backdrop-filter: blur(2.5px);
-    border: 1px solid rgb(150, 150, 150);
+    border: 1px solid darken($secondary-color, 20%);
     border-radius: 30px;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
-}
+    box-shadow: 0px 0px 10px transparentize($main-color, 0.5);
 
-.back_icon
-{
-    position: absolute;
-    top: 60px;
-    left: 60px;
-    transition: transform 0.3s ease;
-}
-
-.back_icon:hover
-{
-    transform: scale(1.1);
-}
-
-.registration h2, 
-.login h2,
-.edit_account h2,
-.account h2,
-.edit_review h2,
-.password_reset h2
-{
-    text-align: center;
-    font-size: 35px;
-    transition: letter-spacing 0.3s ease;
-}
-
-.registration h2:hover, 
-.login h2:hover,
-.edit_account h2:hover,
-.account h2:hover,
-.edit_review h2:hover,
-.password_reset h2:hover
-{
-    letter-spacing: 1px;
-    cursor: pointer;
-}
-
-.registration h2 a, 
-.login h2 a,
-.edit_account h2 a,
-.account h2 a,
-.edit_review h2 a,
-.password_reset h2 a
-{
-    text-decoration: none;
-    color: rgb(255, 255, 255);
-}
-
-.registration_form, 
-.login_form,
-.edit_account_form,
-.edit_review_form,
-.password_reset_form
-{
-    position: relative;
-}
-
-.have_account, 
-.forgot_password,
-.delete_account_container,
-.delete_review_container
-{
-    text-align: center;
-    font-size: 14px;
-}
-
-.have_account p,
-.forgot_password p,
-.account p,
-.delete_account_container p,
-.delete_review_container p,
-.no_logged_in p,
-.no_review p,
-.code_expired p
-{
-    font-family: Poppins, Arial, sans-serif;
-    color: rgb(255, 255, 255);
-    text-align: center;
-}
-
-.have_account a:link,
-.have_account a:visited,
-.forgot_password a:link,
-.forgot_password a:visited,
-.no_logged_in p a:link,
-.no_logged_in p a:visited
-{
-    font-family: Poppins, Arial, sans-serif;
-    color: rgb(255, 255, 255);
-    text-decoration: none;
-}
-
-.no_logged_in p a:link,
-.no_logged_in p a:visited
-{
-    font-style: italic;
-}
-
-.have_account a:hover,
-.have_account a:active,
-.forgot_password a:hover,
-.forgot_password a:active,
-.no_logged_in p a:hover,
-.no_logged_in p a:active
-{
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-.registration_form input[type="text"], .registration_form input[type="email"], 
-.login_form input[type="text"], .login_form input[type="email"],
-.edit_account_form input[type="text"], .edit_account_form input[type="email"], .password_reset_form input[type="text"]
-{
-    font-family: Poppins, Arial, sans-serif;
-    color: rgb(255, 255, 255);
-    display: block;
-    width: 90%;
-    margin: 0px auto 10px;
-    height: 50px;
-    padding: 5px;
-    outline: none;
-    font-size: 16px;
-    border: none;
-    border-bottom: 1px solid rgb(255, 255, 255);
-    background: none;
-    transition: width 0.3s ease;
-}
-
-.review_container
-{
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.review_container p
-{
-    display: inline-block;
-    font-family: Poppins, Arial, sans-serif;
-    position: relative;
-    bottom: 14px;
-    left: 6px;
-    color: rgb(255, 255, 255);
-}
-
-.stars img
-{
-    transition: transform 0.3s ease;
-}
-
-.stars img:hover
-{
-    transform: scale(1.1);
-    cursor: pointer;
-}
-
-.edit_review_form textarea
-{
-    font-family: Poppins, Arial, sans-serif;
-    color: rgb(255, 255, 255);
-    display: block;
-    width: 90%;
-    margin: 0px auto;
-    height: 100px;
-    padding: 0px 5px;
-    outline: none;
-    resize: none;
-    font-size: 16px;
-    border: 1px solid rgb(255, 255, 255);
-    border-radius: 5px;
-    background: none;
-    transition: width 0.3s ease;
-}
-
-.password, .password_check, .current_password, .new_password
-{
-    -webkit-text-security: disc;
-    padding-right: 55px !important;
-}
-
-.phone_number_container
-{
-    position: relative;
-}
-
-.phone_number_icon img
-{
-    visibility: hidden;
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
-    opacity: 0.8;
-}
-
-.phone_number
-{
-    padding-right: 55px !important;
-}
-
-.password_container, .password_check_container, .current_password_container, .new_password_container
-{
-    position: relative;
-}
-
-.copy_password, .paste_password
-{
-    position: absolute;
-    top: 50%;
-    right: 0px;
-    transform: translateY(-50%);
-    font-size: 16px;
-}
-
-.generate_password {
-    all: unset;
-
-    &:hover {
-        cursor: pointer;
-    }
-
-    .fa-key {
+    .back_icon {
         position: absolute;
-        top: 50%;
-        left: 0px;
-        transform: translateY(-50%);
-        font-size: 16px;
-        transition: left 0.3s ease;
+        top: 60px;
+        left: 60px;
+        transition: transform 0.3s ease;
+    
+        &:hover {
+            transform: scale(1.1);
+        }
+    
+        img {
+            display: block;
+        }
+    }
+
+    h2 {
+        text-align: center;
+        font-size: 2em;
+        transition: letter-spacing 0.3s ease;
+
+        &:hover {
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+
+        a {
+            text-decoration: none;
+            color: $secondary-color;
+        }
+    }
+
+    form {
+        position: relative;
+
+        input,
+        textarea {
+            &:focus {
+                width: 100%;
+            }
+
+            &::placeholder {
+                color: darken($secondary-color, 10%);
+            }
+        }
+
+        input[type="text"],
+        input[type="email"] {
+            display: block;
+            width: 90%;
+            height: 50px;
+            margin: 0px auto 10px;
+            padding: 5px;
+            background: none;
+            color: $secondary-color;
+            border: none;
+            border-bottom: 1px solid $secondary-color;
+            outline: none;
+            transition: width 0.3s ease;
+
+            &:-webkit-autofill,
+            &:-webkit-autofill:hover,
+            :-webkit-autofill:focus {
+                -webkit-text-fill-color: $secondary-color;
+                transition: width 0.3s ease, background-color 9999s ease;
+            }
+        }
+
+        textarea {
+            display: block;
+            width: 90%;
+            height: 100px;
+            margin: 0px auto;
+            padding: 0px 5px;
+            background: none;
+            color: $secondary-color;
+            border: 1px solid $secondary-color;
+            border-radius: 5px;
+            outline: none;
+            resize: none;
+            transition: width 0.3s ease;
+        }
+
+        .form_report,
+        .dialogue_paragraph {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            font-size: 16px;
+            font-family: Poppins, Arial, sans-serif;
+
+            &.valid {
+                color: $green-color;
+            }
+
+            &.invalid {
+                color: $red-color;
+            }
+        }
+
+        button[type="submit"],
+        .login_method a {
+            display: block;
+            width: 90%;
+            height: 50px;
+            margin: 50px auto 10px;
+            background-color: transparentize($main-color, 0.8);
+            color: $secondary-color;
+            border: 1px solid $secondary-color;
+            border-radius: $big-border-radius;
+            outline: none;
+            transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease, transform 0.3s ease;
+            animation: fade_in_animation 0.5s ease-out;
+
+            &:hover,
+            &:focus {
+                background-color: transparentize($secondary-color, 0.2);
+                color: $main-color;
+                border: 1px solid $main-color;
+                transform: scale(1.1);
+                cursor: pointer;
+            }
+        }
+
+        .login_form button[type="submit"] {
+            animation: fade_in_animation 0.3s ease-out;
+        }
+
+        .login_method a {
+            position: relative;
+            margin: 10px auto;
+            background-color: transparentize($main-color, 0.6);
+
+            &:hover,
+            &:focus {
+                background-color: transparentize($secondary-color, 0.4);
+            }
+
+            &:nth-child(1) {
+                animation: fade_in_animation 0.4s ease-out;
+            }
+
+            &:nth-child(2) {
+                animation: fade_in_animation 0.5s ease-out;
+            }
+
+            img {
+                margin: 8px;
+            }
+
+            span {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        .have_account, 
+        .forgot_password,
+        .delete_account_container,
+        .delete_review_container {
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        .have_account,
+        .forgot_password,
+        .delete_account_container,
+        .delete_review_container,
+        .no_logged_in,
+        .no_review,
+        .code_expired {
+            p {
+                color: $secondary-color;
+                text-align: center;
+
+                a:link,
+                a:visited {
+                    color: $secondary-color;
+                    text-decoration: none;
+                }
+
+                a:hover,
+                a:active {
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        .no_logged_in {
+            p a:link,
+            p a:visited {
+                font-style: italic;
+            }
+        }
+    }
+
+    .login_form,
+    .registration_form,
+    .edit_account_form,
+    .password_reset_form {
+        .password_container, 
+        .password_check_container, 
+        .current_password_container, 
+        .new_password_container {
+            position: relative;
+
+            input {
+                -webkit-text-security: disc;
+                padding-right: 55px !important;
+            }
+
+            .generate_password,
+            .show_hide_password,
+            .copy_password, 
+            .paste_password {
+                i {
+
+                    color: darken($secondary-color, 20%);
+    
+                    &:hover {
+                        color: darken($secondary-color, 10%);
+                        cursor: pointer;
+                        transition: color 0.3s ease;
+                    }
+                }
+            }
+
+            .generate_password {
+                all: unset;
+                position: absolute;
+                top: 50%;
+                left: 0px;
+                transform: translateY(-50%);
+                transition: left 0.3s ease;
+            
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+
+            .show_hide_password {
+                all: unset;
+                position: absolute;
+                top: 50%;
+                right: 20px;
+                transform: translateY(-50%);
+            
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+
+            .copy_password, 
+            .paste_password {
+                all: unset;
+                position: absolute;
+                top: 50%;
+                right: 0px;
+                transform: translateY(-50%);
+            
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .password_container, 
+        .new_password_container {
+            &:has(.password:focus),
+            &:has(.new_password:focus) {
+                .generate_password {
+                    left: -20px;
+                }
+            }
+        }
+
+        .phone_number_container {
+            position: relative;
+
+            .phone_number_icon {
+                img {
+                    visibility: hidden;
+                    position: absolute;
+                    top: 50%;
+                    right: 20px;
+                    transform: translateY(-50%);
+                    opacity: 0.8;
+                }
+            }
+
+            .phone_number {
+                padding-right: 55px !important;
+            }
+        }
+
+        .agree {
+            text-align: center;
+            margin: 35px auto 0px;
+            padding-left: 5px;
+            width: 90%;
+            height: 100%;
+        
+            input {
+                display: none;
+        
+                &:checked + label::before {
+                    content: "";
+                    position: absolute;
+                    top: 3px;
+                    left: 0px;
+                    width: 14px;
+                    height: 14px;
+                    outline: 1px solid $green-color;
+                    background: transparentize($secondary-color, 0.8);
+                }
+        
+                &:checked + label::after {
+                    content: "";
+                    position: absolute;
+                    top: 3px;
+                    left: 0px;
+                    width: 14px;
+                    height: 14px;
+                    background-image: url("/content/images/check.png"); // https://www.flaticon.com/free-icon/check_16750043
+                    background-size: contain;
+                    transform: scale(1.5);
+                    opacity: 1;
+                    transition: transform 0.3s ease, opacity 0.3s ease;
+                }
+                
+                &:not(:checked) + label::after {
+                    content: "";
+                    position: absolute;
+                    top: 3px;
+                    left: 0px;
+                    width: 14px;
+                    height: 14px;
+                    background-image: url("/content/images/check.png"); // https://www.flaticon.com/free-icon/check_16750043
+                    background-size: contain;
+                    transform: scale(0);
+                    opacity: 0;
+                    transition: transform 0.2s ease, opacity 0.2s ease;
+                }
+            }
+        
+            input + label {
+                position: relative;
+                padding-left: 30px;
+                display: inline-block;
+                color: darken($secondary-color, 20%);
+                cursor: pointer;
+            }
+        
+            input + label::before {
+                content: "";
+                position: absolute;
+                top: 3px;
+                left: 0px;
+                width: 14px;
+                height: 14px;
+                outline: 1px solid darken($secondary-color, 20%);
+                background: transparentize($secondary-color, 0.8);
+            }
+        
+            label {
+                margin-left: 0px;
+                font-size: 0.9em;
+                color: $secondary-color;
+                user-select: none;
+                transition: letter-spacing 0.3s ease;
+        
+                &:hover {
+                    letter-spacing: 0.5px;
+                }
+            }
+        
+            .terms + .terms_label::before {
+                outline: 1px solid $red-color;
+            
+                &:checked + .terms_label::before {
+                    outline: 1px solid $green-color;
+                }
+            }
+        }
+    }
+
+    .edit_account_form {
+        .profile_picture_container {
+            text-align: center;
+
+            .profile_picture {
+                transition: transform 0.3s ease;
+
+                &:hover {
+                    transform: scale(1.1);
+                    cursor: pointer;
+                }
+
+                .google_profile_picture_frame {
+                    position: absolute;
+                    left: 130px;
+                    top: 30px;
+                    width: 40px;
+                    height: 40px;
+                    z-index: -10;
+                }
+            }
+
+            input[type="file"] {
+                display: none;
+            }
+
+            .delete_profile_picture {
+                width: 40px;
+                height: 40px;
+                margin-left: 5px;
+                padding: 2px;
+                border: 1px solid darken($secondary-color, 20%);
+                border-radius: 50%;
+                opacity: 0.8;
+                transition: transform 0.3s ease, opacity 0.3s ease;
+            }
+
+            #delete_profile_picture {
+                display: none;
+            }
+        }
+
+        h3 {
+            color: $secondary-color;
+            text-align: center;
+        }
+
+        .delete_account_container {
+            .delete_account {
+                opacity: 0.8;
+                transition: transform 0.3s ease, opacity 0.3s ease;
+            
+                &:hover {
+                    transform: scale(1.1);
+                    cursor: pointer;
+                }
+            }
+            
+            #delete_account {
+                display: none;
+            }
+
+        }
+    }
+
+    .edit_review_form {
+        .review_container {
+            text-align: center;
+            margin-bottom: 30px;
+
+            .user {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                margin-bottom: 30px;
+
+                .name {
+                    margin-bottom: 0px;
+                    color: $secondary-color;
+                }
+            }
+
+            .stars {
+                display: flex;
+                justify-content: center;
+                gap: 5px;
+
+                .star {
+                    transition: transform 0.3s ease;
+                
+                    &:hover {
+                        transform: scale(1.1);
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+
+        .delete_review_container {
+            .delete_review {
+                width: 40px;
+                height: 40px;
+                margin-left: 5px;
+                padding: 2px;
+                border: 1px solid darken($secondary-color, 20%);
+                border-radius: 50%;
+                opacity: 0.8;
+                transition: transform 0.3s ease, opacity 0.3s ease;
+
+                &:hover {
+                    transform: scale(1.1);
+                    cursor: pointer;
+                }
+            }
+
+            #delete_review {
+                display: none;
+            }
+        }
     }
 }
 
-.password_container:has(.password:focus) .generate_password, .new_password_container:has(.new_password:focus) .generate_password {
-    left: -20px;
-}
-
-.show_hide_password {
-    all: unset;
-
-    &:hover {
-        cursor: pointer;
-    }
-
-    .fa-eye, 
-    .fa-eye-slash {
-        position: absolute;
-        top: 50%;
-        right: 20px;
-        transform: translateY(-50%);
-        font-size: 16px;
-    }
-}
-
-.copy_password i, .generate_password i, .show_hide_password i, .paste_password i {
-    color: rgb(180, 180, 180);
-}
-
-.copy_password i:hover, .generate_password i:hover, .show_hide_password i:hover, .paste_password i:hover {
-    color: rgb(200, 200, 200);
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.registration_form input::placeholder,
-.login_form input::placeholder,
-.edit_account_form input::placeholder,
-.edit_review_form textarea::placeholder,
-.edit_account_form input::placeholder,
-.edit_review_form textarea::placeholder,
-.password_reset_form input::placeholder
-{
-    color: rgb(180, 180, 180);
-}
-
-.registration_form button[type="submit"], 
-.login_form button[type="submit"],
-.login_method a,
-.edit_account_form button[type="submit"],
-.edit_review_form button[type="submit"]
-.edit_account_form button[type="submit"],
-.edit_review_form button[type="submit"],
-.password_reset_form button[type="submit"]
-{
-    font-family: Poppins, Arial, sans-serif;
-    margin: 50px auto 10px;
-    background-color: rgba(0, 0, 0, 0.2);
-    color: rgb(255, 255, 255);
-    border: 1px solid rgb(255, 255, 255);
-    border-radius: 25px;
-    display: block;
-    width: 90%;
-    height: 50px;
-    outline: none;
-    font-size: 16px;
-    transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease, transform 0.3s ease;
-    animation: fade_in_animation 0.5s ease-out;
-}
-
-.login_form button[type="submit"]
-{
-    animation: fade_in_animation 0.3s ease-out;
-}
-
-.login_method a
-{
-    position: relative;
-    margin: 10px auto;
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.login_method a:nth-child(1)
-{
-    animation: fade_in_animation 0.4s ease-out;
-}
-
-.login_method a:nth-child(2)
-{
-    animation: fade_in_animation 0.5s ease-out;
-}
-
-.login_method a img
-{
-    margin: 8px;
-}
-
-.login_method a span
-{
-    font-family: Poppins, Arial, sans-serif;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.registration_form button[type="submit"]:hover, .registration_form button[type="submit"]:focus, 
-.login_form button[type="submit"]:hover, .login_form button[type="submit"]:focus,
-.login_method a:hover, .login_method a:focus,
-.edit_account_form button[type="submit"]:hover, .edit_account_form button[type="submit"]:focus,
-.edit_review_form button[type="submit"]:hover, .edit_review_form button[type="submit"]:focus
-.edit_account_form button[type="submit"]:hover, .edit_account_form button[type="submit"]:focus,
-.edit_review_form button[type="submit"]:hover, .edit_review_form button[type="submit"]:focus,
-.password_reset_form button[type="submit"]:hover, .password_reset_form button[type="submit"]:focus
-{
-    background-color: rgba(255, 255, 255, 0.8);
-    color: rgb(0, 0, 0);
-    border: 1px solid rgb(0, 0, 0);
-    transform: scale(1.1);
-    cursor: pointer;
-}
-
-.login_method a:hover, .login_method a:focus
-{
-    background-color: rgba(255, 255, 255, 0.6);
-}
-
-.registration_form input[type="text"]:focus, .registration_form input[type="email"]:focus, 
-.login_form input[type="text"]:focus, .login_form input[type="email"]:focus,
-.edit_account_form input[type="text"]:focus, .edit_account_form input[type="email"]:focus,
-.edit_review_form textarea:focus
-.edit_account_form input[type="text"]:focus, .edit_account_form input[type="email"]:focus,
-.edit_review_form textarea:focus,
-.password_reset_form input[type="text"]:focus
-{
-    width: 100%;
-}
-
-.registration_form input[type="text"]:-webkit-autofill, .registration_form input[type="text"]:-webkit-autofill:hover, .registration_form input[type="text"]:-webkit-autofill:focus, .registration_form input[type="email"]:-webkit-autofill, .registration_form input[type="email"]:-webkit-autofill:hover, .registration_form input[type="email"]:-webkit-autofill:focus,
-.login_form input[type="text"]:-webkit-autofill, .login_form input[type="text"]:-webkit-autofill:hover, .login_form input[type="text"]:-webkit-autofill:focus, .login_form input[type="email"]:-webkit-autofill, .login_form input[type="email"]:-webkit-autofill:hover, .login_form input[type="email"]:-webkit-autofill:focus,
-.edit_account_form input[type="text"]:-webkit-autofill, .edit_account_form input[type="text"]:-webkit-autofill:hover, .edit_account_form input[type="text"]:-webkit-autofill:focus, .edit_account_form input[type="email"]:-webkit-autofill, .edit_account_form input[type="email"]:-webkit-autofill:hover, .edit_account_form input[type="email"]:-webkit-autofill:focus
-{
-    -webkit-text-fill-color: rgb(255, 255, 255);
-    transition: width 0.3s ease, background-color 9999s ease;
-}
-
-.form_report,
-.dialogue_paragraph
-{
-    position: absolute;
-    width: 100%;
-    text-align: center;
-    font-size: 16px;
-    font-family: Poppins, Arial, sans-serif;
-}
-
-.edit_review_form .form_report
-{
-    transform: translateY(12px);
-}
-
-.form_report.valid
-{
-    color: rgb(170, 255, 50);
-}
-
-.form_report.invalid,
-.dialogue_paragraph.invalid
-{
-    color: rgb(250, 50, 50);
-}
-
-.agree
-{
-    text-align: center;
-    margin: 35px auto 0px;
-    padding-left: 5px;
-    width: 90%;
-    height: 100%;
-}
-
-.agree input
-{
-    display: none;
-}
-
-.agree input + label
-{
-    position: relative;
-    padding-left: 30px;
-    display: inline-block;
-    color: rgb(180, 180, 180);
-    cursor: pointer;
-}
-
-.agree input + label::before
-{
-    content: "";
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    left: 0px;
-    top: 3px;
-    outline: 1px solid rgb(150, 150, 150);
-    background: rgba(255, 255, 255, 0.2);
-}
-
-.agree input:checked + label::before
-{
-    content: "";
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    left: 0px;
-    top: 3px;
-    outline: 1px solid rgb(100, 200, 100);
-    background: rgba(255, 255, 255, 0.2);
-}
-
-.terms + .terms_label::before
-{
-    outline: 1px solid rgb(250, 50, 50);
-}
-
-.terms:checked + .terms_label::before
-{
-    outline: 1px solid rgb(100, 200, 100);
-}
-
-.agree input:checked + label::after
-{
-    content: "";
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    left: 0px;
-    top: 3px;
-    background-image: url(/content/images/check.png); // https://www.flaticon.com/free-icon/check_16750043
-    background-size: contain;
-    transform: scale(1.5);
-    opacity: 1;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.agree input:not(:checked) + label::after
-{
-    content: "";
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    left: 0px;
-    top: 3px;
-    background-image: url(/content/images/check.png); // https://www.flaticon.com/free-icon/check_16750043
-    background-size: contain;
-    transform: scale(0);
-    opacity: 0;
-    transition: transform 0.2s ease, opacity 0.2s ease;
-}
-
-.agree label
-{
-    margin-left: 0px;
-    font-family: Poppins, Arial, sans-serif;
-    font-size: 14px;
-    color: rgb(255, 255, 255);
-    user-select: none;
-    transition: letter-spacing 0.3s ease;
-}
-
-.agree label:hover
-{
-    letter-spacing: 0.5px;
-}
-
-// Edit Account
-
-.profile_picture_container
-{
-    text-align: center;
-}
-
-.profile_picture
-{
-    width: 40px;
-    height: 40px;
-    padding: 2px;
-    border: 1px solid rgb(150, 150, 150);
-    border-radius: 50%;
-    transition: transform 0.3s ease;
-}
-
-.google_profile_picture_frame
-{
-    position: absolute;
-    left: 130px;
-    top: 30px;
-    width: 40px;
-    height: 40px;
-    z-index: -10;
-}
-
-.delete_profile_picture, .delete_review
-{
-    width: 40px;
-    height: 40px;
-    margin-left: 5px;
-    padding: 2px;
-    border: 1px solid rgb(150, 150, 150);
-    border-radius: 50%;
-    opacity: 0.8;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.delete_account
-{
-    opacity: 0.8;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.profile_picture:hover, .delete_profile_picture:hover, .delete_account:hover, .delete_review:hover
-{
-    transform: scale(1.1);
-    cursor: pointer;
-}
-
-#delete_profile_picture, #delete_account, #delete_review
-{
-    display: none;
-}
-
-.edit_account_form input[type="file"]
-{
-    display: none;
-}
-
-.edit_account_form h3
-{
-    color: rgb(255, 255, 255);
-    text-align: center;
-}
 
 // Error Page
 
-.error_404
-{
+.error_404 {
     text-align: center;
-    color: rgb(255, 255, 255);
-}
+    color: $secondary-color;
 
-.error_404 img
-{
-    transition: transform 0.3s ease;
-}
+    img {
+        transition: transform 0.3s ease;
 
-.error_404 img:hover
-{
-    transform: scale(1.1);
-    cursor: pointer;
-}
+        &:hover {
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+    }
 
-.error_404 h2
-{
-    font-family: Poppins, Arial, sans-serif;
-    font-size: 35px;
-}
+    h2 {
+        font-size: 2em;
+    }
 
-.error_404 a:link, .error_404 a:visited
-{
-    font-family: Poppins, Arial, sans-serif;
-    font-size: 16px;
-    color: rgb(255, 255, 255);
-    text-decoration: none;
-}
+    a:link,
+    a:visited {
+        color: $secondary-color;
+        text-decoration: none;
+    }
 
-.error_404 a:hover, .error_404 a:active
-{
-    text-decoration: underline;
-    cursor: pointer;
+    a:hover,
+    a:active {
+        text-decoration: underline;
+        cursor: pointer;
+    }
 }
 
 /**************
  Footer Styles
 **************/
 
-footer, footer.light
-{
-    margin-top: 25px;
-    padding-top: 20px;
-    text-align: center;
-    background-color: rgb(230, 230, 230);
-    border-top: 1px solid rgb(150, 150, 150);
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-}
-
-footer.dark
-{
-    color: rgb(255, 255, 255);
-    background-color: rgb(15, 15, 15);
-}
-
-footer p
-{
-    font-weight: bold;
-    font-size: 16px;
-}
-
-footer a:link,
-footer a:visited,
-footer.light a:link,
-footer.light a:visited
-{
-    font-size: 14px;
-    font-weight: normal;
-    font-style: italic;
-    text-decoration: none;
-    color: rgb(50, 50, 50);
-}
-
-footer.dark a:link,
-footer.dark a:visited
-{
-    color: rgb(150, 150, 150);
-}
-
-footer a:hover,
-footer a:active
-{
-    text-decoration: underline;
-}
-
-footer a img
-{
-    margin: 0px 5px;
-    transform: scale(1);
-    opacity: 0.8;
-}
-
-footer a img:hover
-{
-    opacity: 1;
-    transform: scale(1.1);
-    transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-footer .copywrite, footer.light .copywrite
-{
-    font-family: 'Courier New', Courier, monospace, sans-serif;
-    margin-top: 20px;
-    font-size: 12px;
-    color: rgb(50, 50, 50);
-}
-
-footer.dark .copywrite
-{
-    color: rgb(150, 150, 150);
+footer {
+    margin-top: 0px;
+    border: none;
+    box-shadow: none;
 }
 
 /**************
  Media Queries
 **************/
 
-@media only screen and (max-width: 800px)
-{
-    .registration_form input[type="text"], .registration_form input[type="email"], .registration_form button[type="submit"],
-    .login_form input[type="text"], .login_form input[type="email"], .login_form button[type="submit"],
-    .login_method a,
-    .edit_account_form input[type="text"], .edit_account_form input[type="email"], .edit_account_form button[type="submit"],
-    .edit_review_form textarea, .edit_review_form button[type="submit"]
-    .edit_account_form input[type="text"], .edit_account_form input[type="email"], .edit_account_form button[type="submit"],
-    .edit_review_form textarea, .edit_review_form button[type="submit"],
-    .password_reset_form input[type="text"], .password_reset_form button[type="submit"] {
-        width: 100%;
-    }
-
-    .generate_password
-    {
-        left: -20px;
-    }
-
-    .agree input + label
-    {
-        padding-left: 14px;
-    }
-
-    .agree input + label::before, .agree input:checked + label::before, .agree input:checked + label::after, .agree input:not(:checked) + label::after
-    {
-        left: -16px;
-    }
-}
-
-@media only screen and (max-width: 500px)
-{
-    .registration,
+@media only screen and (max-width: 800px) {
+    .registration, 
     .login,
-    .edit_account
-    {
-        width: 90%;
-    }
-}
+    .edit_account,
+    .edit_review,
+    .password_reset {
+        form {
+            input[type="text"],
+            input[type="email"],
+            button[type="submit"] {
+                width: 100%;
+            }
+        }
 
-@media only screen and (max-width: 400px)
-{
-    .registration,
-    .login,
-    .edit_account
-    {
-        padding: 50px 20px;
-    }
-}
-
-/***********
- Key Frames
-***********/
-
-/***********
- Key Frames
-***********/
-
-@keyframes fade_in_animation
-{
-    0%
-    {
-        opacity: 0;
-        transform: scale(0.8);
-    }
-
-    100%
-    {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-@keyframes fade_out_animation
-{
-    0%
-    {
-        opacity: 1;
-        visibility: visible;
-    }
-
-    100%
-    {
-        opacity: 0;
-        top: 50%;
+        .login_form,
+        .registration_form,
+        .edit_account_form,
+        .password_reset_form {
+            .password_container, 
+            .password_check_container, 
+            .current_password_container, 
+            .new_password_container {
+                .generate_password {
+                    left: -20px;
+                }
+            }
+        }
     }
 }
