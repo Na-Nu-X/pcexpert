@@ -279,7 +279,7 @@
 
                 <?php if(countPendingReviews($connection) > 5): ?>
                     <button class="show_more show_more_reviews" type="button" title="Zobraziť viac">Zobraziť viac</button>
-                    <button class="show_less show_less_reviews" type="button" title="Zobraziť menej">Zobraziť menej</button>
+                    <button class="show_less show_less_reviews hidden" type="button" title="Zobraziť menej">Zobraziť menej</button>
 
                 <?php endif; ?>
 
@@ -396,7 +396,7 @@
 
                     <?php if(countUsers($connection, $user_id) > 5): ?>
                         <button class="show_more show_more_users" type="button" title="Zobraziť viac">Zobraziť viac</button>
-                        <button class="show_less show_less_users" type="button" title="Zobraziť menej">Zobraziť menej</button>
+                        <button class="show_less show_less_users hidden" type="button" title="Zobraziť menej">Zobraziť menej</button>
 
                     <?php endif; ?>
 
@@ -420,7 +420,7 @@
                                 <div class="error_details"></div>
 
                                 <button class="show_error_details" type="button" title="Podrobnosti">Podrobnosti</button>
-                                <button class="hide_error_details" type="button" title="Skryť">Skryť</button>
+                                <button class="hide_error_details hidden" type="button" title="Skryť">Skryť</button>
 
                                 <label class="delete_error_log" for="delete_error_log_checkbox_<?php echo htmlspecialchars($one_error['error_id'], ENT_QUOTES, 'UTF-8'); ?>">Vymazať</label>
                                 <label class="cancel_delete_error_log" for="delete_error_log_checkbox_<?php echo htmlspecialchars($one_error['error_id'], ENT_QUOTES, 'UTF-8'); ?>">Zrušiť</label>
@@ -439,7 +439,7 @@
 
                     <?php if(countErrors($connection) > 5): ?>
                         <button style="margin-bottom: 10px;" class="show_more show_more_errors" type="button" title="Zobraziť viac">Zobraziť viac</button>
-                        <button style="margin-bottom: 10px;" class="show_less show_less_errors" type="button" title="Zobraziť menej">Zobraziť menej</button>
+                        <button style="margin-bottom: 10px;" class="show_less show_less_errors hidden" type="button" title="Zobraziť menej">Zobraziť menej</button>
 
                     <?php endif; ?>
 

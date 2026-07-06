@@ -33,8 +33,8 @@ document.addEventListener("DOMContentLoaded", function():void {
                 .then(response => response.text())
                 .then(data => {
                     all_reviews.insertAdjacentHTML("beforeend", data)
-                    show_more.style.display = "none"
-                    show_less.style.display = "inline-block"
+                    show_less.classList.remove("hidden") // Shows The Show Less Button
+                    show_more.classList.add("hidden") // Hides The Show More Button
                 })
             }
         })
@@ -57,8 +57,8 @@ document.addEventListener("DOMContentLoaded", function():void {
                 .then(response => response.text())
                 .then(data => {
                     all_reviews.innerHTML = data
-                    show_less.style.display = "none"
-                    show_more.style.display = "inline-block"
+                    show_more.classList.remove("hidden") // Shows The Show More Button
+                    show_less.classList.add("hidden") // Hides The Show Less Button
                 })
             }
         })

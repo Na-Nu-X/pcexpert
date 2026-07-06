@@ -706,6 +706,26 @@
             border: 2px solid $secondary-color;
         }
     }
+
+    .buttons {
+        @include flex_center;
+        gap: 10px;
+        height: auto;
+        margin-top: 10px;
+
+        .show_more,
+        .show_less {
+            all: unset;
+
+            &.hidden {
+                display: none;
+            }
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
 }
 
 // Contact Form
@@ -788,14 +808,8 @@
             right: 11px;
             transition: right 0.3s ease;
 
-            i {
-                color: darken($secondary-color, 10%);
-
-                &:hover {
-                    color: darken($secondary-color, 20%);
-                    cursor: pointer;
-                    transition: color 0.3s ease;
-                }
+            .fa-paperclip {
+                @include icon;
             }
         }
 

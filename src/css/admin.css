@@ -69,9 +69,12 @@ main .error_log .show_less:hover {
   text-decoration: underline;
   cursor: pointer;
 }
-main .pending_reviews .show_less,
-main .users .show_less,
-main .error_log .show_less {
+main .pending_reviews .show_more.hidden,
+main .pending_reviews .show_less.hidden,
+main .users .show_more.hidden,
+main .users .show_less.hidden,
+main .error_log .show_more.hidden,
+main .error_log .show_less.hidden {
   display: none;
 }
 main .pending_reviews .reviews .review:last-of-type {
@@ -251,7 +254,13 @@ main .error_log .all_errors .error .cancel_delete_error_log:hover {
   text-decoration: underline;
   cursor: pointer;
 }
-main .error_log .all_errors .error .hide_error_details, main .error_log .all_errors .error .cancel_delete_error_log, main .error_log .all_errors .error .delete_error_log_checkbox {
+main .error_log .all_errors .error .show_error_details.hidden,
+main .error_log .all_errors .error .hide_error_details.hidden,
+main .error_log .all_errors .error .delete_error_log.hidden {
+  display: none;
+}
+main .error_log .all_errors .error .cancel_delete_error_log,
+main .error_log .all_errors .error .delete_error_log_checkbox {
   display: none;
 }
 main .admin_form .admin_form_submit,
@@ -306,4 +315,6 @@ main .no_admin a:active {
   .users .all_users .user .user .form_report {
     top: 205px;
   }
-}/*# sourceMappingURL=admin.css.map */
+}
+
+/*# sourceMappingURL=admin.css.map */

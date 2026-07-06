@@ -213,14 +213,7 @@ main {
             .copy_password, 
             .paste_password {
                 i {
-
-                    color: darken($secondary-color, 20%);
-    
-                    &:hover {
-                        color: darken($secondary-color, 10%);
-                        cursor: pointer;
-                        transition: color 0.3s ease;
-                    }
+                    @include icon;
                 }
             }
 

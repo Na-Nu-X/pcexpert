@@ -950,8 +950,10 @@
                 </div>
 
                 <?php if(countReviews($connection, $user_id) > 5): ?>
-                    <button class="show_more show_more_reviews" title="Zobraziť viac">Zobraziť viac</button>
-                    <button class="show_less show_less_reviews" title="Zobraziť menej">Zobraziť menej</button>
+                    <div class="buttons">
+                        <button class="show_more" title="Zobraziť viac">Zobraziť viac</button>
+                        <button class="show_less hidden" title="Zobraziť menej">Zobraziť menej</button>
+                    </div>
 
                 <?php endif; ?>
             </section>

@@ -102,8 +102,8 @@ document.addEventListener("DOMContentLoaded", function():void {
             .then(response => response.text())
             .then(data => {
                 all_users.insertAdjacentHTML("beforeend", data)
-                show_more_users.style.display = "none"
-                show_less_users.style.display = "inline-block"
+                show_less_users.classList.remove("hidden") // Shows The Show Less Button
+                show_more_users.classList.add("hidden") // Hides The Show More Button
             })
         }
     })
@@ -124,8 +124,8 @@ document.addEventListener("DOMContentLoaded", function():void {
             .then(response => response.text())
             .then(data => {
                 all_users.innerHTML = data
-                show_less_users.style.display = "none"
-                show_more_users.style.display = "inline-block"
+                show_more_users.classList.remove("hidden") // Shows The Show More Button
+                show_less_users.classList.add("hidden") // Hides The Show Less Button
             })
         }
     })
@@ -162,9 +162,21 @@ document.addEventListener("DOMContentLoaded", function():void {
                 const response_content:string = await response.text() // Gets The Response Content
 
                 error_details.innerHTML = response_content // Shows The Error Details
-                show_error_details.style.display = "none" // Hides The Show Error Details Button
-                hide_error_details.style.display = "inline-block" // Shows The Hide Error Details Button
+                hide_error_details.classList.remove("hidden") // Shows The Hide Error Details Button
+                show_error_details.classList.add("hidden") // Hides The Show Error Details Button
             }
+        }
+
+        // Hide Error Details
+        if((event.target as HTMLButtonElement).classList.contains("hide_error_details")) {
+            const hide_error_details:HTMLButtonElement = event.target as HTMLButtonElement // Gets The Show Error Details Button
+            const error:HTMLDivElement = hide_error_details.closest(".error") as HTMLDivElement // Gets The Error Container
+            const show_error_details:HTMLButtonElement = error.querySelector(".show_error_details") as HTMLButtonElement // Gets The Hide Error Details Button
+            const error_details:HTMLDivElement = error.querySelector(".error_details") as HTMLDivElement // Gets The Error Details Container
+
+            error_details.innerHTML = "" // Hides The Error Details
+            show_error_details.classList.remove("hidden") // Shows The Show Error Details Button
+            hide_error_details.classList.add("hidden") // Hides The Hide Error Details Button
         }
 
         // Delete Error
@@ -191,8 +203,8 @@ document.addEventListener("DOMContentLoaded", function():void {
 
         // Variables
 
-        const show_more_errors:HTMLButtonElement = error_log.querySelector(".show_more_errors") as HTMLButtonElement // Gets The Show More Errors Button
-        const show_less_errors:HTMLButtonElement = error_log.querySelector(".show_less_errors") as HTMLButtonElement // Gets The Show Less Errors Button
+        const show_more_errors:HTMLButtonElement|null = error_log.querySelector(".show_more_errors") as HTMLButtonElement || null // Gets The Show More Errors Button If Is Available
+        const show_less_errors:HTMLButtonElement|null = error_log.querySelector(".show_less_errors") as HTMLButtonElement || null // Gets The Show Less Errors Button If Is Available
 
         const LIMIT:number = 5 // Defines The Limit Of Loaded Errors
         let offset:number = 0 // Stores The Offset
@@ -200,43 +212,47 @@ document.addEventListener("DOMContentLoaded", function():void {
         // Events
 
         // Show More Errors Button Click Functionality
-        show_more_errors.addEventListener("click", async function():Promise<void> {
-            offset += LIMIT // Increases The Offset
-
-            // Sends The POST Request To Load Errors
-            await fetch("all_errors.php", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                },
-                body: `offset=${offset}`
+        if(show_more_errors) {
+            show_more_errors.addEventListener("click", async function():Promise<void> {
+                offset += LIMIT // Increases The Offset
+    
+                // Sends The POST Request To Load Errors
+                await fetch("all_errors.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: `offset=${offset}`
+                })
+                .then(response => response.text())
+                .then(data => {
+                    all_errors.insertAdjacentHTML("beforeend", data)
+                    show_less_errors.classList.remove("hidden") // Shows The Show Less Button
+                    show_more_errors.classList.add("hidden") // Hides The Show More Button
+                })
             })
-            .then(response => response.text())
-            .then(data => {
-                all_errors.insertAdjacentHTML("beforeend", data)
-                show_more_errors.style.display = "none" // Hides The Show More Errors Button
-                show_less_errors.style.display = "inline-block" // Shows The Show Less Errors Button
-            })
-        })
+        }
     
         // Show Less Errors Button Click Functionality
-        show_less_errors.addEventListener("click", async function():Promise<void> {
-            offset = 0 // Sets The Offset To 0
-
-            // Sends The POST Request To Load Errors
-            await fetch("all_errors.php", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                },
-                body: `offset=${offset}`
+        if(show_less_errors) {
+            show_less_errors.addEventListener("click", async function():Promise<void> {
+                offset = 0 // Sets The Offset To 0
+    
+                // Sends The POST Request To Load Errors
+                await fetch("all_errors.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: `offset=${offset}`
+                })
+                .then(response => response.text())
+                .then(data => {
+                    all_errors.innerHTML = data
+                    show_more_errors.classList.remove("hidden") // Shows The Show More Button
+                    show_less_errors.classList.add("hidden") // Hides The Show Less Button
+                })
             })
-            .then(response => response.text())
-            .then(data => {
-                all_errors.innerHTML = data
-                show_less_errors.style.display = "none" // Hides The Show Less Errors Button
-                show_more_errors.style.display = "inline-block" // Shows The Show More Errors Button
-            })
-        })
+        }
     })
 })

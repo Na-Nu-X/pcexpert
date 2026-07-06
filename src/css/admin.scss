@@ -56,10 +56,10 @@ main {
                 text-decoration: underline;
                 cursor: pointer;
             }
-        }
-    
-        .show_less {
-            display: none;
+
+            &.hidden {
+                display: none;
+            }
         }
     }
 
@@ -293,8 +293,17 @@ main {
                         cursor: pointer;
                     }
                 }
+
+                .show_error_details, 
+                .hide_error_details, 
+                .delete_error_log {
+                    &.hidden {
+                        display: none;
+                    }
+                }
     
-                .hide_error_details, .cancel_delete_error_log, .delete_error_log_checkbox {
+                .cancel_delete_error_log,
+                .delete_error_log_checkbox {
                     display: none;
                 }
             }
