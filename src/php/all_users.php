@@ -82,7 +82,7 @@
                 </div>
             </div>
             
-            <p class="form_report"></p>
+            <p class="form_report valid"></p>
 
             <div class="delete_user_container">
                 <p>Chcete nenávratne odstrániť tento účet?</p>

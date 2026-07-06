@@ -1,0 +1,222 @@
+@import "./variables";
+
+/***************
+ General Mixins
+***************/
+
+// Center Positioning
+
+@mixin position_center($position: absolute) {
+    position: $position;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@mixin flex_center($direction: row) {
+    display: flex;
+    flex-direction: $direction;
+    align-items: center;
+    justify-content: center;
+}
+
+// Tooltip
+
+@mixin tooltip($top: 5px) {
+    &::before,
+    &::after {
+        --scale: 0;
+
+        position: absolute;
+        top: $top;
+        left: 50%;
+        transform: translateX(-50%) translateY(var(--translate-y, 0)) scale(var(--scale));
+        transform-origin: bottom center;
+        transition: 0.3s transform 0s;
+    }
+
+    &::before {
+        --translate-y: calc(-100% - 10px);
+
+        content: attr(data-tooltip);
+        width: fit-content;
+        max-width: 100%;
+        padding: 5px;
+        text-align: center;
+        border-radius: $small-border-radius;
+        font-size: 0.8em;
+        background-color: transparentize($secondary-color, 0.8);
+        color: $secondary-color;
+        text-shadow: 0px 0px 5px $main-color;
+    }
+
+    &::after {
+        --translate-y: calc(-1 * 10px);
+        
+        content: "";
+        border: 10px solid transparent;
+        border-top-color: transparentize($secondary-color, 0.8);
+        transform-origin: top center;
+    }
+
+    &:hover {
+        &::before,
+        &::after {
+            --scale: 1;
+            transition: 0.3s transform 1s;
+        }
+    }
+}
+
+// Profile Picture
+
+@mixin profile_picture($width: 40px, $height: 40px) {
+    width: $width;
+    height: $height;
+    padding: 2px;
+    border: 1px solid $secondary-color;
+    border-radius: 50%;
+}
+
+// Form Input
+
+@mixin form_input {
+    display: block;
+    width: 90%;
+    height: 50px;
+    margin: 0px auto 10px;
+    padding: 5px;
+    background: none;
+    color: $secondary-color;
+    border: none;
+    border-bottom: 1px solid $secondary-color;
+    outline: none;
+    transition: width 0.3s ease;
+
+    &:hover,
+    &:focus-visible {
+        width: 100%;
+    }
+
+    &::placeholder {
+        color: darken($secondary-color, 40%);
+    }
+
+    &:-webkit-autofill {
+        -webkit-text-fill-color: $secondary-color;
+        transition: width 0.3s ease, background-color 9999s ease;
+
+        &:hover,
+        &:focus {
+            -webkit-text-fill-color: $secondary-color;
+            transition: width 0.3s ease, background-color 9999s ease;
+        }
+    }
+}
+
+// Form Textarea
+
+@mixin form_textarea {
+    display: block;
+    width: 90%;
+    height: 100px;
+    margin: 0px auto;
+    padding: 0px 5px;
+    background: none;
+    color: $secondary-color;
+    border: 1px solid $secondary-color;
+    border-radius: $small-border-radius;
+    outline: none;
+    resize: none;
+    transition: width 0.3s ease;
+
+    &::placeholder {
+        color: darken($secondary-color, 40%);
+    }
+}
+
+// Form Report Message
+
+@mixin form_report($bottom: 100px) {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.9em;
+
+    &.valid {
+        color: $green-color;
+    }
+
+    &.invalid {
+        color: $red-color;
+    }
+}
+
+// Icons
+
+@mixin icon($color: transparentize($blue-color, 0.5), $hover_color: $blue-color) {
+    color: $color;
+    transition: top 0.3s ease, right 0.3s ease, bottom 0.3s ease, left 0.3s ease;
+
+    &:hover {
+        color: $hover_color;
+        cursor: pointer;
+        transition: color 0.3s ease, top 0.3s ease, right 0.3s ease, bottom 0.3s ease, left 0.3s ease;
+    }
+}
+
+// Scrollbar
+
+@mixin scrollbar($direction: "vertical") {
+    // Vertical Scrollbar
+    @if $direction == "vertical" {
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+            width: 5px;
+        }
+    }
+
+    // Horizontal Scrollbar
+    @else if $direction == "horizontal" {
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        &::-webkit-scrollbar {
+            height: 5px;
+        }
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: darken($secondary-color, 40%);
+        border-radius: 2.5px;
+
+        &:hover {
+            background-color: darken($secondary-color, 20%);
+            cursor: pointer;
+        }
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: lighten($main-color, 20%);
+        border-radius: 2.5px;
+    }
+}
+
+// Crop Text
+
+@mixin crop_text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+// Focus
+
+@mixin focus {
+    &:focus-visible {
+        outline: 2px solid $red-color !important;
+        outline-offset: 2px !important;
+    }
+}

@@ -1,3 +1,6 @@
+/***************
+ General Mixins
+***************/
 /**************
  Header Styles
 **************/
@@ -13,14 +16,14 @@ header {
  Main Styles
 ************/
 main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   min-height: 100vh;
   max-width: 100%;
   width: 100%;
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5)), url("/content/images/background.jpg");
   background-size: cover;
   background-position: center center;
@@ -98,30 +101,6 @@ main {
 .password_reset form {
   position: relative;
 }
-.registration form input:focus,
-.registration form textarea:focus,
-.login form input:focus,
-.login form textarea:focus,
-.edit_account form input:focus,
-.edit_account form textarea:focus,
-.edit_review form input:focus,
-.edit_review form textarea:focus,
-.password_reset form input:focus,
-.password_reset form textarea:focus {
-  width: 100%;
-}
-.registration form input::placeholder,
-.registration form textarea::placeholder,
-.login form input::placeholder,
-.login form textarea::placeholder,
-.edit_account form input::placeholder,
-.edit_account form textarea::placeholder,
-.edit_review form input::placeholder,
-.edit_review form textarea::placeholder,
-.password_reset form input::placeholder,
-.password_reset form textarea::placeholder {
-  color: rgb(229.5, 229.5, 229.5);
-}
 .registration form input[type=text],
 .registration form input[type=email],
 .login form input[type=text],
@@ -144,35 +123,71 @@ main {
   outline: none;
   transition: width 0.3s ease;
 }
-.registration form input[type=text]:-webkit-autofill, .registration form input[type=text]:-webkit-autofill:hover,
-.registration form input[type=text] :-webkit-autofill:focus,
+.registration form input[type=text]:hover, .registration form input[type=text]:focus-visible,
+.registration form input[type=email]:hover,
+.registration form input[type=email]:focus-visible,
+.login form input[type=text]:hover,
+.login form input[type=text]:focus-visible,
+.login form input[type=email]:hover,
+.login form input[type=email]:focus-visible,
+.edit_account form input[type=text]:hover,
+.edit_account form input[type=text]:focus-visible,
+.edit_account form input[type=email]:hover,
+.edit_account form input[type=email]:focus-visible,
+.edit_review form input[type=text]:hover,
+.edit_review form input[type=text]:focus-visible,
+.edit_review form input[type=email]:hover,
+.edit_review form input[type=email]:focus-visible,
+.password_reset form input[type=text]:hover,
+.password_reset form input[type=text]:focus-visible,
+.password_reset form input[type=email]:hover,
+.password_reset form input[type=email]:focus-visible {
+  width: 100%;
+}
+.registration form input[type=text]::placeholder,
+.registration form input[type=email]::placeholder,
+.login form input[type=text]::placeholder,
+.login form input[type=email]::placeholder,
+.edit_account form input[type=text]::placeholder,
+.edit_account form input[type=email]::placeholder,
+.edit_review form input[type=text]::placeholder,
+.edit_review form input[type=email]::placeholder,
+.password_reset form input[type=text]::placeholder,
+.password_reset form input[type=email]::placeholder {
+  color: #999999;
+}
+.registration form input[type=text]:-webkit-autofill,
 .registration form input[type=email]:-webkit-autofill,
-.registration form input[type=email]:-webkit-autofill:hover,
-.registration form input[type=email] :-webkit-autofill:focus,
 .login form input[type=text]:-webkit-autofill,
-.login form input[type=text]:-webkit-autofill:hover,
-.login form input[type=text] :-webkit-autofill:focus,
 .login form input[type=email]:-webkit-autofill,
-.login form input[type=email]:-webkit-autofill:hover,
-.login form input[type=email] :-webkit-autofill:focus,
 .edit_account form input[type=text]:-webkit-autofill,
-.edit_account form input[type=text]:-webkit-autofill:hover,
-.edit_account form input[type=text] :-webkit-autofill:focus,
 .edit_account form input[type=email]:-webkit-autofill,
-.edit_account form input[type=email]:-webkit-autofill:hover,
-.edit_account form input[type=email] :-webkit-autofill:focus,
 .edit_review form input[type=text]:-webkit-autofill,
-.edit_review form input[type=text]:-webkit-autofill:hover,
-.edit_review form input[type=text] :-webkit-autofill:focus,
 .edit_review form input[type=email]:-webkit-autofill,
-.edit_review form input[type=email]:-webkit-autofill:hover,
-.edit_review form input[type=email] :-webkit-autofill:focus,
 .password_reset form input[type=text]:-webkit-autofill,
+.password_reset form input[type=email]:-webkit-autofill {
+  -webkit-text-fill-color: #fff;
+  transition: width 0.3s ease, background-color 9999s ease;
+}
+.registration form input[type=text]:-webkit-autofill:hover, .registration form input[type=text]:-webkit-autofill:focus,
+.registration form input[type=email]:-webkit-autofill:hover,
+.registration form input[type=email]:-webkit-autofill:focus,
+.login form input[type=text]:-webkit-autofill:hover,
+.login form input[type=text]:-webkit-autofill:focus,
+.login form input[type=email]:-webkit-autofill:hover,
+.login form input[type=email]:-webkit-autofill:focus,
+.edit_account form input[type=text]:-webkit-autofill:hover,
+.edit_account form input[type=text]:-webkit-autofill:focus,
+.edit_account form input[type=email]:-webkit-autofill:hover,
+.edit_account form input[type=email]:-webkit-autofill:focus,
+.edit_review form input[type=text]:-webkit-autofill:hover,
+.edit_review form input[type=text]:-webkit-autofill:focus,
+.edit_review form input[type=email]:-webkit-autofill:hover,
+.edit_review form input[type=email]:-webkit-autofill:focus,
 .password_reset form input[type=text]:-webkit-autofill:hover,
-.password_reset form input[type=text] :-webkit-autofill:focus,
-.password_reset form input[type=email]:-webkit-autofill,
+.password_reset form input[type=text]:-webkit-autofill:focus,
 .password_reset form input[type=email]:-webkit-autofill:hover,
-.password_reset form input[type=email] :-webkit-autofill:focus {
+.password_reset form input[type=email]:-webkit-autofill:focus {
   -webkit-text-fill-color: #fff;
   transition: width 0.3s ease, background-color 9999s ease;
 }
@@ -194,6 +209,13 @@ main {
   resize: none;
   transition: width 0.3s ease;
 }
+.registration form textarea::placeholder,
+.login form textarea::placeholder,
+.edit_account form textarea::placeholder,
+.edit_review form textarea::placeholder,
+.password_reset form textarea::placeholder {
+  color: #999999;
+}
 .registration form .form_report,
 .registration form .dialogue_paragraph,
 .login form .form_report,
@@ -205,10 +227,9 @@ main {
 .password_reset form .form_report,
 .password_reset form .dialogue_paragraph {
   position: absolute;
-  width: 100%;
-  text-align: center;
-  font-size: 16px;
-  font-family: Poppins, Arial, sans-serif;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.9em;
 }
 .registration form .form_report.valid,
 .registration form .dialogue_paragraph.valid,
@@ -233,6 +254,19 @@ main {
 .password_reset form .form_report.invalid,
 .password_reset form .dialogue_paragraph.invalid {
   color: #df3535;
+}
+.registration form .form_report,
+.registration form .dialogue_paragraph,
+.login form .form_report,
+.login form .dialogue_paragraph,
+.edit_account form .form_report,
+.edit_account form .dialogue_paragraph,
+.edit_review form .form_report,
+.edit_review form .dialogue_paragraph,
+.password_reset form .form_report,
+.password_reset form .dialogue_paragraph {
+  width: 100%;
+  text-align: center;
 }
 .registration form button[type=submit],
 .registration form .login_method a,
@@ -2033,85 +2067,163 @@ main {
 .password_reset .password_reset_form .new_password_container .paste_password:hover {
   cursor: pointer;
 }
-.registration .login_form .password_container:has(.password:focus) .generate_password, .registration .login_form .password_container:has(.new_password:focus) .generate_password,
-.registration .login_form .new_password_container:has(.password:focus) .generate_password,
-.registration .login_form .new_password_container:has(.new_password:focus) .generate_password,
-.registration .registration_form .password_container:has(.password:focus) .generate_password,
-.registration .registration_form .password_container:has(.new_password:focus) .generate_password,
-.registration .registration_form .new_password_container:has(.password:focus) .generate_password,
-.registration .registration_form .new_password_container:has(.new_password:focus) .generate_password,
-.registration .edit_account_form .password_container:has(.password:focus) .generate_password,
-.registration .edit_account_form .password_container:has(.new_password:focus) .generate_password,
-.registration .edit_account_form .new_password_container:has(.password:focus) .generate_password,
-.registration .edit_account_form .new_password_container:has(.new_password:focus) .generate_password,
-.registration .password_reset_form .password_container:has(.password:focus) .generate_password,
-.registration .password_reset_form .password_container:has(.new_password:focus) .generate_password,
-.registration .password_reset_form .new_password_container:has(.password:focus) .generate_password,
-.registration .password_reset_form .new_password_container:has(.new_password:focus) .generate_password,
-.login .login_form .password_container:has(.password:focus) .generate_password,
-.login .login_form .password_container:has(.new_password:focus) .generate_password,
-.login .login_form .new_password_container:has(.password:focus) .generate_password,
-.login .login_form .new_password_container:has(.new_password:focus) .generate_password,
-.login .registration_form .password_container:has(.password:focus) .generate_password,
-.login .registration_form .password_container:has(.new_password:focus) .generate_password,
-.login .registration_form .new_password_container:has(.password:focus) .generate_password,
-.login .registration_form .new_password_container:has(.new_password:focus) .generate_password,
-.login .edit_account_form .password_container:has(.password:focus) .generate_password,
-.login .edit_account_form .password_container:has(.new_password:focus) .generate_password,
-.login .edit_account_form .new_password_container:has(.password:focus) .generate_password,
-.login .edit_account_form .new_password_container:has(.new_password:focus) .generate_password,
-.login .password_reset_form .password_container:has(.password:focus) .generate_password,
-.login .password_reset_form .password_container:has(.new_password:focus) .generate_password,
-.login .password_reset_form .new_password_container:has(.password:focus) .generate_password,
-.login .password_reset_form .new_password_container:has(.new_password:focus) .generate_password,
-.edit_account .login_form .password_container:has(.password:focus) .generate_password,
-.edit_account .login_form .password_container:has(.new_password:focus) .generate_password,
-.edit_account .login_form .new_password_container:has(.password:focus) .generate_password,
-.edit_account .login_form .new_password_container:has(.new_password:focus) .generate_password,
-.edit_account .registration_form .password_container:has(.password:focus) .generate_password,
-.edit_account .registration_form .password_container:has(.new_password:focus) .generate_password,
-.edit_account .registration_form .new_password_container:has(.password:focus) .generate_password,
-.edit_account .registration_form .new_password_container:has(.new_password:focus) .generate_password,
-.edit_account .edit_account_form .password_container:has(.password:focus) .generate_password,
-.edit_account .edit_account_form .password_container:has(.new_password:focus) .generate_password,
-.edit_account .edit_account_form .new_password_container:has(.password:focus) .generate_password,
-.edit_account .edit_account_form .new_password_container:has(.new_password:focus) .generate_password,
-.edit_account .password_reset_form .password_container:has(.password:focus) .generate_password,
-.edit_account .password_reset_form .password_container:has(.new_password:focus) .generate_password,
-.edit_account .password_reset_form .new_password_container:has(.password:focus) .generate_password,
-.edit_account .password_reset_form .new_password_container:has(.new_password:focus) .generate_password,
-.edit_review .login_form .password_container:has(.password:focus) .generate_password,
-.edit_review .login_form .password_container:has(.new_password:focus) .generate_password,
-.edit_review .login_form .new_password_container:has(.password:focus) .generate_password,
-.edit_review .login_form .new_password_container:has(.new_password:focus) .generate_password,
-.edit_review .registration_form .password_container:has(.password:focus) .generate_password,
-.edit_review .registration_form .password_container:has(.new_password:focus) .generate_password,
-.edit_review .registration_form .new_password_container:has(.password:focus) .generate_password,
-.edit_review .registration_form .new_password_container:has(.new_password:focus) .generate_password,
-.edit_review .edit_account_form .password_container:has(.password:focus) .generate_password,
-.edit_review .edit_account_form .password_container:has(.new_password:focus) .generate_password,
-.edit_review .edit_account_form .new_password_container:has(.password:focus) .generate_password,
-.edit_review .edit_account_form .new_password_container:has(.new_password:focus) .generate_password,
-.edit_review .password_reset_form .password_container:has(.password:focus) .generate_password,
-.edit_review .password_reset_form .password_container:has(.new_password:focus) .generate_password,
-.edit_review .password_reset_form .new_password_container:has(.password:focus) .generate_password,
-.edit_review .password_reset_form .new_password_container:has(.new_password:focus) .generate_password,
-.password_reset .login_form .password_container:has(.password:focus) .generate_password,
-.password_reset .login_form .password_container:has(.new_password:focus) .generate_password,
-.password_reset .login_form .new_password_container:has(.password:focus) .generate_password,
-.password_reset .login_form .new_password_container:has(.new_password:focus) .generate_password,
-.password_reset .registration_form .password_container:has(.password:focus) .generate_password,
-.password_reset .registration_form .password_container:has(.new_password:focus) .generate_password,
-.password_reset .registration_form .new_password_container:has(.password:focus) .generate_password,
-.password_reset .registration_form .new_password_container:has(.new_password:focus) .generate_password,
-.password_reset .edit_account_form .password_container:has(.password:focus) .generate_password,
-.password_reset .edit_account_form .password_container:has(.new_password:focus) .generate_password,
-.password_reset .edit_account_form .new_password_container:has(.password:focus) .generate_password,
-.password_reset .edit_account_form .new_password_container:has(.new_password:focus) .generate_password,
-.password_reset .password_reset_form .password_container:has(.password:focus) .generate_password,
-.password_reset .password_reset_form .password_container:has(.new_password:focus) .generate_password,
-.password_reset .password_reset_form .new_password_container:has(.password:focus) .generate_password,
-.password_reset .password_reset_form .new_password_container:has(.new_password:focus) .generate_password {
+.registration .login_form .password_container:has(.password:hover) .generate_password, .registration .login_form .password_container:has(.password:focus-visible) .generate_password, .registration .login_form .password_container:has(.new_password:hover) .generate_password, .registration .login_form .password_container:has(.new_password:focus-visible) .generate_password,
+.registration .login_form .new_password_container:has(.password:hover) .generate_password,
+.registration .login_form .new_password_container:has(.password:focus-visible) .generate_password,
+.registration .login_form .new_password_container:has(.new_password:hover) .generate_password,
+.registration .login_form .new_password_container:has(.new_password:focus-visible) .generate_password,
+.registration .registration_form .password_container:has(.password:hover) .generate_password,
+.registration .registration_form .password_container:has(.password:focus-visible) .generate_password,
+.registration .registration_form .password_container:has(.new_password:hover) .generate_password,
+.registration .registration_form .password_container:has(.new_password:focus-visible) .generate_password,
+.registration .registration_form .new_password_container:has(.password:hover) .generate_password,
+.registration .registration_form .new_password_container:has(.password:focus-visible) .generate_password,
+.registration .registration_form .new_password_container:has(.new_password:hover) .generate_password,
+.registration .registration_form .new_password_container:has(.new_password:focus-visible) .generate_password,
+.registration .edit_account_form .password_container:has(.password:hover) .generate_password,
+.registration .edit_account_form .password_container:has(.password:focus-visible) .generate_password,
+.registration .edit_account_form .password_container:has(.new_password:hover) .generate_password,
+.registration .edit_account_form .password_container:has(.new_password:focus-visible) .generate_password,
+.registration .edit_account_form .new_password_container:has(.password:hover) .generate_password,
+.registration .edit_account_form .new_password_container:has(.password:focus-visible) .generate_password,
+.registration .edit_account_form .new_password_container:has(.new_password:hover) .generate_password,
+.registration .edit_account_form .new_password_container:has(.new_password:focus-visible) .generate_password,
+.registration .password_reset_form .password_container:has(.password:hover) .generate_password,
+.registration .password_reset_form .password_container:has(.password:focus-visible) .generate_password,
+.registration .password_reset_form .password_container:has(.new_password:hover) .generate_password,
+.registration .password_reset_form .password_container:has(.new_password:focus-visible) .generate_password,
+.registration .password_reset_form .new_password_container:has(.password:hover) .generate_password,
+.registration .password_reset_form .new_password_container:has(.password:focus-visible) .generate_password,
+.registration .password_reset_form .new_password_container:has(.new_password:hover) .generate_password,
+.registration .password_reset_form .new_password_container:has(.new_password:focus-visible) .generate_password,
+.login .login_form .password_container:has(.password:hover) .generate_password,
+.login .login_form .password_container:has(.password:focus-visible) .generate_password,
+.login .login_form .password_container:has(.new_password:hover) .generate_password,
+.login .login_form .password_container:has(.new_password:focus-visible) .generate_password,
+.login .login_form .new_password_container:has(.password:hover) .generate_password,
+.login .login_form .new_password_container:has(.password:focus-visible) .generate_password,
+.login .login_form .new_password_container:has(.new_password:hover) .generate_password,
+.login .login_form .new_password_container:has(.new_password:focus-visible) .generate_password,
+.login .registration_form .password_container:has(.password:hover) .generate_password,
+.login .registration_form .password_container:has(.password:focus-visible) .generate_password,
+.login .registration_form .password_container:has(.new_password:hover) .generate_password,
+.login .registration_form .password_container:has(.new_password:focus-visible) .generate_password,
+.login .registration_form .new_password_container:has(.password:hover) .generate_password,
+.login .registration_form .new_password_container:has(.password:focus-visible) .generate_password,
+.login .registration_form .new_password_container:has(.new_password:hover) .generate_password,
+.login .registration_form .new_password_container:has(.new_password:focus-visible) .generate_password,
+.login .edit_account_form .password_container:has(.password:hover) .generate_password,
+.login .edit_account_form .password_container:has(.password:focus-visible) .generate_password,
+.login .edit_account_form .password_container:has(.new_password:hover) .generate_password,
+.login .edit_account_form .password_container:has(.new_password:focus-visible) .generate_password,
+.login .edit_account_form .new_password_container:has(.password:hover) .generate_password,
+.login .edit_account_form .new_password_container:has(.password:focus-visible) .generate_password,
+.login .edit_account_form .new_password_container:has(.new_password:hover) .generate_password,
+.login .edit_account_form .new_password_container:has(.new_password:focus-visible) .generate_password,
+.login .password_reset_form .password_container:has(.password:hover) .generate_password,
+.login .password_reset_form .password_container:has(.password:focus-visible) .generate_password,
+.login .password_reset_form .password_container:has(.new_password:hover) .generate_password,
+.login .password_reset_form .password_container:has(.new_password:focus-visible) .generate_password,
+.login .password_reset_form .new_password_container:has(.password:hover) .generate_password,
+.login .password_reset_form .new_password_container:has(.password:focus-visible) .generate_password,
+.login .password_reset_form .new_password_container:has(.new_password:hover) .generate_password,
+.login .password_reset_form .new_password_container:has(.new_password:focus-visible) .generate_password,
+.edit_account .login_form .password_container:has(.password:hover) .generate_password,
+.edit_account .login_form .password_container:has(.password:focus-visible) .generate_password,
+.edit_account .login_form .password_container:has(.new_password:hover) .generate_password,
+.edit_account .login_form .password_container:has(.new_password:focus-visible) .generate_password,
+.edit_account .login_form .new_password_container:has(.password:hover) .generate_password,
+.edit_account .login_form .new_password_container:has(.password:focus-visible) .generate_password,
+.edit_account .login_form .new_password_container:has(.new_password:hover) .generate_password,
+.edit_account .login_form .new_password_container:has(.new_password:focus-visible) .generate_password,
+.edit_account .registration_form .password_container:has(.password:hover) .generate_password,
+.edit_account .registration_form .password_container:has(.password:focus-visible) .generate_password,
+.edit_account .registration_form .password_container:has(.new_password:hover) .generate_password,
+.edit_account .registration_form .password_container:has(.new_password:focus-visible) .generate_password,
+.edit_account .registration_form .new_password_container:has(.password:hover) .generate_password,
+.edit_account .registration_form .new_password_container:has(.password:focus-visible) .generate_password,
+.edit_account .registration_form .new_password_container:has(.new_password:hover) .generate_password,
+.edit_account .registration_form .new_password_container:has(.new_password:focus-visible) .generate_password,
+.edit_account .edit_account_form .password_container:has(.password:hover) .generate_password,
+.edit_account .edit_account_form .password_container:has(.password:focus-visible) .generate_password,
+.edit_account .edit_account_form .password_container:has(.new_password:hover) .generate_password,
+.edit_account .edit_account_form .password_container:has(.new_password:focus-visible) .generate_password,
+.edit_account .edit_account_form .new_password_container:has(.password:hover) .generate_password,
+.edit_account .edit_account_form .new_password_container:has(.password:focus-visible) .generate_password,
+.edit_account .edit_account_form .new_password_container:has(.new_password:hover) .generate_password,
+.edit_account .edit_account_form .new_password_container:has(.new_password:focus-visible) .generate_password,
+.edit_account .password_reset_form .password_container:has(.password:hover) .generate_password,
+.edit_account .password_reset_form .password_container:has(.password:focus-visible) .generate_password,
+.edit_account .password_reset_form .password_container:has(.new_password:hover) .generate_password,
+.edit_account .password_reset_form .password_container:has(.new_password:focus-visible) .generate_password,
+.edit_account .password_reset_form .new_password_container:has(.password:hover) .generate_password,
+.edit_account .password_reset_form .new_password_container:has(.password:focus-visible) .generate_password,
+.edit_account .password_reset_form .new_password_container:has(.new_password:hover) .generate_password,
+.edit_account .password_reset_form .new_password_container:has(.new_password:focus-visible) .generate_password,
+.edit_review .login_form .password_container:has(.password:hover) .generate_password,
+.edit_review .login_form .password_container:has(.password:focus-visible) .generate_password,
+.edit_review .login_form .password_container:has(.new_password:hover) .generate_password,
+.edit_review .login_form .password_container:has(.new_password:focus-visible) .generate_password,
+.edit_review .login_form .new_password_container:has(.password:hover) .generate_password,
+.edit_review .login_form .new_password_container:has(.password:focus-visible) .generate_password,
+.edit_review .login_form .new_password_container:has(.new_password:hover) .generate_password,
+.edit_review .login_form .new_password_container:has(.new_password:focus-visible) .generate_password,
+.edit_review .registration_form .password_container:has(.password:hover) .generate_password,
+.edit_review .registration_form .password_container:has(.password:focus-visible) .generate_password,
+.edit_review .registration_form .password_container:has(.new_password:hover) .generate_password,
+.edit_review .registration_form .password_container:has(.new_password:focus-visible) .generate_password,
+.edit_review .registration_form .new_password_container:has(.password:hover) .generate_password,
+.edit_review .registration_form .new_password_container:has(.password:focus-visible) .generate_password,
+.edit_review .registration_form .new_password_container:has(.new_password:hover) .generate_password,
+.edit_review .registration_form .new_password_container:has(.new_password:focus-visible) .generate_password,
+.edit_review .edit_account_form .password_container:has(.password:hover) .generate_password,
+.edit_review .edit_account_form .password_container:has(.password:focus-visible) .generate_password,
+.edit_review .edit_account_form .password_container:has(.new_password:hover) .generate_password,
+.edit_review .edit_account_form .password_container:has(.new_password:focus-visible) .generate_password,
+.edit_review .edit_account_form .new_password_container:has(.password:hover) .generate_password,
+.edit_review .edit_account_form .new_password_container:has(.password:focus-visible) .generate_password,
+.edit_review .edit_account_form .new_password_container:has(.new_password:hover) .generate_password,
+.edit_review .edit_account_form .new_password_container:has(.new_password:focus-visible) .generate_password,
+.edit_review .password_reset_form .password_container:has(.password:hover) .generate_password,
+.edit_review .password_reset_form .password_container:has(.password:focus-visible) .generate_password,
+.edit_review .password_reset_form .password_container:has(.new_password:hover) .generate_password,
+.edit_review .password_reset_form .password_container:has(.new_password:focus-visible) .generate_password,
+.edit_review .password_reset_form .new_password_container:has(.password:hover) .generate_password,
+.edit_review .password_reset_form .new_password_container:has(.password:focus-visible) .generate_password,
+.edit_review .password_reset_form .new_password_container:has(.new_password:hover) .generate_password,
+.edit_review .password_reset_form .new_password_container:has(.new_password:focus-visible) .generate_password,
+.password_reset .login_form .password_container:has(.password:hover) .generate_password,
+.password_reset .login_form .password_container:has(.password:focus-visible) .generate_password,
+.password_reset .login_form .password_container:has(.new_password:hover) .generate_password,
+.password_reset .login_form .password_container:has(.new_password:focus-visible) .generate_password,
+.password_reset .login_form .new_password_container:has(.password:hover) .generate_password,
+.password_reset .login_form .new_password_container:has(.password:focus-visible) .generate_password,
+.password_reset .login_form .new_password_container:has(.new_password:hover) .generate_password,
+.password_reset .login_form .new_password_container:has(.new_password:focus-visible) .generate_password,
+.password_reset .registration_form .password_container:has(.password:hover) .generate_password,
+.password_reset .registration_form .password_container:has(.password:focus-visible) .generate_password,
+.password_reset .registration_form .password_container:has(.new_password:hover) .generate_password,
+.password_reset .registration_form .password_container:has(.new_password:focus-visible) .generate_password,
+.password_reset .registration_form .new_password_container:has(.password:hover) .generate_password,
+.password_reset .registration_form .new_password_container:has(.password:focus-visible) .generate_password,
+.password_reset .registration_form .new_password_container:has(.new_password:hover) .generate_password,
+.password_reset .registration_form .new_password_container:has(.new_password:focus-visible) .generate_password,
+.password_reset .edit_account_form .password_container:has(.password:hover) .generate_password,
+.password_reset .edit_account_form .password_container:has(.password:focus-visible) .generate_password,
+.password_reset .edit_account_form .password_container:has(.new_password:hover) .generate_password,
+.password_reset .edit_account_form .password_container:has(.new_password:focus-visible) .generate_password,
+.password_reset .edit_account_form .new_password_container:has(.password:hover) .generate_password,
+.password_reset .edit_account_form .new_password_container:has(.password:focus-visible) .generate_password,
+.password_reset .edit_account_form .new_password_container:has(.new_password:hover) .generate_password,
+.password_reset .edit_account_form .new_password_container:has(.new_password:focus-visible) .generate_password,
+.password_reset .password_reset_form .password_container:has(.password:hover) .generate_password,
+.password_reset .password_reset_form .password_container:has(.password:focus-visible) .generate_password,
+.password_reset .password_reset_form .password_container:has(.new_password:hover) .generate_password,
+.password_reset .password_reset_form .password_container:has(.new_password:focus-visible) .generate_password,
+.password_reset .password_reset_form .new_password_container:has(.password:hover) .generate_password,
+.password_reset .password_reset_form .new_password_container:has(.password:focus-visible) .generate_password,
+.password_reset .password_reset_form .new_password_container:has(.new_password:hover) .generate_password,
+.password_reset .password_reset_form .new_password_container:has(.new_password:focus-visible) .generate_password {
   left: -20px;
 }
 .registration .login_form .phone_number_container,
@@ -2580,6 +2692,7 @@ main {
 .edit_review .edit_review_form .review_container .user,
 .password_reset .edit_review_form .review_container .user {
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   gap: 10px;

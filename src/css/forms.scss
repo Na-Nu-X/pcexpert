@@ -1,4 +1,5 @@
 @import "partials/variables";
+@import "partials/mixins";
 
 /**************
  Header Styles
@@ -19,14 +20,11 @@ header {
 ************/
 
 main {
+    @include flex_center($direction: column);
     min-height: 100vh;
     max-width: 100%;
     width: 100%;
     margin: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     background: linear-gradient(transparentize($main-color, 0.9), transparentize($main-color, 0.5)), url("/content/images/background.jpg"); // https://pixabay.com/sk/photos/cpu-procesor-%C4%8Dip-z%C3%A1kladn%C3%A9-dosky-4393376/
     background-size: cover;
     background-position: center center;
@@ -84,69 +82,20 @@ main {
     form {
         position: relative;
 
-        input,
-        textarea {
-            &:focus {
-                width: 100%;
-            }
-
-            &::placeholder {
-                color: darken($secondary-color, 10%);
-            }
-        }
-
         input[type="text"],
         input[type="email"] {
-            display: block;
-            width: 90%;
-            height: 50px;
-            margin: 0px auto 10px;
-            padding: 5px;
-            background: none;
-            color: $secondary-color;
-            border: none;
-            border-bottom: 1px solid $secondary-color;
-            outline: none;
-            transition: width 0.3s ease;
-
-            &:-webkit-autofill,
-            &:-webkit-autofill:hover,
-            :-webkit-autofill:focus {
-                -webkit-text-fill-color: $secondary-color;
-                transition: width 0.3s ease, background-color 9999s ease;
-            }
+            @include form_input;
         }
 
         textarea {
-            display: block;
-            width: 90%;
-            height: 100px;
-            margin: 0px auto;
-            padding: 0px 5px;
-            background: none;
-            color: $secondary-color;
-            border: 1px solid $secondary-color;
-            border-radius: 5px;
-            outline: none;
-            resize: none;
-            transition: width 0.3s ease;
+            @include form_textarea;
         }
 
         .form_report,
         .dialogue_paragraph {
-            position: absolute;
+            @include form_report;
             width: 100%;
             text-align: center;
-            font-size: 16px;
-            font-family: Poppins, Arial, sans-serif;
-
-            &.valid {
-                color: $green-color;
-            }
-
-            &.invalid {
-                color: $red-color;
-            }
         }
 
         button[type="submit"],
@@ -200,10 +149,7 @@ main {
             }
 
             span {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
+                @include position_center;
             }
         }
 
@@ -319,8 +265,10 @@ main {
 
         .password_container, 
         .new_password_container {
-            &:has(.password:focus),
-            &:has(.new_password:focus) {
+            &:has(.password:hover),
+            &:has(.password:focus-visible),
+            &:has(.new_password:hover),
+            &:has(.new_password:focus-visible) {
                 .generate_password {
                     left: -20px;
                 }
@@ -508,9 +456,7 @@ main {
             margin-bottom: 30px;
 
             .user {
-                display: flex;
-                align-items: center;
-                justify-content: center;
+                @include flex_center;
                 gap: 10px;
                 margin-bottom: 30px;
 

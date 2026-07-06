@@ -825,7 +825,7 @@
                                 <input class="rating" type="hidden" name="rating" value="">
                             </div>
 
-                            <p class="form_report"></p>
+                            <p class="form_report valid"></p>
 
                             <textarea type="textarea" name="review" placeholder="Zanechajte nám vaše hodnotenie"><?php echo htmlspecialchars($review, ENT_QUOTES, "UTF-8"); ?></textarea>
 

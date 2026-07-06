@@ -429,7 +429,7 @@
 
                     <?php endif; ?>
 
-                    <p class="form_report"></p>
+                    <p class="form_report valid"></p>
 
                     <article>
                         <p class="dialogue_paragraph invalid" style="top: 470px;">

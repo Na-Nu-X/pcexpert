@@ -196,7 +196,7 @@
 
                     <textarea type="textarea" name="review" placeholder="Zanechajte nám vaše hodnotenie" maxlength=200><?php echo userReview($connection, $_SESSION["logged_in_user_id"])["review"]; ?></textarea>
 
-                    <p class="form_report"></p>
+                    <p class="form_report valid"></p>
 
                     <article>
                         <p class="dialogue_paragraph invalid" style="top: 229px;">

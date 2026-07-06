@@ -316,7 +316,7 @@
                     <input class="password" type="text" name="password" placeholder="Zadajte vaše heslo" autocomplete="off" required>
                 </div>
 
-                <p class="form_report"></p>
+                <p class="form_report valid"></p>
 
                 <article>
                     <p class="dialogue_paragraph invalid" style="top: 122px;">

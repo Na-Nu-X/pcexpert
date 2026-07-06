@@ -142,7 +142,7 @@
                         <input class="new_password" type="text" name="new_password" placeholder="Vytvorte nové heslo" autocomplete="off" required>
                     </div>
 
-                    <p class="form_report"></p>
+                    <p class="form_report valid"></p>
 
                     <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
 

@@ -2,12 +2,12 @@
 export function passwordVerification(input_1:HTMLInputElement, input_2:HTMLInputElement, report:HTMLParagraphElement):void {
     if(input_1.value == input_2.value && input_1.value != "") {
         report.textContent = "Heslá sa zhodujú" // Shows Valid Report Message
-        report.classList.replace("error", "success") // Adds Success Class
+        report.classList.replace("invalid", "valid") // Adds Valid Class
     }
 
     else if(input_1.value != input_2.value) {
         report.textContent = "Heslá sa nezhodujú" // Shows Invalid Report Message
-        report.classList.replace("success", "error") // Adds Error Class
+        report.classList.replace("valid", "invalid") // Adds Invalid Class
     }
 
     else report.textContent = "" // Deletes Report Message
