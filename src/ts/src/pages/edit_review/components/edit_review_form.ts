@@ -16,14 +16,16 @@ document.addEventListener("DOMContentLoaded", function():void {
     // Function For Update Stars
     function updateStars(hover_value:number = 0):void {
         all_stars.forEach(function(one_star:HTMLImageElement, index:number):void {
+            const icon:HTMLElement = one_star.querySelector(".fa-star") as HTMLElement // Gets The Icon
+
             if(hover_value > 0) {
-                if(index < hover_value) one_star.src = "/content/images/star.png" // Shows The Filled Star
-                else one_star.src = "/content/images/empty_star.png" // Shows The Empty Star
+                if(index < hover_value) icon.classList.replace("fa-regular", "fa-solid") // Shows The Filled Star
+                else icon.classList.replace("fa-solid", "fa-regular") // Shows The Empty Star
             }
 
             else {
-                if(index < selected_rating) one_star.src = "/content/images/star.png" // Shows The Filled Star
-                else one_star.src = "/content/images/empty_star.png" // Shows The Empty Star
+                if(index < selected_rating) icon.classList.replace("fa-regular", "fa-solid") // Shows The Filled Star
+                else icon.classList.replace("fa-solid", "fa-regular") // Shows The Empty Star
             }
         })
     }

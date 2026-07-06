@@ -534,10 +534,14 @@
 
                     <?php for($i = 1; $i <= 5; $i++): ?>
                         <?php if($i <= round(averageRating($connection))): ?>
-                            <img src="/content/images/star.png" alt="Hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828884 -->
+                            <div class="star">
+                                <i class="fa-solid fa-star"></i> <!-- https://fontawesome.com/icons/star -->
+                            </div>
 
                         <?php else: ?>
-                            <img src="/content/images/empty_star.png" alt="Prázdna hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
+                            <div class="star">
+                                <i class="fa-regular fa-star"></i> <!-- https://fontawesome.com/icons/star -->
+                            </div>
 
                         <?php endif; ?>
 
@@ -546,11 +550,12 @@
                 <?php else: ?>
                     <p>0 / 5</p>
 
-                    <img src="/content/images/empty_star.png" alt="Prázdna hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
-                    <img src="/content/images/empty_star.png" alt="Prázdna "> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
-                    <img src="/content/images/empty_star.png" alt="Prázdna hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
-                    <img src="/content/images/empty_star.png" alt="Prázdna hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
-                    <img src="/content/images/empty_star.png" alt="Prázdna hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
+                    <?php for($i = 1; i <= 5; $i++): ?>
+                        <div class="star">
+                            <i class="fa-regular fa-star"></i> <!-- https://fontawesome.com/icons/star -->
+                        </div>
+                    
+                    <?php endfor; ?>
 
                 <?php endif; ?>
             </div>
@@ -735,18 +740,22 @@
                                 </p>
                             </div>
 
-                            <?php for($i = 1; $i <= 5; $i++): ?>
-                                <?php if($i <= userReview($connection, $user_id)["rating"]): ?>
-                                    <img src="/content/images/star.png" alt="Hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828884 -->
-
-                                <?php else: ?>
-                                    <img src="/content/images/empty_star.png" alt="Prázdna hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
-
-                                <?php endif; ?>
-
-                            <?php endfor; ?>
-                            
-                            <br>
+                            <div class="stars">
+                                <?php for($i = 1; $i <= 5; $i++): ?>
+                                    <?php if($i <= userReview($connection, $user_id)["rating"]): ?>
+                                        <div class="star">
+                                            <i class="fa-solid fa-star"></i> <!-- https://fontawesome.com/icons/star -->
+                                        </div>
+    
+                                    <?php else: ?>
+                                        <div class="star">
+                                            <i class="fa-regular fa-star"></i> <!-- https://fontawesome.com/icons/star -->
+                                        </div>
+    
+                                    <?php endif; ?>
+    
+                                <?php endfor; ?>
+                            </div>
 
                             <a class="edit_review" href="./upravit-recenziu" title="Upraviť recenziu">Upraviť recenziu</a>
 
@@ -816,11 +825,12 @@
                             <?php endif; ?>
 
                             <div class="stars">
-                                <img class="star" src="/content/images/empty_star.png" data-rating="1" alt="Prázdna hviezda">
-                                <img class="star" src="/content/images/empty_star.png" data-rating="2" alt="Prázdna hviezda">
-                                <img class="star" src="/content/images/empty_star.png" data-rating="3" alt="Prázdna hviezda">
-                                <img class="star" src="/content/images/empty_star.png" data-rating="4" alt="Prázdna hviezda">
-                                <img class="star" src="/content/images/empty_star.png" data-rating="5" alt="Prázdna hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828884 https://www.flaticon.com/free-icon/star_1828970 -->
+                                <?php for($i = 1; $i <= 5; $i++): ?>
+                                    <div class="star" data-rating="<?php echo $i; ?>">
+                                        <i class="fa-regular fa-star"></i> <!-- https://fontawesome.com/icons/star -->
+                                    </div>
+
+                                <?php endfor; ?>
 
                                 <input class="rating" type="hidden" name="rating" value="">
                             </div>
@@ -883,10 +893,14 @@
                                 <div class="stars">
                                     <?php for($i = 1; $i <= 5; $i++): ?>
                                         <?php if($i <= $one_review["rating"]): ?>
-                                            <img class="star" src="/content/images/star.png" alt="Hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828884 -->
+                                            <div class="star">
+                                                <i class="fa-solid fa-star"></i> <!-- https://fontawesome.com/icons/star -->
+                                            </div>
     
                                         <?php else: ?>
-                                            <img class="star" src="/content/images/empty_tar.png" alt="Prázdna hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
+                                            <div class="star">
+                                                <i class="fa-regular fa-star"></i> <!-- https://fontawesome.com/icons/star -->
+                                            </div>
     
                                         <?php endif; ?>
                                         
@@ -910,16 +924,22 @@
                                     </p>
                                 </div>
 
-                                <?php for($i = 1; $i <= 5; $i++): ?>
-                                    <?php if($i <= $one_review["rating"]): ?>
-                                        <img src="/content/images/star.png" alt="Hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828884 -->
-
-                                    <?php else: ?>
-                                        <img src="/content/images/empty_star.png" alt="Prázdna hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
-
-                                    <?php endif; ?>
-                                    
-                                <?php endfor; ?>
+                                <div class="stars">
+                                    <?php for($i = 1; $i <= 5; $i++): ?>
+                                        <?php if($i <= $one_review["rating"]): ?>
+                                            <div class="star">
+                                                <i class="fa-solid fa-star"></i> <!-- https://fontawesome.com/icons/star -->
+                                            </div>
+    
+                                        <?php else: ?>
+                                            <div class="star">
+                                                <i class="fa-regular fa-star"></i> <!-- https://fontawesome.com/icons/star -->
+                                            </div>
+    
+                                        <?php endif; ?>
+                                        
+                                    <?php endfor; ?>
+                                </div>
 
                                 <p><?php echo htmlspecialchars($one_review["review"], ENT_QUOTES, "UTF-8"); ?></p>
 

@@ -1,4 +1,5 @@
 @import "partials/variables";
+@import "partials/mixins";
 
 /**************
  Header Styles
@@ -85,6 +86,21 @@ main {
     
                 p {
                     margin-bottom: 0px;
+                }
+
+                .stars {
+                    display: flex;
+                    gap: 5px;
+                    margin-bottom: 10px;
+    
+                    .star {
+                        color: #FFEC00;
+                        font-size: 1.5em;
+    
+                        .fa-star {
+                            display: block;
+                        }
+                    }
                 }
             }
 

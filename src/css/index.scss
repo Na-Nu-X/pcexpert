@@ -220,14 +220,24 @@
         top: 50%;
         left: 20px;
         transform: translateY(-50%);
+        display: flex;
+        align-self: center;
+        gap: 5px;
 
         &:hover {
             cursor: pointer;
         }
 
-        img {
-            width: 12px;
-            height: 12px;
+        p {
+            line-height: 1;
+        }
+
+        .star {
+            .fa-star {
+                display: block;
+                color: #FFEC00;
+                font-size: 0.8em;
+            }
         }
     }
 
@@ -507,6 +517,21 @@
             p {
                 margin-bottom: 0px;
             }
+
+            .stars {
+                display: flex;
+                gap: 5px;
+                margin-bottom: 10px;
+
+                .star {
+                    color: #FFEC00;
+                    font-size: 1.5em;
+
+                    .fa-star {
+                        display: block;
+                    }
+                }
+            }
         }
 
         .write_review {
@@ -529,12 +554,21 @@
             }
 
             .stars {
+                display: flex;
+                gap: 5px;
+
                 .star {
+                    color: #FFEC00;
+                    font-size: 1.5em;
                     transition: transform 0.3s ease;
 
                     &:hover {
                         transform: scale(1.1);
                         cursor: pointer;
+                    }
+
+                    .fa-star {
+                        display: block;
                     }
                 }
             }
@@ -619,6 +653,21 @@
 
             p {
                 margin-bottom: 0px;
+            }
+
+            .stars {
+                display: flex;
+                gap: 5px;
+                margin-bottom: 10px;
+
+                .star {
+                    color: #FFEC00;
+                    font-size: 1.5em;
+
+                    .fa-star {
+                        display: block;
+                    }
+                }
             }
         }
     }

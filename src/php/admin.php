@@ -209,16 +209,22 @@
                                     </p>
                                 </div>
 
-                                <?php for($i = 1; $i <= 5; $i++): ?>
-                                    <?php if($i <= $one_review["rating"]): ?>
-                                        <img src="/content/images/star.png" alt="Hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828884 -->
-
-                                    <?php else: ?>
-                                        <img src="/content/images/empty_star.png" alt="Prázdna hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
-
-                                    <?php endif; ?>
-                                    
-                                <?php endfor; ?>
+                                <div class="stars">
+                                    <?php for($i = 1; $i <= 5; $i++): ?>
+                                        <?php if($i <= $one_review["rating"]): ?>
+                                            <div class="star">
+                                                <i class="fa-solid fa-star"></i> <!-- https://fontawesome.com/icons/star -->
+                                            </div>
+    
+                                        <?php else: ?>
+                                            <div class="star">
+                                                <i class="fa-regular fa-star"></i> <!-- https://fontawesome.com/icons/star -->
+                                            </div>
+    
+                                        <?php endif; ?>
+                                        
+                                    <?php endfor; ?>
+                                </div>
 
                                 <p><?php echo htmlspecialchars($one_review["review"], ENT_QUOTES, "UTF-8"); ?></p>
 
@@ -237,16 +243,22 @@
                                     </p>
                                 </div>
 
-                                <?php for($i = 1; $i <= 5; $i++): ?>
-                                    <?php if($i <= $one_review["rating"]): ?>
-                                        <img src="/content/images/star.png" alt="Hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828884 -->
-
-                                    <?php else: ?>
-                                        <img src="/content/images/empty_star.png" alt="Prázdna hviezda"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
-
-                                    <?php endif; ?>
-                                    
-                                <?php endfor; ?>
+                                <div class="stars">
+                                    <?php for($i = 1; $i <= 5; $i++): ?>
+                                        <?php if($i <= $one_review["rating"]): ?>
+                                            <div class="star">
+                                                <i class="fa-solid fa-star"></i> <!-- https://fontawesome.com/icons/star -->
+                                            </div>
+    
+                                        <?php else: ?>
+                                            <div class="star">
+                                                <i class="fa-REGULAR fa-star"></i> <!-- https://fontawesome.com/icons/star -->
+                                            </div>
+    
+                                        <?php endif; ?>
+                                        
+                                    <?php endfor; ?>
+                                </div>
 
                                 <p><?php echo htmlspecialchars($one_review["review"], ENT_QUOTES, "UTF-8"); ?></p>
 

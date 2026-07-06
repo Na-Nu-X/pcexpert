@@ -177,13 +177,17 @@
                         <!-- Rating -->
                         
                         <div class="stars">
-                            <?php for($i = 1; $i <=5; $i++): ?>
+                            <?php for($i = 1; $i <= 5; $i++): ?>
                                 <?php if($i <= userReview($connection, $_SESSION["logged_in_user_id"])["rating"]): ?>
-                                    <img class="star" src="/content/images/star.png" alt="Hviezda" data-rating="<?php echo $i; ?>"> <!-- https://www.flaticon.com/free-icon/star_1828884 -->
+                                    <div class="star" data-rating="<?php echo $i; ?>">
+                                        <i class="fa-solid fa-star"></i> <!-- https://fontawesome.com/icons/star -->
+                                    </div>
 
                                 <?php else: ?>
-                                    <img class="star" src="/content/images/empty_star.png" alt="Prázdna hviezda" data-rating="<?php echo $i; ?>"> <!-- https://www.flaticon.com/free-icon/star_1828970 -->
-
+                                    <div class="star" data-rating="<?php echo $i; ?>">
+                                        <i class="fa-regular fa-star"></i> <!-- https://fontawesome.com/icons/star -->
+                                    </div>
+                                    
                                 <?php endif; ?>
 
                             <?php endfor; ?>

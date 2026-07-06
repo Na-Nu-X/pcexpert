@@ -472,11 +472,17 @@ main {
                 gap: 5px;
 
                 .star {
+                    color: #FFEC00;
+                    font-size: 1.5em;
                     transition: transform 0.3s ease;
                 
                     &:hover {
                         transform: scale(1.1);
                         cursor: pointer;
+                    }
+
+                    .fa-star {
+                        display: block;
                     }
                 }
             }

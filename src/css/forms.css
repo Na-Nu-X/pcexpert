@@ -144,6 +144,9 @@ main {
 .password_reset form input[type=email]:focus-visible {
   width: 100%;
 }
+.registration form input[type=text]::-moz-placeholder, .registration form input[type=email]::-moz-placeholder, .login form input[type=text]::-moz-placeholder, .login form input[type=email]::-moz-placeholder, .edit_account form input[type=text]::-moz-placeholder, .edit_account form input[type=email]::-moz-placeholder, .edit_review form input[type=text]::-moz-placeholder, .edit_review form input[type=email]::-moz-placeholder, .password_reset form input[type=text]::-moz-placeholder, .password_reset form input[type=email]::-moz-placeholder {
+  color: #999999;
+}
 .registration form input[type=text]::placeholder,
 .registration form input[type=email]::placeholder,
 .login form input[type=text]::placeholder,
@@ -167,6 +170,7 @@ main {
 .password_reset form input[type=text]:-webkit-autofill,
 .password_reset form input[type=email]:-webkit-autofill {
   -webkit-text-fill-color: #fff;
+  -webkit-transition: width 0.3s ease, background-color 9999s ease;
   transition: width 0.3s ease, background-color 9999s ease;
 }
 .registration form input[type=text]:-webkit-autofill:hover, .registration form input[type=text]:-webkit-autofill:focus,
@@ -189,6 +193,7 @@ main {
 .password_reset form input[type=email]:-webkit-autofill:hover,
 .password_reset form input[type=email]:-webkit-autofill:focus {
   -webkit-text-fill-color: #fff;
+  -webkit-transition: width 0.3s ease, background-color 9999s ease;
   transition: width 0.3s ease, background-color 9999s ease;
 }
 .registration form textarea,
@@ -208,6 +213,9 @@ main {
   outline: none;
   resize: none;
   transition: width 0.3s ease;
+}
+.registration form textarea::-moz-placeholder, .login form textarea::-moz-placeholder, .edit_account form textarea::-moz-placeholder, .edit_review form textarea::-moz-placeholder, .password_reset form textarea::-moz-placeholder {
+  color: #999999;
 }
 .registration form textarea::placeholder,
 .login form textarea::placeholder,
@@ -2516,7 +2524,9 @@ main {
   margin-left: 0px;
   font-size: 0.9em;
   color: #fff;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
   transition: letter-spacing 0.3s ease;
 }
 .registration .login_form .agree label:hover,
@@ -2720,6 +2730,8 @@ main {
 .edit_account .edit_review_form .review_container .stars .star,
 .edit_review .edit_review_form .review_container .stars .star,
 .password_reset .edit_review_form .review_container .stars .star {
+  color: #FFEC00;
+  font-size: 1.5em;
   transition: transform 0.3s ease;
 }
 .registration .edit_review_form .review_container .stars .star:hover,
@@ -2729,6 +2741,13 @@ main {
 .password_reset .edit_review_form .review_container .stars .star:hover {
   transform: scale(1.1);
   cursor: pointer;
+}
+.registration .edit_review_form .review_container .stars .star .fa-star,
+.login .edit_review_form .review_container .stars .star .fa-star,
+.edit_account .edit_review_form .review_container .stars .star .fa-star,
+.edit_review .edit_review_form .review_container .stars .star .fa-star,
+.password_reset .edit_review_form .review_container .stars .star .fa-star {
+  display: block;
 }
 .registration .edit_review_form .delete_review_container .delete_review,
 .login .edit_review_form .delete_review_container .delete_review,
@@ -2897,6 +2916,4 @@ footer {
   .password_reset .password_reset_form .new_password_container .generate_password {
     left: -20px;
   }
-}
-
-/*# sourceMappingURL=forms.css.map */
+}/*# sourceMappingURL=forms.css.map */

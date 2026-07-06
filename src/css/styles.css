@@ -215,7 +215,9 @@ header {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 20px;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
   z-index: 100;
   animation: fade_out_animation 5s ease-out;
 }
@@ -397,6 +399,4 @@ footer.dark .copywrite {
     opacity: 0;
     top: 50%;
   }
-}
-
-/*# sourceMappingURL=styles.css.map */
+}/*# sourceMappingURL=styles.css.map */
