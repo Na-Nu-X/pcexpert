@@ -3,6 +3,9 @@
 
     require "../assets/functions.php";
     require "../assets/admin_functions.php";
+    require "../classes/Database.php";
+
+    $database_object = new Database(); // Initializes The Database Methods
 
     session_start();
 
@@ -13,7 +16,7 @@
         $_SESSION["csrf_token"] = $csrf_token;
     }
     
-    $connection = connectionDB();
+    $connection = $database_object->connectionDB(); // Connects To The DB
 
     // Theme
 

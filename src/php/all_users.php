@@ -3,8 +3,11 @@
 
     require "../assets/functions.php";
     require "../assets/admin_functions.php";
+    require "../classes/Database.php";
+
+    $database_object = new Database(); // Initializes The Database Methods
     
-    $connection = connectionDB();
+    $connection = $database_object->connectionDB(); // Connects To The DB
 
     $offset = intval($_POST["offset"] ?? 0);
     $user_id = intval($_POST["user_id"] ?? 0);

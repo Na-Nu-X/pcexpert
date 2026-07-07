@@ -1,8 +1,21 @@
 <?php
+    // Debug
+        
+    ini_set("display_errors", 1);
+    ini_set("display_startup_errors", 1);
+    error_reporting(E_ALL);
+
     // PHP Code
 
     require "../assets/functions.php";
     require "../assets/google_account_functions.php";
+    require "../classes/Database.php";
+    require "../classes/User.php";
+    require "../classes/GoogleUser.php";
+
+    $database_object = new Database(); // Initializes The Database Methods
+    $user_object = new User(); // Initializes The User Methods
+    $google_user_object = new GoogleUser(); // Initializes The Google User Methods
 
     session_start();
 
@@ -13,7 +26,7 @@
         $_SESSION["csrf_token"] = $csrf_token;
     }
 
-    $connection = connectionDB();
+    $connection = $database_object->connectionDB(); // Connects To The DB
 
     // Theme
 
@@ -33,8 +46,8 @@
     // Change Password
 
     if(isset($_GET["password_reset"]) and $_GET["password_reset"] === "true") {
-        if(getUserId($connection, $_COOKIE["email_address"])) {
-            $user_id = getUserId($connection, $_COOKIE["email_address"]);
+        if($user_object->getUserId($connection, $_COOKIE["email_address"])) {
+            $user_id = $user_object->getUserId($connection, $_COOKIE["email_address"]);
 
             // Generate 6-Digit Code
 
@@ -46,12 +59,12 @@
 
             $password_reset_code = (int)implode($password_reset_code_array); // Integer
 
-            insertPasswordResetCode($connection, $user_id, $password_reset_code);
+            $user_object->setPasswordResetCode($connection, $user_id, $password_reset_code);
 
             // Send Code To User's Email
 
             $user_email_address = $_COOKIE["email_address"];
-            $user_password_reset_code = getUserInformations($connection, $user_id, "password_reset_code");
+            $user_password_reset_code = $user_object->getUserInformation($connection, $user_id, "password_reset_code");
 
             $mail = new PHPMailer(true);
 
@@ -118,21 +131,21 @@
         $password = $_POST["password"];
         $remember_me = isset($_POST["remember_me"]) ? "yes" : "no";
     
-        if(authentication($connection, $email_address, $password)) {
-            $id = getUserId($connection, $email_address);
+        if($user_object->authentication($connection, $email_address, $password)) {
+            $id = $user_object->getUserId($connection, $email_address);
     
             session_regenerate_id(true); // Protection For Fixation Attack
     
             $_SESSION["is_logged_in"] = true;
             $_SESSION["logged_in_user_id"] = $id;
-            $_SESSION["green_report_message"] = "Prihlásený&nbsp;ako " . htmlspecialchars(getUserName($connection, $_SESSION["logged_in_user_id"]), ENT_QUOTES, "UTF-8");
+            $_SESSION["green_report_message"] = "Prihlásený&nbsp;ako " . htmlspecialchars($user_object->getUserInformation($connection, $id, "first_name"), ENT_QUOTES, "UTF-8") . " " . htmlspecialchars($user_object->getUserInformation($connection, $id, "last_name"), ENT_QUOTES, "UTF-8");
 
             if($remember_me === "yes") {
                 $remember_me_token = bin2hex(random_bytes(30)); // Generate Random 60 Characters Long String
 
                 setcookie("remember_me_token", $remember_me_token, time() + (60 * 60 * 24 * 30), "/"); // Create remember_me_token Cookie With $remember_me_token Value As A Plain Text
 
-                insertRememberMeToken($connection, $id, $remember_me_token); // Insert Hashed Value Of $remember_me_token Variable To Database
+                $user_object->setRememberMeToken($connection, $id, $remember_me_token); // Insert Hashed Value Of $remember_me_token Variable To Database
             }
 
             else {
@@ -187,26 +200,26 @@
         $email_address = $user_info->email;
         $google_profile_picture_url = $user_info->picture;
 
-        if(!empty(getGoogleUserInformations($connection, $google_id, "google_id"))) {
+        if(!empty($google_user_object->getGoogleUserInformation($connection, $google_id, "google_id"))) {
             // echo "Už je zaregistrovaný.";
     
             session_regenerate_id(true); // Protection For Fixation Attack
     
             $_SESSION["is_logged_in"] = true;
-            $_SESSION["logged_in_user_id"] = getGoogleUserInformations($connection, $google_id, "id");
-            $_SESSION["green_report_message"] = "Prihlásený&nbsp;ako " . htmlspecialchars(getUserName($connection, $_SESSION["logged_in_user_id"]), ENT_QUOTES, "UTF-8");
+            $_SESSION["logged_in_user_id"] = $google_user_object->getGoogleUserInformation($connection, $google_id, "id");
+            $_SESSION["green_report_message"] = "Prihlásený&nbsp;ako " . htmlspecialchars($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "first_name"), ENT_QUOTES, "UTF-8") . " " . htmlspecialchars($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "last_name"), ENT_QUOTES, "UTF-8");
 
             redirectURL("/domov");
         }
         
         else {
-            createGoogleUser($connection, $first_name, $last_name, $email_address, $google_id, $google_profile_picture_url);
+            $google_user_object->createGoogleUser($connection, $first_name, $last_name, $email_address, $google_id, $google_profile_picture_url);
     
             session_regenerate_id(true); // Protection For Fixation Attack
     
             $_SESSION["is_logged_in"] = true;
-            $_SESSION["logged_in_user_id"] = getGoogleUserInformations($connection, $google_id, "id");
-            $_SESSION["green_report_message"] = "Prihlásený&nbsp;ako " . htmlspecialchars(getUserName($connection, $_SESSION["logged_in_user_id"]), ENT_QUOTES, "UTF-8");
+            $_SESSION["logged_in_user_id"] = $google_user_object->getGoogleUserInformation($connection, $google_id, "id");
+            $_SESSION["green_report_message"] = "Prihlásený&nbsp;ako " . htmlspecialchars($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "first_name"), ENT_QUOTES, "UTF-8") . " " . htmlspecialchars($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "last_name"), ENT_QUOTES, "UTF-8");
 
             redirectURL("/domov");
         }

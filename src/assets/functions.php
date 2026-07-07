@@ -32,38 +32,6 @@
         exit;
     }
 
-
-    /**
-     * Function For Add / Create New User In Database.
-     * 
-     * @param object $connection - Connection To Database.
-     * @param string $first_name - First Name Of User.
-     * @param string $last_name - Last Name Of User.
-     * @param string $email_address - Email Address Of User.
-     * @param string $password - Password Of User.
-     * 
-     * @return integer $id - ID Of User.
-    **/
-
-    function createUser($connection, $first_name, $last_name, $email_address, $phone_number, $password, $news) {
-        $sql = "INSERT INTO users (first_name, last_name, email_address, phone_number, password, news, creation_time) 
-                VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
-
-        $statement = mysqli_prepare($connection, $sql);
-
-        if($statement === false) {
-            echo mysqli_error($connection);
-        }
-
-        else {
-            mysqli_stmt_bind_param($statement, "ssssss", mysqli_real_escape_string($connection, $first_name), mysqli_real_escape_string($connection, $last_name), mysqli_real_escape_string($connection, $email_address), mysqli_real_escape_string($connection, $phone_number), $password, $news);
-
-            mysqli_stmt_execute($statement);
-            $id = mysqli_insert_id($connection);
-            return $id;
-        }
-    }
-
     function updateUser($connection, $id, $first_name, $last_name, $email_address, $phone_number, $profile_picture_name) {
         $sql = "UPDATE users 
                 SET first_name = ?, last_name = ?, email_address = ?, phone_number = ?, profile_picture_name = ?, last_edit = NOW()

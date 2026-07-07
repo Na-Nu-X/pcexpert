@@ -9,6 +9,13 @@
 
     require "../assets/functions.php";
     require "../assets/reviews.php";
+    require "../classes/Database.php";
+    require "../classes/User.php";
+    require "../classes/Review.php";
+
+    $database_object = new Database(); // Initializes The Database Methods
+    $user_object = new User(); // Initializes The User Methods
+    $review_object = new Review(); // Initializes The Review Methods
 
     session_start();
 
@@ -19,7 +26,7 @@
         $_SESSION["csrf_token"] = $csrf_token;
     }
     
-    $connection = connectionDB();
+    $connection = $database_object->connectionDB(); // Connects To The DB
 
     // Theme
 
@@ -32,14 +39,14 @@
     // Auto Log In To Account If remember_me_token Cookie Is Setted And User Is Not Logged In Yet
 
     if(isset($_COOKIE["remember_me_token"]) and !isset($_SESSION["is_logged_in"])) {
-        $id = getUserIdByRememberMeToken($connection, $_COOKIE["remember_me_token"]);
+        $id = $user_object->getUserIdByRememberMeToken($connection, $_COOKIE["remember_me_token"]);
 
         if($id !== false) {
             session_regenerate_id(true); // Protection For Fixation Attack
 
             $_SESSION["is_logged_in"] = true;
             $_SESSION["logged_in_user_id"] = $id;
-            $_SESSION["green_report_message"] = "Prihlásený&nbsp;ako " . htmlspecialchars(getUserName($connection, $id), ENT_QUOTES, "UTF-8");
+            $_SESSION["green_report_message"] = "Prihlásený&nbsp;ako " . htmlspecialchars($user_object->getUserInformation($connection, $id, "first_name"), ENT_QUOTES, "UTF-8") . " " . htmlspecialchars($user_object->getUserInformation($connection, $id, "last_name"), ENT_QUOTES, "UTF-8");
         }
     }
 
@@ -300,11 +307,11 @@
             $review = $_POST["review"];
 
             if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true) {
-                sendReview($connection, $_SESSION["logged_in_user_id"], $rating, $review);
+                $review_object->sendReview($connection, $_SESSION["logged_in_user_id"], $rating, $review);
             }
 
             else {
-                sendReview($connection, null, $rating, $review);
+                $review_object->sendReview($connection, null, $rating, $review);
             }
 
             $_SESSION["green_report_message"] = "Ďakujeme&nbsp;za&nbsp;spätnú&nbsp;väzbu";
@@ -370,7 +377,7 @@
 
         "use strict"
         
-        document.addEventListener("DOMContentLoaded", function(event) {
+        document.addEventListener("DOMContentLoaded", function() {
             // Secret Message
 
             console.log("%cPC Expert by Patrik Behul", "color: rgb(170, 255, 50); background-color: rgb(0, 0, 0)")
@@ -410,7 +417,7 @@
                     <a href="#">KONTAKT</a>
                 </li>
 
-                <?php if(isset($_SESSION["logged_in_user_id"]) and getUserRole($connection, $_SESSION["logged_in_user_id"]) === "admin"): ?>
+                <?php if(isset($_SESSION["logged_in_user_id"]) and $user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "role") === "admin"): ?>
                     <li style="border: 1px solid rgb(250, 50, 50);" class="navigation_bar_item">
                         <a href="./administracia">ADMINISTRÁCIA</a>
                     </li>
@@ -443,15 +450,15 @@
         <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true): ?>
             <div class="account">
                 <a href="./moj-ucet" title="Môj účet">
-                    <?php if(!empty(getProfilePictureName($connection, $_SESSION["logged_in_user_id"])) or !empty(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'))): ?>
+                    <?php if(!empty($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "profile_picture_name")) or !empty($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'))): ?>
                         <img 
                             class="profile_picture" 
                             src="
-                                <?php if(!empty(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url')) and empty(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'profile_picture_name'))): ?>
-                                    <?php echo getUserInformations($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'); ?>
+                                <?php if(!empty($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url')) and empty($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'profile_picture_name'))): ?>
+                                    <?php echo $user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'); ?>
 
                                 <?php else: ?>
-                                    /content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo getProfilePictureName($connection, $_SESSION['logged_in_user_id']); ?>
+                                    /content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo $user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'profile_picture_name'); ?>
 
                                 <?php endif; ?>
                             "
@@ -465,10 +472,10 @@
                 </a>
 
                 <a href="./moj-ucet" title="Môj účet">
-                    <?php echo htmlspecialchars(getUserName($connection, $_SESSION["logged_in_user_id"]), ENT_QUOTES, "UTF-8"); ?>
+                    <?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "first_name"), ENT_QUOTES, "UTF-8") . " " . htmlspecialchars($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
                 </a>
 
-                <a href="./logout.php" title="Odhlásiť sa z účtu <?php echo htmlspecialchars(getUserName($connection, $_SESSION["logged_in_user_id"]), ENT_QUOTES, "UTF-8"); ?>">Odhlásiť</a>
+                <a href="./logout.php" title="Odhlásiť sa z účtu <?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "first_name"), ENT_QUOTES, "UTF-8") . " " . htmlspecialchars($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>">Odhlásiť</a>
             </div>
 
         <?php else: ?>
@@ -531,12 +538,12 @@
         </div>
         
         <div class="header_text">
-            <div class="user_rating" title="Na základe <?php echo htmlspecialchars(countReviews($connection), ENT_QUOTES, 'UTF-8'); ?> recenzií.">
-                <?php if(averageRating($connection)): ?>
-                    <p><?php echo htmlspecialchars(averageRating($connection), ENT_QUOTES, "UTF-8"); ?> / 5</p>
+            <div class="user_rating" title="Na základe <?php echo htmlspecialchars($review_object->countReviews($connection), ENT_QUOTES, 'UTF-8'); ?> recenzií.">
+                <?php if($review_object->getAverageRating($connection)): ?>
+                    <p><?php echo htmlspecialchars($review_object->getAverageRating($connection), ENT_QUOTES, "UTF-8"); ?> / 5</p>
 
                     <?php for($i = 1; $i <= 5; $i++): ?>
-                        <?php if($i <= round(averageRating($connection))): ?>
+                        <?php if($i <= round($review_object->getAverageRating($connection))): ?>
                             <div class="star">
                                 <i class="fa-solid fa-star"></i> <!-- https://fontawesome.com/icons/star -->
                             </div>
@@ -711,9 +718,9 @@
                 <div class="user_review">
                     <h3>Moja recenzia</h3>
                     
-                    <?php if(userReview($connection, $user_id) !== null and userReview($connection, $user_id) !== false): ?>
+                    <?php if($review_object->userReview($connection, $user_id) !== null and $review_object->userReview($connection, $user_id) !== false): ?>
                         <div class="review">
-                            <?php if(userReview($connection, $user_id)["status"] === "pending"): ?>
+                            <?php if($review_object->userReview($connection, $user_id)["status"] === "pending"): ?>
                                 <p class="pending_review">Vaša recenzia čaká na kontrolu</p>
 
                             <?php endif; ?>
@@ -722,11 +729,11 @@
                                 <img
                                     class="profile_picture"
                                     src="
-                                        <?php if(!empty(getUserInformations($connection, userReview($connection, $user_id)['user_id'], 'google_profile_picture_url')) and empty(getUserInformations($connection, userReview($connection, $user_id)['user_id'], 'profile_picture_name'))): ?>
-                                            <?php echo getUserInformations($connection, userReview($connection, $user_id)['user_id'], 'google_profile_picture_url'); ?>
+                                        <?php if(!empty($user_object->getUserInformation($connection, $review_object->userReview($connection, $user_id)['user_id'], 'google_profile_picture_url')) and empty($user_object->getUserInformation($connection, userReview($connection, $user_id)['user_id'], 'profile_picture_name'))): ?>
+                                            <?php echo $user_object->getUserInformation($connection, $review_object->userReview($connection, $user_id)['user_id'], 'google_profile_picture_url'); ?>
 
                                         <?php else: ?>
-                                            /content/uploads/<?php echo userReview($connection, $user_id)['user_id']; ?>/<?php echo getProfilePictureName($connection, userReview($connection, $user_id)['user_id']); ?>
+                                            /content/uploads/<?php echo $review_object->userReview($connection, $user_id)['user_id']; ?>/<?php echo $user_object->getUserInformation($connection, $review_object->userReview($connection, $user_id)['user_id'], 'profile_picture_name'); ?>
 
                                         <?php endif; ?>
                                     "
@@ -735,16 +742,16 @@
 
                                 <div class="user_info">
                                     <p class="name">
-                                        <?php echo htmlspecialchars(getUserInformations($connection, userReview($connection, $user_id)["user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
-                                        <?php echo htmlspecialchars(getUserInformations($connection, userReview($connection, $user_id)["user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
+                                        <?php echo htmlspecialchars($user_object->getUserInformation($connection, $review_object->userReview($connection, $user_id)["user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
+                                        <?php echo htmlspecialchars($user_object->getUserInformation($connection, $review_object->userReview($connection, $user_id)["user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
                                     </p>
 
                                     <p class="date">
                                         -
 
-                                        <?php echo htmlspecialchars(date("j.n.Y", strtotime(userReview($connection, $user_id)["review_time"])), ENT_QUOTES, "UTF-8"); ?>
+                                        <?php echo htmlspecialchars(date("j.n.Y", strtotime($review_object->userReview($connection, $user_id)["review_time"])), ENT_QUOTES, "UTF-8"); ?>
 
-                                        <?php if(userReview($connection, $_SESSION["logged_in_user_id"])["edited"] === "yes"): ?>
+                                        <?php if($review_object->userReview($connection, $_SESSION["logged_in_user_id"])["edited"] === "yes"): ?>
                                             (upravená)
 
                                         <?php endif; ?>
@@ -754,7 +761,7 @@
 
                             <div class="stars">
                                 <?php for($i = 1; $i <= 5; $i++): ?>
-                                    <?php if($i <= userReview($connection, $user_id)["rating"]): ?>
+                                    <?php if($i <= $review_object->userReview($connection, $user_id)["rating"]): ?>
                                         <div class="star">
                                             <i class="fa-solid fa-star"></i> <!-- https://fontawesome.com/icons/star -->
                                         </div>
@@ -771,7 +778,7 @@
 
                             <a class="edit_review" href="./upravit-recenziu" title="Upraviť recenziu">Upraviť recenziu</a>
 
-                            <p><?php echo htmlspecialchars(userReview($connection, $user_id)["review"], ENT_QUOTES, "UTF-8"); ?></p>
+                            <p><?php echo htmlspecialchars($review_object->userReview($connection, $user_id)["review"], ENT_QUOTES, "UTF-8"); ?></p>
                         </div>
 
                     <?php else: ?>
@@ -809,11 +816,11 @@
                                     <img 
                                         class="profile_picture" 
                                         src="
-                                            <?php if(!empty(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url')) and empty(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'profile_picture_name'))): ?>
-                                                <?php echo getUserInformations($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'); ?>
+                                            <?php if(!empty($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url')) and empty($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'profile_picture_name'))): ?>
+                                                <?php echo $user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'); ?>
 
                                             <?php else: ?>
-                                                /content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo getProfilePictureName($connection, $_SESSION['logged_in_user_id']); ?>
+                                                /content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo $user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'profile_picture_name'); ?>
 
                                             <?php endif; ?>
                                         "
@@ -821,8 +828,8 @@
                                     >
 
                                     <p class="name">
-                                        <?php echo htmlspecialchars(getUserInformations($connection, $_SESSION["logged_in_user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
-                                        <?php echo htmlspecialchars(getUserInformations($connection, $_SESSION["logged_in_user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
+                                        <?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
+                                        <?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
                                     </p>
                                 </div>
 
@@ -865,18 +872,18 @@
                 <h3 class="all_reviews_title">Ostatné recenzie</h3>
 
                 <div class="all_reviews">
-                    <?php foreach(allReviews($connection, $user_id) as $one_review): ?>
+                    <?php foreach($review_object->allReviews($connection, $user_id) as $one_review): ?>
                         <div class="review">
                             <?php if($one_review["user_id"] !== null): ?>
                                 <div class="reviewer">
                                     <img 
                                         class="profile_picture"
                                         src="
-                                            <?php if(!empty(getUserInformations($connection, $one_review['user_id'], 'google_profile_picture_url')) and empty(getUserInformations($connection, $one_review['user_id'], 'profile_picture_name'))): ?>
-                                                <?php echo getUserInformations($connection, $one_review['user_id'], 'google_profile_picture_url'); ?>
+                                            <?php if(!empty($user_object->getUserInformation($connection, $one_review['user_id'], 'google_profile_picture_url')) and empty($user_object->getUserInformation($connection, $one_review['user_id'], 'profile_picture_name'))): ?>
+                                                <?php echo $user_object->getUserInformation($connection, $one_review['user_id'], 'google_profile_picture_url'); ?>
 
                                             <?php else: ?>
-                                                /content/uploads/<?php echo $one_review['user_id']; ?>/<?php echo getProfilePictureName($connection, $one_review['user_id']); ?>
+                                                /content/uploads/<?php echo $one_review['user_id']; ?>/<?php echo $user_object->getUserInformation($connection, $one_review['user_id'], 'profile_picture_name'); ?>
 
                                             <?php endif; ?>
                                         "
@@ -884,8 +891,8 @@
 
                                     <div class="user_info">
                                         <p class="name">
-                                            <?php echo htmlspecialchars(getUserInformations($connection, $one_review["user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
-                                            <?php echo htmlspecialchars(getUserInformations($connection, $one_review["user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
+                                            <?php echo htmlspecialchars($user_object->getUserInformation($connection, $one_review["user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
+                                            <?php echo htmlspecialchars($user_object->getUserInformation($connection, $one_review["user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
                                         </p>
 
                                         <p class="date">
@@ -960,7 +967,7 @@
                     <?php endforeach; ?>
                 </div>
 
-                <?php if(countReviews($connection, $user_id) > 5): ?>
+                <?php if($review_object->countReviews($connection, $user_id) > 5): ?>
                     <div class="buttons">
                         <button class="show_more" title="Zobraziť viac">Zobraziť viac</button>
                         <button class="show_less hidden" title="Zobraziť menej">Zobraziť menej</button>
@@ -1012,7 +1019,7 @@
                     name="first_name"
                     placeholder="Zadajte vaše meno"
                     autocomplete="given-name"
-                    value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'first_name'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($first_name, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                    value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'first_name'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($first_name, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
                     required
                 >
 
@@ -1021,7 +1028,7 @@
                     name="last_name"
                     placeholder="Zadajte vaše priezvisko"
                     autocomplete="family-name"
-                    value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'last_name'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($last_name, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                    value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'last_name'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($last_name, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
                     required
                 >
 
@@ -1030,7 +1037,7 @@
                     name="email_address"
                     placeholder="Zadajte váš e-mail"
                     autocomplete="email"
-                    value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'email_address'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($email_address, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                    value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'email_address'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($email_address, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
                     required
                 >
 

@@ -1,7 +1,18 @@
 <?php 
+    // Debug
+        
+    ini_set("display_errors", 1);
+    ini_set("display_startup_errors", 1);
+    error_reporting(E_ALL);
+
     // PHP Code
 
     require "../assets/functions.php";
+    require "../classes/Database.php";
+    require "../classes/User.php";
+
+    $database_object = new Database(); // Initializes The Database Methods
+    $user_object = new User(); // Initializes The User Methods
 
     session_start();
 
@@ -12,7 +23,7 @@
         $_SESSION["csrf_token"] = $csrf_token;
     }
 
-    $connection = connectionDB();
+    $connection = $database_object->connectionDB(); // Connects To The DB
 
     // Theme
 
@@ -96,19 +107,19 @@
             $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
             $news = isset($_POST["news"]) ? "yes" : "no";
 
-            if(!empty(emailAuthentication($connection, $email_address))) {
+            if(!empty($user_object->emailAuthentication($connection, $email_address))) {
                 $message = "Tento email už je zaregistrovaný.";
             }
 
             else {
-                $id = createUser($connection, $first_name, $last_name, $email_address, $phone_number, $password, $news);
+                $id = $user_object->createUser($connection, $first_name, $last_name, $email_address, $phone_number, $password, $news);
         
                 if(!empty($id)) {
                     session_regenerate_id(true); // Protection For Fixation Attack
             
                     $_SESSION["is_logged_in"] = true;
                     $_SESSION["logged_in_user_id"] = $id;
-                    $_SESSION["green_report_message"] = "Prihlásený&nbsp;ako " . htmlspecialchars(getUserName($connection, $id), ENT_QUOTES, "UTF-8");
+                    $_SESSION["green_report_message"] = "Prihlásený&nbsp;ako " . htmlspecialchars($user_object->getUserInformation($connection, $id, "first_name"), ENT_QUOTES, "UTF-8") . " " . htmlspecialchars($user_object->getUserInformation($connection, $id, "last_name"), ENT_QUOTES, "UTF-8");
             
                     redirectURL("/domov");
                 }
