@@ -1,6 +1,8 @@
 <?php
-	ini_set('display_errors', 1);
-	ini_set('display_startup_errors', 1);
+    // Debug
+    
+	ini_set("display_errors", 1);
+	ini_set("display_startup_errors", 1);
 	error_reporting(E_ALL);
     
     // PHP Code
@@ -359,6 +361,7 @@
     <script src="/src/ts/dist/components/move_up.js" type="module"></script>
     <script src="/src/ts/dist/components/navigation_bar.js" type="module"></script>
     <script src="/src/ts/dist/components/photo_gallery.js" type="module"></script>
+    <script src="/src/ts/dist/pages/homepage/components/our_services.js" type="module"></script>
     <script src="/src/ts/dist/pages/homepage/components/reviews.js" type="module"></script>
     <script src="/src/ts/dist/pages/homepage/components/contact_form.js" type="module"></script>
 
@@ -456,7 +459,7 @@
                         >
 
                     <?php else: ?>
-                        <img class="profile_picture" src="/content/images/user.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
+                        <img class="profile_picture" src="/content/images/avatar.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_847969 -->
 
                     <?php endif; ?>
                 </a>
@@ -596,26 +599,34 @@
         </section>
         
         <section class="main_content <?php echo $theme; ?>">
-            <section class="our_services">
-                <h2><img class="discount_icon" src="/content/images/free.png" alt="Zadarmo">Stavba&nbsp;počítača</h2> <!-- https://www.flaticon.com/free-icon/free_3706334 -->
-
-                <p>Nechajte si u nás zostaviť a nakonfigurovať počítač na mieru – rýchlo, profesionálne a za výhodnú cenu. Ak už máte vhodné komponenty a hľadáte spoľahlivých odborníkov na ich správnu montáž, sme tu pre vás. A ak si ešte nie ste istí výberom, radi vám pomôžeme vybrať tie najlepšie komponenty podľa vašich potrieb a zabezpečíme ich odborné zostavenie. S nami získate počítač, ktorý bude pripravený na použitie bez starostí!<br>
-                len za: <span class="price"><s>30€</s> ZADARMO</span><br><a class="contact_us_button build_computer_button" href="#" target="_self">Mám záujem</a></p>
-            </section>
+            <div class="our_services">
+                <section>
+                    <h2><img class="discount_icon" src="/content/images/free.png" alt="Zadarmo">Stavba&nbsp;počítača</h2> <!-- https://www.flaticon.com/free-icon/free_3706334 -->
     
-            <section>
-                <h2><img class="discount_icon" src="/content/images/free.png" alt="Zadarmo">Údržba&nbsp;počítača</h2> <!-- https://www.flaticon.com/free-icon/free_3706334 -->
+                    <p>Nechajte si u nás zostaviť a nakonfigurovať počítač na mieru – rýchlo, profesionálne a za výhodnú cenu. Ak už máte vhodné komponenty a hľadáte spoľahlivých odborníkov na ich správnu montáž, sme tu pre vás. A ak si ešte nie ste istí výberom, radi vám pomôžeme vybrať tie najlepšie komponenty podľa vašich potrieb a zabezpečíme ich odborné zostavenie. S nami získate počítač, ktorý bude pripravený na použitie bez starostí!<br>
+                    len za: <span class="price"><s>30€</s> ZADARMO</span></p>
 
-                <p>Ak vás trápi hardvérový problém, nefunkčné alebo poškodené komponenty, sme tu, aby sme vám pomohli. Diagnostikujeme váš počítač, navrhneme najlepšie riešenie a postaráme sa o opravu alebo výmenu nefunkčných komponentov. Okrem toho vám radi poradíme s upgradom – či už ide o zrýchlenie systému, rozšírenie kapacity alebo zvýšenie výkonu staršieho alebo nového počítača, pomôžeme vám z neho vyťažiť maximum!<br>
-                len za: <span class="price"><s>15€</s> ZADARMO</span><br><a class="contact_us_button computer_maintenance_button" href="#" target="_self">Mám záujem</a></p>
-            </section>
+                    <button class="contact_us_button build_computer_button">Mám záujem</button>
+                </section>
+        
+                <section>
+                    <h2><img class="discount_icon" src="/content/images/free.png" alt="Zadarmo">Údržba&nbsp;počítača</h2> <!-- https://www.flaticon.com/free-icon/free_3706334 -->
     
-            <section>
-                <h2><img class="discount_icon" src="/content/images/free.png" alt="Zadarmo">Čistenie&nbsp;počítača</h2> <!-- https://www.flaticon.com/free-icon/free_3706334 -->
+                    <p>Ak vás trápi hardvérový problém, nefunkčné alebo poškodené komponenty, sme tu, aby sme vám pomohli. Diagnostikujeme váš počítač, navrhneme najlepšie riešenie a postaráme sa o opravu alebo výmenu nefunkčných komponentov. Okrem toho vám radi poradíme s upgradom – či už ide o zrýchlenie systému, rozšírenie kapacity alebo zvýšenie výkonu staršieho alebo nového počítača, pomôžeme vám z neho vyťažiť maximum!<br>
+                    len za: <span class="price"><s>15€</s> ZADARMO</span></p>
 
-                <p>Ak váš počítač alebo notebook spomaľuje nahromadený prach a nečistoty, postaráme sa o jeho dôkladné vyčistenie. Odborne vyčistíme vnútro zariadenia, odstránime prach a nečistoty a zabezpečíme optimálne chladenie výmenou teplovodivej pasty na procesore či grafickej karte, čím výrazne znížime prevádzkové teploty. S nami váš počítač opäť získa maximálny výkon, stabilitu a dlhšiu životnosť!<br>
-                len za: <span class="price"><s>10€</s> ZADARMO</span><br><a class="contact_us_button computer_cleaning_button" href="#" target="_self">Mám záujem</a></p>
-            </section>
+                    <button class="contact_us_button computer_maintenance_button">Mám záujem</button>
+                </section>
+        
+                <section>
+                    <h2><img class="discount_icon" src="/content/images/free.png" alt="Zadarmo">Čistenie&nbsp;počítača</h2> <!-- https://www.flaticon.com/free-icon/free_3706334 -->
+    
+                    <p>Ak váš počítač alebo notebook spomaľuje nahromadený prach a nečistoty, postaráme sa o jeho dôkladné vyčistenie. Odborne vyčistíme vnútro zariadenia, odstránime prach a nečistoty a zabezpečíme optimálne chladenie výmenou teplovodivej pasty na procesore či grafickej karte, čím výrazne znížime prevádzkové teploty. S nami váš počítač opäť získa maximálny výkon, stabilitu a dlhšiu životnosť!<br>
+                    len za: <span class="price"><s>10€</s> ZADARMO</span></p>
+
+                    <button class="contact_us_button computer_cleaning_button">Mám záujem</button>
+                </section>
+            </div>
     
             <section>
                 <div class="slider <?php echo $theme; ?>">
@@ -722,12 +733,13 @@
                                     alt="Profilový obrázok"
                                 >
 
-                                <p class="user_name">
-                                    <?php echo htmlspecialchars(getUserInformations($connection, userReview($connection, $user_id)["user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
+                                <div class="user_info">
+                                    <p class="name">
+                                        <?php echo htmlspecialchars(getUserInformations($connection, userReview($connection, $user_id)["user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
+                                        <?php echo htmlspecialchars(getUserInformations($connection, userReview($connection, $user_id)["user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
+                                    </p>
 
-                                    <?php echo htmlspecialchars(getUserInformations($connection, userReview($connection, $user_id)["user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
-
-                                    <span class="date">
+                                    <p class="date">
                                         -
 
                                         <?php echo htmlspecialchars(date("j.n.Y", strtotime(userReview($connection, $user_id)["review_time"])), ENT_QUOTES, "UTF-8"); ?>
@@ -736,8 +748,8 @@
                                             (upravená)
 
                                         <?php endif; ?>
-                                    </span>
-                                </p>
+                                    </p>
+                                </div>
                             </div>
 
                             <div class="stars">
@@ -808,18 +820,16 @@
                                         alt="Profilový obrázok"
                                     >
 
-                                    <p class="user_name">
+                                    <p class="name">
                                         <?php echo htmlspecialchars(getUserInformations($connection, $_SESSION["logged_in_user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
-
                                         <?php echo htmlspecialchars(getUserInformations($connection, $_SESSION["logged_in_user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
                                     </p>
                                 </div>
 
                             <?php else: ?>
                                 <div class="reviewer">
-                                    <img class="profile_picture" src="/content/images/user.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
-
-                                    <p class="user_name">Anonymný zákazník</p>
+                                    <img class="profile_picture" src="/content/images/avatar.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_847969 -->
+                                    <p class="name">Anonymný zákazník</p>
                                 </div>
 
                             <?php endif; ?>
@@ -872,12 +882,13 @@
                                         "
                                     >
 
-                                    <p class="user_name">
-                                        <?php echo htmlspecialchars(getUserInformations($connection, $one_review["user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
+                                    <div class="user_info">
+                                        <p class="name">
+                                            <?php echo htmlspecialchars(getUserInformations($connection, $one_review["user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
+                                            <?php echo htmlspecialchars(getUserInformations($connection, $one_review["user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
+                                        </p>
 
-                                        <?php echo htmlspecialchars(getUserInformations($connection, $one_review["user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
-
-                                        <span class="date">
+                                        <p class="date">
                                             -
 
                                             <?php echo htmlspecialchars(date("j.n.Y", strtotime($one_review["review_time"])), ENT_QUOTES, "UTF-8"); ?>
@@ -886,8 +897,8 @@
                                                 (upravená)
 
                                             <?php endif; ?>
-                                        </span>
-                                    </p>
+                                        </p>
+                                    </div>
                                 </div>
                                 
                                 <div class="stars">
@@ -911,17 +922,17 @@
 
                             <?php else: ?>
                                 <div class="reviewer">
-                                    <img class="profile_picture" src="/content/images/user.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
+                                    <img class="profile_picture" src="/content/images/avatar.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_847969 -->
 
-                                    <p class="user_name">
-                                        Anonymný zákazník
+                                    <div class="user_info">
+                                        <p class="name">Anonymný zákazník</p>
 
-                                        <span class="date">
+                                        <p class="date">
                                             -
                                             
                                             <?php echo htmlspecialchars(date("j.n.Y", strtotime($one_review["review_time"])), ENT_QUOTES, "UTF-8"); ?>
-                                        </span>
-                                    </p>
+                                        </p>
+                                    </div>
                                 </div>
 
                                 <div class="stars">
@@ -1027,15 +1038,15 @@
                     <option value="">Zadajte predmet vašej správy</option>
 
                     <optgroup label="Naše služby">
-                        <option>Stavba počítača</option>
-                        <option>Údržba počítača</option>
-                        <option>Čistenie počítača</option>
+                        <option value="build_computer">Stavba počítača</option>
+                        <option value="computer_maintenance">Údržba počítača</option>
+                        <option value="computer_cleaning">Čistenie počítača</option>
                     </optgroup>
                     
                     <optgroup label="Ostatné">
-                        <option>Otázka</option>
-                        <option>Návrh na zlepšenie</option>
-                        <option>Nahlásenie chyby</option>
+                        <option value="question">Otázka</option>
+                        <option value="suggestion">Návrh na zlepšenie</option>
+                        <option value="bug">Nahlásenie chyby</option>
                     </optgroup>
                 </select>
                 

@@ -29,14 +29,15 @@
                     >
 
                 <?php else: ?>
-                    <img class="profile_picture" src="/content/images/user.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
+                    <img class="profile_picture" src="/content/images/avatar.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_847969 -->
 
                 <?php endif; ?>
 
-                <p class="user_name">
-                    <?php echo htmlspecialchars($one_user["first_name"], ENT_QUOTES, "UTF-8"); ?>
-
-                    <?php echo htmlspecialchars($one_user["last_name"], ENT_QUOTES, "UTF-8"); ?>
+                <div class="user_info">
+                    <p class="name">
+                        <?php echo htmlspecialchars($one_user["first_name"], ENT_QUOTES, "UTF-8"); ?>
+                        <?php echo htmlspecialchars($one_user["last_name"], ENT_QUOTES, "UTF-8"); ?>
+                    </p>
 
                     <span class="user_role"
                         <?php if($one_user["role"] === "admin"): ?>
@@ -61,7 +62,7 @@
                             value="user"
                         >
                     </span>
-                </p>
+                </div>
             </div>
 
             <div class="other_info">

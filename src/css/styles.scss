@@ -332,6 +332,8 @@ main {
 **************/
 
 footer {
+    @include flex_center($direction: column);
+    gap: 10px;
     margin-top: 25px;
     padding-top: 20px;
     text-align: center;
@@ -343,28 +345,41 @@ footer {
         font-weight: bold;
     }
 
-    a {
-        font-size: 0.9em;
-        font-weight: normal;
-        font-style: italic;
-        text-decoration: none;
-        color: lighten($main-color, 5%);
-
-        &:hover,
-        &:active,
-        &:focus-visible {
-            text-decoration: underline;
+    .contact_details,
+    .address {
+        a {
+            font-size: 0.9em;
+            font-weight: normal;
+            font-style: italic;
+            text-decoration: none;
+            color: lighten($main-color, 5%);
+    
+            &:hover,
+            &:active,
+            &:focus-visible {
+                text-decoration: underline;
+            }
         }
+    }
 
-        img {
-            margin: 0px 5px;
-            transform: scale(1);
-            opacity: 0.8;
-
-            &:hover {
-                opacity: 1;
-                transform: scale(1.1);
-                transition: transform 0.3s ease, opacity 0.3s ease;
+    .social_media {
+        .links {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+    
+            a {
+                img {
+                    display: block;
+                    transform: scale(1);
+                    opacity: 0.8;
+        
+                    &:hover {
+                        opacity: 1;
+                        transform: scale(1.1);
+                        transition: transform 0.3s ease, opacity 0.3s ease;
+                    }
+                }
             }
         }
     }

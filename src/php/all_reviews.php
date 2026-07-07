@@ -28,12 +28,13 @@
                         "
                     >
 
-                    <p class="user_name">
-                        <?php echo htmlspecialchars(getUserInformations($connection, $one_review["user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
+                    <div class="user_info">
+                        <p class="name">
+                            <?php echo htmlspecialchars(getUserInformations($connection, $one_review["user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
+                            <?php echo htmlspecialchars(getUserInformations($connection, $one_review["user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
+                        </p>
 
-                        <?php echo htmlspecialchars(getUserInformations($connection, $one_review["user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
-
-                        <span class="date">
+                        <p class="date">
                             -
 
                             <?php echo htmlspecialchars(date("j.n.Y", strtotime($one_review["review_time"])), ENT_QUOTES, "UTF-8"); ?>
@@ -42,8 +43,8 @@
                                 (upravená)
 
                             <?php endif; ?>
-                        </span>
-                    </p>
+                        </p>
+                    </div>
                 </div>
 
                 <div class="stars">
@@ -67,17 +68,17 @@
 
             <?php else: ?>
                 <div class="reviewer">
-                    <img class="profile_picture" src="/content/images/user.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
+                    <img class="profile_picture" src="/content/images/avatar.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_847969 -->
 
-                    <p class="user_name">
-                        Anonymný zákazník
+                    <div class="user_info">
+                        <p class="name">Anonymný zákazník</p>
 
-                        <span class="date">
+                        <p class="date">
                             -
                             
                             <?php echo htmlspecialchars(date("j.n.Y", strtotime($one_review["review_time"])), ENT_QUOTES, "UTF-8"); ?>
-                        </span>
-                    </p>
+                        </p>
+                    </div>
                 </div>
 
                 <div class="stars">

@@ -86,7 +86,12 @@ main .pending_reviews .reviews .review .reviewer {
   gap: 10px;
   margin-bottom: 10px;
 }
-main .pending_reviews .reviews .review .reviewer .user_name .date {
+main .pending_reviews .reviews .review .reviewer .user_info {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+main .pending_reviews .reviews .review .reviewer .user_info .date {
   font-style: italic;
   color: #cccccc;
 }
@@ -180,11 +185,11 @@ main .users .all_users .user .basic_info {
   gap: 10px;
   z-index: 0;
 }
-main .users .all_users .user .basic_info .user_name .user_role {
+main .users .all_users .user .basic_info .user_info .user_role {
   font-style: italic;
   color: #cccccc;
 }
-main .users .all_users .user .basic_info .user_name .user_role .user_role_checkbox {
+main .users .all_users .user .basic_info .user_info .user_role .user_role_checkbox {
   display: none;
 }
 main .users .all_users .user .other_info {

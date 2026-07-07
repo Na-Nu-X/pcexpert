@@ -355,7 +355,7 @@
 
                         <?php else: ?>
                             <label for="profile_picture">
-                                <img class="profile_picture" title="Zmeniť profilový obrázok" src="/content/images/user.png" alt="Zmeniť profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_747376?term=user -->
+                                <img class="profile_picture" title="Zmeniť profilový obrázok" src="/content/images/avatar.png" alt="Zmeniť profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_847969 -->
                             </label>
                             
                             <input id="profile_picture" type="file" name="profile_picture">
