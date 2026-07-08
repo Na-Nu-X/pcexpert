@@ -4,23 +4,33 @@
          * Function For Get All Users
          * 
          * @param PDO $connection - Connection To The Database
-         * @param int $user_id - User ID
+         * @param int|null $user_id - User ID
          * @param int|null $offset - Offset
          * @param int|null $limit - Limit
          * 
          * @return array|null
         **/
 
-        public function getAllUsers(PDO $connection, int $user_id, ?int $offset = 0, ?int $limit = 5):?array {
-            $sql = "SELECT * FROM users
-                    WHERE id <> :user_id
-                    ORDER BY creation_time DESC
-                    LIMIT :offset, :limit";
-
+        public function getAllUsers(PDO $connection, ?int $user_id = null, ?int $offset = 0, ?int $limit = 5):?array {
             try {
-                $stmt = $connection->prepare($sql);
+                if($user_id === null) {
+                    $sql = "SELECT * FROM users
+                            ORDER BY creation_time DESC
+                            LIMIT :limit OFFSET :offset";
+        
+                    $stmt = $connection->prepare($sql);
+                } 
+                
+                else {
+                    $sql = "SELECT * FROM users
+                            WHERE id <> :user_id
+                            ORDER BY creation_time DESC
+                            LIMIT :limit OFFSET :offset";
+        
+                    $stmt = $connection->prepare($sql);
+                    $stmt->bindValue(":user_id", $user_id, PDO::PARAM_INT);
+                }
 
-                $stmt->bindValue(":user_id", $user_id, PDO::PARAM_INT);
                 $stmt->bindValue(":offset", $offset, PDO::PARAM_INT);
                 $stmt->bindValue(":limit", $limit, PDO::PARAM_INT);
 
@@ -129,7 +139,7 @@
             $sql = "SELECT * FROM reviews
                     WHERE status = 'pending'
                     ORDER BY review_time DESC
-                    LIMIT :offset, :limit";
+                    LIMIT :limit OFFSET :offset";
 
             try {
                 $stmt = $connection->prepare($sql);
@@ -249,7 +259,7 @@
         public function getErrorLog(PDO $connection, ?int $offset = 0, ?int $limit = 5):?array {
             $sql = "SELECT * FROM errors
                     ORDER BY error_time DESC
-                    LIMIT :offset, :limit";
+                    LIMIT :limit OFFSET :offset";
 
             try {
                 $stmt = $connection->prepare($sql);

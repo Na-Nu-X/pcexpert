@@ -504,6 +504,13 @@ main {
 .password_reset form .delete_review_container p a:active {
   text-decoration: underline;
 }
+.registration form .forgot_password p,
+.login form .forgot_password p,
+.edit_account form .forgot_password p,
+.edit_review form .forgot_password p,
+.password_reset form .forgot_password p {
+  margin-bottom: 0px;
+}
 .registration .login_form .password_container,
 .registration .login_form .password_check_container,
 .registration .login_form .current_password_container,
@@ -2285,7 +2292,7 @@ main {
   left: 0px;
   width: 14px;
   height: 14px;
-  outline: 1px solid #52cf20;
+  outline: 1px solid #52cf20 !important;
   background: rgba(255, 255, 255, 0.2);
 }
 .registration .login_form .agree input:checked + label::after,
@@ -2406,6 +2413,7 @@ main {
   height: 14px;
   outline: 1px solid #cccccc;
   background: rgba(255, 255, 255, 0.2);
+  transition: outline 0.3s ease;
 }
 .registration .login_form .agree label,
 .registration .registration_form .agree label,

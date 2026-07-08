@@ -16,15 +16,17 @@ document.addEventListener("DOMContentLoaded", function():void {
     const edit_account_form:HTMLFormElement = document.querySelector(".edit_account .edit_account_form") as HTMLFormElement // Gets The Edit Account Form
     const profile_picture_container:HTMLDivElement = edit_account_form.querySelector(".profile_picture_container") as HTMLDivElement // Gets The Profile Picture Container
     const delete_profile_picture_image:HTMLImageElement = profile_picture_container.querySelector("label .delete_profile_picture") as HTMLImageElement // Gets The Delete Profile Picture Image
-    const delete_profile_picture_input:HTMLInputElement = profile_picture_container.querySelector("#delete_profile_picture") as HTMLInputElement // Gets The Delete Profile Picture Input
+    const delete_profile_picture_input:HTMLInputElement|null = profile_picture_container.querySelector("#delete_profile_picture") as HTMLInputElement || null // Gets The Delete Profile Picture Input If Is Available
 
     // Events
     
     // Delete Profile Picture Input Click Functionality
-    delete_profile_picture_input.addEventListener("click", function():void {
-        if(delete_profile_picture_input.checked) delete_profile_picture_image.style.opacity = "1"
-        else delete_profile_picture_image.style.opacity = "0.8"
-    })
+    if(delete_profile_picture_input) {
+        delete_profile_picture_input.addEventListener("click", function():void {
+            if(delete_profile_picture_input.checked) delete_profile_picture_image.style.opacity = "1"
+            else delete_profile_picture_image.style.opacity = "0.8"
+        })
+    }
     
     // Delete Account Warning
     

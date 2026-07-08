@@ -306,11 +306,11 @@
             $review = $_POST["review"];
 
             if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true) {
-                $review_object->sendReview($connection, $_SESSION["logged_in_user_id"], $rating, $review);
+                $review_object->sendReview($connection, $rating, $review, $_SESSION["logged_in_user_id"]);
             }
 
             else {
-                $review_object->sendReview($connection, null, $rating, $review);
+                $review_object->sendReview($connection, $rating, $review, null);
             }
 
             $_SESSION["green_report_message"] = "Ďakujeme&nbsp;za&nbsp;spätnú&nbsp;väzbu";
@@ -725,19 +725,25 @@
                             <?php endif; ?>
 
                             <div class="reviewer">
-                                <img
-                                    class="profile_picture"
-                                    src="
-                                        <?php if(!empty($user_object->getUserInformation($connection, $review_object->getUserReview($connection, $user_id)['user_id'], 'google_profile_picture_url')) and empty($user_object->getUserInformation($connection, userReview($connection, $user_id)['user_id'], 'profile_picture_name'))): ?>
-                                            <?php echo $user_object->getUserInformation($connection, $review_object->getUserReview($connection, $user_id)['user_id'], 'google_profile_picture_url'); ?>
+                                <?php if(!empty($user_object->getUserInformation($connection, $review_object->getUserReview($connection, $user_id)['user_id'], 'profile_picture_name')) or !empty($user_object->getUserInformation($connection, $review_object->getUserReview($connection, $user_id)['user_id'], 'google_profile_picture_url'))): ?>
+                                    <img 
+                                        class="profile_picture" 
+                                        src="
+                                            <?php if(!empty($user_object->getUserInformation($connection, $review_object->getUserReview($connection, $user_id)['user_id'], 'google_profile_picture_url')) and empty($user_object->getUserInformation($connection, $review_object->getUserReview($connection, $user_id)['user_id'], 'profile_picture_name'))): ?>
+                                                <?php echo $user_object->getUserInformation($connection, $user_id, 'google_profile_picture_url'); ?>
 
-                                        <?php else: ?>
-                                            /content/uploads/<?php echo $review_object->getUserReview($connection, $user_id)['user_id']; ?>/<?php echo $user_object->getUserInformation($connection, $review_object->getUserReview($connection, $user_id)['user_id'], 'profile_picture_name'); ?>
+                                            <?php else: ?>
+                                                /content/uploads/<?php echo $user_id; ?>/<?php echo $user_object->getUserInformation($connection, $user_id, 'profile_picture_name'); ?>
 
-                                        <?php endif; ?>
-                                    "
-                                    alt="Profilový obrázok"
-                                >
+                                            <?php endif; ?>
+                                        "
+                                        alt="Môj účet"
+                                    >
+
+                                <?php else: ?>
+                                    <img class="profile_picture" src="/content/images/avatar.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_847969 -->
+
+                                <?php endif; ?>
 
                                 <div class="user_info">
                                     <p class="name">
@@ -812,19 +818,25 @@
                         <form class="write_review" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                             <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true): ?>
                                 <div class="reviewer">
-                                    <img 
-                                        class="profile_picture" 
-                                        src="
-                                            <?php if(!empty($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url')) and empty($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'profile_picture_name'))): ?>
-                                                <?php echo $user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'); ?>
+                                    <?php if(!empty($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "profile_picture_name")) or !empty($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'))): ?>
+                                        <img 
+                                            class="profile_picture" 
+                                            src="
+                                                <?php if(!empty($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url')) and empty($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'profile_picture_name'))): ?>
+                                                    <?php echo $user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'); ?>
 
-                                            <?php else: ?>
-                                                /content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo $user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'profile_picture_name'); ?>
+                                                <?php else: ?>
+                                                    /content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo $user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'profile_picture_name'); ?>
 
-                                            <?php endif; ?>
-                                        "
-                                        alt="Profilový obrázok"
-                                    >
+                                                <?php endif; ?>
+                                            "
+                                            alt="Môj účet"
+                                        >
+
+                                    <?php else: ?>
+                                        <img class="profile_picture" src="/content/images/avatar.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_847969 -->
+
+                                    <?php endif; ?>
 
                                     <p class="name">
                                         <?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
@@ -876,18 +888,25 @@
                             <div class="review">
                                 <?php if($one_review["user_id"] !== null): ?>
                                     <div class="reviewer">
-                                        <img 
-                                            class="profile_picture"
-                                            src="
-                                                <?php if(!empty($user_object->getUserInformation($connection, $one_review['user_id'], 'google_profile_picture_url')) and empty($user_object->getUserInformation($connection, $one_review['user_id'], 'profile_picture_name'))): ?>
-                                                    <?php echo $user_object->getUserInformation($connection, $one_review['user_id'], 'google_profile_picture_url'); ?>
+                                        <?php if(!empty($user_object->getUserInformation($connection, $one_review['user_id'], 'profile_picture_name')) or !empty($user_object->getUserInformation($connection, $one_review['user_id'], 'google_profile_picture_url'))): ?>
+                                            <img 
+                                                class="profile_picture" 
+                                                src="
+                                                    <?php if(!empty($user_object->getUserInformation($connection, $one_review['user_id'], 'google_profile_picture_url')) and empty($user_object->getUserInformation($connection, $one_review['user_id'], 'profile_picture_name'))): ?>
+                                                        <?php echo $user_object->getUserInformation($connection, $user_id, 'google_profile_picture_url'); ?>
 
-                                                <?php else: ?>
-                                                    /content/uploads/<?php echo $one_review['user_id']; ?>/<?php echo $user_object->getUserInformation($connection, $one_review['user_id'], 'profile_picture_name'); ?>
+                                                    <?php else: ?>
+                                                        /content/uploads/<?php echo $user_id; ?>/<?php echo $user_object->getUserInformation($connection, $user_id, 'profile_picture_name'); ?>
 
-                                                <?php endif; ?>
-                                            "
-                                        >
+                                                    <?php endif; ?>
+                                                "
+                                                alt="Môj účet"
+                                            >
+
+                                        <?php else: ?>
+                                            <img class="profile_picture" src="/content/images/avatar.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_847969 -->
+
+                                        <?php endif; ?>
 
                                         <div class="user_info">
                                             <p class="name">

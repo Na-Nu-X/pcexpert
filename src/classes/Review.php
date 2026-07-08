@@ -4,21 +4,30 @@
          * Function For Create A Review
          * 
          * @param PDO $connection - Connection To The Database
-         * @param int $user_id - User ID
+         * @param int|null $user_id - User ID
          * @param int $rating - Rating
          * @param string $review - Review
          * 
          * @return bool
         **/
 
-        public function sendReview(PDO $connection, int $user_id, int $rating, string $review):bool {
-            $sql = "INSERT INTO reviews (user_id, rating, review, review_time)
-                    VALUES (:user_id, :rating, :review, CURRENT_TIMESTAMP)";
-
+        public function sendReview(PDO $connection, int $rating, string $review, ?int $user_id = null):bool {
             try {
-                $stmt = $connection->prepare($sql);
+                if($user_id === null) {
+                    $sql = "INSERT INTO reviews (user_id, rating, review, review_time)
+                            VALUES (null, :rating, :review, CURRENT_TIMESTAMP)";
 
-                $stmt->bindValue(":user_id", $user_id, PDO::PARAM_INT);
+                    $stmt = $connection->prepare($sql);
+                }
+
+                else {
+                    $sql = "INSERT INTO reviews (user_id, rating, review, review_time)
+                            VALUES (:user_id, :rating, :review, CURRENT_TIMESTAMP)";
+
+                    $stmt = $connection->prepare($sql);
+                    $stmt->bindValue(":user_id", $user_id, PDO::PARAM_INT);
+                }
+
                 $stmt->bindValue(":rating", $rating, PDO::PARAM_INT);
                 $stmt->bindValue(":review", $review, PDO::PARAM_STR);
 
@@ -225,7 +234,7 @@
                     $sql = "SELECT * FROM reviews
                             WHERE status = 'approved'
                             ORDER BY review_time DESC
-                            LIMIT :offset, :limit";
+                            LIMIT :limit OFFSET :offset";
 
                     $stmt = $connection->prepare($sql);
                 }
@@ -235,7 +244,7 @@
                             WHERE (user_id IS NULL OR user_id != :user_id)
                             AND status = 'approved'
                             ORDER BY review_time DESC
-                            LIMIT :offset, :limit";
+                            LIMIT :limit OFFSET :offset";
         
                     $stmt = $connection->prepare($sql);
                     $stmt->bindValue(":user_id", $user_id, PDO::PARAM_INT);

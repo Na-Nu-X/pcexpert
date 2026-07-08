@@ -50,4 +50,18 @@ document.addEventListener("DOMContentLoaded", function():void {
             form_report.classList.add("invalid") // Adds The Invalid Class To The Form Report Paragraph
         }
     })
+
+    // Remember Me
+
+    // Variables
+
+    const news:HTMLInputElement = login_form.querySelector(".agree .remember_me") as HTMLInputElement // Gets The Remember Me Input
+    const news_label:HTMLLabelElement = login_form.querySelector(".agree .remember_me_label") as HTMLLabelElement // Gets The Remember Me Label
+
+    // Events
+
+    // News Label Keydown Functionality
+    news_label.addEventListener("keydown", function(event:KeyboardEvent):void {
+        if(event.key === "Enter") news.checked = !news.checked // Inverts The News Input Check State
+    })
 })

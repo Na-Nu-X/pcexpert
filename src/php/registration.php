@@ -339,10 +339,10 @@
 
                 <div class="agree">
                     <input class="terms" type="checkbox" name="terms" id="terms" required>
-                    <label class="terms_label" for="terms">Súhlasím s podmienkami.</label><br>
+                    <label class="terms_label" for="terms" tabindex="0">Súhlasím s podmienkami.</label><br>
 
-                    <input type="checkbox" name="news" id="news" value="yes" checked>
-                    <label for="news">Súhlasím so zasielaním noviniek.</label>
+                    <input class="news" type="checkbox" name="news" id="news" value="yes" checked>
+                    <label class="news_label" for="news" tabindex="0">Súhlasím so zasielaním noviniek.</label>
                 </div>
 
                 <div class="grecaptcha_badge_container"></div>

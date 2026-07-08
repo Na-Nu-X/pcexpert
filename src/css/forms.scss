@@ -181,6 +181,12 @@ main {
                 }
             }
         }
+
+        .forgot_password {
+            p {
+                margin-bottom: 0px;
+            }
+        }
     }
 
     .login_form,
@@ -294,7 +300,7 @@ main {
                     left: 0px;
                     width: 14px;
                     height: 14px;
-                    outline: 1px solid $green-color;
+                    outline: 1px solid $green-color !important;
                     background: transparentize($secondary-color, 0.8);
                 }
         
@@ -344,6 +350,7 @@ main {
                 height: 14px;
                 outline: 1px solid darken($secondary-color, 20%);
                 background: transparentize($secondary-color, 0.8);
+                transition: outline 0.3s ease;
             }
         
             label {

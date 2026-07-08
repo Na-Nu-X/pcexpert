@@ -26,18 +26,25 @@
         <div class="review">
             <?php if($one_review["user_id"] !== null): ?>
                 <div class="reviewer">
-                    <img 
-                        class="profile_picture"
-                        src="
-                            <?php if(!empty($user_object->getUserInformation($connection, $one_review['user_id'], 'google_profile_picture_url')) and empty($user_object->getUserInformation($connection, $one_review['user_id'], 'profile_picture_name'))): ?>
-                                <?php echo $user_object->getUserInformation($connection, $one_review['user_id'], 'google_profile_picture_url'); ?>
+                    <?php if(!empty($user_object->getUserInformation($connection, $one_review['user_id'], 'profile_picture_name')) or !empty($user_object->getUserInformation($connection, $one_review['user_id'], 'google_profile_picture_url'))): ?>
+                        <img 
+                            class="profile_picture" 
+                            src="
+                                <?php if(!empty($user_object->getUserInformation($connection, $one_review['user_id'], 'google_profile_picture_url')) and empty($user_object->getUserInformation($connection, $one_review['user_id'], 'profile_picture_name'))): ?>
+                                    <?php echo $user_object->getUserInformation($connection, $user_id, 'google_profile_picture_url'); ?>
 
-                            <?php else: ?>
-                                /content/uploads/<?php echo $one_review['user_id']; ?>/<?php echo $user_object->getUserInformation($connection, $one_review['user_id'], 'profile_picture_name'); ?>
+                                <?php else: ?>
+                                    /content/uploads/<?php echo $user_id; ?>/<?php echo $user_object->getUserInformation($connection, $user_id, 'profile_picture_name'); ?>
 
-                            <?php endif; ?>
-                        "
-                    >
+                                <?php endif; ?>
+                            "
+                            alt="Môj účet"
+                        >
+
+                    <?php else: ?>
+                        <img class="profile_picture" src="/content/images/avatar.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_847969 -->
+
+                    <?php endif; ?>
 
                     <div class="user_info">
                         <p class="name">

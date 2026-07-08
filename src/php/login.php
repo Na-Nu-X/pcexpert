@@ -368,7 +368,7 @@
 
                 <div class="agree">
                     <input type="checkbox" class="remember_me" name="remember_me" id="remember_me" value="yes" checked>
-                    <label for="remember_me">Ostať prihlásený</label>
+                    <label class="remember_me_label" for="remember_me" tabindex="0">Ostať prihlásený</label>
                 </div>
             </form>
         </section>

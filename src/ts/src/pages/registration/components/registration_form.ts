@@ -122,7 +122,9 @@ document.addEventListener("DOMContentLoaded", function():void {
     const registration_form_submit:HTMLButtonElement = registration_form.querySelector(".registration_form_submit") as HTMLButtonElement // Gets The Registration Form Submit Button
     const agree:HTMLDivElement = registration_form.querySelector(".agree") as HTMLDivElement // Gets The Agree Container
     const terms:HTMLInputElement = agree.querySelector(".terms") as HTMLInputElement // Gets The Terms Input
-    const terms_label:HTMLLabelElement = document.querySelector(".terms_label") as HTMLLabelElement // Gets The Terms Label
+    const terms_label:HTMLLabelElement = agree.querySelector(".terms_label") as HTMLLabelElement // Gets The Terms Label
+    const news:HTMLInputElement = agree.querySelector(".news") as HTMLInputElement // Gets The News Input
+    const news_label:HTMLLabelElement = agree.querySelector(".news_label") as HTMLLabelElement // Gets The News Label
 
     // Events
 
@@ -132,7 +134,17 @@ document.addEventListener("DOMContentLoaded", function():void {
     })
 
     // Terms Input Functionality
-    terms.addEventListener("input", function():void {
+    terms.addEventListener("change", function():void {
         if(terms.checked) terms_label.style.color = "rgb(180, 180, 180)"
+    })
+
+    // Terms Label Keydown Functionality
+    terms_label.addEventListener("keydown", function(event:KeyboardEvent):void {
+        if(event.key === "Enter") terms.checked = !terms.checked // Inverts The Terms Input Check State
+    })
+
+    // News Label Keydown Functionality
+    news_label.addEventListener("keydown", function(event:KeyboardEvent):void {
+        if(event.key === "Enter") news.checked = !news.checked // Inverts The News Input Check State
     })
 })
