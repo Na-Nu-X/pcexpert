@@ -1,11 +1,11 @@
 <?php
     // PHP Code
 
-    require "../assets/functions.php";
-    require "../assets/admin_functions.php";
     require "../classes/Database.php";
+    require "../classes/Admin.php";
 
     $database_object = new Database(); // Initializes The Database Methods
+    $admin_object = new Admin(); // Initializes The Admin Methods
     
     $connection = $database_object->connectionDB(); // Connects To The DB
 
@@ -14,7 +14,7 @@
 ?>
 
 <?php if($_SERVER["REQUEST_METHOD"] === "POST"): ?>
-    <?php foreach(allUsers($connection, $user_id, $offset) as $one_user):  ?>
+    <?php foreach($admin_object->getAllUsers($connection, $user_id, $offset) as $one_user):  ?>
         <div class="user <?php echo $theme; ?>">
             <div class="basic_info">
                 <?php if(!empty($one_user["profile_picture_name"]) or !empty($one_user["google_profile_picture_url"])): ?>

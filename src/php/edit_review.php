@@ -1,11 +1,20 @@
 <?php
+    // Debug
+        
+    ini_set("display_errors", 1);
+    ini_set("display_startup_errors", 1);
+    error_reporting(E_ALL);
+
     // PHP Code
 
     require "../assets/functions.php";
-    require "../assets/reviews.php";
     require "../classes/Database.php";
+    require "../classes/User.php";
+    require "../classes/Review.php";
 
     $database_object = new Database(); // Initializes The Database Methods
+    $user_object = new User(); // Initializes The User Methods
+    $review_object = new Review(); // Initializes The Review Methods
     
     session_start();
 
@@ -30,7 +39,7 @@
 
     if($_SERVER["REQUEST_METHOD"] === "POST") {
         $current_time = time();
-        $last_edit = strtotime(userReview($connection, $_SESSION["logged_in_user_id"])["review_time"]);
+        $last_edit = strtotime($review_object->getUserReview($connection, $_SESSION["logged_in_user_id"])["review_time"]);
         $edit_cooldown = 60 * 60 * 24 * 30; // 30 Days
         $next_edit = date("j.n.Y", $last_edit + $edit_cooldown);
 
@@ -46,7 +55,7 @@
             $delete_review = isset($_POST["delete_review"]) ? "yes" : "no";
 
             if($delete_review === "yes") {
-                if(deleteReview($connection, $_SESSION["logged_in_user_id"])) {
+                if($review_object->deleteReview($connection, $_SESSION["logged_in_user_id"])) {
                     $_SESSION["red_report_message"] = "Recenzia&nbsp;bola&nbsp;odstránená";
 
                     redirectURL("/domov");
@@ -54,7 +63,7 @@
             }
 
             else if($delete_review === "no") {
-                if(updateReview($connection, $_SESSION["logged_in_user_id"], $rating, $review)) {
+                if($review_object->updateReview($connection, $_SESSION["logged_in_user_id"], $rating, $review)) {
                     redirectURL("/domov");
                 }
 
@@ -137,19 +146,19 @@
 
             <h2><a href="./upravit-recenziu">Recenzia</a></h2>
             
-            <?php if(userReview($connection, $user_id) !== null and userReview($connection, $user_id) !== false): ?>
+            <?php if($review_object->getUserReview($connection, $user_id) !== null and $review_object->getUserReview($connection, $user_id) !== false): ?>
                 <form class="edit_review_form" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
                     <div class="review_container">
                         <div class="user">
-                            <?php if(!empty(getProfilePictureName($connection, $_SESSION["logged_in_user_id"])) or !empty(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'))): ?>
+                            <?php if(!empty($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "profile_picture_name")) or !empty($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'))): ?>
                                 <img 
                                     class="profile_picture"
                                     src="
-                                        <?php if(!empty(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url')) and empty(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'profile_picture_name'))): ?>
-                                            <?php echo getUserInformations($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'); ?>
+                                        <?php if(!empty($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url')) and empty($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'profile_picture_name'))): ?>
+                                            <?php echo $user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'); ?>
     
                                         <?php else: ?>
-                                            /content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo getProfilePictureName($connection, $_SESSION['logged_in_user_id']); ?>
+                                            /content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo $user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'profile_picture_name'); ?>
     
                                         <?php endif; ?>
                                     "
@@ -162,15 +171,15 @@
                             <?php endif; ?>
     
                             <p class="name">
-                                <?php echo htmlspecialchars(getUserInformations($connection, $_SESSION["logged_in_user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
+                                <?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
     
-                                <?php echo htmlspecialchars(getUserInformations($connection, $_SESSION["logged_in_user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
+                                <?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
     
                                 -
     
-                                <?php echo htmlspecialchars(date("j.n.Y", strtotime(userReview($connection, $_SESSION["logged_in_user_id"])["review_time"])), ENT_QUOTES, "UTF-8"); ?>
+                                <?php echo htmlspecialchars(date("j.n.Y", strtotime($review_object->getUserReview($connection, $_SESSION["logged_in_user_id"])["review_time"])), ENT_QUOTES, "UTF-8"); ?>
     
-                                <?php if(userReview($connection, $_SESSION["logged_in_user_id"])["edited"] === "yes"): ?>
+                                <?php if($review_object->getUserReview($connection, $_SESSION["logged_in_user_id"])["edited"] === "yes"): ?>
                                     (upravená)
     
                                 <?php endif; ?>
@@ -181,7 +190,7 @@
                         
                         <div class="stars">
                             <?php for($i = 1; $i <= 5; $i++): ?>
-                                <?php if($i <= userReview($connection, $_SESSION["logged_in_user_id"])["rating"]): ?>
+                                <?php if($i <= $review_object->getUserReview($connection, $_SESSION["logged_in_user_id"])["rating"]): ?>
                                     <div class="star" data-rating="<?php echo $i; ?>">
                                         <i class="fa-solid fa-star"></i> <!-- https://fontawesome.com/icons/star -->
                                     </div>
@@ -195,13 +204,13 @@
 
                             <?php endfor; ?>
 
-                            <input class="rating" type="hidden" name="rating" value="<?php echo (int)userReview($connection, $_SESSION['logged_in_user_id'])['rating']; ?>">
+                            <input class="rating" type="hidden" name="rating" value="<?php echo (int)$review_object->getUserReview($connection, $_SESSION['logged_in_user_id'])['rating']; ?>">
                         </div>
                     </div>
 
                     <!-- Review -->
 
-                    <textarea type="textarea" name="review" placeholder="Zanechajte nám vaše hodnotenie" maxlength=200><?php echo userReview($connection, $_SESSION["logged_in_user_id"])["review"]; ?></textarea>
+                    <textarea type="textarea" name="review" placeholder="Zanechajte nám vaše hodnotenie" maxlength=200><?php echo $review_object->getUserReview($connection, $_SESSION["logged_in_user_id"])["review"]; ?></textarea>
 
                     <p class="form_report valid"></p>
 

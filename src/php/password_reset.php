@@ -1,10 +1,18 @@
 <?php
+    // Debug
+    
+	ini_set("display_errors", 1);
+	ini_set("display_startup_errors", 1);
+	error_reporting(E_ALL);
+
     // PHP Code
 
     require "../assets/functions.php";
     require "../classes/Database.php";
+    require "../classes/User.php";
 
     $database_object = new Database(); // Initializes The Database Methods
+    $user_object = new User(); // Initializes The User Methods
     
     session_start();
 
@@ -33,17 +41,16 @@
             die("CSRF Token nie je platný.");
         }
 
-        $user_id = $_SESSION["logged_in_user_id"] ?? getUserId($connection, $_COOKIE["email_address"]);
+        $user_id = $_SESSION["logged_in_user_id"] ?? $user_object->getUserId($connection, $_COOKIE["email_address"]);
 
-        $password_reset_code_database = getUserInformations($connection, $user_id, "password_reset_code");
+        $password_reset_code_database = $user_object->getUserInformation($connection, $user_id, "password_reset_code");
         $password_reset_code = (int)$_POST["password_reset_code"];
 
         if($password_reset_code_database === $password_reset_code) {
             $new_password = password_hash($_POST["new_password"], PASSWORD_DEFAULT);
-
-            updatePassword($connection, $user_id, $new_password);
-
-            deletePasswordResetCode($connection, $user_id);
+            
+            $user_object->updatePassword($connection, $user_id, $new_password);
+            $user_object->deletePasswordResetCode($connection, $user_id);
 
             if(isset($_COOKIE["password_reset_code_timer"])) {
                 unset($_COOKIE["password_reset_code_timer"]);

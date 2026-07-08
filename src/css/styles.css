@@ -252,6 +252,9 @@ header {
   transform: scale(1.1);
   cursor: pointer;
 }
+.account ul li {
+  list-style-type: none;
+}
 
 .profile_picture {
   width: 40px;

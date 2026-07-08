@@ -1,11 +1,19 @@
 <?php
+    // Debug
+        
+    ini_set("display_errors", 1);
+    ini_set("display_startup_errors", 1);
+    error_reporting(E_ALL);
+
     // PHP Code
 
-    require "../assets/functions.php";
-    require "../assets/reviews.php";
     require "../classes/Database.php";
+    require "../classes/User.php";
+    require "../classes/Review.php";
 
     $database_object = new Database(); // Initializes The Database Methods
+    $user_object = new User(); // Initializes The User Methods
+    $review_object = new Review(); // Initializes The Review Methods
 
     $connection = $database_object->connectionDB(); // Connects To The DB
 
@@ -14,18 +22,18 @@
 ?>
 
 <?php if($_SERVER["REQUEST_METHOD"] === "POST"): ?>
-    <?php foreach(allReviews($connection, $user_id, $offset) as $one_review): ?>
+    <?php foreach($review_object->getAllReviews($connection, $user_id, $offset) as $one_review): ?>
         <div class="review">
             <?php if($one_review["user_id"] !== null): ?>
                 <div class="reviewer">
                     <img 
                         class="profile_picture"
                         src="
-                            <?php if(!empty(getUserInformations($connection, $one_review['user_id'], 'google_profile_picture_url')) and empty(getUserInformations($connection, $one_review['user_id'], 'profile_picture_name'))): ?>
-                                <?php echo getUserInformations($connection, $one_review['user_id'], 'google_profile_picture_url'); ?>
+                            <?php if(!empty($user_object->getUserInformation($connection, $one_review['user_id'], 'google_profile_picture_url')) and empty($user_object->getUserInformation($connection, $one_review['user_id'], 'profile_picture_name'))): ?>
+                                <?php echo $user_object->getUserInformation($connection, $one_review['user_id'], 'google_profile_picture_url'); ?>
 
                             <?php else: ?>
-                                /content/uploads/<?php echo $one_review['user_id']; ?>/<?php echo getProfilePictureName($connection, $one_review['user_id']); ?>
+                                /content/uploads/<?php echo $one_review['user_id']; ?>/<?php echo $user_object->getUserInformation($connection, $one_review['user_id'], 'profile_picture_name'); ?>
 
                             <?php endif; ?>
                         "
@@ -33,8 +41,8 @@
 
                     <div class="user_info">
                         <p class="name">
-                            <?php echo htmlspecialchars(getUserInformations($connection, $one_review["user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
-                            <?php echo htmlspecialchars(getUserInformations($connection, $one_review["user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
+                            <?php echo htmlspecialchars($user_object->getUserInformation($connection, $one_review["user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
+                            <?php echo htmlspecialchars($user_object->getUserInformation($connection, $one_review["user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
                         </p>
 
                         <p class="date">

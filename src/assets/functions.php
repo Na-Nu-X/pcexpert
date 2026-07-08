@@ -1,26 +1,14 @@
 <?php
-    // Function for Connecting to Database
+    /**
+     * Function For Redirect URL
+     * 
+     * @param string $path - Path
+     * 
+     * @return void
+    **/
 
-    function connectionDB() {
-        $db_host = "127.0.0.1";
-        $db_user = "pc_expert_admin";
-        $db_password = "Ac7}l|szo98=pK-5-g?R";
-        $db_name = "pc_expert";
-        
-        $connection = mysqli_connect($db_host, $db_user, $db_password, $db_name);
-        
-        if (mysqli_connect_error()){
-            echo mysqli_connect_error();
-            exit;
-        }
-
-        return $connection;
-    }
-
-    // Function for Changing Current URL Address
-
-    function redirectURL($path) {
-        if (isset($_SERVER["HTTPS"]) and $_SERVER["HTTPS"] != "off") {
+    function redirectURL(string $path):void {
+        if(isset($_SERVER["HTTPS"]) and $_SERVER["HTTPS"] != "off") {
             $url_protocol = "https";
         }
         
@@ -32,301 +20,23 @@
         exit;
     }
 
-    function updateUser($connection, $id, $first_name, $last_name, $email_address, $phone_number, $profile_picture_name) {
-        $sql = "UPDATE users 
-                SET first_name = ?, last_name = ?, email_address = ?, phone_number = ?, profile_picture_name = ?, last_edit = NOW()
-                WHERE id = ?";
-
-        $stmt = mysqli_prepare($connection, $sql);
-
-        if($stmt) {
-            mysqli_stmt_bind_param($stmt, "sssssi", $first_name, $last_name, $email_address, $phone_number, $profile_picture_name, $id);
-
-            if(mysqli_stmt_execute($stmt)) {
-                return true;
-            }
-
-            else {
-                return false;
-            }
-        }
-
-        else {
-            echo mysqli_error($connection);
-        }
-    }
-
-    function updatePassword($connection, $id, $password) {
-        $sql = "UPDATE users 
-                SET password = ?
-                WHERE id = ?";
-
-        $stmt = mysqli_prepare($connection, $sql);
-
-        if($stmt) {
-            mysqli_stmt_bind_param($stmt, "si", $password, $id);
-
-            if(mysqli_stmt_execute($stmt)) {
-                return true;
-            }
-
-            else {
-                return false;
-            }
-        }
-
-        else {
-            echo mysqli_error($connection);
-        }
-    }
-
     /**
-     * Function For Check If User Is Logged In.
+     * Function For Check If User Is Logged In
      * 
-     * @return boolean true - If User Is Logged In, Else False.
+     * @return bool
     **/
 
-    function isLoggedIn() {
+    function isLoggedIn():bool {
         return isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"];
     }
 
-
     /**
-     * Ověření uživatele pomocí emailu a hesla
-     *
-     *
-     * @param object $connection - připojení do databáze
-     * @param string $log_email - email z formuláře pro přihlášení
-     * @param string $log_password - heslo z formuláře pro přihlášení
-     *
-     * @return boolean true - pokud je přihlášení úspěšné, false - pokud je neúspěšné
-     *
-     */
+     * Function For Delete Current Logged In Session
+     * 
+     * @return void
+    **/
 
-    function authentication($connection, $email_address, $password) {
-        $sql = "SELECT password
-                FROM users
-                WHERE email_address = ?";
-    
-        $stmt = mysqli_prepare($connection, $sql);
-
-        if($stmt){
-            mysqli_stmt_bind_param($stmt, "s", $email_address);
-
-
-            if (mysqli_stmt_execute($stmt)){
-                $result = mysqli_stmt_get_result($stmt);
-
-                if($result->num_rows != 0){
-                    $password_database = mysqli_fetch_row($result);
-                    $user_password_database = $password_database[0];
-
-
-                    if($user_password_database) {
-                        return password_verify($password, $user_password_database);
-                    }
-                }
-            }
-        }
-        
-        else {
-            echo mysqli_error($connection);
-        }
-    }
-
-    function passwordAuthenticationWithId($connection, $id, $password) {
-        $sql = "SELECT password
-                FROM users
-                WHERE id = ?";
-    
-        $stmt = mysqli_prepare($connection, $sql);
-
-        if($stmt){
-            mysqli_stmt_bind_param($stmt, "i", $id);
-
-
-            if (mysqli_stmt_execute($stmt)){
-                $result = mysqli_stmt_get_result($stmt);
-
-                if($result->num_rows != 0){
-                    $password_database = mysqli_fetch_row($result);
-                    $user_password_database = $password_database[0];
-
-
-                    if($user_password_database) {
-                        return password_verify($password, $user_password_database);
-                    }
-                }
-            }
-        }
-        
-        else {
-            echo mysqli_error($connection);
-        }
-
-        return false;
-    }
-
-    /**
-     *
-     * Získání ID uživatele
-     *
-     * @param object $connection - připojení do databáze
-     * @param string $email - email uživatele
-     *
-     * @return int id uživatele
-     *
-     */
-
-    function getUserId($connection, $email_address) {
-        $sql = "SELECT id 
-                FROM users
-                WHERE email_address = ?";
-
-        $stmt = mysqli_prepare($connection, $sql);
-
-        if($stmt) {
-            mysqli_stmt_bind_param($stmt, "s", $email_address);
-
-            if(mysqli_stmt_execute($stmt)) {
-                $result = mysqli_stmt_get_result($stmt);
-                $id_database = mysqli_fetch_row($result); // pole
-
-                if(empty($id_database)) {
-                    return false;
-                }
-
-                else {
-                    $user_id = $id_database[0];
-                    
-                    return $user_id;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    function getUserName($connection, $id) {
-        $sql = "SELECT first_name, last_name
-                FROM users
-                WHERE id = ?";
-
-        $stmt = mysqli_prepare($connection, $sql);
-
-        if($stmt) {
-            mysqli_stmt_bind_param($stmt, "i", $id);
-
-            if(mysqli_stmt_execute($stmt)) {
-                $result = mysqli_stmt_get_result($stmt);
-                $name_database = mysqli_fetch_row($result);
-
-                if($name_database) {
-                    return $name_database[0] . " " . $name_database[1];
-                }
-
-                else {
-                    return null;
-                }
-            }
-        }
-
-        else {
-            echo mysqli_error($connection);
-        }
-    }
-
-    function getUserInformations($connection, $id, $database_field) {
-        $not_allowed_fields = ["id", "password", "news", "remember_me_token"];
-
-        if(in_array($database_field, $not_allowed_fields)) {
-            echo "K týmto informáciam nie je možný prístup.";
-        }
-
-        else {
-            $sql = "SELECT $database_field
-            FROM users
-            WHERE id = ?";
-
-            $stmt = mysqli_prepare($connection, $sql);
-
-            if($stmt) {
-                mysqli_stmt_bind_param($stmt, "i", $id);
-
-                if(mysqli_stmt_execute($stmt)) {
-                    return mysqli_fetch_column(mysqli_stmt_get_result($stmt));
-                }
-            }
-
-            return null;
-        }
-    }
-
-    function emailAuthentication($connection, $email_address) {
-        $sql = "SELECT email_address
-                FROM users
-                WHERE email_address = ?";
-
-        $stmt = mysqli_prepare($connection, $sql);
-
-        if($stmt) {
-            mysqli_stmt_bind_param($stmt, "s", $email_address);
-
-            if(mysqli_stmt_execute($stmt)) {
-                return mysqli_fetch_column(mysqli_stmt_get_result($stmt));
-            }
-        }
-
-        return null;
-    }
-
-    function passwordAuthentication($connection, $password) {
-        $sql = "SELECT password
-                FROM users
-                WHERE password = ?";
-        
-        $stmt = mysqli_prepare($connection, $sql);
-
-        if($stmt) {
-            mysqli_stmt_bind_param($stmt, "s", $password);
-
-            if(mysqli_stmt_execute($stmt)) {
-
-                return password_verify($password, mysqli_fetch_column(mysqli_stmt_get_result($stmt)));
-                // return mysqli_fetch_column(mysqli_stmt_get_result($stmt));
-            }
-        }
-
-        else {
-            echo mysqli_error($connection);
-        }
-    }
-
-    function deleteUser($connection, $id) {
-        $sql = "DELETE
-                FROM users
-                WHERE id = ?";
-
-        $stmt = mysqli_prepare($connection, $sql);
-
-        if($stmt) {
-            mysqli_stmt_bind_param($stmt, "i", $id);
-
-            if(mysqli_stmt_execute($stmt)) {
-                return true;
-            }
-
-            else {
-                return false;
-            }
-        }
-
-        else {
-            echo mysqli_error($connection);
-        }
-    }
-
-    function deleteSession() {
+    function deleteSession():void {
         session_start();
 
         $_SESSION = array();
@@ -342,220 +52,17 @@
         session_destroy();
     }
 
-    function insertRememberMeToken($connection, $id, $remember_me_token) {
-        $sql = "UPDATE users
-                SET remember_me_token = ?
-                WHERE id = ?";
+    /**
+     * Function For Save Error
+     * 
+     * @param PDO $connection - Connection To The Database
+     * @param string $message - Message
+     * @param string $file_directory - File Directory
+     * 
+     * @return bool
+    **/
 
-        $stmt = mysqli_prepare($connection, $sql);
-
-        if($stmt) {
-            $hashed_remember_me_token = password_hash($remember_me_token, PASSWORD_DEFAULT);
-
-            mysqli_stmt_bind_param($stmt, "si", $hashed_remember_me_token, $id);
-            mysqli_stmt_execute($stmt);
-        }
-
-        else {
-            echo mysqli_error($connection);
-        }
-    }
-
-    function getUserIdByRememberMeToken($connection, $remember_me_token_cookie) {
-        $sql = "SELECT id, remember_me_token 
-                FROM users 
-                WHERE remember_me_token IS NOT NULL";
-
-        $stmt = mysqli_prepare($connection, $sql);
-
-        if($stmt) {
-            if(mysqli_stmt_execute($stmt)) {
-                $result = mysqli_stmt_get_result($stmt);
-
-                while($row = mysqli_fetch_assoc($result)) {
-                    $id = $row["id"];
-                    $remember_me_token_database = $row["remember_me_token"];
-
-                    if(password_verify($remember_me_token_cookie, $remember_me_token_database)) {
-                        return $id;
-                    }
-                }
-            }
-        } 
-        
-        else {
-            echo mysqli_error($connection);
-        }
-
-        return false;
-    }
-
-    function getUserRole($connection, $id) {
-        $sql = "SELECT role
-                FROM users
-                WHERE id = ?";
-
-        $stmt = mysqli_prepare($connection, $sql);
-
-        if($stmt) {
-            mysqli_stmt_bind_param($stmt, "i", $id);
-
-            if(mysqli_stmt_execute($stmt)) {
-                $result = mysqli_stmt_get_result($stmt);
-                $role_database = mysqli_fetch_row($result); // pole
-                $user_role = $role_database[0];
-
-                return $user_role;
-            }
-        }
-
-        else {
-            echo mysqli_error($connection);
-        }
-    }
-
-    function insertProfilePicture($connection, $id, $image_name) {
-        $sql = "UPDATE users
-                SET profile_picture_name = ?
-                WHERE id = ?";
-
-        $stmt = mysqli_prepare($connection, $sql);
-
-        if($stmt === false) {
-            echo mysqli_error($connection);
-        }
-
-        else {
-            mysqli_stmt_bind_param($stmt, "si", $image_name, $id);
-
-            if(mysqli_stmt_execute($stmt)) {
-                return true;
-            }
-        }
-    }
-
-    function deleteProfilePicture($connection, $id) {
-        $sql = "UPDATE users
-                SET profile_picture_name = ''
-                WHERE id = ?";
-
-        $stmt = mysqli_prepare($connection, $sql);
-
-        if($stmt === false) {
-            echo mysqli_error($connection);
-            return false;
-        }
-
-        else {
-            mysqli_stmt_bind_param($stmt, "i", $id);
-
-            if(mysqli_stmt_execute($stmt)) {
-                return true;
-            }
-
-            else {
-                return false;
-            }
-        }
-    }
-
-    function getProfilePictureName($connection, $id) {
-        $sql = "SELECT profile_picture_name
-                FROM users
-                WHERE id = ?";
-
-        $stmt = mysqli_prepare($connection, $sql);
-
-        if($stmt) {
-            mysqli_stmt_bind_param($stmt, "i", $id);
-
-            if(mysqli_stmt_execute($stmt)) {
-                $result = mysqli_stmt_get_result($stmt);
-                $profile_picture_name_database = mysqli_fetch_row($result); // pole
-                $user_profile_picture_name = $profile_picture_name_database[0];
-
-                return $user_profile_picture_name;
-            }
-        }
-
-        else {
-            echo mysqli_error($connection);
-        }
-    }
-
-    function sendReview($connection, $user_id, $rating, $review) {
-        $sql = "INSERT INTO reviews (user_id, rating, review, review_time)
-                VALUES (?, ?, ?, CURRENT_TIMESTAMP)";
-
-        $stmt = mysqli_prepare($connection, $sql);
-
-        if($stmt === false) {
-            echo mysqli_error($connection);
-        }
-
-        else {
-            mysqli_stmt_bind_param($stmt, "iis", $user_id, $rating, $review);
-
-            if(mysqli_stmt_execute($stmt)) {
-                return true;
-            }
-
-            else {
-                return false;
-            }
-        }
-    }
-
-    function averageRating($connection) {
-        $sql = "SELECT AVG(rating)
-                AS average_rating
-                FROM reviews
-                WHERE status = 'approved'";
-        
-        $stmt = mysqli_prepare($connection, $sql);
-
-        if($stmt) {
-            if(mysqli_stmt_execute($stmt)) {
-                $result = mysqli_stmt_get_result($stmt);
-
-                if($row = mysqli_fetch_assoc($result)) {
-                    return round($row["average_rating"], 1);
-                }
-            }
-        }
-
-        else {
-            echo mysqli_error($connection);
-        }
-
-        return false;
-    }
-
-    function updateReview($connection, $user_id, $rating, $review) {
-        $sql = "UPDATE reviews 
-                SET rating = ?, review = ?, edited = 'yes', status = 'pending', last_edit = NOW()
-                WHERE user_id = ?";
-
-        $stmt = mysqli_prepare($connection, $sql);
-
-        if($stmt) {
-            mysqli_stmt_bind_param($stmt, "isi", $rating, $review, $user_id);
-
-            if(mysqli_stmt_execute($stmt)) {
-                return true;
-            }
-
-            else {
-                return false;
-            }
-        }
-
-        else {
-            echo mysqli_error($connection);
-        }
-    }
-
-    function errorLogSave($connection, $message, $file_directory) {
+    function errorLogSave(PDO $connection, string $message, string $file_directory):bool {
         // Data
 
         $error_time = date("Y-m-d H:i:s");
@@ -570,14 +77,29 @@
         // Error Log Database
 
         $sql = "INSERT INTO errors (error_time, message, user_id, ip_address, referer, request_method, user_agent, server_ip, post_data)
-                VALUES (CURRENT_TIMESTAMP, ?, ?, ?, ?, ?, ?, ?, ?)";
+                VALUES (CURRENT_TIMESTAMP, :message, :user_id, :ip_address, :referer, :request_method, :user_agent, :server_ip, :post_data)";
 
-        $stmt = mysqli_prepare($connection, $sql);
+        try {
+            $stmt = $connection->prepare($sql);
 
-        if($stmt) {
-            mysqli_stmt_bind_param($stmt, "sissssss", $message, $user_id, $ip_address, $referer, $request_method, $user_agent, $server_ip, $post_data);
+            $stmt->bindValue(":message", $message, PDO::PARAM_STR);
 
-            if(mysqli_stmt_execute($stmt)) {
+            if($user_id === "unknown") {
+                $stmt->bindValue(":user_id", null, PDO::PARAM_STR);
+            } 
+            
+            else {
+                $stmt->bindValue(":user_id", $user_id, PDO::PARAM_INT);
+            }
+
+            $stmt->bindValue(":ip_address", $ip_address, PDO::PARAM_STR);
+            $stmt->bindValue(":referer", $referer, PDO::PARAM_STR);
+            $stmt->bindValue(":request_method", $request_method, PDO::PARAM_STR);
+            $stmt->bindValue(":user_agent", $user_agent, PDO::PARAM_STR);
+            $stmt->bindValue(":server_ip", $server_ip, PDO::PARAM_STR);
+            $stmt->bindValue(":post_data", $post_data, PDO::PARAM_STR);
+
+            if($stmt->execute()) {
                 // Error Log File
 
                 $generated_message = 
@@ -597,53 +119,13 @@
 
                 return true;
             }
-        }
+        } 
 
-        return false;
-    }
-
-    function insertPasswordResetCode($connection, $user_id, $password_reset_code) {
-        $sql = "UPDATE users 
-                SET password_reset_code = ? 
-                WHERE id = ?";
-
-        $stmt = mysqli_prepare($connection, $sql);
-
-        if($stmt === false) {
-            echo mysqli_error($connection);
-        }
-
-        else {
-            mysqli_stmt_bind_param($stmt, "ii", $password_reset_code, $user_id);
-
-            mysqli_stmt_execute($stmt);
-            
-            return true;
-        }
-    }
-
-    function deletePasswordResetCode($connection, $user_id) {
-        $sql = "UPDATE users
-                SET password_reset_code = null
-                WHERE id = ?";
-
-        $stmt = mysqli_prepare($connection, $sql);
-
-        if($stmt === false) {
-            echo mysqli_error($connection);
+        catch(PDOException $e) {
+            error_log("Chyba pri ukladaní chyby: " . $e->getMessage() . "\n", 3, "../errors/error.log");
             return false;
         }
 
-        else {
-            mysqli_stmt_bind_param($stmt, "i", $user_id);
-
-            if(mysqli_stmt_execute($stmt)) {
-                return true;
-            }
-
-            else {
-                return false;
-            }
-        }
+        return false;
     }
 ?>

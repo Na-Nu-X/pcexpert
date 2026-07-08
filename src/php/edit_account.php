@@ -1,10 +1,18 @@
 <?php
+    // Debug
+        
+    ini_set("display_errors", 1);
+    ini_set("display_startup_errors", 1);
+    error_reporting(E_ALL);
+
     // PHP Code
 
     require "../assets/functions.php";
     require "../classes/Database.php";
+    require "../classes/User.php";
 
     $database_object = new Database(); // Initializes The Database Methods
+    $user_object = new User(); // Initializes The User Methods
     
     session_start();
 
@@ -45,12 +53,12 @@
 
         $password_reset_code = (int)implode($password_reset_code_array); // Integer
 
-        insertPasswordResetCode($connection, $_SESSION["logged_in_user_id"], $password_reset_code);
+        $user_object->setPasswordResetCode($connection, $_SESSION["logged_in_user_id"], $password_reset_code);
 
         // Send Code To User's Email
 
-        $user_email_address = getUserInformations($connection, $_SESSION["logged_in_user_id"], "email_address");
-        $user_password_reset_code = getUserInformations($connection, $_SESSION["logged_in_user_id"], "password_reset_code");
+        $user_email_address = $user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "email_address");
+        $user_password_reset_code = $user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "password_reset_code");
 
         $mail = new PHPMailer(true);
 
@@ -101,7 +109,7 @@
 
     if($_SERVER["REQUEST_METHOD"] === "POST") {
         $current_time = time();
-        $last_edit = strtotime(getUserInformations($connection, $_SESSION["logged_in_user_id"], "last_edit"));
+        $last_edit = strtotime($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "last_edit"));
         $edit_cooldown = 60 * 60 * 24 * 30; // 30 Days
         $next_edit = date("j.n.Y", $last_edit + $edit_cooldown);
 
@@ -119,7 +127,7 @@
             $image_tmp_name = $_FILES["profile_picture"]["tmp_name"];
             $image_size = $_FILES["profile_picture"]["size"];
             $image_error = $_FILES["profile_picture"]["error"];
-            $new_image_name = getProfilePictureName($connection, $id);
+            $new_image_name = $user_object->getUserInformation($connection, $id, "profile_picture_name");
             $delete_profile_picture = isset($_POST["delete_profile_picture"]) ? "yes" : "no";
 
             $first_name = $_POST["first_name"];
@@ -132,7 +140,7 @@
             $delete_account = isset($_POST["delete_account"]) ? "yes" : "no";
 
             if($delete_account === "yes") {
-                if(passwordAuthenticationWithId($connection, $id, $current_password)) {
+                if($user_object->passwordAuthenticationById($connection, $id, $current_password)) {
                     if(deleteUser($connection, $id)) {
                         $old_image_upload_path = "../../content/uploads/" . $id . "/" . $new_image_name;
                         if(file_exists($old_image_upload_path)) {
@@ -159,7 +167,7 @@
 
             else if($delete_account === "no") {
                 if($delete_profile_picture === "yes") {
-                    if(deleteProfilePicture($connection, $id) === true) {
+                    if($user_object->deleteProfilePicture($connection, $id) === true) {
                         $old_image_upload_path = "../../content/uploads/" . $id . "/" . $new_image_name;
                         if(file_exists($old_image_upload_path)) {
                             unlink($old_image_upload_path);
@@ -173,7 +181,7 @@
                     }
                 }
 
-                if(!empty(emailAuthentication($connection, $email_address)) and emailAuthentication($connection, $email_address) !== getUserInformations($connection, $id, 'email_address')) {
+                if(!empty($user_object->emailAuthentication($connection, $email_address)) and $user_object->emailAuthentication($connection, $email_address) !== $user_object->getUserInformation($connection, $id, 'email_address')) {
                     $message = "Tento email už je zaregistrovaný.";
                 }
 
@@ -210,7 +218,7 @@
                 }
 
                 if(empty($message)) {
-                    if(updateUser($connection, $id, $first_name, $last_name, $email_address, $phone_number, $new_image_name) === true) {
+                    if($user_object->updateUser($connection, $id, $first_name, $last_name, $email_address, $phone_number, $new_image_name) === true) {
                         $_SESSION["green_report_message"] = "Zmeny&nbsp;boli&nbsp;uložené";
                     } 
                     
@@ -219,8 +227,8 @@
                     }
 
                     if(!empty($current_password) and !empty($_POST["new_password"])) {
-                        if(passwordAuthenticationWithId($connection, $id, $current_password)) {
-                            updatePassword($connection, $id, $new_password);
+                        if($user_object->passwordAuthenticationById($connection, $id, $current_password)) {
+                            $user_object->updatePassword($connection, $id, $new_password);
                         } 
                         
                         else {
@@ -325,24 +333,24 @@
                     <div class="profile_picture_container">
                         <h3>Profilový obrázok</h3>
 
-                        <?php if(!empty(getProfilePictureName($connection, $_SESSION["logged_in_user_id"])) or !empty(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'))): ?>
+                        <?php if(!empty($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "profile_picture_name")) or !empty($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'))): ?>
                             <label for="profile_picture">
                                 <img 
                                     class="profile_picture" 
                                     title="Zmeniť profilový obrázok" 
                                     src="
-                                        <?php if(!empty(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url')) and empty(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'profile_picture_name'))): ?>
-                                            <?php echo getUserInformations($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'); ?>
+                                        <?php if(!empty($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url')) and empty($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'profile_picture_name'))): ?>
+                                            <?php echo $user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'); ?>
 
                                         <?php else: ?>
-                                            /content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo getProfilePictureName($connection, $_SESSION['logged_in_user_id']); ?>
+                                            /content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo $user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'profile_picture_name'); ?>
 
                                         <?php endif; ?>
                                     "
                                     alt="Zmeniť profilový obrázok"
                                 >
 
-                                <?php if(!empty(getUserInformations($connection, $_SESSION["logged_in_user_id"], "google_id"))): ?>
+                                <?php if(!empty($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "google_id"))): ?>
                                     <img class="google_profile_picture_frame" src="/content/images/google.png" alt="Google"> <!-- https://www.flaticon.com/free-icon/search_281764 -->
 
                                 <?php endif; ?>
@@ -376,7 +384,7 @@
                             name="first_name"
                             placeholder="Zadajte vaše meno"
                             autocomplete="given-name"
-                            value="<?php echo htmlspecialchars(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'first_name'), ENT_QUOTES, 'UTF-8'); ?>"
+                            value="<?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'first_name'), ENT_QUOTES, 'UTF-8'); ?>"
                         >
 
                         <input
@@ -384,7 +392,7 @@
                             name="last_name"
                             placeholder="Zadajte vaše priezvisko"
                             autocomplete="family-name"
-                            value="<?php echo htmlspecialchars(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'last_name'), ENT_QUOTES, 'UTF-8'); ?>"
+                            value="<?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'last_name'), ENT_QUOTES, 'UTF-8'); ?>"
                         >
                     </div>
 
@@ -396,7 +404,7 @@
                             name="email_address"
                             placeholder="Zadajte váš e-mail"
                             autocomplete="email"
-                            value="<?php echo htmlspecialchars(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'email_address'), ENT_QUOTES, 'UTF-8'); ?>"
+                            value="<?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'email_address'), ENT_QUOTES, 'UTF-8'); ?>"
                         >
                     </div>
 
@@ -408,11 +416,11 @@
                             name="phone_number"
                             placeholder="Zadajte vaše telefónne číslo"
                             autocomplete="tel"
-                            value="<?php echo htmlspecialchars(getUserInformations($connection, $_SESSION['logged_in_user_id'], 'phone_number'), ENT_QUOTES, 'UTF-8'); ?>"
+                            value="<?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'phone_number'), ENT_QUOTES, 'UTF-8'); ?>"
                         >
                     </div>
 
-                    <?php if(empty(getUserInformations($connection, $_SESSION["logged_in_user_id"], "google_id"))): ?>
+                    <?php if(empty($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "google_id"))): ?>
                         <div class="current_password_container">
                             <input class="current_password" type="text" name="current_password" placeholder="Zadajte vaše heslo" autocomplete="off">
                         </div>

@@ -8,7 +8,6 @@
     // PHP Code
 
     require "../assets/functions.php";
-    require "../assets/google_account_functions.php";
     require "../classes/Database.php";
     require "../classes/User.php";
     require "../classes/GoogleUser.php";

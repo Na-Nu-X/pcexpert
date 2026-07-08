@@ -68,6 +68,32 @@
         }
 
         /**
+         * Function For Delete A Review
+         * 
+         * @param PDO $connection - Connection To The Database
+         * @param int $user_id - User ID
+         * 
+         * @return bool
+        **/
+
+        public function deleteReview(PDO $connection, int $user_id):bool {
+            $sql = "DELETE
+                    FROM reviews
+                    WHERE user_id = :user_id";
+
+            try {
+                $stmt = $connection->prepare($sql);
+                $stmt->bindValue(":user_id", $user_id, PDO::PARAM_INT);
+                return $stmt->execute();
+            }
+
+            catch(PDOException $e) {
+                error_log("Chyba pri odstraňovaní recenzie: " . $e->getMessage() . "\n", 3, "../errors/error.log");
+                return false;
+            }
+        }
+
+        /**
          * Function For Get The Average Rating
          * 
          * @param PDO $connection - Connection To The Database
@@ -155,7 +181,7 @@
          * @return array|null
         **/
 
-        public function userReview(PDO $connection, ?int $user_id = null):?array {
+        public function getUserReview(PDO $connection, ?int $user_id = null):?array {
             try {
                 if($user_id === null) {
                     return null;
@@ -193,7 +219,7 @@
          * @return array|null
         **/
 
-        public function allReviews($connection, ?int $user_id = null, ?int $offset = 0, ?int $limit = 5):?array {
+        public function getAllReviews($connection, ?int $user_id = null, ?int $offset = 0, ?int $limit = 5):?array {
             try {
                 if($user_id === null) {
                     $sql = "SELECT * FROM reviews

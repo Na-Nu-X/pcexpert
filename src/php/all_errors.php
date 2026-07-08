@@ -1,11 +1,11 @@
 <?php
     // PHP Code
 
-    require "../assets/functions.php";
-    require "../assets/admin_functions.php";
     require "../classes/Database.php";
+    require "../classes/Admin.php";
 
     $database_object = new Database(); // Initializes The Database Methods
+    $admin_object = new Admin(); // Initializes The Admin Methods
     
     $connection = $database_object->connectionDB(); // Connects To The DB
 
@@ -13,7 +13,7 @@
 ?>
 
 <?php if($_SERVER["REQUEST_METHOD"] === "POST"): ?>
-    <?php foreach(getErrorLog($connection, $offset) as $one_error): ?>
+    <?php foreach($admin_object->getErrorLog($connection, $offset) as $one_error): ?>
         <div class="error" data-error_id="<?php echo htmlspecialchars($one_error['error_id'], ENT_QUOTES, 'UTF-8'); ?>">
             <p>
                 <strong>[<?php echo htmlspecialchars($one_error["error_time"], ENT_QUOTES, "UTF-8"); ?>]</strong> - 

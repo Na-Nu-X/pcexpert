@@ -8,7 +8,6 @@
     // PHP Code
 
     require "../assets/functions.php";
-    require "../assets/reviews.php";
     require "../classes/Database.php";
     require "../classes/User.php";
     require "../classes/Review.php";
@@ -718,9 +717,9 @@
                 <div class="user_review">
                     <h3>Moja recenzia</h3>
                     
-                    <?php if($review_object->userReview($connection, $user_id) !== null and $review_object->userReview($connection, $user_id) !== false): ?>
+                    <?php if($review_object->getUserReview($connection, $user_id) !== null and $review_object->getUserReview($connection, $user_id) !== false): ?>
                         <div class="review">
-                            <?php if($review_object->userReview($connection, $user_id)["status"] === "pending"): ?>
+                            <?php if($review_object->getUserReview($connection, $user_id)["status"] === "pending"): ?>
                                 <p class="pending_review">Vaša recenzia čaká na kontrolu</p>
 
                             <?php endif; ?>
@@ -729,11 +728,11 @@
                                 <img
                                     class="profile_picture"
                                     src="
-                                        <?php if(!empty($user_object->getUserInformation($connection, $review_object->userReview($connection, $user_id)['user_id'], 'google_profile_picture_url')) and empty($user_object->getUserInformation($connection, userReview($connection, $user_id)['user_id'], 'profile_picture_name'))): ?>
-                                            <?php echo $user_object->getUserInformation($connection, $review_object->userReview($connection, $user_id)['user_id'], 'google_profile_picture_url'); ?>
+                                        <?php if(!empty($user_object->getUserInformation($connection, $review_object->getUserReview($connection, $user_id)['user_id'], 'google_profile_picture_url')) and empty($user_object->getUserInformation($connection, userReview($connection, $user_id)['user_id'], 'profile_picture_name'))): ?>
+                                            <?php echo $user_object->getUserInformation($connection, $review_object->getUserReview($connection, $user_id)['user_id'], 'google_profile_picture_url'); ?>
 
                                         <?php else: ?>
-                                            /content/uploads/<?php echo $review_object->userReview($connection, $user_id)['user_id']; ?>/<?php echo $user_object->getUserInformation($connection, $review_object->userReview($connection, $user_id)['user_id'], 'profile_picture_name'); ?>
+                                            /content/uploads/<?php echo $review_object->getUserReview($connection, $user_id)['user_id']; ?>/<?php echo $user_object->getUserInformation($connection, $review_object->getUserReview($connection, $user_id)['user_id'], 'profile_picture_name'); ?>
 
                                         <?php endif; ?>
                                     "
@@ -742,16 +741,16 @@
 
                                 <div class="user_info">
                                     <p class="name">
-                                        <?php echo htmlspecialchars($user_object->getUserInformation($connection, $review_object->userReview($connection, $user_id)["user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
-                                        <?php echo htmlspecialchars($user_object->getUserInformation($connection, $review_object->userReview($connection, $user_id)["user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
+                                        <?php echo htmlspecialchars($user_object->getUserInformation($connection, $review_object->getUserReview($connection, $user_id)["user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
+                                        <?php echo htmlspecialchars($user_object->getUserInformation($connection, $review_object->getUserReview($connection, $user_id)["user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
                                     </p>
 
                                     <p class="date">
                                         -
 
-                                        <?php echo htmlspecialchars(date("j.n.Y", strtotime($review_object->userReview($connection, $user_id)["review_time"])), ENT_QUOTES, "UTF-8"); ?>
+                                        <?php echo htmlspecialchars(date("j.n.Y", strtotime($review_object->getUserReview($connection, $user_id)["review_time"])), ENT_QUOTES, "UTF-8"); ?>
 
-                                        <?php if($review_object->userReview($connection, $_SESSION["logged_in_user_id"])["edited"] === "yes"): ?>
+                                        <?php if($review_object->getUserReview($connection, $_SESSION["logged_in_user_id"])["edited"] === "yes"): ?>
                                             (upravená)
 
                                         <?php endif; ?>
@@ -761,7 +760,7 @@
 
                             <div class="stars">
                                 <?php for($i = 1; $i <= 5; $i++): ?>
-                                    <?php if($i <= $review_object->userReview($connection, $user_id)["rating"]): ?>
+                                    <?php if($i <= $review_object->getUserReview($connection, $user_id)["rating"]): ?>
                                         <div class="star">
                                             <i class="fa-solid fa-star"></i> <!-- https://fontawesome.com/icons/star -->
                                         </div>
@@ -778,7 +777,7 @@
 
                             <a class="edit_review" href="./upravit-recenziu" title="Upraviť recenziu">Upraviť recenziu</a>
 
-                            <p><?php echo htmlspecialchars($review_object->userReview($connection, $user_id)["review"], ENT_QUOTES, "UTF-8"); ?></p>
+                            <p><?php echo htmlspecialchars($review_object->getUserReview($connection, $user_id)["review"], ENT_QUOTES, "UTF-8"); ?></p>
                         </div>
 
                     <?php else: ?>
@@ -872,7 +871,7 @@
                 <h3 class="all_reviews_title">Ostatné recenzie</h3>
 
                 <div class="all_reviews">
-                    <?php foreach($review_object->allReviews($connection, $user_id) as $one_review): ?>
+                    <?php foreach($review_object->getAllReviews($connection, $user_id) as $one_review): ?>
                         <div class="review">
                             <?php if($one_review["user_id"] !== null): ?>
                                 <div class="reviewer">
