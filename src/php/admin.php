@@ -126,7 +126,6 @@
     <script src="/src/ts/dist/components/preloader.js" type="module"></script>
     <script src="/src/ts/dist/components/cookie_policy.js" type="module"></script>
     <script src="/src/ts/dist/components/navigation_bar.js" type="module"></script>
-    <script src="/src/ts/dist/pages/admin/components/admin.js" type="module"></script>
 
     <script src="https://kit.fontawesome.com/069c0938a1.js" crossorigin="anonymous"></script> <!-- Icons -->
 </head>
@@ -184,6 +183,8 @@
 
     <main class="<?php echo $theme; ?>" style="padding: 10px 20px;">
         <?php if(isset($_SESSION["logged_in_user_id"]) and $user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "role") === "admin"): ?>
+            <script src="/src/ts/dist/pages/admin/components/admin.js" type="module"></script>
+            
             <section class="pending_reviews">
                 <h2>Kontrola&nbsp;recenzií</h2>
 

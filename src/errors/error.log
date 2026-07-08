@@ -1,0 +1,27 @@
+Chyba pri získavaní recenzie užívateľa: SQLSTATE[42601]: Syntax error: 7 ERROR:  LIMIT #,# syntax is not supported
+LINE 4:                             LIMIT $1, $2
+                                    ^
+HINT:  Use separate LIMIT and OFFSET clauses.
+Chyba pri získavaní recenzie užívateľa: SQLSTATE[42601]: Syntax error: 7 ERROR:  LIMIT #,# syntax is not supported
+LINE 4:                             LIMIT $1, $2
+                                    ^
+HINT:  Use separate LIMIT and OFFSET clauses.
+Chyba pri získavaní recenzie užívateľa: SQLSTATE[42601]: Syntax error: 7 ERROR:  LIMIT #,# syntax is not supported
+LINE 4:                             LIMIT $1, $2
+                                    ^
+HINT:  Use separate LIMIT and OFFSET clauses.
+Chyba pri získavaní recenzie užívateľa: SQLSTATE[42601]: Syntax error: 7 ERROR:  LIMIT #,# syntax is not supported
+LINE 4:                             LIMIT $1, $2
+                                    ^
+HINT:  Use separate LIMIT and OFFSET clauses.
+Chyba:
+[2026-07-08 14:02:15] - Nepodarilo sa prihlásiť.
+Podrobnosti:
+User ID: unknown
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/prihlasenie
+Request Method: POST
+User Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Cursor/3.2.11 Chrome/142.0.7444.265 Electron/39.8.1 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: {"email_address":"behulpatrik@gmail.com","password":"Patrik2008","csrf_token":"1d9696248f00306c52f74e6fa783f969fb2ecf41be63e761c4f7ca399c83","remember_me":"yes"}
+

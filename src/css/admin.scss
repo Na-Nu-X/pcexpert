@@ -20,7 +20,17 @@ header {
 ************/
 
 main {
-    margin-top: 82px + 20px;
+    margin-top: 82px + 25px;
+    min-height: 100vh;
+
+    &.dark {
+        .no_admin {
+            a:link,
+            a:visited {
+                color: $secondary-color;
+            }
+        }
+    }
 
     .pending_reviews,
     .users,
@@ -349,6 +359,12 @@ main {
     }
 
     .no_admin {
+        text-align: center;
+
+        p {
+            text-align: center;
+        }
+
         a:link,
         a:visited {
             color: $main-color;

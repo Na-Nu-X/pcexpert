@@ -51,7 +51,6 @@ document.addEventListener("DOMContentLoaded", function():void {
     const password_check_input:HTMLInputElement = password_check_container.querySelector(".password_check") as HTMLInputElement // Gets The Password Check Input
 
     const form_report:HTMLParagraphElement = registration_form.querySelector(".form_report") as HTMLParagraphElement // Gets The Form Report Paragraph
-    console.log(form_report)
 
     // Events
 

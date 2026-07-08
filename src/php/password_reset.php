@@ -87,7 +87,6 @@
     <script src="/src/ts/dist/components/preloader.js" type="module"></script>
     <script src="/src/ts/dist/components/cookie_policy.js" type="module"></script>
     <script src="/src/ts/dist/components/navigation_bar.js" type="module"></script>
-    <script src="/src/ts/dist/pages/password_reset/components/password_reset_form.js" type="module"></script>
 </head>
 
 <body class="<?php echo $theme; ?>">
@@ -136,6 +135,8 @@
             <h2><a href="./obnova-hesla">Obnova&nbsp;hesla</a></h2>
 
             <?php if(isset($_COOKIE["password_reset_code_timer"])): ?>
+                <script src="/src/ts/dist/pages/password_reset/components/password_reset_form.js" type="module"></script>
+                
                 <form class="password_reset_form" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
                     <input type="text" name="password_reset_code" placeholder="Zadajte 6 miestny kód" maxlength="6" autocomplete="off" required>
 

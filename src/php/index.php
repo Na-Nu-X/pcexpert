@@ -471,10 +471,10 @@
                 </a>
 
                 <a href="./moj-ucet" title="Môj účet">
-                    <?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "first_name"), ENT_QUOTES, "UTF-8") . " " . htmlspecialchars($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
+                    <?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "first_name") ?? "", ENT_QUOTES, "UTF-8") . " " . htmlspecialchars($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "last_name") ?? "", ENT_QUOTES, "UTF-8"); ?>
                 </a>
 
-                <a href="./logout.php" title="Odhlásiť sa z účtu <?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "first_name"), ENT_QUOTES, "UTF-8") . " " . htmlspecialchars($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>">Odhlásiť</a>
+                <a href="./logout.php" title="Odhlásiť sa z účtu <?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "first_name") ?? "", ENT_QUOTES, "UTF-8") . " " . htmlspecialchars($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "last_name") ?? "", ENT_QUOTES, "UTF-8"); ?>">Odhlásiť</a>
             </div>
 
         <?php else: ?>
@@ -559,7 +559,7 @@
                 <?php else: ?>
                     <p>0 / 5</p>
 
-                    <?php for($i = 1; i <= 5; $i++): ?>
+                    <?php for($i = 1; $i <= 5; $i++): ?>
                         <div class="star">
                             <i class="fa-regular fa-star"></i> <!-- https://fontawesome.com/icons/star -->
                         </div>
@@ -868,103 +868,106 @@
                     <?php endif; ?>
                 </div>
 
-                <h3 class="all_reviews_title">Ostatné recenzie</h3>
+                <?php if($review_object->countReviews($connection, $user_id) > 0): ?>
+                    <h3 class="all_reviews_title">Ostatné recenzie</h3>
 
-                <div class="all_reviews">
-                    <?php foreach($review_object->getAllReviews($connection, $user_id) as $one_review): ?>
-                        <div class="review">
-                            <?php if($one_review["user_id"] !== null): ?>
-                                <div class="reviewer">
-                                    <img 
-                                        class="profile_picture"
-                                        src="
-                                            <?php if(!empty($user_object->getUserInformation($connection, $one_review['user_id'], 'google_profile_picture_url')) and empty($user_object->getUserInformation($connection, $one_review['user_id'], 'profile_picture_name'))): ?>
-                                                <?php echo $user_object->getUserInformation($connection, $one_review['user_id'], 'google_profile_picture_url'); ?>
+                    <div class="all_reviews">
+                        <?php foreach($review_object->getAllReviews($connection, $user_id) as $one_review): ?>
+                            <div class="review">
+                                <?php if($one_review["user_id"] !== null): ?>
+                                    <div class="reviewer">
+                                        <img 
+                                            class="profile_picture"
+                                            src="
+                                                <?php if(!empty($user_object->getUserInformation($connection, $one_review['user_id'], 'google_profile_picture_url')) and empty($user_object->getUserInformation($connection, $one_review['user_id'], 'profile_picture_name'))): ?>
+                                                    <?php echo $user_object->getUserInformation($connection, $one_review['user_id'], 'google_profile_picture_url'); ?>
 
+                                                <?php else: ?>
+                                                    /content/uploads/<?php echo $one_review['user_id']; ?>/<?php echo $user_object->getUserInformation($connection, $one_review['user_id'], 'profile_picture_name'); ?>
+
+                                                <?php endif; ?>
+                                            "
+                                        >
+
+                                        <div class="user_info">
+                                            <p class="name">
+                                                <?php echo htmlspecialchars($user_object->getUserInformation($connection, $one_review["user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
+                                                <?php echo htmlspecialchars($user_object->getUserInformation($connection, $one_review["user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
+                                            </p>
+
+                                            <p class="date">
+                                                -
+
+                                                <?php echo htmlspecialchars(date("j.n.Y", strtotime($one_review["review_time"])), ENT_QUOTES, "UTF-8"); ?>
+
+                                                <?php if($one_review["edited"] === "yes"): ?>
+                                                    (upravená)
+
+                                                <?php endif; ?>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="stars">
+                                        <?php for($i = 1; $i <= 5; $i++): ?>
+                                            <?php if($i <= $one_review["rating"]): ?>
+                                                <div class="star">
+                                                    <i class="fa-solid fa-star"></i> <!-- https://fontawesome.com/icons/star -->
+                                                </div>
+        
                                             <?php else: ?>
-                                                /content/uploads/<?php echo $one_review['user_id']; ?>/<?php echo $user_object->getUserInformation($connection, $one_review['user_id'], 'profile_picture_name'); ?>
-
+                                                <div class="star">
+                                                    <i class="fa-regular fa-star"></i> <!-- https://fontawesome.com/icons/star -->
+                                                </div>
+        
                                             <?php endif; ?>
-                                        "
-                                    >
-
-                                    <div class="user_info">
-                                        <p class="name">
-                                            <?php echo htmlspecialchars($user_object->getUserInformation($connection, $one_review["user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
-                                            <?php echo htmlspecialchars($user_object->getUserInformation($connection, $one_review["user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
-                                        </p>
-
-                                        <p class="date">
-                                            -
-
-                                            <?php echo htmlspecialchars(date("j.n.Y", strtotime($one_review["review_time"])), ENT_QUOTES, "UTF-8"); ?>
-
-                                            <?php if($one_review["edited"] === "yes"): ?>
-                                                (upravená)
-
-                                            <?php endif; ?>
-                                        </p>
-                                    </div>
-                                </div>
-                                
-                                <div class="stars">
-                                    <?php for($i = 1; $i <= 5; $i++): ?>
-                                        <?php if($i <= $one_review["rating"]): ?>
-                                            <div class="star">
-                                                <i class="fa-solid fa-star"></i> <!-- https://fontawesome.com/icons/star -->
-                                            </div>
-    
-                                        <?php else: ?>
-                                            <div class="star">
-                                                <i class="fa-regular fa-star"></i> <!-- https://fontawesome.com/icons/star -->
-                                            </div>
-    
-                                        <?php endif; ?>
-                                        
-                                    <?php endfor; ?>
-                                </div>
-
-                                <p><?php echo htmlspecialchars($one_review["review"], ENT_QUOTES, "UTF-8"); ?></p>
-
-                            <?php else: ?>
-                                <div class="reviewer">
-                                    <img class="profile_picture" src="/content/images/avatar.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_847969 -->
-
-                                    <div class="user_info">
-                                        <p class="name">Anonymný zákazník</p>
-
-                                        <p class="date">
-                                            -
                                             
-                                            <?php echo htmlspecialchars(date("j.n.Y", strtotime($one_review["review_time"])), ENT_QUOTES, "UTF-8"); ?>
-                                        </p>
+                                        <?php endfor; ?>
                                     </div>
-                                </div>
 
-                                <div class="stars">
-                                    <?php for($i = 1; $i <= 5; $i++): ?>
-                                        <?php if($i <= $one_review["rating"]): ?>
-                                            <div class="star">
-                                                <i class="fa-solid fa-star"></i> <!-- https://fontawesome.com/icons/star -->
-                                            </div>
-    
-                                        <?php else: ?>
-                                            <div class="star">
-                                                <i class="fa-regular fa-star"></i> <!-- https://fontawesome.com/icons/star -->
-                                            </div>
-    
-                                        <?php endif; ?>
-                                        
-                                    <?php endfor; ?>
-                                </div>
+                                    <p><?php echo htmlspecialchars($one_review["review"], ENT_QUOTES, "UTF-8"); ?></p>
 
-                                <p><?php echo htmlspecialchars($one_review["review"], ENT_QUOTES, "UTF-8"); ?></p>
+                                <?php else: ?>
+                                    <div class="reviewer">
+                                        <img class="profile_picture" src="/content/images/avatar.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_847969 -->
 
-                            <?php endif; ?>
-                        </div>
+                                        <div class="user_info">
+                                            <p class="name">Anonymný zákazník</p>
 
-                    <?php endforeach; ?>
-                </div>
+                                            <p class="date">
+                                                -
+                                                
+                                                <?php echo htmlspecialchars(date("j.n.Y", strtotime($one_review["review_time"])), ENT_QUOTES, "UTF-8"); ?>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="stars">
+                                        <?php for($i = 1; $i <= 5; $i++): ?>
+                                            <?php if($i <= $one_review["rating"]): ?>
+                                                <div class="star">
+                                                    <i class="fa-solid fa-star"></i> <!-- https://fontawesome.com/icons/star -->
+                                                </div>
+        
+                                            <?php else: ?>
+                                                <div class="star">
+                                                    <i class="fa-regular fa-star"></i> <!-- https://fontawesome.com/icons/star -->
+                                                </div>
+        
+                                            <?php endif; ?>
+                                            
+                                        <?php endfor; ?>
+                                    </div>
+
+                                    <p><?php echo htmlspecialchars($one_review["review"], ENT_QUOTES, "UTF-8"); ?></p>
+
+                                <?php endif; ?>
+                            </div>
+
+                        <?php endforeach; ?>
+                    </div>
+
+                <?php endif; ?>
 
                 <?php if($review_object->countReviews($connection, $user_id) > 5): ?>
                     <div class="buttons">

@@ -164,10 +164,7 @@ main {
         .have_account,
         .forgot_password,
         .delete_account_container,
-        .delete_review_container,
-        .no_logged_in,
-        .no_review,
-        .code_expired {
+        .delete_review_container {
             p {
                 color: $secondary-color;
                 text-align: center;
@@ -182,13 +179,6 @@ main {
                 a:active {
                     text-decoration: underline;
                 }
-            }
-        }
-
-        .no_logged_in {
-            p a:link,
-            p a:visited {
-                font-style: italic;
             }
         }
     }
@@ -501,6 +491,39 @@ main {
             #delete_review {
                 display: none;
             }
+        }
+    }
+
+    .no_logged_in,
+    .no_review {
+        p {
+            color: $secondary-color;
+            text-align: center;
+
+            a:link,
+            a:visited {
+                color: $secondary-color;
+                text-decoration: none;
+            }
+
+            a:hover,
+            a:active {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .no_logged_in {
+        p a:link,
+        p a:visited {
+            font-style: italic;
+        }
+    }
+
+    .code_expired {
+        p {
+            color: $secondary-color;
+            text-align: center;
         }
     }
 }

@@ -315,13 +315,13 @@
          * Function For Get The User Information
          * 
          * @param PDO $connection - Connection To The Database
-         * @param int $id - ID
+         * @param int|null $id - ID
          * @param string $database_field - Database Field
          * 
          * @return int|string|null
         **/
 
-        public function getUserInformation(PDO $connection, int $id, string $database_field):int|string|null {
+        public function getUserInformation(PDO $connection, ?int $id, string $database_field):int|string|null {
             // Defines The Allowed Fields
             $allowed_fields = [
                 "first_name", 
@@ -338,6 +338,10 @@
     
             if(!in_array($database_field, $allowed_fields)) {
                 error_log("Nepovolený prístup k stĺpcu: " . $database_field, 3, "../errors/error.log");
+                return null;
+            }
+
+            if($id === null) {
                 return null;
             }
 

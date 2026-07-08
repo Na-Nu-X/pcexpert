@@ -16,7 +16,12 @@ header {
  Main Styles
 ************/
 main {
-  margin-top: 102px;
+  margin-top: 107px;
+  min-height: 100vh;
+}
+main.dark .no_admin a:link,
+main.dark .no_admin a:visited {
+  color: #fff;
 }
 main .pending_reviews .reviews .review,
 main .pending_reviews .reviews .user,
@@ -296,6 +301,12 @@ main .admin_form.light.dark .admin_form_submit {
 main .admin_form.dark .admin_form_submit:hover,
 main .admin_form.light.dark .admin_form_submit:hover {
   background-color: rgb(25.5, 25.5, 25.5);
+}
+main .no_admin {
+  text-align: center;
+}
+main .no_admin p {
+  text-align: center;
 }
 main .no_admin a:link,
 main .no_admin a:visited {

@@ -278,7 +278,6 @@
     <script src="/src/ts/dist/components/preloader.js" type="module"></script>
     <script src="/src/ts/dist/components/cookie_policy.js" type="module"></script>
     <script src="/src/ts/dist/components/navigation_bar.js" type="module"></script>
-    <script src="/src/ts/dist/pages/edit_account/components/edit_account_form.js" type="module"></script>
 </head>
 
 <body class="<?php echo $theme; ?>">
@@ -329,6 +328,8 @@
             <h2><a href="./moj-ucet">Môj&nbsp;účet</a></h2>
 
             <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true): ?>
+                <script src="/src/ts/dist/pages/edit_account/components/edit_account_form.js" type="module"></script>
+                
                 <form class="edit_account_form" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data">
                     <div class="profile_picture_container">
                         <h3>Profilový obrázok</h3>

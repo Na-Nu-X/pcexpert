@@ -108,7 +108,6 @@
     <script src="/src/ts/dist/components/preloader.js" type="module"></script>
     <script src="/src/ts/dist/components/cookie_policy.js" type="module"></script>
     <script src="/src/ts/dist/components/navigation_bar.js" type="module"></script>
-    <script src="/src/ts/dist/pages/edit_review/components/edit_review_form.js" type="module"></script>
 </head>
 
 <body class="<?php echo $theme; ?>">
@@ -147,6 +146,8 @@
             <h2><a href="./upravit-recenziu">Recenzia</a></h2>
             
             <?php if($review_object->getUserReview($connection, $user_id) !== null and $review_object->getUserReview($connection, $user_id) !== false): ?>
+                <script src="/src/ts/dist/pages/edit_review/components/edit_review_form.js" type="module"></script>
+                
                 <form class="edit_review_form" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
                     <div class="review_container">
                         <div class="user">
