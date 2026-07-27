@@ -74,6 +74,7 @@ main {
 .edit_account h2,
 .edit_review h2,
 .password_reset h2 {
+  margin-bottom: 50px;
   text-align: center;
   font-size: 2em;
   transition: letter-spacing 0.3s ease;
@@ -101,101 +102,101 @@ main {
 .password_reset form {
   position: relative;
 }
-.registration form input[type=text],
-.registration form input[type=email],
-.login form input[type=text],
-.login form input[type=email],
-.edit_account form input[type=text],
-.edit_account form input[type=email],
-.edit_review form input[type=text],
-.edit_review form input[type=email],
-.password_reset form input[type=text],
-.password_reset form input[type=email] {
-  display: block;
-  width: 90%;
-  height: 50px;
-  margin: 0px auto 10px;
-  padding: 5px;
-  background: none;
-  color: #fff;
-  border: none;
-  border-bottom: 1px solid #fff;
-  outline: none;
-  transition: width 0.3s ease;
+.registration form .inputs,
+.login form .inputs,
+.edit_account form .inputs,
+.edit_review form .inputs,
+.password_reset form .inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
-.registration form input[type=text]:hover, .registration form input[type=text]:focus-visible,
-.registration form input[type=email]:hover,
-.registration form input[type=email]:focus-visible,
-.login form input[type=text]:hover,
-.login form input[type=text]:focus-visible,
-.login form input[type=email]:hover,
-.login form input[type=email]:focus-visible,
-.edit_account form input[type=text]:hover,
-.edit_account form input[type=text]:focus-visible,
-.edit_account form input[type=email]:hover,
-.edit_account form input[type=email]:focus-visible,
-.edit_review form input[type=text]:hover,
-.edit_review form input[type=text]:focus-visible,
-.edit_review form input[type=email]:hover,
-.edit_review form input[type=email]:focus-visible,
-.password_reset form input[type=text]:hover,
-.password_reset form input[type=text]:focus-visible,
-.password_reset form input[type=email]:hover,
-.password_reset form input[type=email]:focus-visible {
+.registration form .inputs input[type=text],
+.registration form .inputs input[type=email],
+.login form .inputs input[type=text],
+.login form .inputs input[type=email],
+.edit_account form .inputs input[type=text],
+.edit_account form .inputs input[type=email],
+.edit_review form .inputs input[type=text],
+.edit_review form .inputs input[type=email],
+.password_reset form .inputs input[type=text],
+.password_reset form .inputs input[type=email] {
   width: 100%;
+  padding: 10px 15px;
+  background-color: rgb(97%, 97%, 97%);
+  color: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgb(90%, 90%, 90%);
+  border-radius: 5px;
+  font-family: inherit;
+  outline: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
-.registration form input[type=text]::placeholder,
-.registration form input[type=email]::placeholder,
-.login form input[type=text]::placeholder,
-.login form input[type=email]::placeholder,
-.edit_account form input[type=text]::placeholder,
-.edit_account form input[type=email]::placeholder,
-.edit_review form input[type=text]::placeholder,
-.edit_review form input[type=email]::placeholder,
-.password_reset form input[type=text]::placeholder,
-.password_reset form input[type=email]::placeholder {
+.registration form .inputs input[type=text]::placeholder,
+.registration form .inputs input[type=email]::placeholder,
+.login form .inputs input[type=text]::placeholder,
+.login form .inputs input[type=email]::placeholder,
+.edit_account form .inputs input[type=text]::placeholder,
+.edit_account form .inputs input[type=email]::placeholder,
+.edit_review form .inputs input[type=text]::placeholder,
+.edit_review form .inputs input[type=email]::placeholder,
+.password_reset form .inputs input[type=text]::placeholder,
+.password_reset form .inputs input[type=email]::placeholder {
   color: #999999;
 }
-.registration form input[type=text]:-webkit-autofill,
-.registration form input[type=email]:-webkit-autofill,
-.login form input[type=text]:-webkit-autofill,
-.login form input[type=email]:-webkit-autofill,
-.edit_account form input[type=text]:-webkit-autofill,
-.edit_account form input[type=email]:-webkit-autofill,
-.edit_review form input[type=text]:-webkit-autofill,
-.edit_review form input[type=email]:-webkit-autofill,
-.password_reset form input[type=text]:-webkit-autofill,
-.password_reset form input[type=email]:-webkit-autofill {
-  -webkit-text-fill-color: #fff;
+.registration form .inputs input[type=text]:focus-visible,
+.registration form .inputs input[type=email]:focus-visible,
+.login form .inputs input[type=text]:focus-visible,
+.login form .inputs input[type=email]:focus-visible,
+.edit_account form .inputs input[type=text]:focus-visible,
+.edit_account form .inputs input[type=email]:focus-visible,
+.edit_review form .inputs input[type=text]:focus-visible,
+.edit_review form .inputs input[type=email]:focus-visible,
+.password_reset form .inputs input[type=text]:focus-visible,
+.password_reset form .inputs input[type=email]:focus-visible {
+  background-color: #fff;
+  border-color: #7CE5FA;
+  box-shadow: 0 0 0 3px rgba(124, 229, 250, 0.2);
+}
+.registration form .inputs input[type=text]:-webkit-autofill,
+.registration form .inputs input[type=email]:-webkit-autofill,
+.login form .inputs input[type=text]:-webkit-autofill,
+.login form .inputs input[type=email]:-webkit-autofill,
+.edit_account form .inputs input[type=text]:-webkit-autofill,
+.edit_account form .inputs input[type=email]:-webkit-autofill,
+.edit_review form .inputs input[type=text]:-webkit-autofill,
+.edit_review form .inputs input[type=email]:-webkit-autofill,
+.password_reset form .inputs input[type=text]:-webkit-autofill,
+.password_reset form .inputs input[type=email]:-webkit-autofill {
+  -webkit-text-fill-color: rgba(0, 0, 0, 0.6);
   transition: width 0.3s ease, background-color 9999s ease;
 }
-.registration form input[type=text]:-webkit-autofill:hover, .registration form input[type=text]:-webkit-autofill:focus,
-.registration form input[type=email]:-webkit-autofill:hover,
-.registration form input[type=email]:-webkit-autofill:focus,
-.login form input[type=text]:-webkit-autofill:hover,
-.login form input[type=text]:-webkit-autofill:focus,
-.login form input[type=email]:-webkit-autofill:hover,
-.login form input[type=email]:-webkit-autofill:focus,
-.edit_account form input[type=text]:-webkit-autofill:hover,
-.edit_account form input[type=text]:-webkit-autofill:focus,
-.edit_account form input[type=email]:-webkit-autofill:hover,
-.edit_account form input[type=email]:-webkit-autofill:focus,
-.edit_review form input[type=text]:-webkit-autofill:hover,
-.edit_review form input[type=text]:-webkit-autofill:focus,
-.edit_review form input[type=email]:-webkit-autofill:hover,
-.edit_review form input[type=email]:-webkit-autofill:focus,
-.password_reset form input[type=text]:-webkit-autofill:hover,
-.password_reset form input[type=text]:-webkit-autofill:focus,
-.password_reset form input[type=email]:-webkit-autofill:hover,
-.password_reset form input[type=email]:-webkit-autofill:focus {
-  -webkit-text-fill-color: #fff;
+.registration form .inputs input[type=text]:-webkit-autofill:hover, .registration form .inputs input[type=text]:-webkit-autofill:focus,
+.registration form .inputs input[type=email]:-webkit-autofill:hover,
+.registration form .inputs input[type=email]:-webkit-autofill:focus,
+.login form .inputs input[type=text]:-webkit-autofill:hover,
+.login form .inputs input[type=text]:-webkit-autofill:focus,
+.login form .inputs input[type=email]:-webkit-autofill:hover,
+.login form .inputs input[type=email]:-webkit-autofill:focus,
+.edit_account form .inputs input[type=text]:-webkit-autofill:hover,
+.edit_account form .inputs input[type=text]:-webkit-autofill:focus,
+.edit_account form .inputs input[type=email]:-webkit-autofill:hover,
+.edit_account form .inputs input[type=email]:-webkit-autofill:focus,
+.edit_review form .inputs input[type=text]:-webkit-autofill:hover,
+.edit_review form .inputs input[type=text]:-webkit-autofill:focus,
+.edit_review form .inputs input[type=email]:-webkit-autofill:hover,
+.edit_review form .inputs input[type=email]:-webkit-autofill:focus,
+.password_reset form .inputs input[type=text]:-webkit-autofill:hover,
+.password_reset form .inputs input[type=text]:-webkit-autofill:focus,
+.password_reset form .inputs input[type=email]:-webkit-autofill:hover,
+.password_reset form .inputs input[type=email]:-webkit-autofill:focus {
+  -webkit-text-fill-color: rgba(0, 0, 0, 0.6);
   transition: width 0.3s ease, background-color 9999s ease;
 }
-.registration form textarea,
-.login form textarea,
-.edit_account form textarea,
-.edit_review form textarea,
-.password_reset form textarea {
+.registration form .inputs textarea,
+.login form .inputs textarea,
+.edit_account form .inputs textarea,
+.edit_review form .inputs textarea,
+.password_reset form .inputs textarea {
   display: block;
   width: 90%;
   height: 100px;
@@ -209,12 +210,51 @@ main {
   resize: none;
   transition: width 0.3s ease;
 }
-.registration form textarea::placeholder,
-.login form textarea::placeholder,
-.edit_account form textarea::placeholder,
-.edit_review form textarea::placeholder,
-.password_reset form textarea::placeholder {
+.registration form .inputs textarea::placeholder,
+.login form .inputs textarea::placeholder,
+.edit_account form .inputs textarea::placeholder,
+.edit_review form .inputs textarea::placeholder,
+.password_reset form .inputs textarea::placeholder {
   color: #999999;
+}
+.registration form .inputs input[type=text],
+.registration form .inputs input[type=email],
+.registration form .inputs textarea,
+.login form .inputs input[type=text],
+.login form .inputs input[type=email],
+.login form .inputs textarea,
+.edit_account form .inputs input[type=text],
+.edit_account form .inputs input[type=email],
+.edit_account form .inputs textarea,
+.edit_review form .inputs input[type=text],
+.edit_review form .inputs input[type=email],
+.edit_review form .inputs textarea,
+.password_reset form .inputs input[type=text],
+.password_reset form .inputs input[type=email],
+.password_reset form .inputs textarea {
+  background: none;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-radius: 0px;
+}
+.registration form .inputs input[type=text]:focus-visible,
+.registration form .inputs input[type=email]:focus-visible,
+.registration form .inputs textarea:focus-visible,
+.login form .inputs input[type=text]:focus-visible,
+.login form .inputs input[type=email]:focus-visible,
+.login form .inputs textarea:focus-visible,
+.edit_account form .inputs input[type=text]:focus-visible,
+.edit_account form .inputs input[type=email]:focus-visible,
+.edit_account form .inputs textarea:focus-visible,
+.edit_review form .inputs input[type=text]:focus-visible,
+.edit_review form .inputs input[type=email]:focus-visible,
+.edit_review form .inputs textarea:focus-visible,
+.password_reset form .inputs input[type=text]:focus-visible,
+.password_reset form .inputs input[type=email]:focus-visible,
+.password_reset form .inputs textarea:focus-visible {
+  background: none;
+  box-shadow: none;
 }
 .registration form .form_report,
 .registration form .dialogue_paragraph,
@@ -269,57 +309,47 @@ main {
   text-align: center;
 }
 .registration form button[type=submit],
-.registration form .login_method a,
 .login form button[type=submit],
-.login form .login_method a,
 .edit_account form button[type=submit],
-.edit_account form .login_method a,
 .edit_review form button[type=submit],
-.edit_review form .login_method a,
-.password_reset form button[type=submit],
-.password_reset form .login_method a {
-  display: block;
-  width: 90%;
-  height: 50px;
-  margin: 50px auto 10px;
-  background-color: rgba(0, 0, 0, 0.2);
+.password_reset form button[type=submit] {
+  all: unset;
+  width: 100%;
+  padding: 10px 0px;
+  text-align: center;
+  font-weight: 600;
+  background-color: #5e97fa;
   color: #fff;
-  border: 1px solid #fff;
+  border: 1px solid #f5faf9;
   border-radius: 25px;
-  outline: none;
-  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease, transform 0.3s ease;
-  animation: fade_in_animation 0.5s ease-out;
+  transition: transform 0.2s ease, background-color 0.2s ease;
 }
-.registration form button[type=submit]:hover, .registration form button[type=submit]:focus,
-.registration form .login_method a:hover,
-.registration form .login_method a:focus,
+.registration form button[type=submit]:hover, .registration form button[type=submit]:focus-visible,
 .login form button[type=submit]:hover,
-.login form button[type=submit]:focus,
-.login form .login_method a:hover,
-.login form .login_method a:focus,
+.login form button[type=submit]:focus-visible,
 .edit_account form button[type=submit]:hover,
-.edit_account form button[type=submit]:focus,
-.edit_account form .login_method a:hover,
-.edit_account form .login_method a:focus,
+.edit_account form button[type=submit]:focus-visible,
 .edit_review form button[type=submit]:hover,
-.edit_review form button[type=submit]:focus,
-.edit_review form .login_method a:hover,
-.edit_review form .login_method a:focus,
+.edit_review form button[type=submit]:focus-visible,
 .password_reset form button[type=submit]:hover,
-.password_reset form button[type=submit]:focus,
-.password_reset form .login_method a:hover,
-.password_reset form .login_method a:focus {
-  background-color: rgba(255, 255, 255, 0.8);
-  color: #000;
-  border: 1px solid #000;
-  transform: scale(1.1);
+.password_reset form button[type=submit]:focus-visible {
+  transform: translateY(-2px);
+  background-color: rgb(46.5615402788%, 65.4807465155%, 98.3404205056%);
   cursor: pointer;
 }
-.registration form .login_form button[type=submit],
-.login form .login_form button[type=submit],
-.edit_account form .login_form button[type=submit],
-.edit_review form .login_form button[type=submit],
-.password_reset form .login_form button[type=submit] {
+.registration form button[type=submit]:active,
+.login form button[type=submit]:active,
+.edit_account form button[type=submit]:active,
+.edit_review form button[type=submit]:active,
+.password_reset form button[type=submit]:active {
+  transform: translateY(1px);
+}
+.registration form button[type=submit],
+.login form button[type=submit],
+.edit_account form button[type=submit],
+.edit_review form button[type=submit],
+.password_reset form button[type=submit] {
+  margin: 50px auto 10px;
   animation: fade_in_animation 0.3s ease-out;
 }
 .registration form .login_method a,
@@ -327,20 +357,45 @@ main {
 .edit_account form .login_method a,
 .edit_review form .login_method a,
 .password_reset form .login_method a {
-  position: relative;
-  margin: 10px auto;
-  background-color: rgba(0, 0, 0, 0.4);
+  all: unset;
+  width: 100%;
+  padding: 10px 0px;
+  text-align: center;
+  font-weight: 600;
+  background-color: #f5faf9;
+  color: #5e97fa;
+  border: 1px solid #5e97fa;
+  border-radius: 25px;
+  transition: transform 0.2s ease, background-color 0.2s ease;
 }
-.registration form .login_method a:hover, .registration form .login_method a:focus,
+.registration form .login_method a:hover,
 .login form .login_method a:hover,
-.login form .login_method a:focus,
 .edit_account form .login_method a:hover,
-.edit_account form .login_method a:focus,
 .edit_review form .login_method a:hover,
-.edit_review form .login_method a:focus,
-.password_reset form .login_method a:hover,
-.password_reset form .login_method a:focus {
-  background-color: rgba(255, 255, 255, 0.6);
+.password_reset form .login_method a:hover {
+  transform: translateY(-2px);
+  background-color: #f5faf9;
+  cursor: pointer;
+}
+.registration form .login_method a:active,
+.login form .login_method a:active,
+.edit_account form .login_method a:active,
+.edit_review form .login_method a:active,
+.password_reset form .login_method a:active {
+  transform: translateY(1px);
+}
+.registration form .login_method a,
+.login form .login_method a,
+.edit_account form .login_method a,
+.edit_review form .login_method a,
+.password_reset form .login_method a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  padding: 0px;
+  height: 45px;
 }
 .registration form .login_method a:nth-child(1),
 .login form .login_method a:nth-child(1),
@@ -361,17 +416,8 @@ main {
 .edit_account form .login_method a img,
 .edit_review form .login_method a img,
 .password_reset form .login_method a img {
-  margin: 8px;
-}
-.registration form .login_method a span,
-.login form .login_method a span,
-.edit_account form .login_method a span,
-.edit_review form .login_method a span,
-.password_reset form .login_method a span {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  left: 10px;
 }
 .registration form .have_account,
 .registration form .forgot_password,
@@ -1319,7 +1365,7 @@ main {
 .password_reset .password_reset_form .new_password_container .show_hide_password i:hover,
 .password_reset .password_reset_form .new_password_container .copy_password i:hover,
 .password_reset .password_reset_form .new_password_container .paste_password i:hover {
-  color: rgb(229.5, 229.5, 229.5);
+  color: rgb(90%, 90%, 90%);
   cursor: pointer;
   transition: color 0.3s ease, top 0.3s ease, right 0.3s ease, bottom 0.3s ease, left 0.3s ease;
 }

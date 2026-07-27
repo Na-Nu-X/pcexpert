@@ -103,11 +103,11 @@
         
         <nav class="navigation_bar">
             <ul>
-                <li class="navigation_bar_item home">
+                <li class="home">
                     <a href="./domov">DOMOV</a>
                 </li>
 
-                <li class="navigation_bar_item">
+                <li>
                     <a href="./moj-ucet">MÔJ ÚČET</a>
                 </li>
 

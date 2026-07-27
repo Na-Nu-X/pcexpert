@@ -150,19 +150,19 @@
 
         <nav class="navigation_bar">
             <ul>
-                <li class="navigation_bar_item">
+                <li>
                     <a href="../domov">DOMOV</a>
                 </li>
                 
-                <li class="navigation_bar_item scroll_pending_reviews">
+                <li class="scroll_pending_reviews">
                     <a href="#">Kontrola recenzií</a>
                 </li>
 
-                <li class="navigation_bar_item scroll_users">
+                <li class="scroll_users">
                     <a href="#">POUŽÍVATELIA</a>
                 </li>
 
-                <li class="navigation_bar_item scroll_error_log">
+                <li class="scroll_error_log">
                     <a href="#">PROTOKOLY CHÝB</a>
                 </li>
 

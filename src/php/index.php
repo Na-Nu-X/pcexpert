@@ -366,8 +366,6 @@
     <script src="/src/ts/dist/components/theme_selection.js" type="module"></script>
     <script src="/src/ts/dist/components/move_up.js" type="module"></script>
     <script src="/src/ts/dist/components/navigation_bar.js" type="module"></script>
-    <script src="/src/ts/dist/components/photo_gallery.js" type="module"></script>
-    <script src="/src/ts/dist/pages/homepage/components/our_services.js" type="module"></script>
     <script src="/src/ts/dist/pages/homepage/components/reviews.js" type="module"></script>
     <script src="/src/ts/dist/pages/homepage/components/contact_form.js" type="module"></script>
 
@@ -403,31 +401,24 @@
         <?php endif; ?>
 
         <nav class="navigation_bar">
-            <ul>
-                <li class="navigation_bar_item scroll_about_us">
-                    <a href="#">O NÁS</a>
-                </li>
+            <div class="navigation_container">
+                <button class="hamburger" (click)="toggleMenu()">
+                    <i class="fa-solid" [class.fa-bars]="!is_menu_open" [class.fa-xmark]="is_menu_open"></i> <!-- https://fontawesome.com/icons/bars / https://fontawesome.com/icons/magnifying-glass -->
+                </button>
+            
+                <ul [class.open]="is_menu_open">
+                    <li class="scroll_about_us"><a href="#">O NÁS</a></li>
+                    <li class="scroll_all_services"><a href="#">NAŠE SLUŽBY</a></li>
+                    <li class="scroll_contact"><a href="#">KONTAKT</a></li>
 
-                <li class="navigation_bar_item scroll_our_services">
-                    <a href="#">NAŠE SLUŽBY</a>
-                </li>
+                    <?php if(isset($_SESSION["logged_in_user_id"]) and $user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "role") === "admin"): ?>
+                        <li>
+                            <a class="admin" href="./administracia">ADMINISTRÁCIA</a>
+                        </li>
 
-                <li class="navigation_bar_item scroll_contact">
-                    <a href="#">KONTAKT</a>
-                </li>
-
-                <?php if(isset($_SESSION["logged_in_user_id"]) and $user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "role") === "admin"): ?>
-                    <li style="border: 1px solid rgb(250, 50, 50);" class="navigation_bar_item">
-                        <a href="./administracia">ADMINISTRÁCIA</a>
-                    </li>
-
-                <?php endif; ?>    
-            </ul>
-
-            <button class="hamburger">
-                <i class="fa-solid fa-bars"></i>
-                <!-- <i class="fa-solid fa-xmark"></i> -->
-            </button>
+                    <?php endif; ?>
+                </ul>
+            </div>
         </nav>
 
         <button class="move_up" title="Posunúť nahor" aria-label="Posunúť nahor">
@@ -491,48 +482,11 @@
         <?php endif; ?>
 
         <div class="header_box">
-            <!-- <div class="logo">
-                <img src="/content/images/test_logo.png" alt="Logo">
-            </div> -->
-
             <h1><a href="./domov">PC&nbsp;Expert</a></h1>
 
             <div class="buttons"> <!-- https://codepen.io/hilwat/pen/BeemVX -->
-                <a class="blob-btn login_button" href="./prihlasenie" target="_self">
-                    Prihlásiť
-                    <span class="blob-btn__inner">
-                    <span class="blob-btn__blobs">
-                        <span class="blob-btn__blob"></span>
-                        <span class="blob-btn__blob"></span>
-                        <span class="blob-btn__blob"></span>
-                        <span class="blob-btn__blob"></span>
-                    </span>
-                    </span>
-                </a>
-
-                <a class="blob-btn registration_button" href="./registracia" target="_self">
-                    Zaregistrovať
-                    <span class="blob-btn__inner">
-                    <span class="blob-btn__blobs">
-                        <span class="blob-btn__blob"></span>
-                        <span class="blob-btn__blob"></span>
-                        <span class="blob-btn__blob"></span>
-                        <span class="blob-btn__blob"></span>
-                    </span>
-                    </span>
-                </a>
-
-                <br/>
-
-                <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-                    <defs>
-                        <filter id="goo">
-                        <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10"></feGaussianBlur>
-                        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 21 -7" result="goo"></feColorMatrix>
-                        <feBlend in2="goo" in="SourceGraphic" result="mix"></feBlend>
-                        </filter>
-                    </defs>
-                </svg>
+                <a class="login_button" href="./prihlasenie" target="_self">Prihlásiť</a>
+                <a class="registration_button" href="./registracia" target="_self">Zaregistrovať</a>
             </div>
         </div>
         
@@ -573,133 +527,61 @@
         </div>
     </header>
 
-    <section class="photo_gallery">
-        <div class="image image_1 active <?php echo $theme; ?>">
-            <h2>Procesor</h2>
-        </div>
+    <main>
+        <section class="all_services">
+            <article class="computer_building">
+                <div class="computer_building_container">
+                    <img src="/content/images/computer_building.jpg" alt="Stavba počítača"> <!-- https://unsplash.com/photos/a-close-up-of-a-computer-motherboard-0Sdxy9Ev6oQ -->
+    
+                    <p class="title">Stavba&nbsp;počítača</p>
+                    <p class="description">Nechajte si u nás zostaviť a nakonfigurovať počítač na mieru – rýchlo, profesionálne a za výhodnú cenu. Ak už máte vhodné komponenty a hľadáte spoľahlivých odborníkov na ich správnu montáž, sme tu pre vás. A ak si ešte nie ste istí výberom, radi vám pomôžeme vybrať tie najlepšie komponenty podľa vašich potrieb a zabezpečíme ich odborné zostavenie. S nami získate počítač, ktorý bude pripravený na použitie bez starostí!</p>
+    
+                    <div class="bottom">
+                        <p class="price">50<span>€</span></p>
+                        <button class="add_to_cart" title="Zajednať a zaplatiť" aria-label="Zajednať a zaplatiť"><i class="fa-solid fa-basket-shopping"></i> Zaplatiť</button> <!-- https://fontawesome.com/icons/basket-shopping -->
+                    </div>
+                </div>
+            </article>
 
-        <div class="image image_2 <?php echo $theme; ?>">
-            <h2>Základná doska</h2>
-        </div>
+            <article class="computer_maintenance">
+                <div class="computer_maintenance_container">
+                    <img src="/content/images/computer_maintenance.jpg" alt="Údržba počítača"> <!-- https://unsplash.com/photos/person-holding-black-and-silver-dj-controller-sMKUYIasyDM -->
+    
+                    <p class="title">Údržba&nbsp;počítača</p>
+                    <p class="description">Ak vás trápi hardvérový problém, nefunkčné alebo poškodené komponenty, sme tu, aby sme vám pomohli. Diagnostikujeme váš počítač, navrhneme najlepšie riešenie a postaráme sa o opravu alebo výmenu nefunkčných komponentov. Okrem toho vám radi poradíme s upgradom – či už ide o zrýchlenie systému, rozšírenie kapacity alebo zvýšenie výkonu staršieho alebo nového počítača, pomôžeme vám z neho vyťažiť maximum!</p>
+    
+                    <div class="bottom">
+                        <p class="price">30<span>€</span></p>
+                        <button class="add_to_cart" title="Zajednať a zaplatiť" aria-label="Zajednať a zaplatiť"><i class="fa-solid fa-basket-shopping"></i> Zaplatiť</button> <!-- https://fontawesome.com/icons/basket-shopping -->
+                    </div>
+                </div>
+            </article>
 
-        <div class="image image_3 <?php echo $theme; ?>">
-            <h2>Grafická karta</h2>
-        </div>
-
-        <div class="image image_4 <?php echo $theme; ?>">
-            <h2>2. Grafická karta</h2>
-        </div>
-
-        <div class="image image_5 <?php echo $theme; ?>">
-            <h2>RAM</h2>
-        </div>
-    </section>
-
-    <main class="<?php echo $theme; ?>">
-        <section class="about_us <?php echo $theme; ?>">
-            <h2>O&nbsp;nás</h2>
-            <p>Sme tím nadšencov a odborníkov na počítačový hardvér, ktorí sa venujú profesionálnej stavbe, servisu a upgradu počítačov. Našim cieľom je poskytovať spoľahlivé a kvalitné služby, vďaka ktorým si môžete užívať bezproblémový a výkonný počítač, či už na prácu, hranie hier alebo kreatívnu tvorbu.<br>
-            Či už potrebujete nový počítač na mieru, odbornú diagnostiku, výmenu komponentov, čistenie alebo zrýchlenie vášho zariadenia, sme tu pre vás. Ku každému zákazníkovi pristupujeme individuálne a hľadáme riešenia, ktoré najlepšie vyhovujú jeho potrebám a rozpočtu.<br>
-            Dôverujte odborníkom a nechajte si poradiť od ľudí, ktorí počítačom skutočne rozumejú. S nami získate nielen profesionálnu službu, ale aj cenné rady, ktoré vám pomôžu naplno využiť potenciál vášho zariadenia.<br>
-            Kontaktujte nás ešte dnes a nechajte svoj počítač v rukách profesionálov!</p>
+            <article class="computer_cleaning">
+                <div class="computer_cleaning_container">
+                    <img src="/content/images/computer_cleaning.jpg" alt="Čistenie počítača"> <!-- https://unsplash.com/photos/a-compact-computer-case-with-internal-components-visible-AZcrU0-8QzU -->
+    
+                    <p class="title">Čistenie&nbsp;počítača</p>
+                    <p class="description">Ak váš počítač alebo notebook spomaľuje nahromadený prach a nečistoty, postaráme sa o jeho dôkladné vyčistenie. Odborne vyčistíme vnútro zariadenia, odstránime prach a nečistoty a zabezpečíme optimálne chladenie výmenou teplovodivej pasty na procesore či grafickej karte, čím výrazne znížime prevádzkové teploty. S nami váš počítač opäť získa maximálny výkon, stabilitu a dlhšiu životnosť!</p>
+    
+                    <div class="bottom">
+                        <p class="price">20<span>€</span></p>
+                        <button class="add_to_cart" title="Zajednať a zaplatiť" aria-label="Zajednať a zaplatiť"><i class="fa-solid fa-basket-shopping"></i> Zaplatiť</button> <!-- https://fontawesome.com/icons/basket-shopping -->
+                    </div>
+                </div>
+            </article>
         </section>
-        
-        <section class="main_content <?php echo $theme; ?>">
-            <div class="our_services">
-                <section>
-                    <h2><img class="discount_icon" src="/content/images/free.png" alt="Zadarmo">Stavba&nbsp;počítača</h2> <!-- https://www.flaticon.com/free-icon/free_3706334 -->
-    
-                    <p>Nechajte si u nás zostaviť a nakonfigurovať počítač na mieru – rýchlo, profesionálne a za výhodnú cenu. Ak už máte vhodné komponenty a hľadáte spoľahlivých odborníkov na ich správnu montáž, sme tu pre vás. A ak si ešte nie ste istí výberom, radi vám pomôžeme vybrať tie najlepšie komponenty podľa vašich potrieb a zabezpečíme ich odborné zostavenie. S nami získate počítač, ktorý bude pripravený na použitie bez starostí!<br>
-                    len za: <span class="price"><s>30€</s> ZADARMO</span></p>
 
-                    <button class="contact_us_button build_computer_button">Mám záujem</button>
-                </section>
-        
-                <section>
-                    <h2><img class="discount_icon" src="/content/images/free.png" alt="Zadarmo">Údržba&nbsp;počítača</h2> <!-- https://www.flaticon.com/free-icon/free_3706334 -->
-    
-                    <p>Ak vás trápi hardvérový problém, nefunkčné alebo poškodené komponenty, sme tu, aby sme vám pomohli. Diagnostikujeme váš počítač, navrhneme najlepšie riešenie a postaráme sa o opravu alebo výmenu nefunkčných komponentov. Okrem toho vám radi poradíme s upgradom – či už ide o zrýchlenie systému, rozšírenie kapacity alebo zvýšenie výkonu staršieho alebo nového počítača, pomôžeme vám z neho vyťažiť maximum!<br>
-                    len za: <span class="price"><s>15€</s> ZADARMO</span></p>
-
-                    <button class="contact_us_button computer_maintenance_button">Mám záujem</button>
-                </section>
-        
-                <section>
-                    <h2><img class="discount_icon" src="/content/images/free.png" alt="Zadarmo">Čistenie&nbsp;počítača</h2> <!-- https://www.flaticon.com/free-icon/free_3706334 -->
-    
-                    <p>Ak váš počítač alebo notebook spomaľuje nahromadený prach a nečistoty, postaráme sa o jeho dôkladné vyčistenie. Odborne vyčistíme vnútro zariadenia, odstránime prach a nečistoty a zabezpečíme optimálne chladenie výmenou teplovodivej pasty na procesore či grafickej karte, čím výrazne znížime prevádzkové teploty. S nami váš počítač opäť získa maximálny výkon, stabilitu a dlhšiu životnosť!<br>
-                    len za: <span class="price"><s>10€</s> ZADARMO</span></p>
-
-                    <button class="contact_us_button computer_cleaning_button">Mám záujem</button>
-                </section>
+        <section class="main <?php echo $theme; ?>">
+            <div class="about_us <?php echo $theme; ?>">
+                <h2>O&nbsp;nás</h2>
+                <p>Sme tím nadšencov a odborníkov na počítačový hardvér, ktorí sa venujú profesionálnej stavbe, servisu a upgradu počítačov. Našim cieľom je poskytovať spoľahlivé a kvalitné služby, vďaka ktorým si môžete užívať bezproblémový a výkonný počítač, či už na prácu, hranie hier alebo kreatívnu tvorbu.<br>
+                Či už potrebujete nový počítač na mieru, odbornú diagnostiku, výmenu komponentov, čistenie alebo zrýchlenie vášho zariadenia, sme tu pre vás. Ku každému zákazníkovi pristupujeme individuálne a hľadáme riešenia, ktoré najlepšie vyhovujú jeho potrebám a rozpočtu.<br>
+                Dôverujte odborníkom a nechajte si poradiť od ľudí, ktorí počítačom skutočne rozumejú. S nami získate nielen profesionálnu službu, ale aj cenné rady, ktoré vám pomôžu naplno využiť potenciál vášho zariadenia.<br>
+                Kontaktujte nás ešte dnes a nechajte svoj počítač v rukách profesionálov!</p>
             </div>
-    
-            <section>
-                <div class="slider <?php echo $theme; ?>">
-                    <div class="slides">
-                        <input type="radio" name="r" id="r1" checked>
-                        <input type="radio" name="r" id="r2">
-                        <input type="radio" name="r" id="r3">
-                        <input type="radio" name="r" id="r4">
-                        <input type="radio" name="r" id="r5">
-    
-                        <div class="slide s1">
-                            <a href="/content/images/processor.jpg" title="Klikni pre zobrazenie" data-lightbox="mygallery" data-title="Procesor">
-                                <img src="/content/images/processor.jpg" alt="Procesor">
-                            </a>
-                        </div>
-
-                        <div class="slide">
-                            <a href="/content/images/motherboard.jpg" title="Klikni pre zobrazenie" data-lightbox="mygallery" data-title="Základná doska">
-                                <img src="/content/images/motherboard.jpg" alt="Základná doska">
-                            </a>
-                        </div>
-
-                        <div class="slide">
-                            <a href="/content/images/graphics-card.jpg" title="Klikni pre zobrazenie" data-lightbox="mygallery" data-title="Grafická karta">
-                                <img src="/content/images/graphics-card.jpg" alt="Grafická karta">
-                            </a>
-                        </div>
-
-                        <div class="slide">
-                            <a href="/content/images/graphics-card-2.jpg" title="Klikni pre zobrazenie" data-lightbox="mygallery" data-title="2. Grafická karta">
-                                <img src="/content/images/graphics-card-2.jpg" alt="2. Grafická karta">
-                            </a>
-                        </div>
-                        
-                        <div class="slide">
-                            <a href="/content/images/ram.jpg" title="Klikni pre zobrazenie" data-lightbox="mygallery" data-title="RAM">
-                                <img src="/content/images/ram.jpg" alt="RAM">
-                            </a>
-                        </div>
-                    </div>
-    
-                    <div class="navigation">
-                        <label for="r1" class="bar"></label>
-                        <label for="r2" class="bar"></label>
-                        <label for="r3" class="bar"></label>
-                        <label for="r4" class="bar"></label>
-                        <label for="r5" class="bar"></label>
-                    </div>
-                </div>
-            </section>
-    
-            <section>
-                <div class="map <?php echo $theme; ?>">
-                    <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2606.766288777082!2d18.764998876951566!3d49.20499297138131!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471459414e15928d%3A0x565bca562c7ff67c!2zMSwgS2FycGF0c2vDoSAzMTA2LCAwMTAgMDggxb1pbGluYS1WbMSNaW5jZQ!5e0!3m2!1ssk!2ssk!4v1740590369995!5m2!1ssk!2ssk" allowfullscreen="yes" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                </div>
-            </section>
-
-            <!-- <section>
-                <h2>Obchod</h2>
-                <div>
-                    <h3>GeForce GTX 1660 Ti VENTUS XS 6G OC - 100€</h3>
-                    <img src="/content/images/GTX-1660-Ti.png" alt="GTX 1660 Ti VENTUS XS 6G OC">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe unde ipsa voluptatum! Esse, provident debitis est placeat suscipit, reiciendis, ratione iste laborum odio inventore similique exercitationem minima quas delectus fugit.</p>
-                </div>
-            </section> -->
-    
-            <section class="faq">
+            
+            <div class="faq">
                 <h2>Časté&nbsp;otázky&nbsp;(FAQ)</h2>
                 <h3>Ako dlho trvá zostavenie počítača?</h3>
                 <p>Závisí to podľa dostupnosti komponentov a zložitosti zostavy. Ak máte všetky komponenty pripravené, zostavenie zvyčajne trvá 1 – 2 dni. Ak vám pomáhame aj s výberom komponentov, môže to trvať niekoľko dní až týždeň.</p>
@@ -709,113 +591,113 @@
                 <p>Stačí nás kontaktovať, ideálne telefonicky, aby sme mohli rýchlo a efektívne prediskutovať vaše požiadavky. Či už ide o výber komponentov, údržbu, čistenie alebo inú službu, radi vám poradíme a spoločne nájdeme najlepšie riešenie. Po dohode zabezpečíme objednanie potrebných komponentov, dohodneme sa na termíne realizácie a spôsobe prevzatia vášho zariadenia.</p>
                 <h3>Ako to je s platbou?</h3>
                 <p>Pred objednaním komponentov na stavbu počítača alebo pred odovzdaním vášho zariadenia na údržbu či čistenie je platba za službu a zakúpené komponenty potrebná vopred. Po dokončení práce vám odovzdáme všetky faktúry, doklady o kúpe a originálne balenia komponentov.</p>
-            </section>
+            </div>
+        </section>
 
-            <section class="reviews <?php echo $theme; ?>" data-logged_in_user_id="<?php echo json_encode($user_id); ?>">
-                <h2>Recenzie</h2>
-                
-                <div class="user_review">
-                    <h3>Moja recenzia</h3>
-                    
-                    <?php if($review_object->getUserReview($connection, $user_id) !== null and $review_object->getUserReview($connection, $user_id) !== false): ?>
-                        <div class="review">
-                            <?php if($review_object->getUserReview($connection, $user_id)["status"] === "pending"): ?>
-                                <p class="pending_review">Vaša recenzia čaká na kontrolu</p>
+        <section class="reviews <?php echo $theme; ?>" data-logged_in_user_id="<?php echo json_encode($user_id); ?>">
+            <div class="user_review">
+                <?php if($review_object->getUserReview($connection, $user_id) !== null and $review_object->getUserReview($connection, $user_id) !== false): ?>
+                    <div class="review">
+                        <?php if($review_object->getUserReview($connection, $user_id)["status"] === "pending"): ?>
+                            <p class="pending_review">Vaša recenzia čaká na kontrolu</p>
+
+                        <?php endif; ?>
+
+                        <div class="reviewer">
+                            <?php if(!empty($user_object->getUserInformation($connection, $review_object->getUserReview($connection, $user_id)['user_id'], 'profile_picture_name')) or !empty($user_object->getUserInformation($connection, $review_object->getUserReview($connection, $user_id)['user_id'], 'google_profile_picture_url'))): ?>
+                                <img 
+                                    class="profile_picture" 
+                                    src="
+                                        <?php if(!empty($user_object->getUserInformation($connection, $review_object->getUserReview($connection, $user_id)['user_id'], 'google_profile_picture_url')) and empty($user_object->getUserInformation($connection, $review_object->getUserReview($connection, $user_id)['user_id'], 'profile_picture_name'))): ?>
+                                            <?php echo $user_object->getUserInformation($connection, $user_id, 'google_profile_picture_url'); ?>
+
+                                        <?php else: ?>
+                                            /content/uploads/<?php echo $user_id; ?>/<?php echo $user_object->getUserInformation($connection, $user_id, 'profile_picture_name'); ?>
+
+                                        <?php endif; ?>
+                                    "
+                                    alt="Môj účet"
+                                >
+
+                            <?php else: ?>
+                                <img class="profile_picture" src="/content/images/avatar.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_847969 -->
 
                             <?php endif; ?>
 
-                            <div class="reviewer">
-                                <?php if(!empty($user_object->getUserInformation($connection, $review_object->getUserReview($connection, $user_id)['user_id'], 'profile_picture_name')) or !empty($user_object->getUserInformation($connection, $review_object->getUserReview($connection, $user_id)['user_id'], 'google_profile_picture_url'))): ?>
-                                    <img 
-                                        class="profile_picture" 
-                                        src="
-                                            <?php if(!empty($user_object->getUserInformation($connection, $review_object->getUserReview($connection, $user_id)['user_id'], 'google_profile_picture_url')) and empty($user_object->getUserInformation($connection, $review_object->getUserReview($connection, $user_id)['user_id'], 'profile_picture_name'))): ?>
-                                                <?php echo $user_object->getUserInformation($connection, $user_id, 'google_profile_picture_url'); ?>
+                            <div class="user_info">
+                                <p class="name">
+                                    <?php echo htmlspecialchars($user_object->getUserInformation($connection, $review_object->getUserReview($connection, $user_id)["user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
+                                    <?php echo htmlspecialchars($user_object->getUserInformation($connection, $review_object->getUserReview($connection, $user_id)["user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
+                                </p>
 
-                                            <?php else: ?>
-                                                /content/uploads/<?php echo $user_id; ?>/<?php echo $user_object->getUserInformation($connection, $user_id, 'profile_picture_name'); ?>
+                                <p class="date">
+                                    -
 
-                                            <?php endif; ?>
-                                        "
-                                        alt="Môj účet"
-                                    >
+                                    <?php echo htmlspecialchars(date("j.n.Y", strtotime($review_object->getUserReview($connection, $user_id)["review_time"])), ENT_QUOTES, "UTF-8"); ?>
+
+                                    <?php if($review_object->getUserReview($connection, $_SESSION["logged_in_user_id"])["edited"] === "yes"): ?>
+                                        (upravená)
+
+                                    <?php endif; ?>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="stars">
+                            <?php for($i = 1; $i <= 5; $i++): ?>
+                                <?php if($i <= $review_object->getUserReview($connection, $user_id)["rating"]): ?>
+                                    <div class="star">
+                                        <i class="fa-solid fa-star"></i> <!-- https://fontawesome.com/icons/star -->
+                                    </div>
 
                                 <?php else: ?>
-                                    <img class="profile_picture" src="/content/images/avatar.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_847969 -->
+                                    <div class="star">
+                                        <i class="fa-regular fa-star"></i> <!-- https://fontawesome.com/icons/star -->
+                                    </div>
 
                                 <?php endif; ?>
 
-                                <div class="user_info">
-                                    <p class="name">
-                                        <?php echo htmlspecialchars($user_object->getUserInformation($connection, $review_object->getUserReview($connection, $user_id)["user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
-                                        <?php echo htmlspecialchars($user_object->getUserInformation($connection, $review_object->getUserReview($connection, $user_id)["user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
-                                    </p>
-
-                                    <p class="date">
-                                        -
-
-                                        <?php echo htmlspecialchars(date("j.n.Y", strtotime($review_object->getUserReview($connection, $user_id)["review_time"])), ENT_QUOTES, "UTF-8"); ?>
-
-                                        <?php if($review_object->getUserReview($connection, $_SESSION["logged_in_user_id"])["edited"] === "yes"): ?>
-                                            (upravená)
-
-                                        <?php endif; ?>
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="stars">
-                                <?php for($i = 1; $i <= 5; $i++): ?>
-                                    <?php if($i <= $review_object->getUserReview($connection, $user_id)["rating"]): ?>
-                                        <div class="star">
-                                            <i class="fa-solid fa-star"></i> <!-- https://fontawesome.com/icons/star -->
-                                        </div>
-    
-                                    <?php else: ?>
-                                        <div class="star">
-                                            <i class="fa-regular fa-star"></i> <!-- https://fontawesome.com/icons/star -->
-                                        </div>
-    
-                                    <?php endif; ?>
-    
-                                <?php endfor; ?>
-                            </div>
-
-                            <a class="edit_review" href="./upravit-recenziu" title="Upraviť recenziu">Upraviť recenziu</a>
-
-                            <p><?php echo htmlspecialchars($review_object->getUserReview($connection, $user_id)["review"], ENT_QUOTES, "UTF-8"); ?></p>
+                            <?php endfor; ?>
                         </div>
 
-                    <?php else: ?>
-                        <script src="/src/ts/dist/pages/homepage/components/write_review.js" type="module"></script>
+                        <a class="edit_review" href="./upravit-recenziu" title="Upraviť recenziu">Upraviť recenziu</a>
 
-                        <!-- reCAPTCHA V3 -->
-                        <script src="https://www.google.com/recaptcha/api.js?render=6LfbXMYrAAAAAJfSCq3aCjeiFxnhly7K2sgFjiEz&badge=inline"></script>
-                        
-                        <script>
-                            grecaptcha.ready(function() {
-                                const grecaptcha_badge = document.querySelectorAll(".grecaptcha-badge")[0]
-                                const grecaptcha_badge_container = document.querySelectorAll(".grecaptcha_badge_container")[0]
+                        <p><?php echo htmlspecialchars($review_object->getUserReview($connection, $user_id)["review"], ENT_QUOTES, "UTF-8"); ?></p>
+                    </div>
 
-                                grecaptcha_badge_container.appendChild(grecaptcha_badge)
-                                grecaptcha_badge.style.marginBottom = "7px"
-                                grecaptcha_badge.style.background = "#1e1e1e"
-                                grecaptcha_badge.style.opacity = "0.8"
+                <?php else: ?>
+                    <script src="/src/ts/dist/pages/homepage/components/write_review.js" type="module"></script>
 
-                                document.querySelector(".write_review").addEventListener("submit", function(event) {
-                                    event.preventDefault()
-                                    
-                                    grecaptcha.execute("6LfbXMYrAAAAAJfSCq3aCjeiFxnhly7K2sgFjiEz", {action: "submit"}).then(function(token) {
-                                        const g_recaptcha_response = document.querySelectorAll("#g-recaptcha-response")[0]
+                    <!-- reCAPTCHA V3 -->
+                    <script src="https://www.google.com/recaptcha/api.js?render=6LfbXMYrAAAAAJfSCq3aCjeiFxnhly7K2sgFjiEz&badge=inline"></script>
+                    
+                    <script>
+                        grecaptcha.ready(function() {
+                            const grecaptcha_badge = document.querySelectorAll(".grecaptcha-badge")[0]
+                            const grecaptcha_badge_container = document.querySelectorAll(".grecaptcha_badge_container")[0]
 
-                                        g_recaptcha_response.value = token
-                                        event.target.submit()
-                                    })
+                            grecaptcha_badge_container.appendChild(grecaptcha_badge)
+                            grecaptcha_badge.style.marginBottom = "7px"
+                            grecaptcha_badge.style.background = "#1e1e1e"
+                            grecaptcha_badge.style.opacity = "0.8"
+
+                            document.querySelector(".write_review").addEventListener("submit", function(event) {
+                                event.preventDefault()
+                                
+                                grecaptcha.execute("6LfbXMYrAAAAAJfSCq3aCjeiFxnhly7K2sgFjiEz", {action: "submit"}).then(function(token) {
+                                    const g_recaptcha_response = document.querySelectorAll("#g-recaptcha-response")[0]
+
+                                    g_recaptcha_response.value = token
+                                    event.target.submit()
                                 })
                             })
-                        </script>
+                        })
+                    </script>
 
-                        <form class="write_review" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                    <form class="write_review" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                        <h2>Moja&nbsp;recenzia</h2>
+
+                        <div class="header">
                             <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true): ?>
                                 <div class="reviewer">
                                     <?php if(!empty($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "profile_picture_name")) or !empty($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'))): ?>
@@ -824,9 +706,78 @@
                                             src="
                                                 <?php if(!empty($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url')) and empty($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'profile_picture_name'))): ?>
                                                     <?php echo $user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'); ?>
-
+    
                                                 <?php else: ?>
                                                     /content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo $user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'profile_picture_name'); ?>
+    
+                                                <?php endif; ?>
+                                            "
+                                            alt="Môj účet"
+                                        >
+    
+                                    <?php else: ?>
+                                        <img class="profile_picture" src="/content/images/avatar.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_847969 -->
+    
+                                    <?php endif; ?>
+    
+                                    <p class="name">
+                                        <?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
+                                        <?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
+                                    </p>
+                                </div>
+    
+                            <?php else: ?>
+                                <div class="reviewer">
+                                    <img class="profile_picture" src="/content/images/avatar.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_847969 -->
+                                    <p class="name">Anonymný zákazník</p>
+                                </div>
+    
+                            <?php endif; ?>
+    
+                            <div class="stars">
+                                <?php for($i = 1; $i <= 5; $i++): ?>
+                                    <div class="star" data-rating="<?php echo $i; ?>">
+                                        <i class="fa-regular fa-star"></i> <!-- https://fontawesome.com/icons/star -->
+                                    </div>
+    
+                                <?php endfor; ?>
+    
+                                <input class="rating" type="hidden" name="rating" value="">
+                            </div>
+                        </div>
+
+                        <p class="form_report valid"></p>
+
+                        <textarea type="textarea" name="review" placeholder="Zanechajte nám vaše hodnotenie"><?php echo htmlspecialchars($review, ENT_QUOTES, "UTF-8"); ?></textarea>
+
+                        <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+                        
+                        <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
+                        
+                        <input type="hidden" name="recaptcha_write_review_submit">
+                        <button class="write_review_submit" type="submit" name="write_review_submit">Zverejniť recenziu</button>
+
+                        <div class="grecaptcha_badge_container"></div>
+                    </form>
+
+                <?php endif; ?>
+            </div>
+
+            <?php if($review_object->countReviews($connection, $user_id) > 0): ?>
+                <div class="all_reviews">
+                    <?php foreach($review_object->getAllReviews($connection, $user_id) as $one_review): ?>
+                        <div class="review">
+                            <?php if($one_review["user_id"] !== null): ?>
+                                <div class="reviewer">
+                                    <?php if(!empty($user_object->getUserInformation($connection, $one_review['user_id'], 'profile_picture_name')) or !empty($user_object->getUserInformation($connection, $one_review['user_id'], 'google_profile_picture_url'))): ?>
+                                        <img 
+                                            class="profile_picture" 
+                                            src="
+                                                <?php if(!empty($user_object->getUserInformation($connection, $one_review['user_id'], 'google_profile_picture_url')) and empty($user_object->getUserInformation($connection, $one_review['user_id'], 'profile_picture_name'))): ?>
+                                                    <?php echo $user_object->getUserInformation($connection, $user_id, 'google_profile_picture_url'); ?>
+
+                                                <?php else: ?>
+                                                    /content/uploads/<?php echo $user_id; ?>/<?php echo $user_object->getUserInformation($connection, $user_id, 'profile_picture_name'); ?>
 
                                                 <?php endif; ?>
                                             "
@@ -838,176 +789,96 @@
 
                                     <?php endif; ?>
 
-                                    <p class="name">
-                                        <?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
-                                        <?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
-                                    </p>
+                                    <div class="user_info">
+                                        <p class="name">
+                                            <?php echo htmlspecialchars($user_object->getUserInformation($connection, $one_review["user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
+                                            <?php echo htmlspecialchars($user_object->getUserInformation($connection, $one_review["user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
+                                        </p>
+
+                                        <p class="date">
+                                            -
+
+                                            <?php echo htmlspecialchars(date("j.n.Y", strtotime($one_review["review_time"])), ENT_QUOTES, "UTF-8"); ?>
+
+                                            <?php if($one_review["edited"] === "yes"): ?>
+                                                (upravená)
+
+                                            <?php endif; ?>
+                                        </p>
+                                    </div>
                                 </div>
+                                
+                                <div class="stars">
+                                    <?php for($i = 1; $i <= 5; $i++): ?>
+                                        <?php if($i <= $one_review["rating"]): ?>
+                                            <div class="star">
+                                                <i class="fa-solid fa-star"></i> <!-- https://fontawesome.com/icons/star -->
+                                            </div>
+    
+                                        <?php else: ?>
+                                            <div class="star">
+                                                <i class="fa-regular fa-star"></i> <!-- https://fontawesome.com/icons/star -->
+                                            </div>
+    
+                                        <?php endif; ?>
+                                        
+                                    <?php endfor; ?>
+                                </div>
+
+                                <p><?php echo htmlspecialchars($one_review["review"], ENT_QUOTES, "UTF-8"); ?></p>
 
                             <?php else: ?>
                                 <div class="reviewer">
                                     <img class="profile_picture" src="/content/images/avatar.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_847969 -->
-                                    <p class="name">Anonymný zákazník</p>
+
+                                    <div class="user_info">
+                                        <p class="name">Anonymný zákazník</p>
+
+                                        <p class="date">
+                                            -
+                                            
+                                            <?php echo htmlspecialchars(date("j.n.Y", strtotime($one_review["review_time"])), ENT_QUOTES, "UTF-8"); ?>
+                                        </p>
+                                    </div>
                                 </div>
 
+                                <div class="stars">
+                                    <?php for($i = 1; $i <= 5; $i++): ?>
+                                        <?php if($i <= $one_review["rating"]): ?>
+                                            <div class="star">
+                                                <i class="fa-solid fa-star"></i> <!-- https://fontawesome.com/icons/star -->
+                                            </div>
+    
+                                        <?php else: ?>
+                                            <div class="star">
+                                                <i class="fa-regular fa-star"></i> <!-- https://fontawesome.com/icons/star -->
+                                            </div>
+    
+                                        <?php endif; ?>
+                                        
+                                    <?php endfor; ?>
+                                </div>
+
+                                <p><?php echo htmlspecialchars($one_review["review"], ENT_QUOTES, "UTF-8"); ?></p>
+
                             <?php endif; ?>
+                        </div>
 
-                            <div class="stars">
-                                <?php for($i = 1; $i <= 5; $i++): ?>
-                                    <div class="star" data-rating="<?php echo $i; ?>">
-                                        <i class="fa-regular fa-star"></i> <!-- https://fontawesome.com/icons/star -->
-                                    </div>
-
-                                <?php endfor; ?>
-
-                                <input class="rating" type="hidden" name="rating" value="">
-                            </div>
-
-                            <p class="form_report valid"></p>
-
-                            <textarea type="textarea" name="review" placeholder="Zanechajte nám vaše hodnotenie"><?php echo htmlspecialchars($review, ENT_QUOTES, "UTF-8"); ?></textarea>
-
-                            <div class="grecaptcha_badge_container"></div>
-
-                            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-
-                            <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
-
-                            <input type="hidden" name="recaptcha_write_review_submit">
-                            <button class="write_review_submit" type="submit" name="write_review_submit">Zverejniť recenziu</button>
-                        </form>
-
-                    <?php endif; ?>
+                    <?php endforeach; ?>
                 </div>
 
-                <?php if($review_object->countReviews($connection, $user_id) > 0): ?>
-                    <h3 class="all_reviews_title">Ostatné recenzie</h3>
+            <?php endif; ?>
 
-                    <div class="all_reviews">
-                        <?php foreach($review_object->getAllReviews($connection, $user_id) as $one_review): ?>
-                            <div class="review">
-                                <?php if($one_review["user_id"] !== null): ?>
-                                    <div class="reviewer">
-                                        <?php if(!empty($user_object->getUserInformation($connection, $one_review['user_id'], 'profile_picture_name')) or !empty($user_object->getUserInformation($connection, $one_review['user_id'], 'google_profile_picture_url'))): ?>
-                                            <img 
-                                                class="profile_picture" 
-                                                src="
-                                                    <?php if(!empty($user_object->getUserInformation($connection, $one_review['user_id'], 'google_profile_picture_url')) and empty($user_object->getUserInformation($connection, $one_review['user_id'], 'profile_picture_name'))): ?>
-                                                        <?php echo $user_object->getUserInformation($connection, $user_id, 'google_profile_picture_url'); ?>
+            <?php if($review_object->countReviews($connection, $user_id) > 5): ?>
+                <div class="buttons">
+                    <button class="show_more" title="Zobraziť viac">Zobraziť viac</button>
+                    <button class="show_less hidden" title="Zobraziť menej">Zobraziť menej</button>
+                </div>
 
-                                                    <?php else: ?>
-                                                        /content/uploads/<?php echo $user_id; ?>/<?php echo $user_object->getUserInformation($connection, $user_id, 'profile_picture_name'); ?>
-
-                                                    <?php endif; ?>
-                                                "
-                                                alt="Môj účet"
-                                            >
-
-                                        <?php else: ?>
-                                            <img class="profile_picture" src="/content/images/avatar.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_847969 -->
-
-                                        <?php endif; ?>
-
-                                        <div class="user_info">
-                                            <p class="name">
-                                                <?php echo htmlspecialchars($user_object->getUserInformation($connection, $one_review["user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
-                                                <?php echo htmlspecialchars($user_object->getUserInformation($connection, $one_review["user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
-                                            </p>
-
-                                            <p class="date">
-                                                -
-
-                                                <?php echo htmlspecialchars(date("j.n.Y", strtotime($one_review["review_time"])), ENT_QUOTES, "UTF-8"); ?>
-
-                                                <?php if($one_review["edited"] === "yes"): ?>
-                                                    (upravená)
-
-                                                <?php endif; ?>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="stars">
-                                        <?php for($i = 1; $i <= 5; $i++): ?>
-                                            <?php if($i <= $one_review["rating"]): ?>
-                                                <div class="star">
-                                                    <i class="fa-solid fa-star"></i> <!-- https://fontawesome.com/icons/star -->
-                                                </div>
-        
-                                            <?php else: ?>
-                                                <div class="star">
-                                                    <i class="fa-regular fa-star"></i> <!-- https://fontawesome.com/icons/star -->
-                                                </div>
-        
-                                            <?php endif; ?>
-                                            
-                                        <?php endfor; ?>
-                                    </div>
-
-                                    <p><?php echo htmlspecialchars($one_review["review"], ENT_QUOTES, "UTF-8"); ?></p>
-
-                                <?php else: ?>
-                                    <div class="reviewer">
-                                        <img class="profile_picture" src="/content/images/avatar.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_847969 -->
-
-                                        <div class="user_info">
-                                            <p class="name">Anonymný zákazník</p>
-
-                                            <p class="date">
-                                                -
-                                                
-                                                <?php echo htmlspecialchars(date("j.n.Y", strtotime($one_review["review_time"])), ENT_QUOTES, "UTF-8"); ?>
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    <div class="stars">
-                                        <?php for($i = 1; $i <= 5; $i++): ?>
-                                            <?php if($i <= $one_review["rating"]): ?>
-                                                <div class="star">
-                                                    <i class="fa-solid fa-star"></i> <!-- https://fontawesome.com/icons/star -->
-                                                </div>
-        
-                                            <?php else: ?>
-                                                <div class="star">
-                                                    <i class="fa-regular fa-star"></i> <!-- https://fontawesome.com/icons/star -->
-                                                </div>
-        
-                                            <?php endif; ?>
-                                            
-                                        <?php endfor; ?>
-                                    </div>
-
-                                    <p><?php echo htmlspecialchars($one_review["review"], ENT_QUOTES, "UTF-8"); ?></p>
-
-                                <?php endif; ?>
-                            </div>
-
-                        <?php endforeach; ?>
-                    </div>
-
-                <?php endif; ?>
-
-                <?php if($review_object->countReviews($connection, $user_id) > 5): ?>
-                    <div class="buttons">
-                        <button class="show_more" title="Zobraziť viac">Zobraziť viac</button>
-                        <button class="show_less hidden" title="Zobraziť menej">Zobraziť menej</button>
-                    </div>
-
-                <?php endif; ?>
-            </section>
+            <?php endif; ?>
         </section>
 
         <section class="contact <?php echo $theme; ?>">
-            <h2>Kontakt</h2>
-            <p>
-                V prípade akýchkoľvek otázok, či upozornení nás kontaktujte a my sa vám pokúsime v krátkom čase odpovedať. Budeme radi za akúkoľvek spätnú väzbu od Vás.
-                <?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?>
-                    <?php echo "Údaje vo formulári boli automaticky vyplnené na základe údajov vášho účtu."; ?>
-
-                <?php endif; ?>
-            </p>
-
             <!-- reCAPTCHA V3 -->
             <script src="https://www.google.com/recaptcha/api.js?render=6LfbXMYrAAAAAJfSCq3aCjeiFxnhly7K2sgFjiEz&badge=inline"></script>
             
@@ -1035,23 +906,35 @@
             </script>
 
             <form class="contact_form <?php echo $theme; ?>" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data">
-                <input 
-                    type="text"
-                    name="first_name"
-                    placeholder="Zadajte vaše meno"
-                    autocomplete="given-name"
-                    value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'first_name'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($first_name, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
-                    required
-                >
+                <h2>Kontakt</h2>
 
-                <input 
-                    type="text"
-                    name="last_name"
-                    placeholder="Zadajte vaše priezvisko"
-                    autocomplete="family-name"
-                    value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'last_name'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($last_name, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
-                    required
-                >
+                <!-- <p>
+                    V prípade akýchkoľvek otázok, či upozornení nás kontaktujte a my sa vám pokúsime v krátkom čase odpovedať. Budeme radi za akúkoľvek spätnú väzbu od Vás.
+                    <?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?>
+                        <?php echo "Údaje vo formulári boli automaticky vyplnené na základe údajov vášho účtu."; ?>
+    
+                    <?php endif; ?>
+                </p> -->
+
+                <div class="name_container">
+                    <input 
+                        type="text"
+                        name="first_name"
+                        placeholder="Zadajte vaše meno"
+                        autocomplete="given-name"
+                        value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'first_name'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($first_name, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                        required
+                    >
+    
+                    <input 
+                        type="text"
+                        name="last_name"
+                        placeholder="Zadajte vaše priezvisko"
+                        autocomplete="family-name"
+                        value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'last_name'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($last_name, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                        required
+                    >
+                </div>
 
                 <input 
                     type="email"
@@ -1078,15 +961,17 @@
                     </optgroup>
                 </select>
                 
-                <div class="attachment_container">
-                    <p class="attachment_report <?php echo $theme; ?>"><?php echo htmlspecialchars($attachment_message, ENT_QUOTES, "UTF-8"); ?></p>
+                <div class="textarea_container">
+                    <textarea type="textarea" name="message" placeholder="Zadajte vašu správu" required><?php echo htmlspecialchars($message, ENT_QUOTES, "UTF-8"); ?></textarea>
 
-                    <label class="attachment" for="attachment"><i class="fa-solid fa-paperclip" title="priložiť prílohu..."></i></label>
-
-                    <input id="attachment" type="file" name="attachment[]" accept=".jpg, .jpeg, .png, .gif, .webp, .bmp, .tiff, .tif, .mp4, .mov, .avi, .mkv, .webm, .hevc, .pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .txt, .rtf, .odt, .ods, .odp" multiple>
+                    <div class="attachment_container">
+                        <p class="attachment_report <?php echo $theme; ?>"><?php echo htmlspecialchars($attachment_message, ENT_QUOTES, "UTF-8"); ?></p>
+    
+                        <label class="attachment" for="attachment"><i class="fa-solid fa-paperclip" title="priložiť prílohu..."></i></label>
+    
+                        <input id="attachment" type="file" name="attachment[]" accept=".jpg, .jpeg, .png, .gif, .webp, .bmp, .tiff, .tif, .mp4, .mov, .avi, .mkv, .webm, .hevc, .pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .txt, .rtf, .odt, .ods, .odp" multiple>
+                    </div>
                 </div>
-
-                <textarea type="textarea" name="message" placeholder="Zadajte vašu správu" required><?php echo htmlspecialchars($message, ENT_QUOTES, "UTF-8"); ?></textarea>
 
                 <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
 
@@ -1098,6 +983,10 @@
                 <div class="grecaptcha_badge_container"></div>
             </form>
         </section>
+
+        <div class="map">
+            <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d170411.37760859914!2d16.950700206516654!3d48.135737106169756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476c89360aca6197%3A0x631f9b82fd884368!2sBratislava!5e0!3m2!1sen!2ssk!4v1784274678048!5m2!1sen!2ssk" allowfullscreen="yes" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
     </main>
     
     <footer class="<?php echo $theme; ?>">

@@ -1,23 +1,32 @@
-<div class="contact_details">
-    <p>KONTAKTNÉ ÚDAJE:</p>
-
-    <p>e-mail: <a href="mailto:behulpatrik@gmail.com &subject=E-mail from PC Expert" title="napísať...">behulpatrik@gmail.com</a></p>
-    <p>tel.č.: <a href="tel:+421940322633" title="zavolať...">0940 322 633</a></p>
-</div>
+<h2>PC&nbsp;Expert</h2>
 
 <div class="address">
-    <p>ADRESA:</p>
+    <p>Mlynské nivy 5/A</p>
+    <p>821 08 Bratislava</p>
+</div>
 
-    <p><a href="https://www.google.com/maps?ll=49.20479,18.76722&z=18&t=m&hl=sk&gl=SK&mapclient=embed&q=1+Karpatsk%C3%A1+3106+010+08+%C5%BDilina-Vl%C4%8Dince" title="zobraziť..." target="_blank">Karpatská 3106/1, 010 08, Žilina</a></p>
+<div class="contact_us">
+    <p><i class="fa-regular fa-envelope"></i> <a href="mailto:behulpatrik@gmail.com" title="Napísať...">behulpatrik@gmail.com</a></p> <!-- https://fontawesome.com/icons/envelope -->
+    <p><i class="fa-solid fa-phone"></i> <a href="tel:+421940322633" title="Zavolať...">+421 940 322 633</a></p> <!-- https://fontawesome.com/icons/phone -->
 </div>
 
 <div class="social_media">
-    <p>SOCIÁLNE SIETE:</p>
+    <a href="https://www.instagram.com/" title="Instagram" target="_blank"><i class="fa-brands fa-instagram"></i></a> <!-- https://fontawesome.com/icons/instagram -->
+    <a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="fa-brands fa-facebook"></i></a> <!-- https://fontawesome.com/icons/facebook -->
+    <a href="https://www.tiktok.com/" title="TikTok" target="_blank"><i class="fa-brands fa-tiktok"></i></a> <!-- https://fontawesome.com/icons/tiktok -->
+</div>
 
-    <div class="links">
-        <a href="https://www.instagram.com/" title="Instagram" target="_blank"><img src="/content/images/instagram.png" alt="Instagram"></a> <!-- https://www.flaticon.com/free-icon/instagram_174855?term=instagram&page=1&position=2&origin=search&related_id=174855 -->
-        <a href="https://www.facebook.com/" title="Facebook" target="_blank"><img src="/content/images/facebook.png" alt="Facebook"></a> <!-- https://www.flaticon.com/free-icon/facebook_733547?term=facebook&page=1&position=3&origin=search&related_id=733547 -->
+<div class="payment_methods">
+    <div class="icons">
+        <img src="/content/images/visa.png" title="Visa" alt="Visa"> <!-- https://www.flaticon.com/free-icon/visa_5968299 -->
+        <img src="/content/images/mastercard.png" title="Mastercard" alt="Mastercard"> <!-- https://www.flaticon.com/free-icon/card_16174534 -->
+        <img src="/content/images/amex.png" title="American Express" alt="American Express"> <!-- https://www.flaticon.com/free-icon/amex_179431 -->
+        <img src="/content/images/discover.png" title="Discover" alt="Discover"> <!-- https://www.flaticon.com/free-icon/discover_349230 -->
+        <img src="/content/images/diners_club.png" title="Diners Club" alt="Diners Club"> <!-- https://www.flaticon.com/free-icon/diners-club_229142 -->
+        <img src="/content/images/jcb.png" title="JCB" alt="JCB"> <!-- https://www.flaticon.com/free-icon/jcb_196559 -->
     </div>
 </div>
 
-<p class="copywrite">Copywrite&nbsp;&copy;&nbsp;2024&nbsp;-&nbsp;2025&nbsp;PC&nbsp;Expert</p>
+<div class="other">
+    <p class="copywrite">&copy; PC&nbsp;Expert 2024&nbsp;-&nbsp;2026, Všetky práva vyhradené.</p>
+</div>

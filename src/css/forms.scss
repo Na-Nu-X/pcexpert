@@ -64,6 +64,7 @@ main {
     }
 
     h2 {
+        margin-bottom: 50px;
         text-align: center;
         font-size: 2em;
         transition: letter-spacing 0.3s ease;
@@ -82,13 +83,34 @@ main {
     form {
         position: relative;
 
-        input[type="text"],
-        input[type="email"] {
-            @include form_input;
-        }
+        .inputs {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
 
-        textarea {
-            @include form_textarea;
+            input[type="text"],
+            input[type="email"] {
+                @include form_input;
+            }
+    
+            textarea {
+                @include form_textarea;
+            }
+
+            input[type="text"],
+            input[type="email"],
+            textarea {
+                background: none;
+                border-top: none;
+                border-right: none;
+                border-left: none;
+                border-radius: 0px;
+
+                &:focus-visible {
+                    background: none;
+                    box-shadow: none;
+                }
+            }
         }
 
         .form_report,
@@ -98,60 +120,73 @@ main {
             text-align: center;
         }
 
-        button[type="submit"],
-        .login_method a {
-            display: block;
-            width: 90%;
-            height: 50px;
+        button[type="submit"] {
+            @include blue_button($width: 100%, $border-radius: $big-border-radius);
             margin: 50px auto 10px;
-            background-color: transparentize($main-color, 0.8);
-            color: $secondary-color;
-            border: 1px solid $secondary-color;
-            border-radius: $big-border-radius;
-            outline: none;
-            transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease, transform 0.3s ease;
-            animation: fade_in_animation 0.5s ease-out;
-
-            &:hover,
-            &:focus {
-                background-color: transparentize($secondary-color, 0.2);
-                color: $main-color;
-                border: 1px solid $main-color;
-                transform: scale(1.1);
-                cursor: pointer;
-            }
-        }
-
-        .login_form button[type="submit"] {
             animation: fade_in_animation 0.3s ease-out;
         }
 
-        .login_method a {
-            position: relative;
-            margin: 10px auto;
-            background-color: transparentize($main-color, 0.6);
+        .login_method {
+            a {
+                @include light_blue_button($width: 100%, $border-radius: $big-border-radius);
+                @include flex_center;
+                margin-bottom: 10px;
+                padding: 0px;
+                // width: 100%;
+                height: 45px;
+                // margin: 50px auto 10px;
+                // background-color: transparentize($main-color, 0.8);
+                // color: $secondary-color;
+                // border: 1px solid $secondary-color;
+                // border-radius: $big-border-radius;
+                // outline: none;
+                // transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease, transform 0.3s ease;
 
-            &:hover,
-            &:focus {
-                background-color: transparentize($secondary-color, 0.4);
-            }
+                &:nth-child(1) {
+                    animation: fade_in_animation 0.4s ease-out;
+                }
+    
+                &:nth-child(2) {
+                    animation: fade_in_animation 0.5s ease-out;
+                }
 
-            &:nth-child(1) {
-                animation: fade_in_animation 0.4s ease-out;
-            }
+                img {
+                    position: absolute;
+                    left: 10px;
+                    // margin-right: auto;
+                }
 
-            &:nth-child(2) {
-                animation: fade_in_animation 0.5s ease-out;
-            }
-
-            img {
-                margin: 8px;
-            }
-
-            span {
-                @include position_center;
+                // &:hover,
+                // &:focus {
+                //     background-color: transparentize($secondary-color, 0.2);
+                //     color: $main-color;
+                //     border: 1px solid $main-color;
+                //     transform: scale(1.05);
+                //     cursor: pointer;
+                // }
             }
         }
+
+        // .login_method a {
+        //     position: relative;
+        //     margin: 10px auto;
+        //     background-color: transparentize($main-color, 0.6);
+
+        //     &:hover,
+        //     &:focus {
+        //         background-color: transparentize($secondary-color, 0.4);
+        //     }
+
+            
+
+        //     img {
+        //         margin: 8px;
+        //     }
+
+        //     span {
+        //         @include position_center;
+        //     }
+        // }
 
         .have_account, 
         .forgot_password,

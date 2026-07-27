@@ -276,20 +276,16 @@
         <?php endif; ?>
 
         <nav class="navigation_bar">
-            <ul>
-                <li class="navigation_bar_item home">
-                    <a href="./domov">DOMOV</a>
-                </li>
-
-                <li class="navigation_bar_item">
-                    <a href="./registracia">REGISTRÁCIA</a>
-                </li>
-
-                <button class="hamburger">
-                    <i class="fa-solid fa-bars"></i>
-                    <!-- <i class="fa-solid fa-xmark"></i> -->
+            <div class="navigation_container">
+                <button class="hamburger" (click)="toggleMenu()">
+                    <i class="fa-solid" [class.fa-bars]="!is_menu_open" [class.fa-xmark]="is_menu_open"></i> <!-- https://fontawesome.com/icons/bars / https://fontawesome.com/icons/magnifying-glass -->
                 </button>
-            </ul>
+            
+                <ul [class.open]="is_menu_open">
+                    <li class="home"><a href="./domov">DOMOV</a></li>
+                    <li><a href="./registracia">REGISTRÁCIA</a></li>
+                </ul>
+            </div>
         </nav>
 
         <div class="cookie_policy">
@@ -309,23 +305,25 @@
             <h2><a href="./prihlasenie">Prihlásenie</a></h2>
             
             <form class="login_form" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
-                <input 
-                    class="email_address"
-                    type="email"
-                    name="email_address"
-                    placeholder="Zadajte váš e-mail"
-                    autocomplete="email"
-                    value="<?php echo htmlspecialchars($email_address, ENT_QUOTES, "UTF-8"); ?>"
-                    required
-                >
-
-                <div class="password_container">
-                    <button class="show_hide_password" type="button" title="Zobraziť heslo">
-                        <i class="fa-regular fa-eye-slash"></i>
-                        <!-- <i class="fa-regular fa-eye"></i> -->
-                    </button>
-                    
-                    <input class="password" type="text" name="password" placeholder="Zadajte vaše heslo" autocomplete="off" required>
+                <div class="inputs">
+                    <input 
+                        class="email_address"
+                        type="email"
+                        name="email_address"
+                        placeholder="Zadajte váš e-mail"
+                        autocomplete="email"
+                        value="<?php echo htmlspecialchars($email_address, ENT_QUOTES, "UTF-8"); ?>"
+                        required
+                    >
+    
+                    <div class="password_container">
+                        <button class="show_hide_password" type="button" title="Zobraziť heslo">
+                            <i class="fa-regular fa-eye-slash"></i>
+                            <!-- <i class="fa-regular fa-eye"></i> -->
+                        </button>
+                        
+                        <input class="password" type="text" name="password" placeholder="Zadajte vaše heslo" autocomplete="off" required>
+                    </div>
                 </div>
 
                 <p class="form_report valid"></p>
@@ -350,11 +348,6 @@
                     <a href="<?php echo $url ?>">
                         <img src="/content/images/google.png" alt="Prihlásiť sa Google účtom"> <!-- https://www.flaticon.com/free-icon/search_281764 -->
                         <span>Použiť&nbsp;Google&nbsp;účet</span>
-                    </a>
-                    
-                    <a href="#">
-                        <img src="/content/images/facebook_2.png" alt="Prihlásiť sa Facebook účtom"> <!-- https://www.flaticon.com/free-icon/facebook_5968764 -->
-                        <span>Použiť&nbsp;Facebook&nbsp;účet</span>
                     </a>
                 </div>
 

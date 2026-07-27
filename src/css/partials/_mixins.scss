@@ -30,37 +30,87 @@
     border-radius: 50%;
 }
 
-// Form Input
+// Blue Button
 
-@mixin form_input {
-    display: block;
-    width: 90%;
-    height: 50px;
-    margin: 0px auto 10px;
-    padding: 5px;
-    background: none;
+@mixin blue_button($width: 150px, $border-radius: $small-border-radius) {
+    all: unset;
+    width: $width;
+    padding: 10px 0px;
+    text-align: center;
+    font-weight: 600;
+    background-color: $dark-blue-color;
     color: $secondary-color;
-    border: none;
-    border-bottom: 1px solid $secondary-color;
-    outline: none;
-    transition: width 0.3s ease;
+    border: 1px solid $light-blue-color;
+    border-radius: $border-radius;
+    transition: transform 0.2s ease, background-color 0.2s ease;
 
     &:hover,
     &:focus-visible {
-        width: 100%;
+        transform: translateY(-2px);
+        background-color: lighten($dark-blue-color, 5%);
+        cursor: pointer;
     }
+    
+    &:active {
+        transform: translateY(1px);
+    }
+}
+
+// Light Blue Button
+
+@mixin light_blue_button($width: 150px, $border-radius: $small-border-radius) {
+    all: unset;
+    width: $width;
+    padding: 10px 0px;
+    text-align: center;
+    font-weight: 600;
+    background-color: $light-blue-color;
+    color: $dark-blue-color;
+    border: 1px solid $dark-blue-color;
+    border-radius: $border-radius;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    
+    &:hover {
+        transform: translateY(-2px);
+        background-color: $light-blue-color;
+        cursor: pointer;
+    }
+    
+    &:active {
+        transform: translateY(1px);
+    }
+}
+
+// Form Input
+
+@mixin form_input {
+    width: 100%;
+    padding: 10px 15px;
+    background-color: darken($secondary-color, 3%);
+    color: transparentize($main-color, 0.4);
+    border: 1px solid darken($secondary-color, 10%);
+    border-radius: $small-border-radius;
+    font-family: inherit;
+    outline: none;
+    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 
     &::placeholder {
         color: darken($secondary-color, 40%);
     }
 
+    &:focus-visible {
+        background-color: $secondary-color;
+        border-color: $blue-color;
+        box-shadow: 0 0 0 3px transparentize($blue-color, 0.8);
+    }
+
     &:-webkit-autofill {
-        -webkit-text-fill-color: $secondary-color;
+        -webkit-text-fill-color: transparentize($main-color, 0.4);
         transition: width 0.3s ease, background-color 9999s ease;
 
         &:hover,
         &:focus {
-            -webkit-text-fill-color: $secondary-color;
+            -webkit-text-fill-color: transparentize($main-color, 0.4);
             transition: width 0.3s ease, background-color 9999s ease;
         }
     }
@@ -141,17 +191,17 @@
     }
 
     &::-webkit-scrollbar-thumb {
-        background-color: darken($secondary-color, 40%);
+        background-color: $blue-color;
         border-radius: 2.5px;
 
         &:hover {
-            background-color: darken($secondary-color, 20%);
+            background-color: darken($blue-color, 20%);
             cursor: pointer;
         }
     }
 
     &::-webkit-scrollbar-track {
-        background-color: lighten($main-color, 20%);
+        background-color: lighten($blue-color, 20%);
         border-radius: 2.5px;
     }
 }

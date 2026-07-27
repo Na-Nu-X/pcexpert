@@ -44,7 +44,7 @@ main .error_log .all_errors .user {
   width: 70%;
   margin: 0px auto 10px;
   padding: 10px;
-  background-color: rgb(242.25, 242.25, 242.25);
+  background-color: rgb(95%, 95%, 95%);
   border: 1px solid #000;
   border-radius: 5px;
   cursor: pointer;
@@ -122,15 +122,15 @@ main .pending_reviews .reviews.light textarea {
   border: 1px solid #000;
 }
 main .pending_reviews .reviews.dark .review {
-  background-color: rgb(25.5, 25.5, 25.5);
+  background-color: rgb(10%, 10%, 10%);
   border: 2px solid #fff;
 }
 main .pending_reviews .reviews.dark .review:hover {
-  background-color: rgb(12.75, 12.75, 12.75);
+  background-color: rgb(5%, 5%, 5%);
 }
 main .pending_reviews .reviews.dark textarea {
   color: #fff;
-  background-color: rgb(12.75, 12.75, 12.75);
+  background-color: rgb(5%, 5%, 5%);
   border: 2px solid #fff;
 }
 main .pending_reviews .reviews .review_confirmation {
@@ -162,13 +162,13 @@ main .pending_reviews .reviews .review_confirmation .approve_review {
   background-color: #52cf20;
 }
 main .pending_reviews .reviews .review_confirmation .approve_review:hover {
-  background-color: rgb(93.730125523, 222.129707113, 42.370292887);
+  background-color: rgb(36.7569119698%, 87.1096890639%, 16.6158011322%);
 }
 main .pending_reviews .reviews .review_confirmation .reject_review {
   background-color: #df3535;
 }
 main .pending_reviews .reviews .review_confirmation .reject_review:hover {
-  background-color: rgb(226.4871794872, 75.0128205128, 75.0128205128);
+  background-color: rgb(88.8185017597%, 29.416792358%, 29.416792358%);
 }
 main .users .all_users .user {
   position: relative;
@@ -177,11 +177,11 @@ main .users .all_users .user.light:hover {
   background-color: #fff;
 }
 main .users .all_users .user.dark {
-  background-color: rgb(25.5, 25.5, 25.5);
+  background-color: rgb(10%, 10%, 10%);
   border: 2px solid #fff;
 }
 main .users .all_users .user.dark:hover {
-  background-color: rgb(12.75, 12.75, 12.75);
+  background-color: rgb(5%, 5%, 5%);
 }
 main .users .all_users .user .basic_info {
   position: relative;
@@ -280,7 +280,7 @@ main .admin_form.light .admin_form_submit {
   height: 50px;
   margin: 0px auto 10px;
   padding: 10px;
-  background-color: rgb(229.5, 229.5, 229.5);
+  background-color: rgb(90%, 90%, 90%);
   outline: none;
   border: 1px solid #000;
   border-radius: 5px;
@@ -290,17 +290,17 @@ main .admin_form .admin_form_submit:hover,
 main .admin_form.light .admin_form_submit:hover {
   width: 80%;
   letter-spacing: 1px;
-  background-color: rgb(242.25, 242.25, 242.25);
+  background-color: rgb(95%, 95%, 95%);
 }
 main .admin_form.dark .admin_form_submit,
 main .admin_form.light.dark .admin_form_submit {
   color: #fff;
-  background-color: rgb(12.75, 12.75, 12.75);
+  background-color: rgb(5%, 5%, 5%);
   border: 2px solid #fff;
 }
 main .admin_form.dark .admin_form_submit:hover,
 main .admin_form.light.dark .admin_form_submit:hover {
-  background-color: rgb(25.5, 25.5, 25.5);
+  background-color: rgb(10%, 10%, 10%);
 }
 main .no_admin {
   text-align: center;

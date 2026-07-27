@@ -209,20 +209,16 @@
         <?php endif; ?>
 
         <nav class="navigation_bar">
-            <ul>
-                <li class="navigation_bar_item home">
-                    <a href="./domov">DOMOV</a>
-                </li>
-
-                <li class="navigation_bar_item">
-                    <a href="./prihlasenie">PRIHLÁSENIE</a>
-                </li>
-
-                <button class="hamburger">
-                    <i class="fa-solid fa-bars"></i>
-                    <!-- <i class="fa-solid fa-xmark"></i> -->
+            <div class="navigation_container">
+                <button class="hamburger" (click)="toggleMenu()">
+                    <i class="fa-solid" [class.fa-bars]="!is_menu_open" [class.fa-xmark]="is_menu_open"></i> <!-- https://fontawesome.com/icons/bars / https://fontawesome.com/icons/magnifying-glass -->
                 </button>
-            </ul>
+            
+                <ul [class.open]="is_menu_open">
+                    <li class="home"><a href="./domov">DOMOV</a></li>
+                    <li><a href="./prihlasenie">PRIHLÁSENIE</a></li>
+                </ul>
+            </div>
         </nav>
 
         <div class="cookie_policy">
@@ -242,76 +238,78 @@
             <h2><a href="./registracia">Registrácia</a></h2>
 
             <form class="registration_form" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
-                <input 
-                    type="text"
-                    name="first_name"
-                    placeholder="Zadajte vaše meno"
-                    autocomplete="given-name"
-                    value="<?php echo htmlspecialchars($first_name, ENT_QUOTES, "UTF-8"); ?>"
-                    required
-                >
-
-                <input 
-                    type="text"
-                    name="last_name"
-                    placeholder="Zadajte vaše priezvisko"
-                    autocomplete="family-name"
-                    value="<?php echo htmlspecialchars($last_name, ENT_QUOTES, "UTF-8"); ?>"
-                    required
-                >
-
-                <input 
-                    type="email"
-                    name="email_address"
-                    placeholder="Zadajte váš e-mail"
-                    autocomplete="email"
-                    value="<?php echo htmlspecialchars($email_address, ENT_QUOTES, "UTF-8"); ?>"
-                    required
-                >
-
-                <div class="phone_number_container">
-                    <div class="phone_number_icon">
-                        <img class="slovakia_icon" src="/content/images/slovakia.png" alt="SK"> <!-- https://www.flaticon.com/free-icon/slovakia_330594 -->
-                        <img class="czech_republic_icon" src="/content/images/czech-republic.png" alt="CZ"> <!-- https://www.flaticon.com/free-icon/czech-republic_330536 -->
-                        <img class="spain_icon" src="/content/images/spain.png" alt="ES"> <!-- https://www.flaticon.com/free-icon/spain_330557 -->
-                        <img class="united_states_icon" src="/content/images/united-states.png" alt="US"> <!-- https://www.flaticon.com/free-icon/united-states_3013911 -->
-                    </div>
-
+                <div class="inputs">
                     <input 
-                        class="phone_number"
                         type="text"
-                        name="phone_number"
-                        placeholder="Zadajte vaše telefónne číslo"
-                        autocomplete="tel"
-                        value="<?php echo htmlspecialchars($phone_number, ENT_QUOTES, "UTF-8"); ?>"
+                        name="first_name"
+                        placeholder="Zadajte vaše meno"
+                        autocomplete="given-name"
+                        value="<?php echo htmlspecialchars($first_name, ENT_QUOTES, "UTF-8"); ?>"
                         required
                     >
-                </div>
-                
-                <div class="password_container">
-                    <button class="generate_password" type="button" title="Navrhnúť heslo">
-                        <i class="fa-solid fa-key"></i>
-                    </button>
 
-                    <button class="show_hide_password" type="button" title="Zobraziť heslo">
-                        <i class="fa-regular fa-eye-slash"></i>
-                        <!-- <i class="fa-regular fa-eye"></i> -->
-                    </button>
+                    <input 
+                        type="text"
+                        name="last_name"
+                        placeholder="Zadajte vaše priezvisko"
+                        autocomplete="family-name"
+                        value="<?php echo htmlspecialchars($last_name, ENT_QUOTES, "UTF-8"); ?>"
+                        required
+                    >
+
+                    <input 
+                        type="email"
+                        name="email_address"
+                        placeholder="Zadajte váš e-mail"
+                        autocomplete="email"
+                        value="<?php echo htmlspecialchars($email_address, ENT_QUOTES, "UTF-8"); ?>"
+                        required
+                    >
+
+                    <div class="phone_number_container">
+                        <div class="phone_number_icon">
+                            <img class="slovakia_icon" src="/content/images/slovakia.png" alt="SK"> <!-- https://www.flaticon.com/free-icon/slovakia_330594 -->
+                            <img class="czech_republic_icon" src="/content/images/czech-republic.png" alt="CZ"> <!-- https://www.flaticon.com/free-icon/czech-republic_330536 -->
+                            <img class="spain_icon" src="/content/images/spain.png" alt="ES"> <!-- https://www.flaticon.com/free-icon/spain_330557 -->
+                            <img class="united_states_icon" src="/content/images/united-states.png" alt="US"> <!-- https://www.flaticon.com/free-icon/united-states_3013911 -->
+                        </div>
+
+                        <input 
+                            class="phone_number"
+                            type="text"
+                            name="phone_number"
+                            placeholder="Zadajte vaše telefónne číslo"
+                            autocomplete="tel"
+                            value="<?php echo htmlspecialchars($phone_number, ENT_QUOTES, "UTF-8"); ?>"
+                            required
+                        >
+                    </div>
                     
-                    <button class="copy_password" type="button" title="Kopírovať">
-                        <i class="fa-solid fa-copy"></i>
-                    </button>
-                    
-                    <input class="password" type="text" name="password" placeholder="Vytvorte heslo" autocomplete="off" required>
-                </div>
+                    <div class="password_container">
+                        <button class="generate_password" type="button" title="Navrhnúť heslo">
+                            <i class="fa-solid fa-key"></i>
+                        </button>
 
-                <div class="password_check_container">
-                    <button class="paste_password" type="button" title="Prilepiť">
-                        <i class="fa-regular fa-copy"></i>
-                    </button>
+                        <button class="show_hide_password" type="button" title="Zobraziť heslo">
+                            <i class="fa-regular fa-eye-slash"></i>
+                            <!-- <i class="fa-regular fa-eye"></i> -->
+                        </button>
+                        
+                        <button class="copy_password" type="button" title="Kopírovať">
+                            <i class="fa-solid fa-copy"></i>
+                        </button>
+                        
+                        <input class="password" type="text" name="password" placeholder="Vytvorte heslo" autocomplete="off" required>
+                    </div>
 
-                    <input class="password_check" type="text" placeholder="Overte heslo" autocomplete="off" required>
-                </div>
+                    <div class="password_check_container">
+                        <button class="paste_password" type="button" title="Prilepiť">
+                            <i class="fa-regular fa-copy"></i>
+                        </button>
+
+                        <input class="password_check" type="text" placeholder="Overte heslo" autocomplete="off" required>
+                    </div>
+                </div>  
 
                 <p class="form_report valid" style="top: 362px;"></p>
 

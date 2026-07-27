@@ -19,25 +19,28 @@ body::-webkit-scrollbar {
   width: 5px;
 }
 body::-webkit-scrollbar-thumb {
-  background-color: #999999;
+  background-color: #7CE5FA;
   border-radius: 2.5px;
 }
 body::-webkit-scrollbar-thumb:hover {
-  background-color: #cccccc;
+  background-color: rgb(10.0980392157%, 82.1568627451%, 96.568627451%);
   cursor: pointer;
 }
 body::-webkit-scrollbar-track {
-  background-color: #333333;
+  background-color: rgb(87.1568627451%, 97.4509803922%, 99.5098039216%);
   border-radius: 2.5px;
+}
+body {
+  font-size: 15px;
 }
 body::-webkit-scrollbar-track {
   border-radius: 0px;
 }
 body.light {
-  background-color: rgb(242.25, 242.25, 242.25);
+  background-color: #f5faf9;
 }
 body.dark {
-  background-color: rgb(12.75, 12.75, 12.75);
+  background-color: rgb(5%, 5%, 5%);
 }
 body {
   overflow-x: hidden;
@@ -74,8 +77,8 @@ select:focus-visible,
   visibility: hidden;
 }
 .preloader .loader {
-  border: 5px solid rgb(25.5, 25.5, 25.5);
-  border-top: 5px solid rgb(229.5, 229.5, 229.5);
+  border: 5px solid rgb(10%, 10%, 10%);
+  border-top: 5px solid rgb(90%, 90%, 90%);
   border-radius: 50%;
   width: 50px;
   height: 50px;
@@ -92,7 +95,6 @@ select:focus-visible,
 }
 header {
   height: 100vh;
-  margin-bottom: 25px;
   background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5)), url("/content/images/background.jpg");
   background-size: cover;
   background-position: center center;
@@ -103,45 +105,61 @@ header {
 
 .navigation_bar {
   position: fixed;
-  top: 0;
+  top: 0px;
+  left: 0px;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
-  border-bottom: 1px solid #cccccc;
-  text-align: center;
-  z-index: 200;
+  background-color: rgba(245, 250, 249, 0.9);
+  backdrop-filter: blur(5px);
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);
+  z-index: 1000;
 }
-.navigation_bar ul li {
-  width: 200px;
-  margin: 20px;
-  background-color: #fff;
-  border: 2px solid #000;
-  border-radius: 5px;
-  transition: letter-spacing 0.3s ease, transform 0.3s ease;
-}
-.navigation_bar ul li:hover, .navigation_bar ul li:focus-visible {
-  letter-spacing: 1px;
-  transform: scale(1.1);
-  cursor: pointer;
-}
-.navigation_bar ul li a {
-  display: block;
-  padding: 10px;
-  text-decoration: none;
-  color: #000;
-  font-family: Arial, Helvetica, sans-serif;
-  text-transform: uppercase;
+.navigation_bar .navigation_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0px auto;
+  padding: 0px 5px;
 }
 .navigation_bar .hamburger {
   all: unset;
   display: none;
-  margin: 0px auto;
+  height: 60px;
   font-size: 2em;
-  color: #fff;
-}
-.navigation_bar .hamburger:hover {
-  transform: scale(1.1);
+  color: #5e97fa;
   cursor: pointer;
-  transition: transform 0.3s ease;
+}
+.navigation_bar ul {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 60px;
+  margin: 0px;
+  padding: 0px;
+}
+.navigation_bar ul li {
+  list-style-type: none;
+}
+.navigation_bar ul li a {
+  display: block;
+  padding: 10px 15px;
+  color: #5e97fa;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.navigation_bar ul li a:hover, .navigation_bar ul li a:active {
+  color: rgb(17.4651547366%, 46.6855657926%, 97.4368060477%);
+  border-bottom-color: #5e97fa;
+}
+.navigation_bar ul li a.admin {
+  color: #df3535;
+}
+.navigation_bar ul li a.admin:hover, .navigation_bar ul li a.admin:active {
+  color: rgb(76.1689291101%, 12.0663650075%, 12.0663650075%);
+  border-bottom-color: #df3535;
 }
 
 .move_up {
@@ -230,7 +248,7 @@ header {
 
 .account {
   position: absolute;
-  top: 100px;
+  top: 80px;
   right: 20px;
   display: flex;
   align-items: center;
@@ -276,31 +294,16 @@ header {
 /************
  Main Styles
 ************/
-main {
-  max-width: 800px;
+.main {
+  max-width: 1200px;
   margin: 0px auto;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
-main.light {
-  color: #000;
-  border: 1px solid #cccccc;
-}
-main.dark {
-  color: #fff;
-  border: 1px solid #fff;
-}
-main h2 {
+.main h2 {
   margin-bottom: 5px;
   font-size: 2em;
   text-align: center;
-  transition: letter-spacing 0.3s ease;
 }
-main h2:hover {
-  letter-spacing: 1px;
-  cursor: pointer;
-}
-main p {
+.main p {
   text-align: justify;
   margin-bottom: 30px;
 }
@@ -309,87 +312,115 @@ main p {
  Footer Styles
 **************/
 footer {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  margin-top: 25px;
-  padding-top: 20px;
+  gap: 20px;
+  min-height: 100vh;
+  margin-top: 20px;
   text-align: center;
-  background-color: rgb(229.5, 229.5, 229.5);
-  border-top: 1px solid #cccccc;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  background: radial-gradient(circle, rgb(10%, 10%, 10%) 0%, #000 100%);
+  z-index: 2000;
 }
-footer p {
-  font-weight: bold;
+footer h2 {
+  color: #fff;
+  font-family: "Bruno Ace", sans-serif;
+  font-size: clamp(2.5em, 5vw, 4em);
 }
-footer .contact_details a,
-footer .address a {
-  font-size: 0.9em;
-  font-weight: normal;
-  font-style: italic;
-  text-decoration: none;
-  color: rgb(12.75, 12.75, 12.75);
+footer .address p {
+  color: #999999;
 }
-footer .contact_details a:hover, footer .contact_details a:active, footer .contact_details a:focus-visible,
-footer .address a:hover,
-footer .address a:active,
-footer .address a:focus-visible {
-  text-decoration: underline;
-}
-footer .social_media .links {
+footer .contact_us p {
   display: flex;
-  gap: 10px;
   justify-content: center;
+  gap: 10px;
+  color: #fff;
 }
-footer .social_media .links a img {
-  display: block;
-  transform: scale(1);
+footer .contact_us p i {
+  font-size: 1em;
+}
+footer .contact_us p a {
+  text-decoration: none;
+  color: #999999;
+  font-size: 0.9em;
+  font-style: italic;
+}
+footer .contact_us p a:hover, footer .contact_us p a:active {
+  text-decoration: underline;
+  cursor: pointer;
+}
+footer .social_media a {
+  display: inline-block;
+  margin: 0px 5px;
+  color: #fff;
+  transition: transform 0.3s ease;
+}
+footer .social_media a:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+footer .social_media a i {
+  font-size: 2em;
+}
+footer .payment_methods .icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  height: 32px;
+}
+footer .payment_methods .icons img {
   opacity: 0.8;
 }
-footer .social_media .links a img:hover {
-  opacity: 1;
-  transform: scale(1.1);
-  transition: transform 0.3s ease, opacity 0.3s ease;
+footer .other {
+  color: #999999;
 }
-footer .copywrite {
-  font-family: "Courier New", Courier, monospace, sans-serif;
-  margin-top: 20px;
+footer .other .copywrite {
+  color: #999999;
+  font-family: "Courier New", Courier, monospace;
   font-size: 0.8em;
-  color: rgb(12.75, 12.75, 12.75);
-}
-footer.dark {
-  color: #fff;
-  background-color: rgb(12.75, 12.75, 12.75);
-}
-footer.dark a {
-  color: #cccccc;
-}
-footer.dark .copywrite {
-  color: #cccccc;
 }
 
 /**************
  Media Queries
 **************/
-@media only screen and (min-width: 988px) {
-  .navigation_bar ul li {
-    display: inline-block !important;
-  }
-}
-@media only screen and (max-width: 987px) {
-  .navigation_bar ul li {
-    display: none;
-    margin: 5px auto 0px;
-    width: 225px;
+@media (max-width: 600px) {
+  .navigation_bar .navigation_container {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
   }
   .navigation_bar .hamburger {
-    display: block !important;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding-left: 20px;
   }
-  .navigation_bar ~ .theme_selection,
-  .navigation_bar ~ .account {
-    top: 60px;
+  .navigation_bar ul {
+    display: none;
+    flex-direction: column;
+    gap: 0px;
+    width: 100%;
+    height: auto;
+    background-color: #f5faf9;
+    border-top: 1px solid rgba(124, 229, 250, 0.2);
+  }
+  .navigation_bar ul.open {
+    display: flex;
+  }
+  .navigation_bar ul li {
+    width: 100%;
+    text-align: center;
+  }
+  .navigation_bar ul li a {
+    padding: 15px 0px;
+    border-bottom: none;
+  }
+  .navigation_bar ul li a:hover {
+    background-color: rgba(124, 229, 250, 0.1);
   }
 }
 /***********
