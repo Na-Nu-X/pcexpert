@@ -7,6 +7,8 @@
 
     // PHP Code
 
+    require_once "../../vendor/autoload.php";
+
     require "../assets/functions.php";
     require "../classes/Database.php";
     require "../classes/User.php";
@@ -39,8 +41,6 @@
 
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;
-    
-    require "../phpmailer/vendor/autoload.php";
 
     // Change Password
 
@@ -78,7 +78,7 @@
                 $mail->Encoding = "base64";
 
                 $mail->Username = "behulpatrik@gmail.com";
-                $mail->Password = "ogqxkmwxfpfwjeel"; // ogqxkmwxfpfwjeel
+                $mail->Password = $_ENV["EMAIL_HOST_PASSWORD"];
                 $mail->SMTPSecure = "ssl";
                 $mail->Port = 465;
 
@@ -167,8 +167,6 @@
     }
 
     // Log In With Google Account
-
-    require "../OAuth/vendor/autoload.php";
 
     $client = new Google\Client;
 

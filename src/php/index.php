@@ -7,6 +7,10 @@
     
     // PHP Code
 
+    require_once "../../vendor/autoload.php";
+    $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__, 2));
+    $dotenv->load();
+
     require "../assets/functions.php";
     require "../classes/Database.php";
     require "../classes/User.php";
@@ -55,12 +59,11 @@
 
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;
-    
-    require "../phpmailer/vendor/autoload.php";
 
     $first_name = "";
     $last_name = "";
     $email_address = "";
+    $phone_number = "";
     $subject = "";
     $message = "";
 
@@ -73,7 +76,7 @@
     // Google reCAPTCHA
 
     if($_SERVER["REQUEST_METHOD"] === "POST" and isset($_POST["recaptcha_contact_form_submit"])) {
-        $secret_key = "6LfbXMYrAAAAAM8u-89OhIKngVukDKxWDTOWWnrk";
+        $secret_key = $_ENV["RECAPTCHA_SECRET_KEY"];
         $token = $_POST["g-recaptcha-response"] ?? "";
 
         if(empty($token)) {
@@ -151,7 +154,7 @@
                 $mail->Encoding = "base64";
 
                 $mail->Username = "behulpatrik@gmail.com";
-                $mail->Password = "ogqxkmwxfpfwjeel"; // ogqxkmwxfpfwjeel
+                $mail->Password = $_ENV["EMAIL_HOST_PASSWORD"];
                 $mail->SMTPSecure = "ssl";
                 $mail->Port = 465;
 
@@ -243,7 +246,7 @@
     // Google reCAPTCHA
 
     if($_SERVER["REQUEST_METHOD"] === "POST" and isset($_POST["recaptcha_write_review_submit"])) {
-        $secret_key = "6LfbXMYrAAAAAM8u-89OhIKngVukDKxWDTOWWnrk";
+        $secret_key = $_ENV["RECAPTCHA_SECRET_KEY"];
         $token = $_POST["g-recaptcha-response"] ?? "";
 
         if(empty($token)) {
@@ -366,6 +369,7 @@
     <script src="/src/ts/dist/components/theme_selection.js" type="module"></script>
     <script src="/src/ts/dist/components/move_up.js" type="module"></script>
     <script src="/src/ts/dist/components/navigation_bar.js" type="module"></script>
+    <script src="/src/ts/dist/pages/homepage/components/all_services.js" type="module"></script>
     <script src="/src/ts/dist/pages/homepage/components/reviews.js" type="module"></script>
     <script src="/src/ts/dist/pages/homepage/components/contact_form.js" type="module"></script>
 
@@ -529,7 +533,7 @@
 
     <main>
         <section class="all_services">
-            <article class="computer_building">
+            <form class="computer_building" action="create_checkout_session.php" method="POST">
                 <div class="computer_building_container">
                     <img src="/content/images/computer_building.jpg" alt="Stavba počítača"> <!-- https://unsplash.com/photos/a-close-up-of-a-computer-motherboard-0Sdxy9Ev6oQ -->
     
@@ -538,12 +542,83 @@
     
                     <div class="bottom">
                         <p class="price">50<span>€</span></p>
-                        <button class="add_to_cart" title="Zajednať a zaplatiť" aria-label="Zajednať a zaplatiť"><i class="fa-solid fa-basket-shopping"></i> Zaplatiť</button> <!-- https://fontawesome.com/icons/basket-shopping -->
+                        <input type="hidden" name="service" value="computer_building">
+                        <button class="continue" type="button" title="Zajednať a zaplatiť" aria-label="Zajednať a zaplatiť"><i class="fa-solid fa-basket-shopping"></i> Pokračovať</button> <!-- https://fontawesome.com/icons/basket-shopping -->
+
+                        <dialog class="reserve_service_modal">
+                            <div class="reserve_service">
+                                <h2>Kontaktné údaje</h2>
+
+                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reiciendis ab nostrum sunt qui quam nobis.</p>
+
+                                <div class="name_container">
+                                    <input 
+                                        type="text"
+                                        name="first_name"
+                                        placeholder="Zadajte vaše meno"
+                                        autocomplete="given-name"
+                                        value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'first_name'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($first_name, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                                        required
+                                    >
+                    
+                                    <input 
+                                        type="text"
+                                        name="last_name"
+                                        placeholder="Zadajte vaše priezvisko"
+                                        autocomplete="family-name"
+                                        value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'last_name'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($last_name, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                                        required
+                                    >
+                                </div>
+
+                                <input 
+                                    type="email"
+                                    name="email_address"
+                                    placeholder="Zadajte váš e-mail"
+                                    autocomplete="email"
+                                    value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'email_address'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($email_address, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                                    required
+                                >
+    
+                                <div class="phone_number_container">
+                                    <div class="phone_number_icon">
+                                        <img class="slovakia_icon" src="/content/images/slovakia.png" alt="SK"> <!-- https://www.flaticon.com/free-icon/slovakia_330594 -->
+                                        <img class="czech_republic_icon" src="/content/images/czech-republic.png" alt="CZ"> <!-- https://www.flaticon.com/free-icon/czech-republic_330536 -->
+                                        <img class="spain_icon" src="/content/images/spain.png" alt="ES"> <!-- https://www.flaticon.com/free-icon/spain_330557 -->
+                                        <img class="united_states_icon" src="/content/images/united-states.png" alt="US"> <!-- https://www.flaticon.com/free-icon/united-states_3013911 -->
+                                    </div>
+
+                                    <input 
+                                        class="phone_number"
+                                        type="text"
+                                        name="phone_number"
+                                        placeholder="Zadajte vaše telefónne číslo"
+                                        autocomplete="tel"
+                                        value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'phone_number'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($phone_number, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                                        required
+                                    >
+                                </div>
+                                
+                                <div class="textarea_container">
+                                    <textarea type="textarea" name="message" placeholder="Zadajte vašu správu"><?php echo htmlspecialchars($message, ENT_QUOTES, "UTF-8"); ?></textarea>
+
+                                    <div class="attachment_container">
+                                        <p class="attachment_report <?php echo $theme; ?>"><?php echo htmlspecialchars($attachment_message, ENT_QUOTES, "UTF-8"); ?></p>
+                    
+                                        <label class="attachment" for="attachment"><i class="fa-solid fa-paperclip" title="priložiť prílohu..."></i></label>
+                    
+                                        <input id="attachment" type="file" name="attachment[]" accept=".jpg, .jpeg, .png, .gif, .webp, .bmp, .tiff, .tif, .mp4, .mov, .avi, .mkv, .webm, .hevc, .pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .txt, .rtf, .odt, .ods, .odp" multiple>
+                                    </div>
+                                </div>
+                                
+                                <button class="pay" name="pay" type="submit" title="Pokračovať k platbe" aria-label="Pokračovať k platbe">Zaplatiť</button> <!-- https://fontawesome.com/icons/basket-shopping -->
+                            </div>
+                        </dialog>
                     </div>
                 </div>
-            </article>
+            </form>
 
-            <article class="computer_maintenance">
+            <form class="computer_maintenance" action="create_checkout_session.php" method="POST">
                 <div class="computer_maintenance_container">
                     <img src="/content/images/computer_maintenance.jpg" alt="Údržba počítača"> <!-- https://unsplash.com/photos/person-holding-black-and-silver-dj-controller-sMKUYIasyDM -->
     
@@ -552,12 +627,83 @@
     
                     <div class="bottom">
                         <p class="price">30<span>€</span></p>
-                        <button class="add_to_cart" title="Zajednať a zaplatiť" aria-label="Zajednať a zaplatiť"><i class="fa-solid fa-basket-shopping"></i> Zaplatiť</button> <!-- https://fontawesome.com/icons/basket-shopping -->
+                        <input type="hidden" name="service" value="computer_maintenance">
+                        <button class="continue" type="button" title="Zajednať a zaplatiť" aria-label="Zajednať a zaplatiť"><i class="fa-solid fa-basket-shopping"></i> Pokračovať</button> <!-- https://fontawesome.com/icons/basket-shopping -->
+
+                        <dialog class="reserve_service_modal">
+                            <div class="reserve_service">
+                                <h2>Kontaktné údaje</h2>
+
+                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reiciendis ab nostrum sunt qui quam nobis.</p>
+
+                                <div class="name_container">
+                                    <input 
+                                        type="text"
+                                        name="first_name"
+                                        placeholder="Zadajte vaše meno"
+                                        autocomplete="given-name"
+                                        value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'first_name'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($first_name, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                                        required
+                                    >
+                    
+                                    <input 
+                                        type="text"
+                                        name="last_name"
+                                        placeholder="Zadajte vaše priezvisko"
+                                        autocomplete="family-name"
+                                        value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'last_name'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($last_name, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                                        required
+                                    >
+                                </div>
+
+                                <input 
+                                    type="email"
+                                    name="email_address"
+                                    placeholder="Zadajte váš e-mail"
+                                    autocomplete="email"
+                                    value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'email_address'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($email_address, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                                    required
+                                >
+    
+                                <div class="phone_number_container">
+                                    <div class="phone_number_icon">
+                                        <img class="slovakia_icon" src="/content/images/slovakia.png" alt="SK"> <!-- https://www.flaticon.com/free-icon/slovakia_330594 -->
+                                        <img class="czech_republic_icon" src="/content/images/czech-republic.png" alt="CZ"> <!-- https://www.flaticon.com/free-icon/czech-republic_330536 -->
+                                        <img class="spain_icon" src="/content/images/spain.png" alt="ES"> <!-- https://www.flaticon.com/free-icon/spain_330557 -->
+                                        <img class="united_states_icon" src="/content/images/united-states.png" alt="US"> <!-- https://www.flaticon.com/free-icon/united-states_3013911 -->
+                                    </div>
+
+                                    <input 
+                                        class="phone_number"
+                                        type="text"
+                                        name="phone_number"
+                                        placeholder="Zadajte vaše telefónne číslo"
+                                        autocomplete="tel"
+                                        value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'phone_number'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($phone_number, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                                        required
+                                    >
+                                </div>
+                                
+                                <div class="textarea_container">
+                                    <textarea type="textarea" name="message" placeholder="Zadajte vašu správu"><?php echo htmlspecialchars($message, ENT_QUOTES, "UTF-8"); ?></textarea>
+
+                                    <div class="attachment_container">
+                                        <p class="attachment_report <?php echo $theme; ?>"><?php echo htmlspecialchars($attachment_message, ENT_QUOTES, "UTF-8"); ?></p>
+                    
+                                        <label class="attachment" for="attachment"><i class="fa-solid fa-paperclip" title="priložiť prílohu..."></i></label>
+                    
+                                        <input id="attachment" type="file" name="attachment[]" accept=".jpg, .jpeg, .png, .gif, .webp, .bmp, .tiff, .tif, .mp4, .mov, .avi, .mkv, .webm, .hevc, .pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .txt, .rtf, .odt, .ods, .odp" multiple>
+                                    </div>
+                                </div>
+                                
+                                <button class="pay" name="pay" type="submit" title="Pokračovať k platbe" aria-label="Pokračovať k platbe">Zaplatiť</button> <!-- https://fontawesome.com/icons/basket-shopping -->
+                            </div>
+                        </dialog>
                     </div>
                 </div>
-            </article>
+            </form>
 
-            <article class="computer_cleaning">
+            <form class="computer_cleaning" action="create_checkout_session.php" method="POST">
                 <div class="computer_cleaning_container">
                     <img src="/content/images/computer_cleaning.jpg" alt="Čistenie počítača"> <!-- https://unsplash.com/photos/a-compact-computer-case-with-internal-components-visible-AZcrU0-8QzU -->
     
@@ -566,10 +712,81 @@
     
                     <div class="bottom">
                         <p class="price">20<span>€</span></p>
-                        <button class="add_to_cart" title="Zajednať a zaplatiť" aria-label="Zajednať a zaplatiť"><i class="fa-solid fa-basket-shopping"></i> Zaplatiť</button> <!-- https://fontawesome.com/icons/basket-shopping -->
+                        <input type="hidden" name="service" value="computer_cleaning">
+                        <button class="continue" type="button" title="Zajednať a zaplatiť" aria-label="Zajednať a zaplatiť"><i class="fa-solid fa-basket-shopping"></i> Pokračovať</button> <!-- https://fontawesome.com/icons/basket-shopping -->
+
+                        <dialog class="reserve_service_modal">
+                            <div class="reserve_service">
+                                <h2>Kontaktné údaje</h2>
+
+                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reiciendis ab nostrum sunt qui quam nobis.</p>
+
+                                <div class="name_container">
+                                    <input 
+                                        type="text"
+                                        name="first_name"
+                                        placeholder="Zadajte vaše meno"
+                                        autocomplete="given-name"
+                                        value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'first_name'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($first_name, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                                        required
+                                    >
+                    
+                                    <input 
+                                        type="text"
+                                        name="last_name"
+                                        placeholder="Zadajte vaše priezvisko"
+                                        autocomplete="family-name"
+                                        value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'last_name'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($last_name, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                                        required
+                                    >
+                                </div>
+
+                                <input 
+                                    type="email"
+                                    name="email_address"
+                                    placeholder="Zadajte váš e-mail"
+                                    autocomplete="email"
+                                    value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'email_address'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($email_address, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                                    required
+                                >
+    
+                                <div class="phone_number_container">
+                                    <div class="phone_number_icon">
+                                        <img class="slovakia_icon" src="/content/images/slovakia.png" alt="SK"> <!-- https://www.flaticon.com/free-icon/slovakia_330594 -->
+                                        <img class="czech_republic_icon" src="/content/images/czech-republic.png" alt="CZ"> <!-- https://www.flaticon.com/free-icon/czech-republic_330536 -->
+                                        <img class="spain_icon" src="/content/images/spain.png" alt="ES"> <!-- https://www.flaticon.com/free-icon/spain_330557 -->
+                                        <img class="united_states_icon" src="/content/images/united-states.png" alt="US"> <!-- https://www.flaticon.com/free-icon/united-states_3013911 -->
+                                    </div>
+
+                                    <input 
+                                        class="phone_number"
+                                        type="text"
+                                        name="phone_number"
+                                        placeholder="Zadajte vaše telefónne číslo"
+                                        autocomplete="tel"
+                                        value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'phone_number'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($phone_number, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                                        required
+                                    >
+                                </div>
+                                
+                                <div class="textarea_container">
+                                    <textarea type="textarea" name="message" placeholder="Zadajte vašu správu"><?php echo htmlspecialchars($message, ENT_QUOTES, "UTF-8"); ?></textarea>
+
+                                    <div class="attachment_container">
+                                        <p class="attachment_report <?php echo $theme; ?>"><?php echo htmlspecialchars($attachment_message, ENT_QUOTES, "UTF-8"); ?></p>
+                    
+                                        <label class="attachment" for="attachment"><i class="fa-solid fa-paperclip" title="priložiť prílohu..."></i></label>
+                    
+                                        <input id="attachment" type="file" name="attachment[]" accept=".jpg, .jpeg, .png, .gif, .webp, .bmp, .tiff, .tif, .mp4, .mov, .avi, .mkv, .webm, .hevc, .pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .txt, .rtf, .odt, .ods, .odp" multiple>
+                                    </div>
+                                </div>
+                                
+                                <button class="pay" name="pay" type="submit" title="Pokračovať k platbe" aria-label="Pokračovať k platbe">Zaplatiť</button> <!-- https://fontawesome.com/icons/basket-shopping -->
+                            </div>
+                        </dialog>
                     </div>
                 </div>
-            </article>
+            </form>
         </section>
 
         <section class="main <?php echo $theme; ?>">
@@ -669,7 +886,7 @@
                     <script src="/src/ts/dist/pages/homepage/components/write_review.js" type="module"></script>
 
                     <!-- reCAPTCHA V3 -->
-                    <script src="https://www.google.com/recaptcha/api.js?render=6LfbXMYrAAAAAJfSCq3aCjeiFxnhly7K2sgFjiEz&badge=inline"></script>
+                    <script src="https://www.google.com/recaptcha/api.js?render=<?php echo htmlspecialchars($_ENV["RECAPTCHA_SITE_KEY"]); ?>&badge=inline"></script>
                     
                     <script>
                         grecaptcha.ready(function() {
@@ -683,8 +900,8 @@
 
                             document.querySelector(".write_review").addEventListener("submit", function(event) {
                                 event.preventDefault()
-                                
-                                grecaptcha.execute("6LfbXMYrAAAAAJfSCq3aCjeiFxnhly7K2sgFjiEz", {action: "submit"}).then(function(token) {
+
+                                grecaptcha.execute("<?php echo htmlspecialchars($_ENV["RECAPTCHA_SITE_KEY"]); ?>", {action: "submit"}).then(function(token) {
                                     const g_recaptcha_response = document.querySelectorAll("#g-recaptcha-response")[0]
 
                                     g_recaptcha_response.value = token
@@ -880,7 +1097,7 @@
 
         <section class="contact <?php echo $theme; ?>">
             <!-- reCAPTCHA V3 -->
-            <script src="https://www.google.com/recaptcha/api.js?render=6LfbXMYrAAAAAJfSCq3aCjeiFxnhly7K2sgFjiEz&badge=inline"></script>
+            <script src="https://www.google.com/recaptcha/api.js?render=<?php echo htmlspecialchars($_ENV["RECAPTCHA_SITE_KEY"]); ?>&badge=inline"></script>
             
             <script>
                 grecaptcha.ready(function() {
@@ -895,7 +1112,7 @@
                     document.querySelector(".contact_form").addEventListener("submit", function(event) {
                         event.preventDefault()
                         
-                        grecaptcha.execute("6LfbXMYrAAAAAJfSCq3aCjeiFxnhly7K2sgFjiEz", {action: "submit"}).then(function(token) {
+                        grecaptcha.execute("<?php echo htmlspecialchars($_ENV["RECAPTCHA_SITE_KEY"]); ?>", {action: "submit"}).then(function(token) {
                             const g_recaptcha_response = document.querySelectorAll("#g-recaptcha-response")[1] ?? document.querySelectorAll("#g-recaptcha-response")[0]
 
                             g_recaptcha_response.value = token

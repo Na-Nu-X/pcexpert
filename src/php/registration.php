@@ -7,6 +7,10 @@
 
     // PHP Code
 
+    require_once "../../vendor/autoload.php";
+    $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__, 2));
+    $dotenv->load();
+
     require "../assets/functions.php";
     require "../classes/Database.php";
     require "../classes/User.php";
@@ -40,7 +44,7 @@
 
     // Google reCAPTCHA
 
-    $secret_key = "6LfbXMYrAAAAAM8u-89OhIKngVukDKxWDTOWWnrk";
+    $secret_key = $_ENV["RECAPTCHA_SECRET_KEY"];
     $token = $_POST["g-recaptcha-response"] ?? "";
 
     if($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -154,7 +158,7 @@
     </script>
 
     <!-- reCAPTCHA V3 -->
-    <script src="https://www.google.com/recaptcha/api.js?render=6LfbXMYrAAAAAJfSCq3aCjeiFxnhly7K2sgFjiEz&badge=inline"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=<?php echo htmlspecialchars($_ENV["RECAPTCHA_SITE_KEY"]); ?>&badge=inline"></script>
     
     <script>
         grecaptcha.ready(function() {
@@ -169,7 +173,7 @@
             document.querySelector(".registration_form").addEventListener("submit", function(event) {
                 event.preventDefault()
 
-                grecaptcha.execute("6LfbXMYrAAAAAJfSCq3aCjeiFxnhly7K2sgFjiEz", {action: "submit"}).then(function(token) {
+                grecaptcha.execute("<?php echo htmlspecialchars($_ENV["RECAPTCHA_SITE_KEY"]); ?>", {action: "submit"}).then(function(token) {
                     document.querySelector("#g-recaptcha-response").value = token
                     event.target.submit()
                 })

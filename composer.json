@@ -1,0 +1,8 @@
+{
+    "require": {
+        "stripe/stripe-php": "^21.0",
+        "phpmailer/phpmailer": "^7.1",
+        "google/apiclient": "^2.19",
+        "vlucas/phpdotenv": "^5.6"
+    }
+}

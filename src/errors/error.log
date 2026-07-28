@@ -1,0 +1,33 @@
+Chyba:
+[2026-07-28 15:22:32] - reCAPTCHA Token Not Found In Write Review Form.
+Podrobnosti:
+User ID: unknown
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/domov
+Request Method: POST
+User Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Cursor/3.13.10 Chrome/144.0.7559.236 Electron/40.10.3 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: {"rating":"4","review":"a","csrf_token":"e4776e871ae9ddf8ab02bb84bbce975232b8f35492e6345abf2cb18a25e7","g-recaptcha-response":"","recaptcha_write_review_submit":""}
+
+Chyba:
+[2026-07-28 15:24:30] - reCAPTCHA Token Not Found In Write Review Form.
+Podrobnosti:
+User ID: unknown
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/domov
+Request Method: POST
+User Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Cursor/3.13.10 Chrome/144.0.7559.236 Electron/40.10.3 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: {"rating":"3","review":"a","csrf_token":"e4776e871ae9ddf8ab02bb84bbce975232b8f35492e6345abf2cb18a25e7","g-recaptcha-response":"","recaptcha_write_review_submit":""}
+
+Chyba:
+[2026-07-28 16:15:52] - reCAPTCHA Token Not Found In Write Review Form.
+Podrobnosti:
+User ID: unknown
+IP Address: 127.0.0.1
+Referer: http://pcexpert.local/domov
+Request Method: POST
+User Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Cursor/3.13.10 Chrome/144.0.7559.236 Electron/40.10.3 Safari/537.36
+Server IP: 127.0.0.1
+Post Data: {"rating":"4","review":"a","csrf_token":"e4776e871ae9ddf8ab02bb84bbce975232b8f35492e6345abf2cb18a25e7","g-recaptcha-response":"","recaptcha_write_review_submit":""}
+
