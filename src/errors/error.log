@@ -31,3 +31,5 @@ User Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Geck
 Server IP: 127.0.0.1
 Post Data: {"rating":"4","review":"a","csrf_token":"e4776e871ae9ddf8ab02bb84bbce975232b8f35492e6345abf2cb18a25e7","g-recaptcha-response":"","recaptcha_write_review_submit":""}
 
+Chyba pri pripojovaní k databázy: could not find driver
+Chyba pri pripojovaní k databázy: could not find driver

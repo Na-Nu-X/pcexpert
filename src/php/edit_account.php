@@ -299,16 +299,15 @@
         <?php endif; ?>
 
         <nav class="navigation_bar">
-            <ul>
-                <li class="home">
-                    <a href="./domov">DOMOV</a>
-                </li>
-
-                <button class="hamburger">
-                    <i class="fa-solid fa-bars"></i>
-                    <!-- <i class="fa-solid fa-xmark"></i> -->
+            <div class="navigation_container">
+                <button class="hamburger" (click)="toggleMenu()">
+                    <i class="fa-solid" [class.fa-bars]="!is_menu_open" [class.fa-xmark]="is_menu_open"></i> <!-- https://fontawesome.com/icons/bars / https://fontawesome.com/icons/magnifying-glass -->
                 </button>
-            </ul>
+            
+                <ul [class.open]="is_menu_open">
+                    <li class="home"><a href="./domov">DOMOV</a></li>
+                </ul>
+            </div>
         </nav>
 
         <div class="cookie_policy">
@@ -377,69 +376,69 @@
 
                     <h3>Osobné údaje</h3>
 
-                    <div class="full_name_container">
-                        <!-- <h3>Meno</h3> -->
+                    <div class="inputs">
+                        <div class="full_name_container">
+                            <input
+                                type="text"
+                                name="first_name"
+                                placeholder="Zadajte vaše meno"
+                                autocomplete="given-name"
+                                value="<?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'first_name'), ENT_QUOTES, 'UTF-8'); ?>"
+                            >
 
-                        <input
-                            type="text"
-                            name="first_name"
-                            placeholder="Zadajte vaše meno"
-                            autocomplete="given-name"
-                            value="<?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'first_name'), ENT_QUOTES, 'UTF-8'); ?>"
-                        >
-
-                        <input
-                            type="text"
-                            name="last_name"
-                            placeholder="Zadajte vaše priezvisko"
-                            autocomplete="family-name"
-                            value="<?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'last_name'), ENT_QUOTES, 'UTF-8'); ?>"
-                        >
-                    </div>
-
-                    <div class="email_address_container">
-                        <!-- <h3>E-mailová adresa</h3> -->
-
-                        <input
-                            type="email"
-                            name="email_address"
-                            placeholder="Zadajte váš e-mail"
-                            autocomplete="email"
-                            value="<?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'email_address'), ENT_QUOTES, 'UTF-8'); ?>"
-                        >
-                    </div>
-
-                    <div class="phone_number_container">
-                        <!-- <h3>Telefónne číslo</h3> -->
-
-                        <input
-                            type="text"
-                            name="phone_number"
-                            placeholder="Zadajte vaše telefónne číslo"
-                            autocomplete="tel"
-                            value="<?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'phone_number'), ENT_QUOTES, 'UTF-8'); ?>"
-                        >
-                    </div>
-
-                    <?php if(empty($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "google_id"))): ?>
-                        <div class="current_password_container">
-                            <input class="current_password" type="text" name="current_password" placeholder="Zadajte vaše heslo" autocomplete="off">
+                            <input
+                                type="text"
+                                name="last_name"
+                                placeholder="Zadajte vaše priezvisko"
+                                autocomplete="family-name"
+                                value="<?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'last_name'), ENT_QUOTES, 'UTF-8'); ?>"
+                            >
                         </div>
 
-                        <div class="new_password_container">
-                            <button class="generate_password" type="button" title="Navrhnúť heslo">
-                                <i class="fa-solid fa-key"></i>
-                            </button>
+                        <div class="email_address_container">
+                            <!-- <h3>E-mailová adresa</h3> -->
 
-                            <button class="show_hide_password" type="button" title="Zobraziť heslo">
-                                <i class="fa-regular fa-eye-slash"></i>
-                                <!-- <i class="fa-regular fa-eye"></i> -->
-                            </button>
-
-                            <input class="new_password password" type="text" name="new_password" placeholder="Vytvorte nové heslo" autocomplete="off">
+                            <input
+                                type="email"
+                                name="email_address"
+                                placeholder="Zadajte váš e-mail"
+                                autocomplete="email"
+                                value="<?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'email_address'), ENT_QUOTES, 'UTF-8'); ?>"
+                            >
                         </div>
 
-                    <?php endif; ?>
+                        <div class="phone_number_container">
+                            <!-- <h3>Telefónne číslo</h3> -->
+
+                            <input
+                                type="text"
+                                name="phone_number"
+                                placeholder="Zadajte vaše telefónne číslo"
+                                autocomplete="tel"
+                                value="<?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'phone_number'), ENT_QUOTES, 'UTF-8'); ?>"
+                            >
+                        </div>
+
+                        <?php if(empty($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "google_id"))): ?>
+                            <div class="current_password_container">
+                                <input class="current_password" type="text" name="current_password" placeholder="Zadajte vaše heslo" autocomplete="off">
+                            </div>
+
+                            <div class="new_password_container">
+                                <button class="generate_password" type="button" title="Navrhnúť heslo">
+                                    <i class="fa-solid fa-key"></i>
+                                </button>
+
+                                <button class="show_hide_password" type="button" title="Zobraziť heslo">
+                                    <i class="fa-regular fa-eye-slash"></i>
+                                    <!-- <i class="fa-regular fa-eye"></i> -->
+                                </button>
+
+                                <input class="new_password password" type="text" name="new_password" placeholder="Vytvorte nové heslo" autocomplete="off">
+                            </div>
+
+                        <?php endif; ?>
+                    </div>
 
                     <p class="form_report valid"></p>
 

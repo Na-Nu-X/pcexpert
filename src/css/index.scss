@@ -140,7 +140,6 @@ main {
         gap: 20px;
         max-width: $main-width;
         width: 100%; 
-        max-height: 80vh;
         margin: 0px auto;
         padding: 20px;
 
@@ -399,15 +398,22 @@ main {
     gap: 50px;
     margin-top: 30px;
     padding: 0px 20px;
-}
 
-.discount_icon {
-    position: absolute;
-    transform: translate(-26px, 26px);
-}
+    .about_us,
+    .faq {
+        flex: 1;
+        min-width: 0;
+    }
 
-.price {
-    font-style: italic;
+    .faq {
+        p {
+            margin-bottom: 30px;
+
+            &:last-child {
+                margin-bottom: 0px;
+            }
+        }
+    }
 }
 
 .contact_us_button {
@@ -432,6 +438,7 @@ main {
 .reviews {
     max-width: $main-width;
     margin: 50px auto 0px;
+    padding: 0px 20px;
 
     .user_review,
     .all_reviews {
@@ -766,6 +773,10 @@ main {
 **************/
 
 @media only screen and (max-width: 800px) {
+    .main {
+        flex-direction: column;
+    }
+
     .image h2 {
         font-size: 1.5em;
     }

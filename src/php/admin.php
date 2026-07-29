@@ -149,28 +149,18 @@
         <?php endif; ?>
 
         <nav class="navigation_bar">
-            <ul>
-                <li>
-                    <a href="../domov">DOMOV</a>
-                </li>
-                
-                <li class="scroll_pending_reviews">
-                    <a href="#">Kontrola recenzií</a>
-                </li>
-
-                <li class="scroll_users">
-                    <a href="#">POUŽÍVATELIA</a>
-                </li>
-
-                <li class="scroll_error_log">
-                    <a href="#">PROTOKOLY CHÝB</a>
-                </li>
-
-                <button class="hamburger">
-                    <i class="fa-solid fa-bars"></i>
-                    <!-- <i class="fa-solid fa-xmark"></i> -->
+            <div class="navigation_container">
+                <button class="hamburger" (click)="toggleMenu()">
+                    <i class="fa-solid" [class.fa-bars]="!is_menu_open" [class.fa-xmark]="is_menu_open"></i> <!-- https://fontawesome.com/icons/bars / https://fontawesome.com/icons/magnifying-glass -->
                 </button>
-            </ul>
+            
+                <ul [class.open]="is_menu_open">
+                    <li class="home"><a href="../domov">DOMOV</a></li>
+                    <li class="scroll_pending_reviews"><a href="#">Kontrola recenzií</a></li>
+                    <li class="scroll_users"><a href="#">POUŽÍVATELIA</a></li>
+                    <li class="scroll_error_log"><a href="#">PROTOKOLY CHÝB</a></li>
+                </ul>
+            </div>
         </nav>
 
         <div class="cookie_policy">

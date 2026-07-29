@@ -45,9 +45,9 @@
                 
                 return $db;
             }
-
-            catch(PDOException $e) {
-                errorLogSave($dsn, "Error While Connecting To Database. (" . $e->getMessage() . ")", "../errors/error.log");
+            
+            catch(PDOException $error) {
+                error_log("Chyba pri pripojovaní k databázy: " . $error->getMessage() . "\n", 3, "../errors/error.log");
                 
                 return false;
             }
