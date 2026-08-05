@@ -37,7 +37,8 @@ main {
 .login,
 .edit_account,
 .edit_review,
-.password_reset {
+.password_reset,
+.success_order {
     max-width: 500px;
     width: 100%;
     margin-top: 83px;
@@ -70,7 +71,7 @@ main {
         transition: letter-spacing 0.3s ease;
 
         &:hover {
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             cursor: pointer;
         }
 
@@ -520,7 +521,6 @@ main {
     }
 }
 
-
 // Error Page
 
 .error_404 {
@@ -550,6 +550,22 @@ main {
     a:active {
         text-decoration: underline;
         cursor: pointer;
+    }
+}
+
+// Success Order
+
+.success_order {
+    h2 {
+        color: $secondary-color;
+
+        &:hover {
+            letter-spacing: 0px;
+        }
+    }
+
+    p {
+        color: $secondary-color;
     }
 }
 

@@ -39,7 +39,7 @@
 
     // Logged In User ID From Session
 
-    $user_id = $_SESSION["logged_in_user_id"] ?? null;
+    $user_id = $_SESSION["logged_in_user_id"] ?? null; // Gets The Logged In User ID
 
     // Admin Form After Submitting
 

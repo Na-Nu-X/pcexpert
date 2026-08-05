@@ -70,17 +70,19 @@
     }
 }
 
-.buttons {
-    display: flex;
-    gap: 20px;
-    animation: fade_in_animation 1s ease-out forwards;
-
-    .login_button {
-        @include blue_button($width: 200px);
-    }
-
-    .registration_button {
-        @include light_blue_button($width: 200px);
+header {
+    .buttons {
+        display: flex;
+        gap: 20px;
+        animation: fade_in_animation 1s ease-out forwards;
+    
+        .login_button {
+            @include blue_button($width: 200px);
+        }
+    
+        .registration_button {
+            @include light_blue_button($width: 200px);
+        }
     }
 }
 
@@ -259,8 +261,6 @@ main {
 
                         .reserve_service {
                             @include scrollbar;
-                            @include flex_center($direction: column);
-                            gap: 15px;
                             max-height: 800px;
                             padding: 15px 15px 15px 20px;
 
@@ -268,122 +268,344 @@ main {
                                 text-align: center;
                             }
 
-                            .name_container {
-                                display: flex;
-                                gap: 10px;
-                        
-                                > * {
-                                    flex: 1;
-                                    min-width: 0;
-                                }
-                            }
-
-                            .phone_number_container {
-                                position: relative;
-                                width: 100%;
-                    
-                                .phone_number_icon {
-                                    img {
-                                        visibility: hidden;
-                                        position: absolute;
-                                        top: 50%;
-                                        right: 20px;
-                                        transform: translateY(-50%);
-                                        opacity: 0.8;
-                                    }
-                                }
-                    
-                                .phone_number {
-                                    padding-right: 55px !important;
-                                }
-                            }
-
-                            input,
-                            select {
-                                @include form_input;
-                            }
-
-                            .textarea_container {
-                                position: relative;
-                                width: 100%;
-                                background-color: darken($secondary-color, 3%);
-                                color: transparentize($main-color, 0.4);
-                                border: 1px solid darken($secondary-color, 10%);
-                                border-radius: $small-border-radius;
-                                transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-
-                                &:has(textarea:focus-visible) {
-                                    background-color: $secondary-color;
-                                    border-color: $blue-color;
-                                    box-shadow: 0 0 0 3px transparentize($blue-color, 0.8);
+                            .section {
+                                @include flex_center($direction: column);
+                                display: none;
+                                gap: 15px;
+                                
+                                &.active {
+                                    display: flex;
                                 }
 
-                                textarea {
-                                    resize: none;
+                                input[type="text"],
+                                input[type="email"],
+                                input[type="tel"],
+                                select {
+                                    @include form_input;
+                                }
+
+                                .next,
+                                .previous,
+                                .pay {
+                                    @include blue_button($width: 100%);
+                                    display: flex;
+                                    justify-content: space-between;
+                                    padding: 10px;
+                                    box-sizing: border-box;
+                                }
+
+                                .previous {
+                                    justify-content: center;
+                                }
+
+                                .buttons {
+                                    display: flex;
+                                    gap: 10px;
                                     width: 100%;
-                                    min-height: 100px;
-                                    padding: 10px 15px;
-                                    font-family: inherit;
-                                    background: none;
-                                    border: none;
-                                    outline: none;
+                                }
+                            }
 
-                                    &::placeholder {
-                                        color: darken($secondary-color, 40%);
+                            .contact_section {
+                                .name_container {
+                                    display: flex;
+                                    gap: 10px;
+                            
+                                    > * {
+                                        flex: 1;
+                                        min-width: 0;
                                     }
                                 }
-
-                                .attachment_container {
-                                    position: absolute;
-                                    bottom: 0px;
-                                    width: 100%;
-                                    height: 20px;
-                                    border-radius: 0px 0px $small-border-radius $small-border-radius;
-
-                                    .attachment_report {
-                                        width: 100%;
-                                        height: 100%;
-                                        margin: 0px auto;
-                                        text-align: center;
-                                        line-height: 20px;
-                                        background-color: darken($secondary-color, 5%);
-                                        font-size: 12px;
-                            
-                                        &.dark{
-                                            background-color: lighten($main-color, 2%);
-                                        }
+    
+                                .contact_container {
+                                    display: flex;
+                                    gap: 10px;
+    
+                                    > * {
+                                        width: 50%;
                                     }
+    
+                                    .phone_number_container {
+                                        position: relative;
+                                        width: 50%;
                             
-                                    .attachment {
-                                        position: absolute;
-                                        top: -109px + 26px - 4px;
-                                        right: 0px;
-                                        padding: 10px 10px 0px 0px;
-                                        transition: right 0.3s ease;
-                            
-                                        &:hover {
-                                            cursor: pointer;
-                            
-                                            .fa-paperclip {
-                                                color: darken($secondary-color, 10%);
-                                                transition: color 0.3s ease;
+                                        .phone_number_icon {
+                                            img {
+                                                visibility: hidden;
+                                                position: absolute;
+                                                top: 50%;
+                                                right: 20px;
+                                                transform: translateY(-50%);
+                                                opacity: 0.8;
                                             }
                                         }
                             
-                                        .fa-paperclip {
-                                            display: block;
-                                            color: darken($secondary-color, 20%)
+                                        .phone_number {
+                                            padding-right: 55px !important;
                                         }
                                     }
-                            
-                                    input[type="file"] {
-                                        display: none;
+                                }
+
+                                .textarea_container {
+                                    position: relative;
+                                    width: 100%;
+                                    background-color: darken($secondary-color, 3%);
+                                    color: transparentize($main-color, 0.4);
+                                    border: 1px solid darken($secondary-color, 10%);
+                                    border-radius: $small-border-radius;
+                                    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    
+                                    &:has(textarea:focus-visible) {
+                                        background-color: $secondary-color;
+                                        border-color: $blue-color;
+                                        box-shadow: 0 0 0 3px transparentize($blue-color, 0.8);
+                                    }
+    
+                                    textarea {
+                                        resize: none;
+                                        width: 100%;
+                                        min-height: 100px;
+                                        padding: 10px 15px;
+                                        font-family: inherit;
+                                        background: none;
+                                        border: none;
+                                        outline: none;
+    
+                                        &::placeholder {
+                                            color: darken($secondary-color, 40%);
+                                        }
+                                    }
+    
+                                    .attachment_container {
+                                        position: absolute;
+                                        bottom: 0px;
+                                        width: 100%;
+                                        height: 20px;
+                                        border-radius: 0px 0px $small-border-radius $small-border-radius;
+    
+                                        .attachment_report {
+                                            width: 100%;
+                                            height: 100%;
+                                            margin: 0px auto;
+                                            text-align: center;
+                                            line-height: 20px;
+                                            background-color: darken($secondary-color, 5%);
+                                            font-size: 12px;
+                                
+                                            &.dark{
+                                                background-color: lighten($main-color, 2%);
+                                            }
+                                        }
+                                
+                                        .attachment {
+                                            position: absolute;
+                                            top: -109px + 26px - 4px;
+                                            right: 0px;
+                                            padding: 10px 10px 0px 0px;
+                                            transition: right 0.3s ease;
+                                
+                                            &:hover {
+                                                cursor: pointer;
+                                
+                                                .fa-paperclip {
+                                                    color: darken($secondary-color, 10%);
+                                                    transition: color 0.3s ease;
+                                                }
+                                            }
+                                
+                                            .fa-paperclip {
+                                                display: block;
+                                                color: darken($secondary-color, 20%)
+                                            }
+                                        }
+                                
+                                        input[type="file"] {
+                                            display: none;
+                                        }
                                     }
                                 }
                             }
 
-                            .pay {
-                                @include blue_button($width: 100%);
+                            .delivery_section {
+                                .address_container {
+                                    display: flex;
+                                    gap: 10px;
+                            
+                                    > * {
+                                        flex: 1;
+                                        min-width: 0;
+                                    }
+                                }
+                            }
+
+                            .computer_preferences_section {
+                                .questions {
+                                    display: flex;
+                                    flex-direction: column;
+                                    gap: 20px;
+                                    width: 100%;
+
+                                    .question {
+                                        .title {
+                                            font: {
+                                                family: $main-font;
+                                                size: 1.2em;
+                                                weight: bold;
+                                            }
+
+                                            text-align: left;
+                                        }
+
+                                        .max_price_container,
+                                        .ram_container,
+                                        .space_container {
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: space-between;
+                                            padding: 10px 20px;
+                                            background-color: lighten($blue-color, 20%);
+                                            border-radius: $small-border-radius;
+
+                                            input[type="range"] {
+                                                flex: 1;
+                                                width: 100%;
+                                                height: 6px;
+                                                margin-right: 20px;
+                                                background: $light-blue-color;
+                                                border-radius: $medium-border-radius;
+                                                outline: none;
+                                                -webkit-appearance: none;
+                                                appearance: none;
+                                                
+                                                &::-webkit-slider-thumb {
+                                                    width: 20px;
+                                                    height: 20px;
+                                                    background: $blue-color;
+                                                    box-shadow: 0 4px 6px transparentize($main-color, 0.92), 0 2px 4px transparentize($main-color, 0.95);
+                                                    border-radius: 50%;
+                                                    -webkit-appearance: none;
+                                                    appearance: none;
+                                                    transition: transform 0.2s ease;
+                                                    
+                                                    &:hover {
+                                                        transform: scale(1.1);
+                                                        cursor: pointer;
+                                                    }
+                                                }
+                                            
+                                      
+                                                &::-moz-range-thumb {
+                                                    width: 20px;
+                                                    height: 20px;
+                                                    background: $blue-color;
+                                                    box-shadow: 0 4px 6px transparentize($main-color, 0.92), 0 2px 4px transparentize($main-color, 0.95);
+                                                    border: none;
+                                                    border-radius: 50%;
+                                                    transition: transform 0.2s ease;
+                                                    
+                                                    &:hover {
+                                                        transform: scale(1.1);
+                                                        cursor: pointer;
+                                                    }
+                                                }
+                                            }
+
+                                            .max_price,
+                                            .ram,
+                                            .space {
+                                                width: 55px;
+                                                font-weight: bold;
+                                                color: transparentize($main-color, 0.4);
+                                            }
+                                        }
+
+                                        .cpu_manufacturer_container,
+                                        .gpu_manufacturer_container,
+                                        .disk_type_container {
+                                        //     input {
+                                        //         display: none;
+                                        
+                                        //         &:checked + label::before {
+                                        //             content: "";
+                                        //             position: absolute;
+                                        //             top: 3px;
+                                        //             left: 0px;
+                                        //             width: 14px;
+                                        //             height: 14px;
+                                        //             outline: 1px solid $green-color !important;
+                                        //             background: transparentize($secondary-color, 0.8);
+                                        //         }
+                                        
+                                        //         &:checked + label::after {
+                                        //             content: "";
+                                        //             position: absolute;
+                                        //             top: 3px;
+                                        //             left: 0px;
+                                        //             width: 14px;
+                                        //             height: 14px;
+                                        //             background-image: url("/content/images/check.png"); // https://www.flaticon.com/free-icon/check_16750043
+                                        //             background-size: contain;
+                                        //             transform: scale(1.5);
+                                        //             opacity: 1;
+                                        //             transition: transform 0.3s ease, opacity 0.3s ease;
+                                        //         }
+                                                
+                                        //         &:not(:checked) + label::after {
+                                        //             content: "";
+                                        //             position: absolute;
+                                        //             top: 3px;
+                                        //             left: 0px;
+                                        //             width: 14px;
+                                        //             height: 14px;
+                                        //             background-image: url("/content/images/check.png"); // https://www.flaticon.com/free-icon/check_16750043
+                                        //             background-size: contain;
+                                        //             transform: scale(0);
+                                        //             opacity: 0;
+                                        //             transition: transform 0.2s ease, opacity 0.2s ease;
+                                        //         }
+                                        //     }
+                                        
+                                        //     input + label {
+                                        //         position: relative;
+                                        //         padding-left: 30px;
+                                        //         display: inline-block;
+                                        //         color: darken($secondary-color, 20%);
+                                        //         cursor: pointer;
+                                        //     }
+                                        
+                                        //     input + label::before {
+                                        //         content: "";
+                                        //         position: absolute;
+                                        //         top: 3px;
+                                        //         left: 0px;
+                                        //         width: 14px;
+                                        //         height: 14px;
+                                        //         outline: 1px solid darken($secondary-color, 20%);
+                                        //         background: transparentize($secondary-color, 0.8);
+                                        //         transition: outline 0.3s ease;
+                                        //     }
+                                        
+                                        //     label {
+                                        //         margin-left: 0px;
+                                        //         font-size: 0.9em;
+                                        //         color: $secondary-color;
+                                        //         user-select: none;
+                                        //         transition: letter-spacing 0.3s ease;
+                                        
+                                        //         &:hover {
+                                        //             letter-spacing: 0.5px;
+                                        //         }
+                                        //     }
+                                        
+                                        //     .terms + .terms_label::before {
+                                        //         outline: 1px solid $red-color;
+                                            
+                                        //         &:checked + .terms_label::before {
+                                        //             outline: 1px solid $green-color;
+                                        //         }
+                                        //     }
+                                        // }
+                                    }
+                                }
                             }
                         }
                     }

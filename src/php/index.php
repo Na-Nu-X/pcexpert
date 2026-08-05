@@ -53,7 +53,7 @@
         }
     }
 
-    $user_id = $_SESSION["logged_in_user_id"] ?? null;
+    $user_id = $_SESSION["logged_in_user_id"] ?? null; // Gets The Logged In User ID
 
     // Contact Form
 
@@ -146,6 +146,8 @@
             try {
                 // Server settings
 
+                $use_tls = $_ENV["EMAIL_USE_TLS"] ?? "False";
+
                 $mail->isSMTP();
                 $mail->Host = "smtp.gmail.com";
                 $mail->SMTPAuth = true;
@@ -153,10 +155,11 @@
                 $mail->CharSet = "UTF-8";
                 $mail->Encoding = "base64";
 
-                $mail->Username = "behulpatrik@gmail.com";
+                $mail->Username = $_ENV["EMAIL_HOST_USER"];
                 $mail->Password = $_ENV["EMAIL_HOST_PASSWORD"];
-                $mail->SMTPSecure = "ssl";
-                $mail->Port = 465;
+                if(strtolower($use_tls) === "true") $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                else $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+                $mail->Port = $_ENV["EMAIL_PORT"];
 
                 // Recipients
 
@@ -547,71 +550,195 @@
 
                         <dialog class="reserve_service_modal">
                             <div class="reserve_service">
-                                <h2>Kontaktné údaje</h2>
-
-                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reiciendis ab nostrum sunt qui quam nobis.</p>
-
-                                <div class="name_container">
-                                    <input 
-                                        type="text"
-                                        name="first_name"
-                                        placeholder="Zadajte vaše meno"
-                                        autocomplete="given-name"
-                                        value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'first_name'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($first_name, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
-                                        required
-                                    >
-                    
-                                    <input 
-                                        type="text"
-                                        name="last_name"
-                                        placeholder="Zadajte vaše priezvisko"
-                                        autocomplete="family-name"
-                                        value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'last_name'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($last_name, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
-                                        required
-                                    >
-                                </div>
-
-                                <input 
-                                    type="email"
-                                    name="email_address"
-                                    placeholder="Zadajte váš e-mail"
-                                    autocomplete="email"
-                                    value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'email_address'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($email_address, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
-                                    required
-                                >
+                                <div class="section contact_section">
+                                    <h2>Kontaktné údaje</h2>
     
-                                <div class="phone_number_container">
-                                    <div class="phone_number_icon">
-                                        <img class="slovakia_icon" src="/content/images/slovakia.png" alt="SK"> <!-- https://www.flaticon.com/free-icon/slovakia_330594 -->
-                                        <img class="czech_republic_icon" src="/content/images/czech-republic.png" alt="CZ"> <!-- https://www.flaticon.com/free-icon/czech-republic_330536 -->
-                                        <img class="spain_icon" src="/content/images/spain.png" alt="ES"> <!-- https://www.flaticon.com/free-icon/spain_330557 -->
-                                        <img class="united_states_icon" src="/content/images/united-states.png" alt="US"> <!-- https://www.flaticon.com/free-icon/united-states_3013911 -->
+                                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reiciendis ab nostrum sunt qui quam nobis.</p>
+    
+                                    <div class="name_container">
+                                        <input 
+                                            type="text"
+                                            name="first_name"
+                                            placeholder="Zadajte vaše meno"
+                                            autocomplete="given-name"
+                                            value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'first_name'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($first_name, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                                            required
+                                        >
+                        
+                                        <input 
+                                            type="text"
+                                            name="last_name"
+                                            placeholder="Zadajte vaše priezvisko"
+                                            autocomplete="family-name"
+                                            value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'last_name'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($last_name, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                                            required
+                                        >
+                                    </div>
+    
+                                    <div class="contact_container">
+                                        <input 
+                                            type="email"
+                                            name="email_address"
+                                            placeholder="Zadajte váš e-mail"
+                                            autocomplete="email"
+                                            value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'email_address'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($email_address, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                                            required
+                                        >
+            
+                                        <div class="phone_number_container">
+                                            <div class="phone_number_icon">
+                                                <img class="slovakia_icon" src="/content/images/slovakia.png" alt="SK"> <!-- https://www.flaticon.com/free-icon/slovakia_330594 -->
+                                                <img class="czech_republic_icon" src="/content/images/czech-republic.png" alt="CZ"> <!-- https://www.flaticon.com/free-icon/czech-republic_330536 -->
+                                                <img class="spain_icon" src="/content/images/spain.png" alt="ES"> <!-- https://www.flaticon.com/free-icon/spain_330557 -->
+                                                <img class="united_states_icon" src="/content/images/united-states.png" alt="US"> <!-- https://www.flaticon.com/free-icon/united-states_3013911 -->
+                                            </div>
+        
+                                            <input 
+                                                class="phone_number"
+                                                type="text"
+                                                name="phone_number"
+                                                placeholder="Zadajte vaše telefónne číslo"
+                                                autocomplete="tel"
+                                                value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'phone_number'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($phone_number, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                                                required
+                                            >
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="textarea_container">
+                                        <textarea type="textarea" name="message" placeholder="Zadajte vašu správu"><?php echo htmlspecialchars($message, ENT_QUOTES, "UTF-8"); ?></textarea>
+    
+                                        <div class="attachment_container">
+                                            <p class="attachment_report <?php echo $theme; ?>"><?php echo htmlspecialchars($attachment_message, ENT_QUOTES, "UTF-8"); ?></p>
+                        
+                                            <label class="attachment" for="attachment"><i class="fa-solid fa-paperclip" title="priložiť prílohu..."></i></label>
+                        
+                                            <input id="attachment" type="file" name="attachment[]" accept=".jpg, .jpeg, .png, .gif, .webp, .bmp, .tiff, .tif, .mp4, .mov, .avi, .mkv, .webm, .hevc, .pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .txt, .rtf, .odt, .ods, .odp" multiple>
+                                        </div>
+                                    </div>
+
+                                    <button class="next" type="button" title="Pokračovať ďalej" aria-label="Pokračovať ďalej"><span>Ďalej</span><span>1 / 3</span></button>
+                                </div>
+                                
+                                <div class="section delivery_section">
+                                    <h2>Dodacie údaje</h2>
+        
+                                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reiciendis ab nostrum sunt qui quam nobis.</p>
+
+                                    <div class="address_container">
+                                        <input 
+                                            type="text"
+                                            name="address"
+                                            placeholder="Zadajte adresu"
+                                            autocomplete="address-line1"
+                                            required
+                                        >
+
+                                        <input 
+                                            type="text"
+                                            name="city"
+                                            placeholder="Zadajte mesto"
+                                            autocomplete="address-level2"
+                                            required
+                                        >
                                     </div>
 
                                     <input 
-                                        class="phone_number"
                                         type="text"
-                                        name="phone_number"
-                                        placeholder="Zadajte vaše telefónne číslo"
-                                        autocomplete="tel"
-                                        value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'phone_number'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($phone_number, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                                        name="city"
+                                        placeholder="Zadajte PSČ"
+                                        autocomplete="postal-code"
                                         required
                                     >
-                                </div>
-                                
-                                <div class="textarea_container">
-                                    <textarea type="textarea" name="message" placeholder="Zadajte vašu správu"><?php echo htmlspecialchars($message, ENT_QUOTES, "UTF-8"); ?></textarea>
 
-                                    <div class="attachment_container">
-                                        <p class="attachment_report <?php echo $theme; ?>"><?php echo htmlspecialchars($attachment_message, ENT_QUOTES, "UTF-8"); ?></p>
-                    
-                                        <label class="attachment" for="attachment"><i class="fa-solid fa-paperclip" title="priložiť prílohu..."></i></label>
-                    
-                                        <input id="attachment" type="file" name="attachment[]" accept=".jpg, .jpeg, .png, .gif, .webp, .bmp, .tiff, .tif, .mp4, .mov, .avi, .mkv, .webm, .hevc, .pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .txt, .rtf, .odt, .ods, .odp" multiple>
+                                    <div class="buttons">
+                                        <button class="previous" type="button" title="Krok späť" aria-label="Krok späť">Späť</button>
+                                        <button class="next" type="button" title="Pokračovať ďalej" aria-label="Pokračovať ďalej"><span>Ďalej</span><span>2 / 3</span></button>
                                     </div>
                                 </div>
-                                
-                                <button class="pay" name="pay" type="submit" title="Pokračovať k platbe" aria-label="Pokračovať k platbe">Zaplatiť</button> <!-- https://fontawesome.com/icons/basket-shopping -->
+
+                                <div class="section computer_preferences_section active">
+                                    <h2>O počítači</h2>
+            
+                                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reiciendis ab nostrum sunt qui quam nobis.</p>
+
+                                    <div class="questions">
+                                        <div class="question">
+                                            <p class="title">Cena (max.):</p>
+                                            
+                                            <div class="max_price_container">
+                                                <input type="range" name="max_price" value="1000" min="300" max="3000" step="50">
+                                                <p class="max_price">1000<span>€</span></p>
+                                            </div>
+                                        </div>
+    
+                                        <div class="question">
+                                            <p class="title">Výrobca procesora:</p>
+                                            
+                                            <div class="cpu_manufacturer_container">
+                                                <label for="amd">AMD</label>
+                                                <input type="checkbox" name="cpu" id="amd" value="amd">
+        
+                                                <label for="intel">Intel</label>
+                                                <input type="checkbox" name="cpu" id="intel" value="intel">
+                                            </div>
+                                        </div>
+    
+                                        <div class="question">
+                                            <p class="title">Výrobca grafickej karty:</p>
+                                            
+                                            <div class="gpu_manufacturer_container">
+                                                <label for="nvidia">Nvidia</label>
+                                                <input type="checkbox" name="gpu" id="nvidia" value="nvidia">
+        
+                                                <label for="amd">AMD</label>
+                                                <input type="checkbox" name="gpu" id="amd" value="amd">
+                                            </div>
+                                        </div>
+    
+                                        <div class="question">
+                                            <p class="title">Kapacita pamäte RAM (GB):</p>
+                                            
+                                            <div class="ram_container">
+                                                <input type="range" min="0" max="5" step="1" value="2">
+                                                <p class="ram">16<span>GB</span></p>
+                                            </div>
+
+                                            <input type="hidden" name="ram" value="16">
+                                        </div>
+    
+                                        <div class="question">
+                                            <p class="title">Kapacita disku:</p>
+                                            
+                                            <div class="space_container">
+                                                <input type="range" min="0" max="5" step="1" value="4">
+                                                <p class="space">1000<span>GB</span></p>
+                                            </div>
+
+                                            <input type="hidden" name="space" value="1000">
+                                        </div>
+    
+                                        <div class="question">
+                                            <p class="title">Typ disku:</p>
+                                            
+                                            <div class="disk_type_container">
+                                                <label for="m2">M.2 SSD</label>
+                                                <input type="checkbox" name="processor" id="m2" value="m2">
+        
+                                                <label for="ssd">SSD</label>
+                                                <input type="checkbox" name="processor" id="ssd" value="ssd">
+        
+                                                <label for="hdd">HDD (Pevný disk)</label>
+                                                <input type="checkbox" name="processor" id="hdd" value="hdd">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="buttons">
+                                        <button class="previous" type="button" title="Krok späť" aria-label="Krok späť">Späť</button>
+                                        <button class="pay" name="pay" type="submit" title="Pokračovať k platbe" aria-label="Pokračovať k platbe"><span>Zaplatiť</span><span>3 / 3</span></button>
+                                    </div>
+                                </div>
                             </div>
                         </dialog>
                     </div>

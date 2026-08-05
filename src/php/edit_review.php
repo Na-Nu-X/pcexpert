@@ -35,7 +35,7 @@
         $theme = $_COOKIE["theme"];
     }
 
-    $user_id = $_SESSION["logged_in_user_id"] ?? null;
+    $user_id = $_SESSION["logged_in_user_id"] ?? null; // Gets The Logged In User ID
 
     if($_SERVER["REQUEST_METHOD"] === "POST") {
         $current_time = time();

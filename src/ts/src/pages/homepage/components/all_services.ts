@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function():void {
     const computer_maintenance_dialog:HTMLDialogElement = computer_maintenance.querySelector(".computer_maintenance_container .bottom .reserve_service_modal") as HTMLDialogElement // Gets The Computer Maintenance Dialog
     const computer_cleaning_dialog:HTMLDialogElement = computer_cleaning.querySelector(".computer_cleaning_container .bottom .reserve_service_modal") as HTMLDialogElement // Gets The Computer Cleaning Dialog
 
-    // Events
+    // Gloval Event Delegations
 
     continue_computer_building.addEventListener("click", () => computer_building_dialog.showModal()) // Shows The Computer Building Dialog
 
@@ -36,6 +36,28 @@ document.addEventListener("DOMContentLoaded", function():void {
             ((event.target as HTMLElement).parentNode as HTMLAnchorElement).classList.contains("back")
         ) {
             this.close() // Hides The Computer Building Dialog
+        }
+
+        // Next Button
+        if((event.target as HTMLButtonElement).classList.contains("next")) {
+            const next:HTMLButtonElement = event.target as HTMLButtonElement // Gets The Next Button
+            const current_section:HTMLDivElement = next.closest(".section") as HTMLDivElement // Gets The Current Section
+            const all_sections:NodeListOf<HTMLDivElement> = this.querySelectorAll<HTMLDivElement>(".section") // Gets The All Sections
+            const current_section_index:number = [...all_sections].findIndex(one_section => one_section === current_section) // Gets The Current Section Index
+
+            all_sections.forEach(one_section => one_section.classList.remove("active")); // Hides All Sections
+            if(current_section_index + 1 < all_sections.length) (all_sections[current_section_index + 1] as HTMLDivElement).classList.add("active") // Shows The Next Section
+        }
+
+        // Previous Button
+        if((event.target as HTMLButtonElement).classList.contains("previous")) {
+            const previous:HTMLButtonElement = event.target as HTMLButtonElement // Gets The Previous Button
+            const current_section:HTMLDivElement = previous.closest(".section") as HTMLDivElement // Gets The Current Section
+            const all_sections:NodeListOf<HTMLDivElement> = this.querySelectorAll<HTMLDivElement>(".section") // Gets The All Sections
+            const current_section_index:number = [...all_sections].findIndex(one_section => one_section === current_section) // Gets The Current Section Index
+
+            all_sections.forEach(one_section => one_section.classList.remove("active")); // Hides All Sections
+            if(current_section_index - 1 >= 0) (all_sections[current_section_index - 1] as HTMLDivElement).classList.add("active") // Shows The Previous Section
         }
     })
 

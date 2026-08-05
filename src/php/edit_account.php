@@ -65,6 +65,8 @@
         try {
             // Server settings
 
+            $use_tls = $_ENV["EMAIL_USE_TLS"] ?? "False";
+
             $mail->isSMTP();
             $mail->Host = "smtp.gmail.com";
             $mail->SMTPAuth = true;
@@ -72,10 +74,11 @@
             $mail->CharSet = "UTF-8";
             $mail->Encoding = "base64";
 
-            $mail->Username = "behulpatrik@gmail.com";
+            $mail->Username = $_ENV["EMAIL_HOST_USER"];
             $mail->Password = $_ENV["EMAIL_HOST_PASSWORD"];
-            $mail->SMTPSecure = "ssl";
-            $mail->Port = 465;
+            if(strtolower($use_tls) === "true") $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            else $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            $mail->Port = $_ENV["EMAIL_PORT"];
 
             // Recipients
 

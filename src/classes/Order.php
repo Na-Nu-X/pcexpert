@@ -104,5 +104,58 @@
                 return false;
             }
         }
+
+        /**
+         * Function For Get The User Information
+         * 
+         * @param PDO $connection - Connection To The Database
+         * @param string|null $session_id - Session ID
+         * @param string $database_field - Database Field
+         * 
+         * @return int|string|null
+        **/
+
+        public function getOrderInformation(PDO $connection, ?string $session_id, string $database_field):int|string|null {
+            // Defines The Allowed Fields
+            $allowed_fields = [
+                "service", 
+                "price_at_purchase", 
+                "first_name", 
+                "last_name", 
+                "status",
+                "stripe_intent_id"
+            ];
+    
+            if(!in_array($database_field, $allowed_fields)) {
+                error_log("Nepovolený prístup k stĺpcu: " . $database_field, 3, "../errors/error.log");
+                return null;
+            }
+
+            if($session_id === null) {
+                return null;
+            }
+
+            $sql = "SELECT $database_field
+                    FROM orders
+                    WHERE stripe_intent_id = :session_id";
+
+            try {
+                $stmt = $connection->prepare($sql);
+                $stmt->bindValue(":session_id", $session_id, PDO::PARAM_STR);
+                $stmt->execute();
+
+                $result = $stmt->fetchColumn();
+
+                if($result !== false) {
+                    return $result;
+                }
+            } 
+
+            catch(PDOException $e) {
+                error_log("Chyba pri získavaní informácií používateľa: " . $e->getMessage() . "\n", 3, "../errors/error.log");
+            }
+    
+            return null;
+        }
     }
 ?>

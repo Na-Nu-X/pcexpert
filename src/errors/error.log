@@ -33,3 +33,36 @@ Post Data: {"rating":"4","review":"a","csrf_token":"e4776e871ae9ddf8ab02bb84bbce
 
 Chyba pri pripojovaní k databázy: could not find driver
 Chyba pri pripojovaní k databázy: could not find driver
+Chyba pri získavaní informácií používateľa: SQLSTATE[42703]: Undefined column: 7 ERROR:  column "session_id" does not exist
+LINE 3:                     WHERE session_id = $1
+                                  ^
+Chyba pri získavaní informácií používateľa: SQLSTATE[42703]: Undefined column: 7 ERROR:  column "session_id" does not exist
+LINE 3:                     WHERE session_id = $1
+                                  ^
+Chyba pri získavaní informácií používateľa: SQLSTATE[42703]: Undefined column: 7 ERROR:  column "session_id" does not exist
+LINE 3:                     WHERE session_id = $1
+                                  ^
+Chyba pri získavaní informácií používateľa: SQLSTATE[42703]: Undefined column: 7 ERROR:  column "session_id" does not exist
+LINE 3:                     WHERE session_id = $1
+                                  ^
+Chyba pri získavaní informácií používateľa: SQLSTATE[42703]: Undefined column: 7 ERROR:  column "session_id" does not exist
+LINE 3:                     WHERE session_id = $1
+                                  ^
+Chyba pri získavaní informácií používateľa: SQLSTATE[42703]: Undefined column: 7 ERROR:  column "session_id" does not exist
+LINE 3:                     WHERE session_id = $1
+                                  ^
+Chyba pri získavaní informácií používateľa: SQLSTATE[42703]: Undefined column: 7 ERROR:  column "session_id" does not exist
+LINE 3:                     WHERE session_id = $1
+                                  ^
+Chyba pri získavaní informácií používateľa: SQLSTATE[42703]: Undefined column: 7 ERROR:  column "session_id" does not exist
+LINE 3:                     WHERE session_id = $1
+                                  ^
+Chyba pri získavaní informácií používateľa: SQLSTATE[42703]: Undefined column: 7 ERROR:  column "session_id" does not exist
+LINE 3:                     WHERE session_id = $1
+                                  ^
+Chyba pri získavaní informácií používateľa: SQLSTATE[42703]: Undefined column: 7 ERROR:  column "session_id" does not exist
+LINE 3:                     WHERE session_id = $1
+                                  ^
+Chyba pri získavaní informácií používateľa: SQLSTATE[42703]: Undefined column: 7 ERROR:  column "session_id" does not exist
+LINE 3:                     WHERE session_id = $1
+                                  ^
