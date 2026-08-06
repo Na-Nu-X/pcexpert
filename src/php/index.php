@@ -367,6 +367,8 @@
     <script src="/src/js/lightbox-plus-jquery.min.js"></script> <!-- https://github.com/lokesh/lightbox2/tree/dev -->
     <script src="https://kit.fontawesome.com/069c0938a1.js" crossorigin="anonymous"></script> <!-- Icons -->
 
+    <script src="https://widget.packeta.com/v6/www/js/library.js"></script> <!-- Packeta -->
+
     <script src="/src/ts/dist/components/preloader.js" type="module"></script>
     <script src="/src/ts/dist/components/cookie_policy.js" type="module"></script>
     <script src="/src/ts/dist/components/theme_selection.js" type="module"></script>
@@ -550,7 +552,7 @@
 
                         <dialog class="reserve_service_modal">
                             <div class="reserve_service">
-                                <div class="section contact_section">
+                                <div class="section contact_section active">
                                     <h2>Kontaktné údaje</h2>
     
                                     <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reiciendis ab nostrum sunt qui quam nobis.</p>
@@ -604,20 +606,8 @@
                                             >
                                         </div>
                                     </div>
-                                    
-                                    <div class="textarea_container">
-                                        <textarea type="textarea" name="message" placeholder="Zadajte vašu správu"><?php echo htmlspecialchars($message, ENT_QUOTES, "UTF-8"); ?></textarea>
-    
-                                        <div class="attachment_container">
-                                            <p class="attachment_report <?php echo $theme; ?>"><?php echo htmlspecialchars($attachment_message, ENT_QUOTES, "UTF-8"); ?></p>
-                        
-                                            <label class="attachment" for="attachment"><i class="fa-solid fa-paperclip" title="priložiť prílohu..."></i></label>
-                        
-                                            <input id="attachment" type="file" name="attachment[]" accept=".jpg, .jpeg, .png, .gif, .webp, .bmp, .tiff, .tif, .mp4, .mov, .avi, .mkv, .webm, .hevc, .pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .txt, .rtf, .odt, .ods, .odp" multiple>
-                                        </div>
-                                    </div>
 
-                                    <button class="next" type="button" title="Pokračovať ďalej" aria-label="Pokračovať ďalej"><span>Ďalej</span><span>1 / 3</span></button>
+                                    <button class="next" type="button" title="Pokračovať ďalej" aria-label="Pokračovať ďalej" disabled><span>Ďalej</span><span>1 / 3</span></button>
                                 </div>
                                 
                                 <div class="section delivery_section">
@@ -651,24 +641,68 @@
                                         required
                                     >
 
+                                    <div class="all_shipping_methods">
+                                        <p>Spôsob doručenia</p>
+
+                                        <div class="shipping_method_container packeta">
+                                            <label>
+                                                <input class="shipping_method" type="radio" name="shipping_method" value="packeta"> 
+                                                Packeta (Z-Box / Pobočka)
+                                            </label>
+                                            
+                                            <div class="shipping_details" style="display: none;">
+                                                <button class="open_packeta_widget" type="button">Vybrať výdajné miesto</button>
+
+                                                <p class="selected_packeta_branch_name">Ešte nebolo vybrané žiadne miesto.</p>
+
+                                                <div class="packeta_widget_container" style="display: none; width: 100%; height: 450px; margin-top: 15px;"></div>
+
+                                                <input class="packeta_branch_id" type="hidden" name="packeta_branch_id">
+                                                <input class="packeta_branch_name" type="hidden" name="packeta_branch_name">
+                                            </div>
+                                        </div>
+
+                                        <div class="shipping_method_container dpd">
+                                            <label>
+                                                <input class="shipping_method" type="radio" name="shipping_method" value="dpd"> 
+                                                DPD Pickup (Odberné miesto)
+                                            </label>
+                                            
+                                            <div class="shipping_details" style="display: none;">
+                                                <button class="open_dpd_widget" type="button">Vybrať DPD pobočku</button>
+
+                                                <p class="selected_dpd_branch_name">Nevybrali ste DPD pobočku.</p>
+
+                                                <input class="dpd_branch_id" type="hidden" name="dpd_branch_id">
+                                            </div>
+                                        </div>
+
+                                        <div class="shipping_method_container gls">
+                                            <label>
+                                                <input class="shipping_method" type="radio" name="shipping_method" value="gls"> 
+                                                GLS Kuriér (Doručenie na adresu)
+                                            </label>
+                                        </div>
+                                    </div>
+
                                     <div class="buttons">
                                         <button class="previous" type="button" title="Krok späť" aria-label="Krok späť">Späť</button>
-                                        <button class="next" type="button" title="Pokračovať ďalej" aria-label="Pokračovať ďalej"><span>Ďalej</span><span>2 / 3</span></button>
+                                        <button class="next" type="button" title="Pokračovať ďalej" aria-label="Pokračovať ďalej" disabled><span>Ďalej</span><span>2 / 3</span></button>
                                     </div>
                                 </div>
 
-                                <div class="section computer_preferences_section active">
+                                <div class="section computer_preferences_section">
                                     <h2>O počítači</h2>
             
                                     <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reiciendis ab nostrum sunt qui quam nobis.</p>
 
                                     <div class="questions">
                                         <div class="question">
-                                            <p class="title">Cena (max.):</p>
+                                            <p class="title">Maximálna cena:</p>
                                             
                                             <div class="max_price_container">
-                                                <input type="range" name="max_price" value="1000" min="300" max="3000" step="50">
-                                                <p class="max_price">1000<span>€</span></p>
+                                                <input class="max_price" type="range" name="max_price" value="1000" min="300" max="3000" step="50">
+                                                <p class="max_price_label">1000<span>€</span></p>
                                             </div>
                                         </div>
     
@@ -676,11 +710,11 @@
                                             <p class="title">Výrobca procesora:</p>
                                             
                                             <div class="cpu_manufacturer_container">
-                                                <label for="amd">AMD</label>
-                                                <input type="checkbox" name="cpu" id="amd" value="amd">
+                                                <input type="checkbox" name="cpu" id="amd_cpu" value="amd">
+                                                <label for="amd_cpu">AMD</label>
         
-                                                <label for="intel">Intel</label>
                                                 <input type="checkbox" name="cpu" id="intel" value="intel">
+                                                <label for="intel">Intel</label>
                                             </div>
                                         </div>
     
@@ -688,11 +722,11 @@
                                             <p class="title">Výrobca grafickej karty:</p>
                                             
                                             <div class="gpu_manufacturer_container">
-                                                <label for="nvidia">Nvidia</label>
                                                 <input type="checkbox" name="gpu" id="nvidia" value="nvidia">
+                                                <label for="nvidia">Nvidia</label>
         
-                                                <label for="amd">AMD</label>
-                                                <input type="checkbox" name="gpu" id="amd" value="amd">
+                                                <input type="checkbox" name="gpu" id="amd_gpu" value="amd">
+                                                <label for="amd_gpu">AMD</label>
                                             </div>
                                         </div>
     
@@ -700,8 +734,8 @@
                                             <p class="title">Kapacita pamäte RAM (GB):</p>
                                             
                                             <div class="ram_container">
-                                                <input type="range" min="0" max="5" step="1" value="2">
-                                                <p class="ram">16<span>GB</span></p>
+                                                <input class="ram" type="range" min="0" max="5" step="1" value="1">
+                                                <p class="ram_label">16<span>GB</span></p>
                                             </div>
 
                                             <input type="hidden" name="ram" value="16">
@@ -711,8 +745,8 @@
                                             <p class="title">Kapacita disku:</p>
                                             
                                             <div class="space_container">
-                                                <input type="range" min="0" max="5" step="1" value="4">
-                                                <p class="space">1000<span>GB</span></p>
+                                                <input class="space" type="range" min="0" max="5" step="1" value="3">
+                                                <p class="space_label">1000<span>GB</span></p>
                                             </div>
 
                                             <input type="hidden" name="space" value="1000">
@@ -722,21 +756,33 @@
                                             <p class="title">Typ disku:</p>
                                             
                                             <div class="disk_type_container">
-                                                <label for="m2">M.2 SSD</label>
                                                 <input type="checkbox" name="processor" id="m2" value="m2">
+                                                <label for="m2">M.2 SSD</label>
         
-                                                <label for="ssd">SSD</label>
                                                 <input type="checkbox" name="processor" id="ssd" value="ssd">
+                                                <label for="ssd">SSD</label>
         
-                                                <label for="hdd">HDD (Pevný disk)</label>
                                                 <input type="checkbox" name="processor" id="hdd" value="hdd">
+                                                <label for="hdd">HDD (Pevný disk)</label>
                                             </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="textarea_container">
+                                        <textarea type="textarea" name="message" placeholder="Dodatočná správa"><?php echo htmlspecialchars($message, ENT_QUOTES, "UTF-8"); ?></textarea>
+    
+                                        <div class="attachment_container">
+                                            <p class="attachment_report <?php echo $theme; ?>"><?php echo htmlspecialchars($attachment_message, ENT_QUOTES, "UTF-8"); ?></p>
+                        
+                                            <label class="attachment" for="attachment"><i class="fa-solid fa-paperclip" title="priložiť prílohu..."></i></label>
+                        
+                                            <input id="attachment" type="file" name="attachment[]" accept=".jpg, .jpeg, .png, .gif, .webp, .bmp, .tiff, .tif, .mp4, .mov, .avi, .mkv, .webm, .hevc, .pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .txt, .rtf, .odt, .ods, .odp" multiple>
                                         </div>
                                     </div>
 
                                     <div class="buttons">
                                         <button class="previous" type="button" title="Krok späť" aria-label="Krok späť">Späť</button>
-                                        <button class="pay" name="pay" type="submit" title="Pokračovať k platbe" aria-label="Pokračovať k platbe"><span>Zaplatiť</span><span>3 / 3</span></button>
+                                        <button class="pay" name="pay" type="submit" title="Pokračovať k platbe" aria-label="Pokračovať k platbe" disabled><span>Zaplatiť</span><span>3 / 3</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -1092,7 +1138,7 @@
 
                         <p class="form_report valid"></p>
 
-                        <textarea type="textarea" name="review" placeholder="Zanechajte nám vaše hodnotenie"><?php echo htmlspecialchars($review, ENT_QUOTES, "UTF-8"); ?></textarea>
+                        <textarea type="textarea" name="review" placeholder="Zanechajte nám vaše hodnotenie" max-length="250"><?php echo htmlspecialchars($review, ENT_QUOTES, "UTF-8"); ?></textarea>
 
                         <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                         
@@ -1306,7 +1352,7 @@
                 </select>
                 
                 <div class="textarea_container">
-                    <textarea type="textarea" name="message" placeholder="Zadajte vašu správu" required><?php echo htmlspecialchars($message, ENT_QUOTES, "UTF-8"); ?></textarea>
+                    <textarea type="textarea" name="message" placeholder="Zadajte vašu správu" max-length="250" required><?php echo htmlspecialchars($message, ENT_QUOTES, "UTF-8"); ?></textarea>
 
                     <div class="attachment_container">
                         <p class="attachment_report <?php echo $theme; ?>"><?php echo htmlspecialchars($attachment_message, ENT_QUOTES, "UTF-8"); ?></p>

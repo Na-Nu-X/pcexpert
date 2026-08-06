@@ -135,7 +135,7 @@ header {
 main {
     .all_services {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         justify-content: center; 
         justify-items: center;
         align-items: start; 
@@ -264,10 +264,6 @@ main {
                             max-height: 800px;
                             padding: 15px 15px 15px 20px;
 
-                            p {
-                                text-align: center;
-                            }
-
                             .section {
                                 @include flex_center($direction: column);
                                 display: none;
@@ -285,16 +281,25 @@ main {
                                 }
 
                                 .next,
-                                .previous,
                                 .pay {
                                     @include blue_button($width: 100%);
                                     display: flex;
                                     justify-content: space-between;
                                     padding: 10px;
                                     box-sizing: border-box;
+
+                                    &[disabled] {
+                                        background-color: darken($secondary-color, 20%);
+                                        
+                                        &:hover {
+                                            transform: none;
+                                            cursor: not-allowed;
+                                        }
+                                    }
                                 }
 
                                 .previous {
+                                    @include light_blue_button($width: 100%);
                                     justify-content: center;
                                 }
 
@@ -321,7 +326,7 @@ main {
                                     gap: 10px;
     
                                     > * {
-                                        width: 50%;
+                                        width: 50% !important;
                                     }
     
                                     .phone_number_container {
@@ -344,85 +349,6 @@ main {
                                         }
                                     }
                                 }
-
-                                .textarea_container {
-                                    position: relative;
-                                    width: 100%;
-                                    background-color: darken($secondary-color, 3%);
-                                    color: transparentize($main-color, 0.4);
-                                    border: 1px solid darken($secondary-color, 10%);
-                                    border-radius: $small-border-radius;
-                                    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-    
-                                    &:has(textarea:focus-visible) {
-                                        background-color: $secondary-color;
-                                        border-color: $blue-color;
-                                        box-shadow: 0 0 0 3px transparentize($blue-color, 0.8);
-                                    }
-    
-                                    textarea {
-                                        resize: none;
-                                        width: 100%;
-                                        min-height: 100px;
-                                        padding: 10px 15px;
-                                        font-family: inherit;
-                                        background: none;
-                                        border: none;
-                                        outline: none;
-    
-                                        &::placeholder {
-                                            color: darken($secondary-color, 40%);
-                                        }
-                                    }
-    
-                                    .attachment_container {
-                                        position: absolute;
-                                        bottom: 0px;
-                                        width: 100%;
-                                        height: 20px;
-                                        border-radius: 0px 0px $small-border-radius $small-border-radius;
-    
-                                        .attachment_report {
-                                            width: 100%;
-                                            height: 100%;
-                                            margin: 0px auto;
-                                            text-align: center;
-                                            line-height: 20px;
-                                            background-color: darken($secondary-color, 5%);
-                                            font-size: 12px;
-                                
-                                            &.dark{
-                                                background-color: lighten($main-color, 2%);
-                                            }
-                                        }
-                                
-                                        .attachment {
-                                            position: absolute;
-                                            top: -109px + 26px - 4px;
-                                            right: 0px;
-                                            padding: 10px 10px 0px 0px;
-                                            transition: right 0.3s ease;
-                                
-                                            &:hover {
-                                                cursor: pointer;
-                                
-                                                .fa-paperclip {
-                                                    color: darken($secondary-color, 10%);
-                                                    transition: color 0.3s ease;
-                                                }
-                                            }
-                                
-                                            .fa-paperclip {
-                                                display: block;
-                                                color: darken($secondary-color, 20%)
-                                            }
-                                        }
-                                
-                                        input[type="file"] {
-                                            display: none;
-                                        }
-                                    }
-                                }
                             }
 
                             .delivery_section {
@@ -433,6 +359,92 @@ main {
                                     > * {
                                         flex: 1;
                                         min-width: 0;
+                                    }
+                                }
+
+                                .all_shipping_methods {
+                                    display: flex;
+                                    flex-direction: column;
+                                    gap: 10px;
+                                    width: 100%;
+                                
+                                    .shipping_method_container {
+                                        width: 100%;
+                                        padding: 10px 15px;
+                                        background-color: darken($secondary-color, 3%);
+                                        color: transparentize($main-color, 0.4);
+                                        border: 1px solid darken($secondary-color, 10%);
+                                        border-radius: $small-border-radius;
+                                
+                                        label {
+                                            display: flex;
+                                            align-items: center;
+                                            gap: 10px;
+                                            line-height: 1;
+                                            cursor: pointer;
+                                            
+                                            .shipping_method {
+                                                appearance: none;
+                                                -webkit-appearance: none;
+                                                -moz-appearance: none;
+                                                position: relative;
+                                                flex-shrink: 0;
+                                                width: 20px;
+                                                height: 20px;
+                                                background-color: $secondary-color;
+                                                border: 2px solid darken($secondary-color, 10%);
+                                                border-radius: 50%;
+                                                outline: none;
+                                                cursor: pointer;
+                                                transition: border-color 0.2s ease, box-shadow 0.2s ease;
+                                                
+                                                &:hover {
+                                                    border-color: darken($secondary-color, 40%);
+                                                }
+
+                                                &:focus-visible {
+                                                    box-shadow: 0 0 0 3px transparentize($red-color, 0.8);
+                                                }
+                                            
+                                                &:checked {
+                                                    border-color: $red-color;
+                                            
+                                                    &::after {
+                                                        @include position_center;
+                                                        content: "";
+                                                        width: 10px;
+                                                        height: 10px;
+                                                        background-color: $red-color;
+                                                        border-radius: 50%;
+                                                        animation: radio_scale 0.2s ease-in-out;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                
+                                    .shipping_details {
+                                        margin-top: 10px;
+                                        padding-top: 10px;
+                                        border-top: 1px dashed darken($secondary-color, 10%);
+                                
+                                        .open_packeta_widget,
+                                        .open_dpd_widget {
+                                            @include blue_button($width: 100%);
+                                            background-color: $red-color;
+
+                                            &:hover,
+                                            &:focus-visible {
+                                                background-color: lighten($red-color, 5%);
+                                            }
+                                        }
+
+                                        .selected_packeta_branch_name,
+                                        .selected_dpd_branch_name {
+                                            margin-top: 10px;
+                                            color: darken($secondary-color, 40%);
+                                            font-size: 0.9em;
+                                        }
                                     }
                                 }
                             }
@@ -521,89 +533,157 @@ main {
                                         .cpu_manufacturer_container,
                                         .gpu_manufacturer_container,
                                         .disk_type_container {
-                                        //     input {
-                                        //         display: none;
+                                            display: flex;
+                                            flex-direction: column;
+                                            gap: 10px;
+
+                                            input {
+                                                display: none;
                                         
-                                        //         &:checked + label::before {
-                                        //             content: "";
-                                        //             position: absolute;
-                                        //             top: 3px;
-                                        //             left: 0px;
-                                        //             width: 14px;
-                                        //             height: 14px;
-                                        //             outline: 1px solid $green-color !important;
-                                        //             background: transparentize($secondary-color, 0.8);
-                                        //         }
+                                                &:checked + label::before {
+                                                    content: "";
+                                                    position: absolute;
+                                                    top: 3px;
+                                                    left: 0px;
+                                                    width: 14px;
+                                                    height: 14px;
+                                                    outline: 1px solid $green-color !important;
+                                                    background: transparentize($secondary-color, 0.8);
+                                                }
                                         
-                                        //         &:checked + label::after {
-                                        //             content: "";
-                                        //             position: absolute;
-                                        //             top: 3px;
-                                        //             left: 0px;
-                                        //             width: 14px;
-                                        //             height: 14px;
-                                        //             background-image: url("/content/images/check.png"); // https://www.flaticon.com/free-icon/check_16750043
-                                        //             background-size: contain;
-                                        //             transform: scale(1.5);
-                                        //             opacity: 1;
-                                        //             transition: transform 0.3s ease, opacity 0.3s ease;
-                                        //         }
+                                                &:checked + label::after {
+                                                    content: "";
+                                                    position: absolute;
+                                                    top: 3px;
+                                                    left: 0px;
+                                                    width: 14px;
+                                                    height: 14px;
+                                                    background-image: url("/content/images/check.png"); // https://www.flaticon.com/free-icon/check_16750043
+                                                    background-size: contain;
+                                                    transform: scale(1.5);
+                                                    opacity: 1;
+                                                    transition: transform 0.3s ease, opacity 0.3s ease;
+                                                }
                                                 
-                                        //         &:not(:checked) + label::after {
-                                        //             content: "";
-                                        //             position: absolute;
-                                        //             top: 3px;
-                                        //             left: 0px;
-                                        //             width: 14px;
-                                        //             height: 14px;
-                                        //             background-image: url("/content/images/check.png"); // https://www.flaticon.com/free-icon/check_16750043
-                                        //             background-size: contain;
-                                        //             transform: scale(0);
-                                        //             opacity: 0;
-                                        //             transition: transform 0.2s ease, opacity 0.2s ease;
-                                        //         }
-                                        //     }
+                                                &:not(:checked) + label::after {
+                                                    content: "";
+                                                    position: absolute;
+                                                    top: 3px;
+                                                    left: 0px;
+                                                    width: 14px;
+                                                    height: 14px;
+                                                    background-image: url("/content/images/check.png"); // https://www.flaticon.com/free-icon/check_16750043
+                                                    background-size: contain;
+                                                    transform: scale(0);
+                                                    opacity: 0;
+                                                    transition: transform 0.2s ease, opacity 0.2s ease;
+                                                }
+                                            }
                                         
-                                        //     input + label {
-                                        //         position: relative;
-                                        //         padding-left: 30px;
-                                        //         display: inline-block;
-                                        //         color: darken($secondary-color, 20%);
-                                        //         cursor: pointer;
-                                        //     }
+                                            input + label {
+                                                position: relative;
+                                                padding-left: calc(14px + 10px);
+                                                display: inline-block;
+                                                color: $main-color;
+                                                cursor: pointer;
+                                            }
                                         
-                                        //     input + label::before {
-                                        //         content: "";
-                                        //         position: absolute;
-                                        //         top: 3px;
-                                        //         left: 0px;
-                                        //         width: 14px;
-                                        //         height: 14px;
-                                        //         outline: 1px solid darken($secondary-color, 20%);
-                                        //         background: transparentize($secondary-color, 0.8);
-                                        //         transition: outline 0.3s ease;
-                                        //     }
+                                            input + label::before {
+                                                content: "";
+                                                position: absolute;
+                                                top: 3px;
+                                                left: 0px;
+                                                width: 14px;
+                                                height: 14px;
+                                                outline: 1px solid darken($secondary-color, 20%);
+                                                background: transparentize($secondary-color, 0.8);
+                                                transition: outline 0.3s ease;
+                                            }
                                         
-                                        //     label {
-                                        //         margin-left: 0px;
-                                        //         font-size: 0.9em;
-                                        //         color: $secondary-color;
-                                        //         user-select: none;
-                                        //         transition: letter-spacing 0.3s ease;
-                                        
-                                        //         &:hover {
-                                        //             letter-spacing: 0.5px;
-                                        //         }
-                                        //     }
-                                        
-                                        //     .terms + .terms_label::before {
-                                        //         outline: 1px solid $red-color;
-                                            
-                                        //         &:checked + .terms_label::before {
-                                        //             outline: 1px solid $green-color;
-                                        //         }
-                                        //     }
-                                        // }
+                                            label {
+                                                margin-left: 0px;
+                                                font-size: 0.9em;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                .textarea_container {
+                                    position: relative;
+                                    width: 100%;
+                                    background-color: darken($secondary-color, 3%);
+                                    color: transparentize($main-color, 0.4);
+                                    border: 1px solid darken($secondary-color, 10%);
+                                    border-radius: $small-border-radius;
+                                    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    
+                                    &:has(textarea:focus-visible) {
+                                        background-color: $secondary-color;
+                                        border-color: $blue-color;
+                                        box-shadow: 0 0 0 3px transparentize($blue-color, 0.8);
+                                    }
+    
+                                    textarea {
+                                        resize: none;
+                                        width: 100%;
+                                        min-height: 100px;
+                                        padding: 10px 15px;
+                                        font-family: inherit;
+                                        background: none;
+                                        border: none;
+                                        outline: none;
+    
+                                        &::placeholder {
+                                            color: darken($secondary-color, 40%);
+                                        }
+                                    }
+    
+                                    .attachment_container {
+                                        position: absolute;
+                                        bottom: 0px;
+                                        width: 100%;
+                                        height: 20px;
+                                        border-radius: 0px 0px $small-border-radius $small-border-radius;
+    
+                                        .attachment_report {
+                                            width: 100%;
+                                            height: 100%;
+                                            margin: 0px auto;
+                                            text-align: center;
+                                            line-height: 20px;
+                                            background-color: darken($secondary-color, 5%);
+                                            font-size: 12px;
+                                
+                                            &.dark{
+                                                background-color: lighten($main-color, 2%);
+                                            }
+                                        }
+                                
+                                        .attachment {
+                                            position: absolute;
+                                            top: -109px + 26px - 4px;
+                                            right: 0px;
+                                            padding: 10px 10px 0px 0px;
+                                            transition: right 0.3s ease;
+                                
+                                            &:hover {
+                                                cursor: pointer;
+                                
+                                                .fa-paperclip {
+                                                    color: darken($secondary-color, 10%);
+                                                    transition: color 0.3s ease;
+                                                }
+                                            }
+                                
+                                            .fa-paperclip {
+                                                display: block;
+                                                color: darken($secondary-color, 20%)
+                                            }
+                                        }
+                                
+                                        input[type="file"] {
+                                            display: none;
+                                        }
                                     }
                                 }
                             }
@@ -987,6 +1067,20 @@ main {
         &:hover {
             opacity: 1;
         }
+    }
+}
+
+/***********
+ Key Frames
+***********/
+
+@keyframes radio_scale {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1);
     }
 }
 

@@ -71,16 +71,6 @@ select,
     }
 }
 
-@keyframes loader_spin {
-    0% { 
-        transform: rotate(0deg); 
-    }
-
-    100% { 
-        transform: rotate(360deg); 
-    }
-}
-
 // Header
 
 header {
@@ -472,6 +462,16 @@ footer {
 /***********
  Key Frames
 ***********/
+
+@keyframes loader_spin {
+    0% { 
+        transform: rotate(0deg); 
+    }
+
+    100% { 
+        transform: rotate(360deg); 
+    }
+}
 
 @keyframes fade_in_animation {
     0% {
