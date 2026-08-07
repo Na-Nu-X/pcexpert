@@ -273,6 +273,10 @@ main {
                                     display: flex;
                                 }
 
+                                p {
+                                    text-align: center;
+                                }
+
                                 input[type="text"],
                                 input[type="email"],
                                 input[type="tel"],
@@ -296,6 +300,10 @@ main {
                                             cursor: not-allowed;
                                         }
                                     }
+                                }
+
+                                .next {
+                                    padding: 10px 20px;
                                 }
 
                                 .previous {

@@ -10,28 +10,30 @@
          * @param string $last_name - Last Name
          * @param string $email_address - Email Address
          * @param string $phone_number - Phone Number
-         * @param string|null $message - Message
          * @param string|null $stripe_intent_id - Stripe Intent ID
+         * @param string $address - Address
+         * @param string $city - City
+         * @param string $postal_code - Postal Code
+         * @param string $shipping_method - Shipping Method
+         * @param int|null $packeta_branch_id - Packeta Branch ID
+         * @param string|null $packeta_branch_name - Packeta Branch Name
+         * @param int|null $max_price - Max Price
+         * @param string|null $cpu - CPU
+         * @param string|null $gpu - GPU
+         * @param int|null $ram - RAM
+         * @param int|null $space - Space
+         * @param string|null $disk_type - Disk Type
+         * @param string|null $message - Message
          * 
          * @return bool
         **/
 
-        public function createOrder(PDO $connection, string $service, int $price_at_purchase, string $first_name, string $last_name, string $email_address, string $phone_number, ?string $message, ?string $stripe_intent_id):bool {
+        public function createOrder(PDO $connection, string $service, int $price_at_purchase, string $first_name, string $last_name, string $email_address, string $phone_number, ?string $stripe_intent_id, string $address, string $city, string $postal_code, string $shipping_method, ?int $packeta_branch_id, ?string $packeta_branch_name, ?int $max_price, ?string $cpu, ?string $gpu, ?int $ram, ?int $space, ?string $disk_type, ?string $message):bool {
             try {
-                if($message === null) {
-                    $sql = "INSERT INTO orders (service, price_at_purchase, first_name, last_name, email_address, phone_number, status, stripe_intent_id, creation_time) 
-                            VALUES (:service, :price_at_purchase, :first_name, :last_name, :email_address, :phone_number, 'PENDING', :stripe_intent_id, CURRENT_TIMESTAMP)";
+                $sql = "INSERT INTO orders (service, price_at_purchase, first_name, last_name, email_address, phone_number, status, stripe_intent_id, address, city, postal_code, shipping_method, packeta_branch_id, packeta_branch_name, max_price, cpu, gpu, ram, space, disk_type, message, creation_time) 
+                        VALUES (:service, :price_at_purchase, :first_name, :last_name, :email_address, :phone_number, 'PENDING', :stripe_intent_id, :address, :city, :postal_code, :shipping_method, :packeta_branch_id, :packeta_branch_name, :max_price, :cpu, :gpu, :ram, :space, :disk_type, :message, CURRENT_TIMESTAMP)";
 
-                    $stmt = $connection->prepare($sql);
-                }
-
-                else {
-                    $sql = "INSERT INTO orders (service, price_at_purchase, first_name, last_name, email_address, phone_number, message, status, stripe_intent_id, creation_time) 
-                            VALUES (:service, :price_at_purchase, :first_name, :last_name, :email_address, :phone_number, :message, 'PENDING', :stripe_intent_id, CURRENT_TIMESTAMP)";
-
-                    $stmt = $connection->prepare($sql);
-                    $stmt->bindValue(":message", $message, PDO::PARAM_STR);
-                }
+                $stmt = $connection->prepare($sql);
 
                 $stmt->bindValue(":service", $service, PDO::PARAM_STR);
                 $stmt->bindValue(":price_at_purchase", $price_at_purchase, PDO::PARAM_INT);
@@ -40,6 +42,19 @@
                 $stmt->bindValue(":email_address", $email_address, PDO::PARAM_STR);
                 $stmt->bindValue(":phone_number", $phone_number, PDO::PARAM_STR);
                 $stmt->bindValue(":stripe_intent_id", $stripe_intent_id, PDO::PARAM_STR);
+                $stmt->bindValue(":address", $address, PDO::PARAM_STR);
+                $stmt->bindValue(":city", $city, PDO::PARAM_STR);
+                $stmt->bindValue(":postal_code", $postal_code, PDO::PARAM_STR);
+                $stmt->bindValue(":shipping_method", $shipping_method, PDO::PARAM_STR);
+                $stmt->bindValue(":packeta_branch_id", $packeta_branch_id, PDO::PARAM_INT);
+                $stmt->bindValue(":packeta_branch_name", $packeta_branch_name, PDO::PARAM_STR);
+                $stmt->bindValue(":max_price", $max_price, PDO::PARAM_INT);
+                $stmt->bindValue(":cpu", $cpu, PDO::PARAM_STR);
+                $stmt->bindValue(":gpu", $gpu, PDO::PARAM_STR);
+                $stmt->bindValue(":ram", $ram, PDO::PARAM_INT);
+                $stmt->bindValue(":space", $space, PDO::PARAM_INT);
+                $stmt->bindValue(":disk_type", $disk_type, PDO::PARAM_STR);
+                $stmt->bindValue(":message", $message, PDO::PARAM_STR);
 
                 return $stmt->execute();
             } 

@@ -555,7 +555,7 @@
                                 <div class="section contact_section active">
                                     <h2>Kontaktné údaje</h2>
     
-                                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reiciendis ab nostrum sunt qui quam nobis.</p>
+                                    <p>Prosím vyplnte všetky povinné kontaktné údaje.</p>
     
                                     <div class="name_container">
                                         <input 
@@ -613,7 +613,7 @@
                                 <div class="section delivery_section">
                                     <h2>Dodacie údaje</h2>
         
-                                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reiciendis ab nostrum sunt qui quam nobis.</p>
+                                    <p>Prosím vyplnte všetky povinné dodacie údaje a zvolte možnosť dopravy.</p>
 
                                     <div class="address_container">
                                         <input 
@@ -635,7 +635,7 @@
 
                                     <input 
                                         type="text"
-                                        name="city"
+                                        name="postal_code"
                                         placeholder="Zadajte PSČ"
                                         autocomplete="postal-code"
                                         required
@@ -665,7 +665,7 @@
                                         <div class="shipping_method_container dpd">
                                             <label>
                                                 <input class="shipping_method" type="radio" name="shipping_method" value="dpd"> 
-                                                DPD Pickup (Odberné miesto)
+                                                DPD Pickup (Odberné miesto / Box)
                                             </label>
                                             
                                             <div class="shipping_details" style="display: none;">
@@ -673,7 +673,10 @@
 
                                                 <p class="selected_dpd_branch_name">Nevybrali ste DPD pobočku.</p>
 
+                                                <div class="dpd_widget_container" style="display: none; width: 100%; height: 450px; margin-top: 15px;"></div>
+
                                                 <input class="dpd_branch_id" type="hidden" name="dpd_branch_id">
+                                                <input class="dpd_branch_name" type="hidden" name="dpd_branch_name">
                                             </div>
                                         </div>
 
@@ -694,7 +697,7 @@
                                 <div class="section computer_preferences_section">
                                     <h2>O počítači</h2>
             
-                                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reiciendis ab nostrum sunt qui quam nobis.</p>
+                                    <p>Prosím vyplnte všetky povinné informácie o preferenciach počítača a pokračujte k platbe.</p>
 
                                     <div class="questions">
                                         <div class="question">
@@ -756,20 +759,20 @@
                                             <p class="title">Typ disku:</p>
                                             
                                             <div class="disk_type_container">
-                                                <input type="checkbox" name="processor" id="m2" value="m2">
+                                                <input type="checkbox" name="disk_type" id="m2" value="m2">
                                                 <label for="m2">M.2 SSD</label>
         
-                                                <input type="checkbox" name="processor" id="ssd" value="ssd">
+                                                <input type="checkbox" name="disk_type" id="ssd" value="ssd">
                                                 <label for="ssd">SSD</label>
         
-                                                <input type="checkbox" name="processor" id="hdd" value="hdd">
+                                                <input type="checkbox" name="disk_type" id="hdd" value="hdd">
                                                 <label for="hdd">HDD (Pevný disk)</label>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="textarea_container">
-                                        <textarea type="textarea" name="message" placeholder="Dodatočná správa"><?php echo htmlspecialchars($message, ENT_QUOTES, "UTF-8"); ?></textarea>
+                                        <textarea type="textarea" name="message" placeholder="Dodatočná správa" max-length="250"><?php echo htmlspecialchars($message, ENT_QUOTES, "UTF-8"); ?></textarea>
     
                                         <div class="attachment_container">
                                             <p class="attachment_report <?php echo $theme; ?>"><?php echo htmlspecialchars($attachment_message, ENT_QUOTES, "UTF-8"); ?></p>
@@ -805,71 +808,211 @@
 
                         <dialog class="reserve_service_modal">
                             <div class="reserve_service">
-                                <h2>Kontaktné údaje</h2>
-
-                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reiciendis ab nostrum sunt qui quam nobis.</p>
-
-                                <div class="name_container">
-                                    <input 
-                                        type="text"
-                                        name="first_name"
-                                        placeholder="Zadajte vaše meno"
-                                        autocomplete="given-name"
-                                        value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'first_name'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($first_name, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
-                                        required
-                                    >
-                    
-                                    <input 
-                                        type="text"
-                                        name="last_name"
-                                        placeholder="Zadajte vaše priezvisko"
-                                        autocomplete="family-name"
-                                        value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'last_name'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($last_name, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
-                                        required
-                                    >
-                                </div>
-
-                                <input 
-                                    type="email"
-                                    name="email_address"
-                                    placeholder="Zadajte váš e-mail"
-                                    autocomplete="email"
-                                    value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'email_address'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($email_address, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
-                                    required
-                                >
+                                <div class="section contact_section active">
+                                    <h2>Kontaktné údaje</h2>
     
-                                <div class="phone_number_container">
-                                    <div class="phone_number_icon">
-                                        <img class="slovakia_icon" src="/content/images/slovakia.png" alt="SK"> <!-- https://www.flaticon.com/free-icon/slovakia_330594 -->
-                                        <img class="czech_republic_icon" src="/content/images/czech-republic.png" alt="CZ"> <!-- https://www.flaticon.com/free-icon/czech-republic_330536 -->
-                                        <img class="spain_icon" src="/content/images/spain.png" alt="ES"> <!-- https://www.flaticon.com/free-icon/spain_330557 -->
-                                        <img class="united_states_icon" src="/content/images/united-states.png" alt="US"> <!-- https://www.flaticon.com/free-icon/united-states_3013911 -->
+                                    <p>Prosím vyplnte všetky povinné kontaktné údaje.</p>
+    
+                                    <div class="name_container">
+                                        <input 
+                                            type="text"
+                                            name="first_name"
+                                            placeholder="Zadajte vaše meno"
+                                            autocomplete="given-name"
+                                            value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'first_name'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($first_name, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                                            required
+                                        >
+                        
+                                        <input 
+                                            type="text"
+                                            name="last_name"
+                                            placeholder="Zadajte vaše priezvisko"
+                                            autocomplete="family-name"
+                                            value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'last_name'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($last_name, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                                            required
+                                        >
+                                    </div>
+    
+                                    <div class="contact_container">
+                                        <input 
+                                            type="email"
+                                            name="email_address"
+                                            placeholder="Zadajte váš e-mail"
+                                            autocomplete="email"
+                                            value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'email_address'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($email_address, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                                            required
+                                        >
+            
+                                        <div class="phone_number_container">
+                                            <div class="phone_number_icon">
+                                                <img class="slovakia_icon" src="/content/images/slovakia.png" alt="SK"> <!-- https://www.flaticon.com/free-icon/slovakia_330594 -->
+                                                <img class="czech_republic_icon" src="/content/images/czech-republic.png" alt="CZ"> <!-- https://www.flaticon.com/free-icon/czech-republic_330536 -->
+                                                <img class="spain_icon" src="/content/images/spain.png" alt="ES"> <!-- https://www.flaticon.com/free-icon/spain_330557 -->
+                                                <img class="united_states_icon" src="/content/images/united-states.png" alt="US"> <!-- https://www.flaticon.com/free-icon/united-states_3013911 -->
+                                            </div>
+        
+                                            <input 
+                                                class="phone_number"
+                                                type="text"
+                                                name="phone_number"
+                                                placeholder="Zadajte vaše telefónne číslo"
+                                                autocomplete="tel"
+                                                value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'phone_number'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($phone_number, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                                                required
+                                            >
+                                        </div>
+                                    </div>
+
+                                    <button class="next" type="button" title="Pokračovať ďalej" aria-label="Pokračovať ďalej" disabled><span>Ďalej</span><span>1 / 3</span></button>
+                                </div>
+                                
+                                <div class="section delivery_section">
+                                    <h2>Dodacie údaje</h2>
+        
+                                    <p>Prosím vyplnte všetky povinné dodacie údaje a zvolte možnosť dopravy.</p>
+
+                                    <div class="address_container">
+                                        <input 
+                                            type="text"
+                                            name="address"
+                                            placeholder="Zadajte adresu"
+                                            autocomplete="address-line1"
+                                            required
+                                        >
+
+                                        <input 
+                                            type="text"
+                                            name="city"
+                                            placeholder="Zadajte mesto"
+                                            autocomplete="address-level2"
+                                            required
+                                        >
                                     </div>
 
                                     <input 
-                                        class="phone_number"
                                         type="text"
-                                        name="phone_number"
-                                        placeholder="Zadajte vaše telefónne číslo"
-                                        autocomplete="tel"
-                                        value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'phone_number'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($phone_number, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                                        name="postal_code"
+                                        placeholder="Zadajte PSČ"
+                                        autocomplete="postal-code"
                                         required
                                     >
-                                </div>
-                                
-                                <div class="textarea_container">
-                                    <textarea type="textarea" name="message" placeholder="Zadajte vašu správu"><?php echo htmlspecialchars($message, ENT_QUOTES, "UTF-8"); ?></textarea>
 
-                                    <div class="attachment_container">
-                                        <p class="attachment_report <?php echo $theme; ?>"><?php echo htmlspecialchars($attachment_message, ENT_QUOTES, "UTF-8"); ?></p>
-                    
-                                        <label class="attachment" for="attachment"><i class="fa-solid fa-paperclip" title="priložiť prílohu..."></i></label>
-                    
-                                        <input id="attachment" type="file" name="attachment[]" accept=".jpg, .jpeg, .png, .gif, .webp, .bmp, .tiff, .tif, .mp4, .mov, .avi, .mkv, .webm, .hevc, .pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .txt, .rtf, .odt, .ods, .odp" multiple>
+                                    <div class="all_shipping_methods">
+                                        <p>Spôsob doručenia</p>
+
+                                        <div class="shipping_method_container packeta">
+                                            <label>
+                                                <input class="shipping_method" type="radio" name="shipping_method" value="packeta"> 
+                                                Packeta (Z-Box / Pobočka)
+                                            </label>
+                                            
+                                            <div class="shipping_details" style="display: none;">
+                                                <button class="open_packeta_widget" type="button">Vybrať výdajné miesto</button>
+
+                                                <p class="selected_packeta_branch_name">Ešte nebolo vybrané žiadne miesto.</p>
+
+                                                <div class="packeta_widget_container" style="display: none; width: 100%; height: 450px; margin-top: 15px;"></div>
+
+                                                <input class="packeta_branch_id" type="hidden" name="packeta_branch_id">
+                                                <input class="packeta_branch_name" type="hidden" name="packeta_branch_name">
+                                            </div>
+                                        </div>
+
+                                        <div class="shipping_method_container dpd">
+                                            <label>
+                                                <input class="shipping_method" type="radio" name="shipping_method" value="dpd"> 
+                                                DPD Pickup (Odberné miesto / Box)
+                                            </label>
+                                            
+                                            <div class="shipping_details" style="display: none;">
+                                                <button class="open_dpd_widget" type="button">Vybrať DPD pobočku</button>
+
+                                                <p class="selected_dpd_branch_name">Nevybrali ste DPD pobočku.</p>
+
+                                                <div class="dpd_widget_container" style="display: none; width: 100%; height: 450px; margin-top: 15px;"></div>
+
+                                                <input class="dpd_branch_id" type="hidden" name="dpd_branch_id">
+                                                <input class="dpd_branch_name" type="hidden" name="dpd_branch_name">
+                                            </div>
+                                        </div>
+
+                                        <div class="shipping_method_container gls">
+                                            <label>
+                                                <input class="shipping_method" type="radio" name="shipping_method" value="gls"> 
+                                                GLS Kuriér (Doručenie na adresu)
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="buttons">
+                                        <button class="previous" type="button" title="Krok späť" aria-label="Krok späť">Späť</button>
+                                        <button class="next" type="button" title="Pokračovať ďalej" aria-label="Pokračovať ďalej" disabled><span>Ďalej</span><span>2 / 3</span></button>
                                     </div>
                                 </div>
-                                
-                                <button class="pay" name="pay" type="submit" title="Pokračovať k platbe" aria-label="Pokračovať k platbe">Zaplatiť</button> <!-- https://fontawesome.com/icons/basket-shopping -->
+
+                                <div class="section computer_info_section">
+                                    <h2>O údržbe</h2>
+            
+                                    <p>Prosím vyplnte všetky povinné informácie o údržbe počítača a pokračujte k platbe.</p>
+
+                                    <div class="questions">
+                                        <div class="question">
+                                            <p class="title">O aký typ zariadenia ide:</p>
+                                            
+                                            <div class="device_type_container">
+                                                <input type="checkbox" name="device_type" id="desktop_pc" value="desktop_pc">
+                                                <label for="desktop_pc">Stolný počítač</label>
+        
+                                                <input type="checkbox" name="device_type" id="notebook" value="notebook">
+                                                <label for="notebook">Notebook</label>
+                                            </div>
+                                        </div>
+    
+                                        <div class="question">
+                                            <p class="title">Problémy zariadenia:</p>
+                                            
+                                            <div class="problems_container">
+                                                <input type="checkbox" name="problems[]" id="overheating" value="overheating">
+                                                <label for="overheating">Prehrievanie</label>
+
+                                                <input type="checkbox" name="problems[]" id="noise" value="noise">
+                                                <label for="noise">Nadmerný hluk</label>
+
+                                                <input type="checkbox" name="problems[]" id="shutdowns" value="shutdowns">
+                                                <label for="shutdowns">Samovoľné vypínanie</label>
+                                            </div>
+                                        </div>
+    
+                                        <div class="question">
+                                            <p class="title">Údržba softvéru:</p>
+                                            
+                                            <div class="software_services_container">
+                                                <input type="checkbox" name="software_services[]" id="optimization" value="optimization">
+                                                <label for="optimization">Optimalizácia</label>
+
+                                                <input type="checkbox" name="software_services[]" id="reinstall" value="reinstall">
+                                                <label for="reinstall">Reinštalácia operačného systému</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="textarea_container">
+                                        <textarea type="textarea" name="message" placeholder="Popíšte problém" max-length="250" required><?php echo htmlspecialchars($message, ENT_QUOTES, "UTF-8"); ?></textarea>
+    
+                                        <div class="attachment_container">
+                                            <p class="attachment_report <?php echo $theme; ?>"><?php echo htmlspecialchars($attachment_message, ENT_QUOTES, "UTF-8"); ?></p>
+                        
+                                            <label class="attachment" for="attachment"><i class="fa-solid fa-paperclip" title="priložiť prílohu..."></i></label>
+                        
+                                            <input id="attachment" type="file" name="attachment[]" accept=".jpg, .jpeg, .png, .gif, .webp, .bmp, .tiff, .tif, .mp4, .mov, .avi, .mkv, .webm, .hevc, .pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .txt, .rtf, .odt, .ods, .odp" multiple>
+                                        </div>
+                                    </div>
+
+                                    <div class="buttons">
+                                        <button class="previous" type="button" title="Krok späť" aria-label="Krok späť">Späť</button>
+                                        <button class="pay" name="pay" type="submit" title="Pokračovať k platbe" aria-label="Pokračovať k platbe" disabled><span>Zaplatiť</span><span>3 / 3</span></button>
+                                    </div>
+                                </div>
                             </div>
                         </dialog>
                     </div>
@@ -890,71 +1033,211 @@
 
                         <dialog class="reserve_service_modal">
                             <div class="reserve_service">
-                                <h2>Kontaktné údaje</h2>
-
-                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reiciendis ab nostrum sunt qui quam nobis.</p>
-
-                                <div class="name_container">
-                                    <input 
-                                        type="text"
-                                        name="first_name"
-                                        placeholder="Zadajte vaše meno"
-                                        autocomplete="given-name"
-                                        value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'first_name'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($first_name, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
-                                        required
-                                    >
-                    
-                                    <input 
-                                        type="text"
-                                        name="last_name"
-                                        placeholder="Zadajte vaše priezvisko"
-                                        autocomplete="family-name"
-                                        value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'last_name'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($last_name, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
-                                        required
-                                    >
-                                </div>
-
-                                <input 
-                                    type="email"
-                                    name="email_address"
-                                    placeholder="Zadajte váš e-mail"
-                                    autocomplete="email"
-                                    value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'email_address'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($email_address, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
-                                    required
-                                >
+                                <div class="section contact_section active">
+                                    <h2>Kontaktné údaje</h2>
     
-                                <div class="phone_number_container">
-                                    <div class="phone_number_icon">
-                                        <img class="slovakia_icon" src="/content/images/slovakia.png" alt="SK"> <!-- https://www.flaticon.com/free-icon/slovakia_330594 -->
-                                        <img class="czech_republic_icon" src="/content/images/czech-republic.png" alt="CZ"> <!-- https://www.flaticon.com/free-icon/czech-republic_330536 -->
-                                        <img class="spain_icon" src="/content/images/spain.png" alt="ES"> <!-- https://www.flaticon.com/free-icon/spain_330557 -->
-                                        <img class="united_states_icon" src="/content/images/united-states.png" alt="US"> <!-- https://www.flaticon.com/free-icon/united-states_3013911 -->
+                                    <p>Prosím vyplnte všetky povinné kontaktné údaje.</p>
+    
+                                    <div class="name_container">
+                                        <input 
+                                            type="text"
+                                            name="first_name"
+                                            placeholder="Zadajte vaše meno"
+                                            autocomplete="given-name"
+                                            value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'first_name'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($first_name, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                                            required
+                                        >
+                        
+                                        <input 
+                                            type="text"
+                                            name="last_name"
+                                            placeholder="Zadajte vaše priezvisko"
+                                            autocomplete="family-name"
+                                            value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'last_name'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($last_name, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                                            required
+                                        >
+                                    </div>
+    
+                                    <div class="contact_container">
+                                        <input 
+                                            type="email"
+                                            name="email_address"
+                                            placeholder="Zadajte váš e-mail"
+                                            autocomplete="email"
+                                            value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'email_address'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($email_address, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                                            required
+                                        >
+            
+                                        <div class="phone_number_container">
+                                            <div class="phone_number_icon">
+                                                <img class="slovakia_icon" src="/content/images/slovakia.png" alt="SK"> <!-- https://www.flaticon.com/free-icon/slovakia_330594 -->
+                                                <img class="czech_republic_icon" src="/content/images/czech-republic.png" alt="CZ"> <!-- https://www.flaticon.com/free-icon/czech-republic_330536 -->
+                                                <img class="spain_icon" src="/content/images/spain.png" alt="ES"> <!-- https://www.flaticon.com/free-icon/spain_330557 -->
+                                                <img class="united_states_icon" src="/content/images/united-states.png" alt="US"> <!-- https://www.flaticon.com/free-icon/united-states_3013911 -->
+                                            </div>
+        
+                                            <input 
+                                                class="phone_number"
+                                                type="text"
+                                                name="phone_number"
+                                                placeholder="Zadajte vaše telefónne číslo"
+                                                autocomplete="tel"
+                                                value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'phone_number'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($phone_number, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                                                required
+                                            >
+                                        </div>
+                                    </div>
+
+                                    <button class="next" type="button" title="Pokračovať ďalej" aria-label="Pokračovať ďalej" disabled><span>Ďalej</span><span>1 / 3</span></button>
+                                </div>
+                                
+                                <div class="section delivery_section">
+                                    <h2>Dodacie údaje</h2>
+        
+                                    <p>Prosím vyplnte všetky povinné dodacie údaje a zvolte možnosť dopravy.</p>
+
+                                    <div class="address_container">
+                                        <input 
+                                            type="text"
+                                            name="address"
+                                            placeholder="Zadajte adresu"
+                                            autocomplete="address-line1"
+                                            required
+                                        >
+
+                                        <input 
+                                            type="text"
+                                            name="city"
+                                            placeholder="Zadajte mesto"
+                                            autocomplete="address-level2"
+                                            required
+                                        >
                                     </div>
 
                                     <input 
-                                        class="phone_number"
                                         type="text"
-                                        name="phone_number"
-                                        placeholder="Zadajte vaše telefónne číslo"
-                                        autocomplete="tel"
-                                        value="<?php if(isset($_SESSION['is_logged_in']) and $_SESSION['is_logged_in'] === true): ?><?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'phone_number'), ENT_QUOTES, 'UTF-8'); ?><?php else: ?><?php echo htmlspecialchars($phone_number, ENT_QUOTES, 'UTF-8'); ?><?php endif; ?>"
+                                        name="postal_code"
+                                        placeholder="Zadajte PSČ"
+                                        autocomplete="postal-code"
                                         required
                                     >
-                                </div>
-                                
-                                <div class="textarea_container">
-                                    <textarea type="textarea" name="message" placeholder="Zadajte vašu správu"><?php echo htmlspecialchars($message, ENT_QUOTES, "UTF-8"); ?></textarea>
 
-                                    <div class="attachment_container">
-                                        <p class="attachment_report <?php echo $theme; ?>"><?php echo htmlspecialchars($attachment_message, ENT_QUOTES, "UTF-8"); ?></p>
-                    
-                                        <label class="attachment" for="attachment"><i class="fa-solid fa-paperclip" title="priložiť prílohu..."></i></label>
-                    
-                                        <input id="attachment" type="file" name="attachment[]" accept=".jpg, .jpeg, .png, .gif, .webp, .bmp, .tiff, .tif, .mp4, .mov, .avi, .mkv, .webm, .hevc, .pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .txt, .rtf, .odt, .ods, .odp" multiple>
+                                    <div class="all_shipping_methods">
+                                        <p>Spôsob doručenia</p>
+
+                                        <div class="shipping_method_container packeta">
+                                            <label>
+                                                <input class="shipping_method" type="radio" name="shipping_method" value="packeta"> 
+                                                Packeta (Z-Box / Pobočka)
+                                            </label>
+                                            
+                                            <div class="shipping_details" style="display: none;">
+                                                <button class="open_packeta_widget" type="button">Vybrať výdajné miesto</button>
+
+                                                <p class="selected_packeta_branch_name">Ešte nebolo vybrané žiadne miesto.</p>
+
+                                                <div class="packeta_widget_container" style="display: none; width: 100%; height: 450px; margin-top: 15px;"></div>
+
+                                                <input class="packeta_branch_id" type="hidden" name="packeta_branch_id">
+                                                <input class="packeta_branch_name" type="hidden" name="packeta_branch_name">
+                                            </div>
+                                        </div>
+
+                                        <div class="shipping_method_container dpd">
+                                            <label>
+                                                <input class="shipping_method" type="radio" name="shipping_method" value="dpd"> 
+                                                DPD Pickup (Odberné miesto / Box)
+                                            </label>
+                                            
+                                            <div class="shipping_details" style="display: none;">
+                                                <button class="open_dpd_widget" type="button">Vybrať DPD pobočku</button>
+
+                                                <p class="selected_dpd_branch_name">Nevybrali ste DPD pobočku.</p>
+
+                                                <div class="dpd_widget_container" style="display: none; width: 100%; height: 450px; margin-top: 15px;"></div>
+
+                                                <input class="dpd_branch_id" type="hidden" name="dpd_branch_id">
+                                                <input class="dpd_branch_name" type="hidden" name="dpd_branch_name">
+                                            </div>
+                                        </div>
+
+                                        <div class="shipping_method_container gls">
+                                            <label>
+                                                <input class="shipping_method" type="radio" name="shipping_method" value="gls"> 
+                                                GLS Kuriér (Doručenie na adresu)
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="buttons">
+                                        <button class="previous" type="button" title="Krok späť" aria-label="Krok späť">Späť</button>
+                                        <button class="next" type="button" title="Pokračovať ďalej" aria-label="Pokračovať ďalej" disabled><span>Ďalej</span><span>2 / 3</span></button>
                                     </div>
                                 </div>
-                                
-                                <button class="pay" name="pay" type="submit" title="Pokračovať k platbe" aria-label="Pokračovať k platbe">Zaplatiť</button> <!-- https://fontawesome.com/icons/basket-shopping -->
+
+                                <div class="section computer_info_section">
+                                    <h2>O čistení</h2>
+            
+                                    <p>Prosím vyplnte všetky povinné informácie o čistení počítača a pokračujte k platbe.</p>
+
+                                    <div class="questions">
+                                        <div class="question">
+                                            <p class="title">O aký typ zariadenia ide:</p>
+                                            
+                                            <div class="device_type_container">
+                                                <input type="checkbox" name="device_type" id="desktop_pc" value="desktop_pc">
+                                                <label for="desktop_pc">Stolný počítač</label>
+        
+                                                <input type="checkbox" name="device_type" id="notebook" value="notebook">
+                                                <label for="notebook">Notebook</label>
+                                            </div>
+                                        </div>
+    
+                                        <div class="question">
+                                            <p class="title">Kedy bolo zariadenie naposledy čistené:</p>
+                                            
+                                            <div class="problems_container">
+                                                <input type="checkbox" name="last_cleaning" id="less_than_year" value="less_than_year">
+                                                <label for="less_than_year">Maximálne 1 rok</label>
+
+                                                <input type="checkbox" name="last_cleaning" id="two_years_ago" value="two_years_ago">
+                                                <label for="two_years_ago">Maximálne 2 roky</label>
+
+                                                <input type="checkbox" name="last_cleaning" id="never" value="never">
+                                                <label for="never">Viac ako 2 roky alebo nikdy</label>
+                                            </div>
+                                        </div>
+    
+                                        <div class="question">
+                                            <p class="title">Prajete si prepastovať grafickú kartu a procesor:</p>
+                                            
+                                            <div class="software_services_container">
+                                                <input type="checkbox" name="thermal_paste_re-apply" id="yes" value="yes">
+                                                <label for="yes">Áno</label>
+
+                                                <input type="checkbox" name="thermal_paste_re-apply" id="no" value="no">
+                                                <label for="no">Nie</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="textarea_container">
+                                        <textarea type="textarea" name="message" placeholder="Dodatočná správa" max-length="250"><?php echo htmlspecialchars($message, ENT_QUOTES, "UTF-8"); ?></textarea>
+    
+                                        <div class="attachment_container">
+                                            <p class="attachment_report <?php echo $theme; ?>"><?php echo htmlspecialchars($attachment_message, ENT_QUOTES, "UTF-8"); ?></p>
+                        
+                                            <label class="attachment" for="attachment"><i class="fa-solid fa-paperclip" title="priložiť prílohu..."></i></label>
+                        
+                                            <input id="attachment" type="file" name="attachment[]" accept=".jpg, .jpeg, .png, .gif, .webp, .bmp, .tiff, .tif, .mp4, .mov, .avi, .mkv, .webm, .hevc, .pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .txt, .rtf, .odt, .ods, .odp" multiple>
+                                        </div>
+                                    </div>
+
+                                    <div class="buttons">
+                                        <button class="previous" type="button" title="Krok späť" aria-label="Krok späť">Späť</button>
+                                        <button class="pay" name="pay" type="submit" title="Pokračovať k platbe" aria-label="Pokračovať k platbe" disabled><span>Zaplatiť</span><span>3 / 3</span></button>
+                                    </div>
+                                </div>
                             </div>
                         </dialog>
                     </div>

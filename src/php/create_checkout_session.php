@@ -44,7 +44,27 @@
         $last_name = $_POST["last_name"]; // Gets The Customer's Last Name
         $email_address = $_POST["email_address"]; // Gets The Customer's E-mail Address
         $phone_number = $_POST["phone_number"]; // Gets The Customer's Phone Number
-        $message = $_POST["message"] ?? null; // Gets The Customer's Additional Message
+
+        $address = $_POST["address"]; // Gets The Customer's Address
+        $city = $_POST["city"]; // Gets The Customer's City
+        $postal_code = $_POST["postal_code"]; // Gets The Customer's Postal Code
+        $shipping_method = $_POST["shipping_method"]; // Gets The Delivery Shipping Method
+
+        if($service === "computer_building") {
+            $max_price = $_POST["max_price"]; // Gets The Computer Max Price
+            $cpu = $_POST["cpu"]; // Gets The Computer CPU
+            $gpu = $_POST["gpu"]; // Gets The Computer GPU
+            $ram = $_POST["ram"]; // Gets The Computer RAM
+            $space = $_POST["space"]; // Gets The Computer Space
+            $disk_type = $_POST["disk_type"]; // Gets The Computer Disk Type
+        }
+
+        if($shipping_method === "packeta") {
+            $packeta_branch_id = $_POST["packeta_branch_id"]; // Gets The Packeta Branch ID
+            $packeta_branch_name = $_POST["packeta_branch_name"]; // Gets The Packeta Branch Name
+        }
+
+        $message = $_POST["message"]; // Gets The Customer's Additional Message
 
         // Checks If The Customer's Required Data Are Filled Out
         if(
@@ -89,7 +109,34 @@
             elseif($service === "computer_maintenance") $service_text = "Údržba počítača"; // Sets The Service Text
             elseif($service === "computer_cleaning") $service_text = "Čistenie počítača"; // Sets The Service Text
 
-            if(!$order_object->createOrder($connection, $service_text, $product_price, $first_name, $last_name, $email_address, $phone_number, $message, $stripe_intent_id)) {
+            if(
+                !$order_object->createOrder(
+                    $connection, 
+                    $service_text, 
+                    $product_price, 
+                    $first_name, 
+                    $last_name, 
+                    $email_address, 
+                    $phone_number, 
+                    $stripe_intent_id,
+
+                    $address,
+                    $city,
+                    $postal_code,
+                    $shipping_method,
+
+                    $packeta_branch_id ?? null,
+                    $packeta_branch_name ?? null,
+
+                    $max_price ?? null,
+                    $cpu ?? null,
+                    $gpu ?? null,
+                    $ram ?? null,
+                    $space ?? null,
+                    $disk_type ?? null,
+                    $message ?? null
+                )
+            ) {
                 die("Pri vytváraní objednávky došlo k chybe.");
             }
 

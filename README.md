@@ -35,7 +35,7 @@
 - And add this line under other domains: `127.0.0.1 pcexpert.local`.
 - Or edit file in terminal if you don't have permissions with `sudo nano /etc/hosts`.
 
-#### 4. Database connection
+#### 4. Database connection (MySQL)
 
 - Go to **http://localhost/phpmyadmin/**.
 - Create a new database called **pc_expert**.
