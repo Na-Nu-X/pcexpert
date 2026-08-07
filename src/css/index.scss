@@ -457,7 +457,8 @@ main {
                                 }
                             }
 
-                            .computer_preferences_section {
+                            .computer_preferences_section,
+                            .computer_info_section {
                                 .questions {
                                     display: flex;
                                     flex-direction: column;
@@ -540,7 +541,10 @@ main {
 
                                         .cpu_manufacturer_container,
                                         .gpu_manufacturer_container,
-                                        .disk_type_container {
+                                        .disk_type_container,
+                                        .device_type_container,
+                                        .problems_container,
+                                        .software_services_container {
                                             display: flex;
                                             flex-direction: column;
                                             gap: 10px;

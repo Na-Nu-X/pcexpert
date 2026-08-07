@@ -552,7 +552,7 @@
 
                         <dialog class="reserve_service_modal">
                             <div class="reserve_service">
-                                <div class="section contact_section active">
+                                <div class="section contact_section">
                                     <h2>Kontaktné údaje</h2>
     
                                     <p>Prosím vyplnte všetky povinné kontaktné údaje.</p>
@@ -694,7 +694,7 @@
                                     </div>
                                 </div>
 
-                                <div class="section computer_preferences_section">
+                                <div class="section computer_preferences_section active">
                                     <h2>O počítači</h2>
             
                                     <p>Prosím vyplnte všetky povinné informácie o preferenciach počítača a pokračujte k platbe.</p>
@@ -808,7 +808,7 @@
 
                         <dialog class="reserve_service_modal">
                             <div class="reserve_service">
-                                <div class="section contact_section active">
+                                <div class="section contact_section">
                                     <h2>Kontaktné údaje</h2>
     
                                     <p>Prosím vyplnte všetky povinné kontaktné údaje.</p>
@@ -950,7 +950,7 @@
                                     </div>
                                 </div>
 
-                                <div class="section computer_info_section">
+                                <div class="section computer_info_section active">
                                     <h2>O údržbe</h2>
             
                                     <p>Prosím vyplnte všetky povinné informácie o údržbe počítača a pokračujte k platbe.</p>
@@ -1033,7 +1033,7 @@
 
                         <dialog class="reserve_service_modal">
                             <div class="reserve_service">
-                                <div class="section contact_section active">
+                                <div class="section contact_section">
                                     <h2>Kontaktné údaje</h2>
     
                                     <p>Prosím vyplnte všetky povinné kontaktné údaje.</p>
@@ -1175,7 +1175,7 @@
                                     </div>
                                 </div>
 
-                                <div class="section computer_info_section">
+                                <div class="section computer_info_section active">
                                     <h2>O čistení</h2>
             
                                     <p>Prosím vyplnte všetky povinné informácie o čistení počítača a pokračujte k platbe.</p>

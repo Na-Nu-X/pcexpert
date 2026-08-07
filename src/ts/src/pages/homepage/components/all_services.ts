@@ -413,76 +413,30 @@ document.addEventListener("DOMContentLoaded", function():void {
 
         // Computer Info Section
 
-        // // Max Price
-        // if((event.target as HTMLInputElement).classList.contains("max_price")) {
-        //     const max_price_container:HTMLDivElement = (event.target as HTMLInputElement).closest(".max_price_container") as HTMLDivElement // Gets The Max Price Container
-        //     const max_price:HTMLInputElement = max_price_container.querySelector(".max_price") as HTMLInputElement // Gets The Max Price Input
-        //     const max_price_label:HTMLParagraphElement = max_price_container.querySelector(".max_price_label") as HTMLParagraphElement // Gets The Max Price Label
+        // Next Or Pay Button Activation
+        if(
+            (event.target as HTMLInputElement).closest(".device_type_container") ||
+            (event.target as HTMLInputElement).closest(".problems_container") ||
+            (event.target as HTMLInputElement).closest(".software_services_container")
+            // (event.target as HTMLTextAreaElement).closest(".textarea_container")
+        ) {
+            const computer_info_section:HTMLDivElement = (event.target as HTMLInputElement).closest(".section") as HTMLDivElement // Gets The Computer Info Section
+            const device_type_container:HTMLDivElement = computer_info_section.querySelector(".device_type_container") as HTMLDivElement // Gets The Device Type Container
+            const problems_container:HTMLDivElement = computer_info_section.querySelector(".problems_container") as HTMLDivElement // Gets The Problems Container
+            const software_services_container:HTMLDivElement = computer_info_section.querySelector(".software_services_container") as HTMLDivElement // Gets The Software Services Container
+            const button:HTMLButtonElement = computer_info_section.querySelector(".next") as HTMLButtonElement || computer_info_section.querySelector(".pay") as HTMLButtonElement // Gets The Next Or Pay Button
 
-        //     max_price_label.innerHTML = `${max_price.value}<span>€</span>` // Shows The Current Max Price Value
-        // }
+            // Checks If Is At Least One Checkbox From Every Container Checked
+            if(
+                [...device_type_container.querySelectorAll<HTMLInputElement>("input[type='checkbox']")].some(one_checkbox => one_checkbox.checked) &&
+                [...problems_container.querySelectorAll<HTMLInputElement>("input[type='checkbox']")].some(one_checkbox => one_checkbox.checked) &&
+                [...software_services_container.querySelectorAll<HTMLInputElement>("input[type='checkbox']")].some(one_checkbox => one_checkbox.checked)
+            ) {
+                button.disabled = false // Enables The Button
+            }
 
-        // // RAM
-        // if((event.target as HTMLInputElement).classList.contains("ram")) {
-        //     const ram_container:HTMLDivElement = (event.target as HTMLInputElement).closest(".ram_container") as HTMLDivElement // Gets The Max Price Container
-        //     const ram:HTMLInputElement = ram_container.querySelector(".ram") as HTMLInputElement // Gets The Max Price Input
-        //     const ram_label:HTMLParagraphElement = ram_container.querySelector(".ram_label") as HTMLParagraphElement // Gets The Max Price Label
-
-        //     // Maps The RAM Capicity Options
-        //     const RAM_CAPACITY = {
-        //         0: 8,
-        //         1: 16,
-        //         2: 32,
-        //         3: 64,
-        //         4: 128,
-        //         5: 256
-        //     }
-
-        //     ram_label.innerHTML = `${RAM_CAPACITY[Number(ram.value) as keyof typeof RAM_CAPACITY]}<span>GB</span>` // Shows The Current Max Price Value
-        // }
-
-        // // Space
-        // if((event.target as HTMLInputElement).classList.contains("space")) {
-        //     const space_container:HTMLDivElement = (event.target as HTMLInputElement).closest(".space_container") as HTMLDivElement // Gets The Max Price Container
-        //     const space:HTMLInputElement = space_container.querySelector(".space") as HTMLInputElement // Gets The Max Price Input
-        //     const space_label:HTMLParagraphElement = space_container.querySelector(".space_label") as HTMLParagraphElement // Gets The Max Price Label
-
-        //     // Maps The Space Capicity Options
-        //     const SPACE_CAPACITY = {
-        //         0: 128,
-        //         1: 256,
-        //         2: 512,
-        //         3: 1024,
-        //         4: 2048,
-        //         5: 4096
-        //     }
-
-        //     space_label.innerHTML = `${SPACE_CAPACITY[Number(space.value) as keyof typeof SPACE_CAPACITY]}<span>GB</span>` // Shows The Current Max Price Value
-        // }
-
-        // // Next Or Pay Button Activation
-        // if(
-        //     (event.target as HTMLInputElement).closest(".cpu_manufacturer_container") ||
-        //     (event.target as HTMLInputElement).closest(".gpu_manufacturer_container") ||
-        //     (event.target as HTMLInputElement).closest(".disk_type_container")
-        // ) {
-        //     const computer_preferences_section:HTMLDivElement = (event.target as HTMLInputElement).closest(".section") as HTMLDivElement // Gets The Computer Preferences Section
-        //     const cpu_manufacturer_container:HTMLDivElement = computer_preferences_section.querySelector(".cpu_manufacturer_container") as HTMLDivElement // Gets The CPU Manufacturer Container
-        //     const gpu_manufacturer_container:HTMLDivElement = computer_preferences_section.querySelector(".gpu_manufacturer_container") as HTMLDivElement // Gets The GPU Manufacturer Container
-        //     const disk_type_container:HTMLDivElement = computer_preferences_section.querySelector(".disk_type_container") as HTMLDivElement // Gets The Disk Type Container
-        //     const button:HTMLButtonElement = computer_preferences_section.querySelector(".next") as HTMLButtonElement || computer_preferences_section.querySelector(".pay") as HTMLButtonElement // Gets The Next Or Pay Button
-
-        //     // Checks If Is At Least One Checkbox From Every Container Checked
-        //     if(
-        //         [...cpu_manufacturer_container.querySelectorAll<HTMLInputElement>("input[type='checkbox']")].some(one_checkbox => one_checkbox.checked) &&
-        //         [...gpu_manufacturer_container.querySelectorAll<HTMLInputElement>("input[type='checkbox']")].some(one_checkbox => one_checkbox.checked) &&
-        //         [...disk_type_container.querySelectorAll<HTMLInputElement>("input[type='checkbox']")].some(one_checkbox => one_checkbox.checked)
-        //     ) {
-        //         button.disabled = false // Enables The Button
-        //     }
-
-        //     else button.disabled = true // Disables The Button
-        // }
+            else button.disabled = true // Disables The Button
+        }
     })
 
     continue_computer_cleaning.addEventListener("click", () => computer_cleaning_dialog.showModal()) // Shows The Computer Cleaning Dialog
@@ -604,6 +558,33 @@ document.addEventListener("DOMContentLoaded", function():void {
             const delivery_section:HTMLDivElement = (event.target as HTMLElement).closest(".delivery_section") as HTMLDivElement // Gets The Delivery Section
             initializeDeliverySectionValidity(delivery_section) // Initializes The Delivery Section Validity
         }
+
+        // Computer Info Section
+
+        // // Next Or Pay Button Activation
+        // if(
+        //     (event.target as HTMLInputElement).closest(".device_type_container") ||
+        //     (event.target as HTMLInputElement).closest(".problems_container") ||
+        //     (event.target as HTMLInputElement).closest(".software_services_container")
+        //     // (event.target as HTMLTextAreaElement).closest(".textarea_container")
+        // ) {
+        //     const computer_info_section:HTMLDivElement = (event.target as HTMLInputElement).closest(".section") as HTMLDivElement // Gets The Computer Info Section
+        //     const device_type_container:HTMLDivElement = computer_info_section.querySelector(".device_type_container") as HTMLDivElement // Gets The Device Type Container
+        //     const problems_container:HTMLDivElement = computer_info_section.querySelector(".problems_container") as HTMLDivElement // Gets The Problems Container
+        //     const software_services_container:HTMLDivElement = computer_info_section.querySelector(".software_services_container") as HTMLDivElement // Gets The Software Services Container
+        //     const button:HTMLButtonElement = computer_info_section.querySelector(".next") as HTMLButtonElement || computer_info_section.querySelector(".pay") as HTMLButtonElement // Gets The Next Or Pay Button
+
+        //     // Checks If Is At Least One Checkbox From Every Container Checked
+        //     if(
+        //         [...device_type_container.querySelectorAll<HTMLInputElement>("input[type='checkbox']")].some(one_checkbox => one_checkbox.checked) &&
+        //         [...problems_container.querySelectorAll<HTMLInputElement>("input[type='checkbox']")].some(one_checkbox => one_checkbox.checked) &&
+        //         [...software_services_container.querySelectorAll<HTMLInputElement>("input[type='checkbox']")].some(one_checkbox => one_checkbox.checked)
+        //     ) {
+        //         button.disabled = false // Enables The Button
+        //     }
+
+        //     else button.disabled = true // Disables The Button
+        // }
     })
 
     // Initialization
