@@ -32,7 +32,7 @@
             // PostgreSQL
 
             $host = "127.0.0.1";
-            $port = "5433";
+            $port = "5432";
             $dbname = "pcexpert";
             $user = "postgres";
             $password = "Patrik2008";

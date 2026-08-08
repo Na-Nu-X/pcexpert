@@ -6,64 +6,176 @@
          * @param PDO $connection - Connection To The Database
          * @param string $service - Service
          * @param int $price_at_purchase - Price At Purchase
-         * @param string $first_name - First Name
-         * @param string $last_name - Last Name
-         * @param string $email_address - Email Address
-         * @param string $phone_number - Phone Number
+         * @param array|null $customer - Customer ($first_name, $last_name, $email_address, $phone_number, $address, $city, $postal_code)
          * @param string|null $stripe_intent_id - Stripe Intent ID
-         * @param string $address - Address
-         * @param string $city - City
-         * @param string $postal_code - Postal Code
          * @param string $shipping_method - Shipping Method
-         * @param int|null $packeta_branch_id - Packeta Branch ID
-         * @param string|null $packeta_branch_name - Packeta Branch Name
-         * @param int|null $max_price - Max Price
-         * @param string|null $cpu - CPU
-         * @param string|null $gpu - GPU
-         * @param int|null $ram - RAM
-         * @param int|null $space - Space
-         * @param string|null $disk_type - Disk Type
+         * @param array|null $packeta - Packeta ($branch_id, $branch_name)
          * @param string|null $message - Message
+         * @param array|null $computer_building - Computer Building ($max_price, $cpu, $gpu, $ram, $space, $disk_type)
+         * @param array|null $computer_maintenance - Computer Maintenance ($device_type, $problems[], $software_services[])
+         * @param array|null $computer_cleaning - Computer Cleaning ($device_type, $last_cleaning, $thermal_paste_reapply)
          * 
          * @return bool
         **/
 
-        public function createOrder(PDO $connection, string $service, int $price_at_purchase, string $first_name, string $last_name, string $email_address, string $phone_number, ?string $stripe_intent_id, string $address, string $city, string $postal_code, string $shipping_method, ?int $packeta_branch_id, ?string $packeta_branch_name, ?int $max_price, ?string $cpu, ?string $gpu, ?int $ram, ?int $space, ?string $disk_type, ?string $message):bool {
+        public function createOrder(
+            PDO $connection, 
+            string $service, 
+            int $price_at_purchase, 
+            array $customer,
+            ?string $stripe_intent_id, 
+            string $shipping_method, 
+            ?array $packeta, 
+            ?string $message,
+            ?array $computer_building,
+            ?array $computer_maintenance,
+            ?array $computer_cleaning
+        ):bool {
             try {
-                $sql = "INSERT INTO orders (service, price_at_purchase, first_name, last_name, email_address, phone_number, status, stripe_intent_id, address, city, postal_code, shipping_method, packeta_branch_id, packeta_branch_name, max_price, cpu, gpu, ram, space, disk_type, message, creation_time) 
-                        VALUES (:service, :price_at_purchase, :first_name, :last_name, :email_address, :phone_number, 'PENDING', :stripe_intent_id, :address, :city, :postal_code, :shipping_method, :packeta_branch_id, :packeta_branch_name, :max_price, :cpu, :gpu, :ram, :space, :disk_type, :message, CURRENT_TIMESTAMP)";
+                $connection->beginTransaction();
+
+                $sql = "INSERT INTO orders (service, price_at_purchase, status, stripe_intent_id, shipping_method, message, creation_time) 
+                        VALUES (:service, :price_at_purchase, 'PENDING', :stripe_intent_id, :shipping_method, :message, CURRENT_TIMESTAMP)
+                        RETURNING id";
 
                 $stmt = $connection->prepare($sql);
 
                 $stmt->bindValue(":service", $service, PDO::PARAM_STR);
                 $stmt->bindValue(":price_at_purchase", $price_at_purchase, PDO::PARAM_INT);
-                $stmt->bindValue(":first_name", $first_name, PDO::PARAM_STR);
-                $stmt->bindValue(":last_name", $last_name, PDO::PARAM_STR);
-                $stmt->bindValue(":email_address", $email_address, PDO::PARAM_STR);
-                $stmt->bindValue(":phone_number", $phone_number, PDO::PARAM_STR);
-                $stmt->bindValue(":stripe_intent_id", $stripe_intent_id, PDO::PARAM_STR);
-                $stmt->bindValue(":address", $address, PDO::PARAM_STR);
-                $stmt->bindValue(":city", $city, PDO::PARAM_STR);
-                $stmt->bindValue(":postal_code", $postal_code, PDO::PARAM_STR);
+                $stmt->bindValue(":stripe_intent_id", $stripe_intent_id, $stripe_intent_id === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
                 $stmt->bindValue(":shipping_method", $shipping_method, PDO::PARAM_STR);
-                $stmt->bindValue(":packeta_branch_id", $packeta_branch_id, PDO::PARAM_INT);
-                $stmt->bindValue(":packeta_branch_name", $packeta_branch_name, PDO::PARAM_STR);
-                $stmt->bindValue(":max_price", $max_price, PDO::PARAM_INT);
-                $stmt->bindValue(":cpu", $cpu, PDO::PARAM_STR);
-                $stmt->bindValue(":gpu", $gpu, PDO::PARAM_STR);
-                $stmt->bindValue(":ram", $ram, PDO::PARAM_INT);
-                $stmt->bindValue(":space", $space, PDO::PARAM_INT);
-                $stmt->bindValue(":disk_type", $disk_type, PDO::PARAM_STR);
-                $stmt->bindValue(":message", $message, PDO::PARAM_STR);
+                $stmt->bindValue(":message", $message, $message === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
 
-                return $stmt->execute();
+                $stmt->execute();
+
+                $order_id = (int)$stmt->fetchColumn(); // Gets The Order ID
+
+                // Customer
+                if(!empty($order_id)) {
+                    $sql = "INSERT INTO customer (order_id, first_name, last_name, email_address, phone_number, address, city, postal_code)
+                            VALUES (:order_id, :first_name, :last_name, :email_address, :phone_number, :address, :city, :postal_code)";
+
+                    $stmt = $connection->prepare($sql);
+
+                    $stmt->bindValue(":order_id", $order_id, PDO::PARAM_INT);
+                    $stmt->bindValue(":first_name", $computer_building["first_name"], PDO::PARAM_STR);
+                    $stmt->bindValue(":last_name", $computer_building["last_name"], PDO::PARAM_STR);
+                    $stmt->bindValue(":email_address", $computer_building["email_address"], PDO::PARAM_STR);
+                    $stmt->bindValue(":phone_number", $computer_building["phone_number"], PDO::PARAM_STR);
+                    $stmt->bindValue(":address", $computer_building["address"], PDO::PARAM_STR);
+                    $stmt->bindValue(":city", $computer_building["city"], PDO::PARAM_STR);
+                    $stmt->bindValue(":postal_code", $computer_building["postal_code"], PDO::PARAM_INT);
+
+                    $stmt->execute();
+                }
+
+                // Packeta
+                if(!empty($order_id) && !empty($packeta)) {
+                    $sql = "INSERT INTO packeta (order_id, branch_id, branch_name)
+                            VALUES (:order_id, :branch_id, :branch_name)";
+
+                    $stmt = $connection->prepare($sql);
+
+                    $stmt->bindValue(":order_id", $order_id, PDO::PARAM_INT);
+                    $stmt->bindValue(":branch_id", $computer_building["branch_id"], PDO::PARAM_INT);
+                    $stmt->bindValue(":branch_name", $computer_building["branch_name"], PDO::PARAM_STR);
+
+                    $stmt->execute();
+                }
+
+                // Computer Building
+                if(!empty($order_id) && !empty($computer_building)) {
+                    $sql = "INSERT INTO computer_building (order_id, max_price, cpu, gpu, ram, space, disk_type)
+                            VALUES (:order_id, :max_price, :cpu, :gpu, :ram, :space, :disk_type)";
+
+                    $stmt = $connection->prepare($sql);
+
+                    $stmt->bindValue(":order_id", $order_id, PDO::PARAM_INT);
+                    $stmt->bindValue(":max_price", $computer_building["max_price"], PDO::PARAM_INT);
+                    $stmt->bindValue(":cpu", $computer_building["cpu"], PDO::PARAM_STR);
+                    $stmt->bindValue(":gpu", $computer_building["gpu"], PDO::PARAM_STR);
+                    $stmt->bindValue(":ram", $computer_building["ram"], PDO::PARAM_INT);
+                    $stmt->bindValue(":space", $computer_building["space"], PDO::PARAM_INT);
+                    $stmt->bindValue(":disk_type", $computer_building["disk_type"], PDO::PARAM_STR);
+
+                    $stmt->execute();
+                }
+
+                // Computer Maintenance
+                if(!empty($order_id) && !empty($computer_maintenance)) {
+                    $sql = "INSERT INTO computer_maintenance (order_id, device_type)
+                            VALUES (:order_id, :device_type)
+                            RETURNING id";
+
+                    $stmt = $connection->prepare($sql);
+
+                    $stmt->bindValue(":order_id", $order_id, PDO::PARAM_INT);
+                    $stmt->bindValue(":device_type", $computer_maintenance["device_type"], PDO::PARAM_STR);
+
+                    $stmt->execute();
+
+                    $computer_maintenance_id = (int)$stmt->fetchColumn(); // Gets The Computer Maintenance ID
+
+                    if(!empty($computer_maintenance_id)) {
+                        if(!empty($computer_maintenance["problems"])) {
+                            foreach($computer_maintenance["problems"] as $one_problem) {
+                                $sql = "INSERT INTO computer_maintenance_problems (computer_maintenance_id, problem)
+                                        VALUES (:computer_maintenance_id, :problem)";
+        
+                                $stmt = $connection->prepare($sql);
+        
+                                $stmt->bindValue(":computer_maintenance_id", $computer_maintenance_id, PDO::PARAM_INT);
+                                $stmt->bindValue(":problem", $one_problem, PDO::PARAM_STR);
+        
+                                $stmt->execute();
+                            }
+                        }
+
+                        if(!empty($computer_maintenance["software_services"])) {
+                            foreach($computer_maintenance["software_services"] as $one_software_service) {
+                                $sql = "INSERT INTO computer_maintenance_software_services (computer_maintenance_id, software_service)
+                                        VALUES (:computer_maintenance_id, :software_service)";
+
+                                $stmt = $connection->prepare($sql);
+
+                                $stmt->bindValue(":computer_maintenance_id", $computer_maintenance_id, PDO::PARAM_INT);
+                                $stmt->bindValue(":software_service", $one_software_service, PDO::PARAM_STR);
+
+                                $stmt->execute();
+                            }
+                        }
+                    }
+                }
+
+                // Computer Cleaning
+                if(!empty($order_id) && !empty($computer_cleaning)) {
+                    $sql = "INSERT INTO computer_cleaning (order_id, device_type, last_cleaning, thermal_paste_reapply)
+                            VALUES (:order_id, :device_type, :last_cleaning, :thermal_paste_reapply)";
+
+                    $stmt = $connection->prepare($sql);
+
+                    $stmt->bindValue(":order_id", $order_id, PDO::PARAM_INT);
+                    $stmt->bindValue(":device_type", $computer_cleaning["device_type"], PDO::PARAM_STR);
+                    $stmt->bindValue(":last_cleaning", $computer_cleaning["last_cleaning"], PDO::PARAM_STR);
+                    $stmt->bindValue(":thermal_paste_reapply", $computer_cleaning["thermal_paste_reapply"], PDO::PARAM_BOOL);
+
+                    $stmt->execute();
+                }
+
+                $connection->commit();
+
+                return true;
             } 
-            
-            catch(PDOException $error) {
-                error_log("Chyba pri vytváraní objednávky: " . $error->getMessage() . "\n", 3, "../errors/error.log");
-            }
 
-            return false;
+            catch(PDOException $error) {
+                if($connection->inTransaction()) {
+                    $connection->rollBack();
+                }
+
+                error_log("Chyba pri vytváraní objednávky: " . $error->getMessage() . "\n", 3, "../errors/error.log");
+
+                return false;
+            }
         }
 
         /**

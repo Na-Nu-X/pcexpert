@@ -544,7 +544,9 @@ main {
                                         .disk_type_container,
                                         .device_type_container,
                                         .problems_container,
-                                        .software_services_container {
+                                        .software_services_container,
+                                        .last_cleaning_container,
+                                        .thermal_paste_re-apply_container {
                                             display: flex;
                                             flex-direction: column;
                                             gap: 10px;

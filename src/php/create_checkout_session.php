@@ -44,11 +44,33 @@
         $last_name = $_POST["last_name"]; // Gets The Customer's Last Name
         $email_address = $_POST["email_address"]; // Gets The Customer's E-mail Address
         $phone_number = $_POST["phone_number"]; // Gets The Customer's Phone Number
-
         $address = $_POST["address"]; // Gets The Customer's Address
         $city = $_POST["city"]; // Gets The Customer's City
         $postal_code = $_POST["postal_code"]; // Gets The Customer's Postal Code
+
+        // Stores The Customer Data
+        $customer = [
+            "first_name" => $first_name,
+            "last_name" => $last_name,
+            "email_address" => $email_address,
+            "phone_number" => $phone_number,
+            "address" => $address,
+            "city" => $city,
+            "postal_code" => $postal_code
+        ];
+
         $shipping_method = $_POST["shipping_method"]; // Gets The Delivery Shipping Method
+
+        if($shipping_method === "packeta") {
+            $packeta_branch_id = $_POST["packeta_branch_id"]; // Gets The Packeta Branch ID
+            $packeta_branch_name = $_POST["packeta_branch_name"]; // Gets The Packeta Branch Name
+
+            // Stores The Packeta Data
+            $packeta = [
+                "branch_id" => $packeta_branch_id,
+                "branch_name" => $packeta_branch_name
+            ];
+        }
 
         if($service === "computer_building") {
             $max_price = $_POST["max_price"]; // Gets The Computer Max Price
@@ -57,11 +79,42 @@
             $ram = $_POST["ram"]; // Gets The Computer RAM
             $space = $_POST["space"]; // Gets The Computer Space
             $disk_type = $_POST["disk_type"]; // Gets The Computer Disk Type
+
+            // Stores The Computer Building Data
+            $computer_building = [
+                "max_price" => $_POST["max_price"],
+                "cpu" => $cpu,
+                "gpu" => $gpu,
+                "ram" => $ram,
+                "space" => $space,
+                "disk_type" => $disk_type
+            ];
         }
 
-        if($shipping_method === "packeta") {
-            $packeta_branch_id = $_POST["packeta_branch_id"]; // Gets The Packeta Branch ID
-            $packeta_branch_name = $_POST["packeta_branch_name"]; // Gets The Packeta Branch Name
+        if($service === "computer_maintenance") {
+            $device_type = $_POST["device_type"]; // Gets The Device Type
+            $problems[] = $_POST["problems"]; // Gets All Problems
+            $software_services[] = $_POST["software_services"]; // Gets All Software Services
+
+            // Stores The Computer Maintenance Data
+            $computer_maintenance = [
+                "device_type" => $device_type,
+                "problems" => $problems,
+                "software_services" => $software_services
+            ];
+        }
+
+        if($service === "computer_cleaning") {
+            $device_type = $_POST["device_type"]; // Gets The Device Type
+            $last_cleaning = $_POST["last_cleaning"]; // Gets The Last Cleaning Time
+            $thermal_paste_reapply = $_POST["thermal_paste_re-apply"]; // Gets The Information About Thermal Paste Re-Apply
+
+            // Stores The Computer Cleaning Data
+            $computer_cleaning = [
+                "device_type" => $device_type,
+                "last_cleaning" => $last_cleaning,
+                "thermal_paste_reapply" => $thermal_paste_reapply
+            ];
         }
 
         $message = $_POST["message"]; // Gets The Customer's Additional Message
@@ -114,27 +167,14 @@
                     $connection, 
                     $service_text, 
                     $product_price, 
-                    $first_name, 
-                    $last_name, 
-                    $email_address, 
-                    $phone_number, 
+                    $customer,
                     $stripe_intent_id,
-
-                    $address,
-                    $city,
-                    $postal_code,
                     $shipping_method,
-
-                    $packeta_branch_id ?? null,
-                    $packeta_branch_name ?? null,
-
-                    $max_price ?? null,
-                    $cpu ?? null,
-                    $gpu ?? null,
-                    $ram ?? null,
-                    $space ?? null,
-                    $disk_type ?? null,
-                    $message ?? null
+                    $packeta ?? null,
+                    $message ?? null,
+                    $computer_building ?? null,
+                    $computer_maintenance ?? null,
+                    $computer_cleaning ?? null
                 )
             ) {
                 die("Pri vytváraní objednávky došlo k chybe.");

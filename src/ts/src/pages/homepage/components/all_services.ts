@@ -266,6 +266,36 @@ document.addEventListener("DOMContentLoaded", function():void {
             space_label.innerHTML = `${SPACE_CAPACITY[Number(space.value) as keyof typeof SPACE_CAPACITY]}<span>GB</span>` // Shows The Current Max Price Value
         }
 
+        // CPU Manufacturer Container
+        if(event.target instanceof HTMLInputElement && (event.target as HTMLInputElement).closest(".cpu_manufacturer_container")) {
+            const cpu_manufacturer_container:HTMLDivElement = event.target.closest(".cpu_manufacturer_container") as HTMLDivElement // Gets The CPU Manufacturer Container
+            const all_checkboxes:NodeListOf<HTMLInputElement> = cpu_manufacturer_container.querySelectorAll<HTMLInputElement>("input[type='checkbox']") // Gets All Checkboxes
+
+            all_checkboxes.forEach(function(one_checkbox) {
+                if(one_checkbox.checked && one_checkbox !== event.target) one_checkbox.checked = false // Unchecks The Checkbox
+            })
+        }
+
+        // GPU Manufacturer Container
+        if(event.target instanceof HTMLInputElement && (event.target as HTMLInputElement).closest(".gpu_manufacturer_container")) {
+            const gpu_manufacturer_container:HTMLDivElement = event.target.closest(".gpu_manufacturer_container") as HTMLDivElement // Gets The GPU Manufacturer Container
+            const all_checkboxes:NodeListOf<HTMLInputElement> = gpu_manufacturer_container.querySelectorAll<HTMLInputElement>("input[type='checkbox']") // Gets All Checkboxes
+
+            all_checkboxes.forEach(function(one_checkbox) {
+                if(one_checkbox.checked && one_checkbox !== event.target) one_checkbox.checked = false // Unchecks The Checkbox
+            })
+        }
+
+        // Disk Type Container
+        if(event.target instanceof HTMLInputElement && (event.target as HTMLInputElement).closest(".disk_type_container")) {
+            const disk_type_container:HTMLDivElement = event.target.closest(".disk_type_container") as HTMLDivElement // Gets The Disk Type Container
+            const all_checkboxes:NodeListOf<HTMLInputElement> = disk_type_container.querySelectorAll<HTMLInputElement>("input[type='checkbox']") // Gets All Checkboxes
+
+            all_checkboxes.forEach(function(one_checkbox) {
+                if(one_checkbox.checked && one_checkbox !== event.target) one_checkbox.checked = false // Unchecks The Checkbox
+            })
+        }
+
         // Next Or Pay Button Activation
         if(
             (event.target as HTMLInputElement).closest(".cpu_manufacturer_container") ||
@@ -413,24 +443,36 @@ document.addEventListener("DOMContentLoaded", function():void {
 
         // Computer Info Section
 
+        // Device Type Container
+        if(event.target instanceof HTMLInputElement && (event.target as HTMLInputElement).closest(".device_type_container")) {
+            const device_type_container:HTMLDivElement = event.target.closest(".device_type_container") as HTMLDivElement // Gets The Device Type Container
+            const all_checkboxes:NodeListOf<HTMLInputElement> = device_type_container.querySelectorAll<HTMLInputElement>("input[type='checkbox']") // Gets All Checkboxes
+
+            all_checkboxes.forEach(function(one_checkbox) {
+                if(one_checkbox.checked && one_checkbox !== event.target) one_checkbox.checked = false // Unchecks The Checkbox
+            })
+        }
+
         // Next Or Pay Button Activation
         if(
             (event.target as HTMLInputElement).closest(".device_type_container") ||
             (event.target as HTMLInputElement).closest(".problems_container") ||
-            (event.target as HTMLInputElement).closest(".software_services_container")
-            // (event.target as HTMLTextAreaElement).closest(".textarea_container")
+            (event.target as HTMLInputElement).closest(".software_services_container") ||
+            (event.target as HTMLTextAreaElement).closest(".textarea_container")
         ) {
             const computer_info_section:HTMLDivElement = (event.target as HTMLInputElement).closest(".section") as HTMLDivElement // Gets The Computer Info Section
             const device_type_container:HTMLDivElement = computer_info_section.querySelector(".device_type_container") as HTMLDivElement // Gets The Device Type Container
             const problems_container:HTMLDivElement = computer_info_section.querySelector(".problems_container") as HTMLDivElement // Gets The Problems Container
             const software_services_container:HTMLDivElement = computer_info_section.querySelector(".software_services_container") as HTMLDivElement // Gets The Software Services Container
+            const textarea_container:HTMLDivElement = computer_info_section.querySelector(".textarea_container") as HTMLDivElement // Gets The Textarea Container
             const button:HTMLButtonElement = computer_info_section.querySelector(".next") as HTMLButtonElement || computer_info_section.querySelector(".pay") as HTMLButtonElement // Gets The Next Or Pay Button
 
-            // Checks If Is At Least One Checkbox From Every Container Checked
+            // Checks If Is At Least One Checkbox From Every Container Checked And If The Textarea Is Filled
             if(
                 [...device_type_container.querySelectorAll<HTMLInputElement>("input[type='checkbox']")].some(one_checkbox => one_checkbox.checked) &&
                 [...problems_container.querySelectorAll<HTMLInputElement>("input[type='checkbox']")].some(one_checkbox => one_checkbox.checked) &&
-                [...software_services_container.querySelectorAll<HTMLInputElement>("input[type='checkbox']")].some(one_checkbox => one_checkbox.checked)
+                [...software_services_container.querySelectorAll<HTMLInputElement>("input[type='checkbox']")].some(one_checkbox => one_checkbox.checked) &&
+                (textarea_container.querySelector("textarea") as HTMLTextAreaElement).value.trim() !== ""
             ) {
                 button.disabled = false // Enables The Button
             }
@@ -561,30 +603,62 @@ document.addEventListener("DOMContentLoaded", function():void {
 
         // Computer Info Section
 
-        // // Next Or Pay Button Activation
-        // if(
-        //     (event.target as HTMLInputElement).closest(".device_type_container") ||
-        //     (event.target as HTMLInputElement).closest(".problems_container") ||
-        //     (event.target as HTMLInputElement).closest(".software_services_container")
-        //     // (event.target as HTMLTextAreaElement).closest(".textarea_container")
-        // ) {
-        //     const computer_info_section:HTMLDivElement = (event.target as HTMLInputElement).closest(".section") as HTMLDivElement // Gets The Computer Info Section
-        //     const device_type_container:HTMLDivElement = computer_info_section.querySelector(".device_type_container") as HTMLDivElement // Gets The Device Type Container
-        //     const problems_container:HTMLDivElement = computer_info_section.querySelector(".problems_container") as HTMLDivElement // Gets The Problems Container
-        //     const software_services_container:HTMLDivElement = computer_info_section.querySelector(".software_services_container") as HTMLDivElement // Gets The Software Services Container
-        //     const button:HTMLButtonElement = computer_info_section.querySelector(".next") as HTMLButtonElement || computer_info_section.querySelector(".pay") as HTMLButtonElement // Gets The Next Or Pay Button
+        // Device Type Container
+        if(event.target instanceof HTMLInputElement && (event.target as HTMLInputElement).closest(".device_type_container")) {
+            const device_type_container:HTMLDivElement = event.target.closest(".device_type_container") as HTMLDivElement // Gets The Device Type Container
+            const all_checkboxes:NodeListOf<HTMLInputElement> = device_type_container.querySelectorAll<HTMLInputElement>("input[type='checkbox']") // Gets All Checkboxes
 
-        //     // Checks If Is At Least One Checkbox From Every Container Checked
-        //     if(
-        //         [...device_type_container.querySelectorAll<HTMLInputElement>("input[type='checkbox']")].some(one_checkbox => one_checkbox.checked) &&
-        //         [...problems_container.querySelectorAll<HTMLInputElement>("input[type='checkbox']")].some(one_checkbox => one_checkbox.checked) &&
-        //         [...software_services_container.querySelectorAll<HTMLInputElement>("input[type='checkbox']")].some(one_checkbox => one_checkbox.checked)
-        //     ) {
-        //         button.disabled = false // Enables The Button
-        //     }
+            all_checkboxes.forEach(function(one_checkbox) {
+                if(one_checkbox.checked && one_checkbox !== event.target) one_checkbox.checked = false // Unchecks The Checkbox
+            })
+        }
 
-        //     else button.disabled = true // Disables The Button
-        // }
+        // Problems Container
+        if(event.target instanceof HTMLInputElement && (event.target as HTMLInputElement).closest(".problems_container")) {
+            const problems_container:HTMLDivElement = event.target.closest(".problems_container") as HTMLDivElement // Gets The Problems Container
+            const all_checkboxes:NodeListOf<HTMLInputElement> = problems_container.querySelectorAll<HTMLInputElement>("input[type='checkbox']") // Gets All Checkboxes
+
+            all_checkboxes.forEach(function(one_checkbox) {
+                if(one_checkbox.checked && one_checkbox !== event.target) one_checkbox.checked = false // Unchecks The Checkbox
+            })
+        }
+
+        // Thermal Paste Re-Apply Container
+        if(event.target instanceof HTMLInputElement && (event.target as HTMLInputElement).closest(".thermal_paste_re-apply_container")) {
+            const thermal_paste_reapply_container:HTMLDivElement = event.target.closest(".thermal_paste_re-apply_container") as HTMLDivElement // Gets The Problems Container
+            const all_checkboxes:NodeListOf<HTMLInputElement> = thermal_paste_reapply_container.querySelectorAll<HTMLInputElement>("input[type='checkbox']") // Gets All Checkboxes
+
+            all_checkboxes.forEach(function(one_checkbox) {
+                if(one_checkbox.checked && one_checkbox !== event.target) one_checkbox.checked = false // Unchecks The Checkbox
+            })
+        }
+
+        // Next Or Pay Button Activation
+        if(
+            (event.target as HTMLInputElement).closest(".device_type_container") ||
+            (event.target as HTMLInputElement).closest(".last_cleaning_container") ||
+            (event.target as HTMLInputElement).closest(".thermal_paste_re-apply_container") ||
+            (event.target as HTMLTextAreaElement).closest(".textarea_container")
+        ) {
+            const computer_info_section:HTMLDivElement = (event.target as HTMLInputElement).closest(".section") as HTMLDivElement // Gets The Computer Info Section
+            const device_type_container:HTMLDivElement = computer_info_section.querySelector(".device_type_container") as HTMLDivElement // Gets The Device Type Container
+            const last_cleaning_container:HTMLDivElement = computer_info_section.querySelector(".last_cleaning_container") as HTMLDivElement // Gets The Problems Container
+            const thermal_paste_reapply_container:HTMLDivElement = computer_info_section.querySelector(".thermal_paste_re-apply_container") as HTMLDivElement // Gets The Software Services Container
+            const textarea_container:HTMLDivElement = computer_info_section.querySelector(".textarea_container") as HTMLDivElement // Gets The Textarea Container
+            const button:HTMLButtonElement = computer_info_section.querySelector(".next") as HTMLButtonElement || computer_info_section.querySelector(".pay") as HTMLButtonElement // Gets The Next Or Pay Button
+
+            // Checks If Is At Least One Checkbox From Every Container Checked And If The Textarea Is Filled
+            if(
+                [...device_type_container.querySelectorAll<HTMLInputElement>("input[type='checkbox']")].some(one_checkbox => one_checkbox.checked) &&
+                [...last_cleaning_container.querySelectorAll<HTMLInputElement>("input[type='checkbox']")].some(one_checkbox => one_checkbox.checked) &&
+                [...thermal_paste_reapply_container.querySelectorAll<HTMLInputElement>("input[type='checkbox']")].some(one_checkbox => one_checkbox.checked) &&
+                (textarea_container.querySelector("textarea") as HTMLTextAreaElement).value.trim() !== ""
+            ) {
+                button.disabled = false // Enables The Button
+            }
+
+            else button.disabled = true // Disables The Button
+        }
     })
 
     // Initialization

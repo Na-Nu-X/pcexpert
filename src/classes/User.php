@@ -29,9 +29,10 @@
                 $stmt->bindValue(":news", $news, PDO::PARAM_BOOL);
 
                 $stmt->execute();
+                
                 $id = $connection->lastInsertId();
 
-                if (!empty($id)) {
+                if(!empty($id)) {
                     return (int)$id;
                 }
             } 

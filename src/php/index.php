@@ -749,7 +749,7 @@
                                             
                                             <div class="space_container">
                                                 <input class="space" type="range" min="0" max="5" step="1" value="3">
-                                                <p class="space_label">1000<span>GB</span></p>
+                                                <p class="space_label">1024<span>GB</span></p>
                                             </div>
 
                                             <input type="hidden" name="space" value="1000">
@@ -772,7 +772,7 @@
                                     </div>
 
                                     <div class="textarea_container">
-                                        <textarea type="textarea" name="message" placeholder="Dodatočná správa" max-length="250"><?php echo htmlspecialchars($message, ENT_QUOTES, "UTF-8"); ?></textarea>
+                                        <textarea type="textarea" name="message" placeholder="Dodatočná správa" max-length="250"></textarea>
     
                                         <div class="attachment_container">
                                             <p class="attachment_report <?php echo $theme; ?>"><?php echo htmlspecialchars($attachment_message, ENT_QUOTES, "UTF-8"); ?></p>
@@ -997,7 +997,7 @@
                                     </div>
 
                                     <div class="textarea_container">
-                                        <textarea type="textarea" name="message" placeholder="Popíšte problém" max-length="250" required><?php echo htmlspecialchars($message, ENT_QUOTES, "UTF-8"); ?></textarea>
+                                        <textarea type="textarea" name="message" placeholder="Popíšte problém" max-length="250" required></textarea>
     
                                         <div class="attachment_container">
                                             <p class="attachment_report <?php echo $theme; ?>"><?php echo htmlspecialchars($attachment_message, ENT_QUOTES, "UTF-8"); ?></p>
@@ -1185,18 +1185,18 @@
                                             <p class="title">O aký typ zariadenia ide:</p>
                                             
                                             <div class="device_type_container">
-                                                <input type="checkbox" name="device_type" id="desktop_pc" value="desktop_pc">
-                                                <label for="desktop_pc">Stolný počítač</label>
+                                                <input type="checkbox" name="device_type" id="desktop_pc_2" value="desktop_pc_2">
+                                                <label for="desktop_pc_2">Stolný počítač</label>
         
-                                                <input type="checkbox" name="device_type" id="notebook" value="notebook">
-                                                <label for="notebook">Notebook</label>
+                                                <input type="checkbox" name="device_type" id="notebook_2" value="notebook_2">
+                                                <label for="notebook_2">Notebook</label>
                                             </div>
                                         </div>
     
                                         <div class="question">
                                             <p class="title">Kedy bolo zariadenie naposledy čistené:</p>
                                             
-                                            <div class="problems_container">
+                                            <div class="last_cleaning_container">
                                                 <input type="checkbox" name="last_cleaning" id="less_than_year" value="less_than_year">
                                                 <label for="less_than_year">Maximálne 1 rok</label>
 
@@ -1211,7 +1211,7 @@
                                         <div class="question">
                                             <p class="title">Prajete si prepastovať grafickú kartu a procesor:</p>
                                             
-                                            <div class="software_services_container">
+                                            <div class="thermal_paste_re-apply_container">
                                                 <input type="checkbox" name="thermal_paste_re-apply" id="yes" value="yes">
                                                 <label for="yes">Áno</label>
 
@@ -1222,7 +1222,7 @@
                                     </div>
 
                                     <div class="textarea_container">
-                                        <textarea type="textarea" name="message" placeholder="Dodatočná správa" max-length="250"><?php echo htmlspecialchars($message, ENT_QUOTES, "UTF-8"); ?></textarea>
+                                        <textarea type="textarea" name="message" placeholder="Napíšte viac informácií" max-length="250" required></textarea>
     
                                         <div class="attachment_container">
                                             <p class="attachment_report <?php echo $theme; ?>"><?php echo htmlspecialchars($attachment_message, ENT_QUOTES, "UTF-8"); ?></p>
