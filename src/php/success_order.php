@@ -19,6 +19,7 @@
     $connection = $database_object->connectionDB(); // Connects To The DB
 
     $session_id = $_GET["session_id"] ?? null; // Gets The Order Session ID
+    $order = $order_object->getOrderInformation($connection, $session_id) // Gets The Order Information
 ?>
 
 <!DOCTYPE html>
@@ -32,6 +33,7 @@
 
     <link rel="stylesheet" href="/src/css/styles.css">
     <link rel="stylesheet" href="/src/css/forms.css">
+    <link rel="stylesheet" href="/src/css/success_order.css">
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins"> <!-- Poppins Font Style -->
 
@@ -83,30 +85,104 @@
     <main>
         <section class="success_order">
             <?php if($session_id): ?>
-                <?php if($order_object->getOrderInformation($connection, $session_id, "stripe_intent_id")): ?>
-                    <h2>Ďakujeme za objednávku <?php echo htmlspecialchars($order_object->getOrderInformation($connection, $session_id, "first_name"), ENT_QUOTES, "UTF-8") ?>!</h2>
+                <?php if($order): ?>
+                    <h2>Ďakujeme za objednávku <?php echo htmlspecialchars($order["first_name"], ENT_QUOTES, "UTF-8") ?>!</h2>
 
-                    <?php if($order_object->getOrderInformation($connection, $session_id, "status") === "PENDING"): ?>
-                        <p>Čaká sa na platbu.</p>
+                    <?php if($order["status"] === "PENDING"): ?>
+                        <h3 class="status">Čaká sa na platbu.</h3>
 
-                    <?php elseif($order_object->getOrderInformation($connection, $session_id, "status") === "PAID"): ?>
-                        <p>Platba prebehla úspešne!</p>
+                    <?php elseif($order["status"] === "PAID"): ?>
+                        <h3 class="status">Platba prebehla úspešne!</h3>
 
-                    <?php elseif($order_object->getOrderInformation($connection, $session_id, "status") === "PREPARING"): ?>
-                        <p>Spracovávame objednávku.</p>
+                    <?php elseif($order["status"] === "PREPARING"): ?>
+                        <h3 class="status">Spracovávame objednávku.</h3>
 
-                    <?php elseif($order_object->getOrderInformation($connection, $session_id, "status") === "DELIVERING"): ?>
-                        <p>Objednávka je na ceste!</p>
+                    <?php elseif($order["status"] === "DELIVERING"): ?>
+                        <h3 class="status">Objednávka je na ceste!</h3>
 
-                    <?php elseif($order_object->getOrderInformation($connection, $session_id, "status") === "COMPLETED"): ?>
-                        <p>Objednávka bola doručená!</p>
+                    <?php elseif($order["status"] === "COMPLETED"): ?>
+                        <h3 class="status">Objednávka bola doručená!</h3>
 
-                    <?php elseif($order_object->getOrderInformation($connection, $session_id, "status") === "CANCELLED"): ?>
-                        <p style="color: #df3535;">Objednávka bola zrušená.</p>
+                    <?php elseif($order["status"] === "CANCELLED"): ?>
+                        <h3 class="status" style="color: #df3535;">Objednávka bola zrušená.</h3>
 
                     <?php endif; ?>
 
-                    <p><?php echo $order_object->getOrderInformation($connection, $session_id, "service"); ?> - <?php echo $order_object->getOrderInformation($connection, $session_id, "price_at_purchase") / 100; ?><span>€</span></p>
+                    <h3 class="service"><?php if($order["service"] === "computer_building"): ?>Stavba počítača<?php elseif($order["service"] === "computer_maintenance"): ?>Údržba počítača<?php elseif($order["service"] === "computer_cleaning"): ?>Čistenie počítača<?php endif; ?> - <?php echo htmlspecialchars($order["price_at_purchase"], ENT_QUOTES, "UTF-8") / 100; ?><span>€</span></h3>
+
+                    <p class="title">Podrobnosti:</p>
+
+                    <div class="service_details">
+                        <?php if($order["service"] === "computer_building"): ?>
+                            <p><strong>Maximálna cena zoztavy:</strong> <?php echo htmlspecialchars($order["max_price"], ENT_QUOTES, "UTF-8"); ?><span>€</span></p>
+                            <p><strong>Výrobca procesora:</strong> <?php if($order["cpu"] === "amd"): ?>AMD<?php elseif($order["cpu"] === "intel"): ?>Intel<?php endif; ?></p>
+                            <p><strong>Výrobca grafickej karty:</strong> <?php if($order["gpu"] === "nvidia"): ?>NVIDIA<?php elseif($order["gpu"] === "amd"): ?>AMD<?php endif; ?></p>
+                            <p><strong>Kapacita operačnej pamäte RAM:</strong> <?php echo htmlspecialchars($order["ram"], ENT_QUOTES, "UTF-8"); ?>GB</p>
+                            <p><strong>Kapacita disku:</strong> <?php echo htmlspecialchars($order["space"], ENT_QUOTES, "UTF-8"); ?>GB</p>
+                            <p><strong>Typ disku:</strong> <?php if($order["disk_type"] === "m2"): ?>M.2<?php elseif($order["disk_type"] === "ssd"): ?>SSD<?php elseif($order["disk_type"] === "hdd"): ?>HDD<?php endif; ?></p>
+                            <p><strong>Dodatočná správa:</strong> <?php if($order["message"]): ?><?php echo htmlspecialchars($order["message"], ENT_QUOTES, "UTF-8"); ?><?php else: ?>Žiadna.<?php endif; ?></p>
+    
+                        <?php elseif($order["service"] === "computer_maintenance"): ?>
+                            <?php
+                                // Stores The Problems Labels
+                                $problems_labels = [
+                                    "overheating" => "Prehrievanie",
+                                    "noise" => "Nadmerný hluk",
+                                    "shutdowns" => "Samovoľné vypínanie"
+                                ];
+                                
+                                // Stores The Software Services Labels
+                                $software_services_labels = [
+                                    "optimization" => "Optimalizácia",
+                                    "reinstall" => "Reinštalácia operačného systému"
+                                ];
+    
+                                // Translates The Problems
+                                $problems_list = [];
+    
+                                if(!empty($order["problems"])) {
+                                    $raw_problems = explode(", ", $order["problems"]);
+    
+                                    foreach($raw_problems as $key) {
+                                        $problems_list[] = $problems_labels[$key] ?? $key;
+                                    }
+                                }
+    
+                                // Translates The Software Services
+                                $software_services_list = [];
+    
+                                if(!empty($order["software_services"])) {
+                                    $raw_software_services = explode(", ", $order["software_services"]);
+    
+                                    foreach($raw_software_services as $key) {
+                                        $software_services_list[] = $software_services_labels[$key] ?? $key;
+                                    }
+                                }
+                            ?>
+    
+                            <p><strong>Zariadenie:</strong> <?php if($order["computer_maintenance_device_type"] === "desktop_pc" || $order["computer_maintenance_device_type"] === "desktop_pc_2"): ?>Stolný počítač<?php elseif($order["computer_maintenance_device_type"] === "notebook"): ?>Notebook<?php endif; ?></p>
+                            <p><strong>Problémy:</strong> <?php if($problems_list): ?><?php echo htmlspecialchars(implode(", ", $problems_list), ENT_QUOTES, "UTF-8"); ?><?php else: ?>Neboli uvedené.<?php endif; ?></p>
+                            <p><strong>Softvérové služby:</strong> <?php if($software_services_list): ?><?php echo htmlspecialchars(implode(", ", $software_services_list), ENT_QUOTES, "UTF-8"); ?><?php else: ?>Neboli uvedené.<?php endif; ?></p>
+                            <p><strong>Popis problému:</strong> <?php echo htmlspecialchars($order["message"], ENT_QUOTES, "UTF-8"); ?></p>
+    
+                        <?php elseif($order["service"] === "computer_cleaning"): ?>
+                            <p><strong>Zariadenie:</strong> <?php if($order["computer_cleaning_device_type"] === "desktop_pc" || $order["computer_cleaning_device_type"] === "desktop_pc_2"): ?>Stolný počítač<?php elseif($order["computer_cleaning_device_type"] === "notebook"): ?>Notebook<?php endif; ?></p>
+                            <p><strong>Posledné čistenie:</strong> <?php if($order["last_cleaning"] === "less_than_year"): ?>Maximálne pred 1 rokom<?php elseif($order["last_cleaning"] === "two_years_ago"): ?>Maximálne pred 2 rokomi<?php elseif($order["last_cleaning"] === "never"): ?>Viac ako 2 roky alebo nikdy<?php endif; ?></p>
+                            <p><strong>Prepastovať grafickú kartu:</strong> <?php if($order["thermal_paste_reapply"] === true): ?>Áno<?php else: ?>Nie<?php endif; ?></p>
+                            <p><strong>Viac informácií:</strong> <?php echo htmlspecialchars($order["message"], ENT_QUOTES, "UTF-8"); ?></p>
+    
+                        <?php endif; ?>
+                    </div>
+
+                    <div class="delivery_details">
+                        <?php if($order["shipping_method"] === "packeta"): ?>
+                            <p><strong>Doručenie do:</strong> <?php echo htmlspecialchars($order["branch_name"], ENT_QUOTES, "UTF-8"); ?></p>
+
+                        <?php endif; ?>
+                        
+                        <p><?php echo htmlspecialchars($order["address"], ENT_QUOTES, "UTF-8"); ?></p>
+                        <p><?php echo htmlspecialchars($order["postal_code"], ENT_QUOTES, "UTF-8"); ?> <?php echo htmlspecialchars($order["city"], ENT_QUOTES, "UTF-8"); ?></p>
+                    </div>
 
                 <?php else: ?>
                     <h2>Objednávka sa nenašla</h2>

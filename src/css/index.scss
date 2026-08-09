@@ -273,10 +273,6 @@ main {
                                     display: flex;
                                 }
 
-                                p {
-                                    text-align: center;
-                                }
-
                                 input[type="text"],
                                 input[type="email"],
                                 input[type="tel"],
@@ -467,13 +463,22 @@ main {
 
                                     .question {
                                         .title {
+                                            margin-bottom: 0px;
+
                                             font: {
                                                 family: $main-font;
                                                 size: 1.2em;
                                                 weight: bold;
                                             }
+                                        }
 
-                                            text-align: left;
+                                        .description {
+                                            margin-bottom: 10px;
+                                            text-align: center;
+
+                                            &::first-letter {
+                                                all: unset;
+                                            }
                                         }
 
                                         .max_price_container,

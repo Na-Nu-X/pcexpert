@@ -5,6 +5,8 @@ declare global {
     }
 }
 
+import { initializeAttachmentUpload } from "../../../components/attachment.js"
+
 "use strict"
 
 document.addEventListener("DOMContentLoaded", function():void {
@@ -15,15 +17,15 @@ document.addEventListener("DOMContentLoaded", function():void {
     const all_services:HTMLElement = document.querySelector(".all_services") as HTMLElement // Gets The All Services Section
 
     const computer_building:HTMLFormElement = all_services.querySelector(".computer_building") as HTMLFormElement // Gets The Computer Building Form
-    const computer_maintenance:HTMLFormElement = all_services.querySelector(".computer_maintenance") as HTMLFormElement // Gets The Computer Maintenance Form
-    const computer_cleaning:HTMLFormElement = all_services.querySelector(".computer_cleaning") as HTMLFormElement // Gets The Computer Cleaning Form
-
     const continue_computer_building:HTMLButtonElement = computer_building.querySelector(".computer_building_container .bottom .continue") as HTMLButtonElement // Gets The Computer Building Continue To Payment Button
-    const continue_computer_maintenance:HTMLButtonElement = computer_maintenance.querySelector(".computer_maintenance_container .bottom .continue") as HTMLButtonElement // Gets The Computer Maintenance Continue To Payment Button
-    const continue_computer_cleaning:HTMLButtonElement = computer_cleaning.querySelector(".computer_cleaning_container .bottom .continue") as HTMLButtonElement // Gets The Computer Cleaning Continue To Payment Button
-
     const computer_building_dialog:HTMLDialogElement = computer_building.querySelector(".computer_building_container .bottom .reserve_service_modal") as HTMLDialogElement // Gets The Computer Building Dialog
+
+    const computer_maintenance:HTMLFormElement = all_services.querySelector(".computer_maintenance") as HTMLFormElement // Gets The Computer Maintenance Form
+    const continue_computer_maintenance:HTMLButtonElement = computer_maintenance.querySelector(".computer_maintenance_container .bottom .continue") as HTMLButtonElement // Gets The Computer Maintenance Continue To Payment Button
     const computer_maintenance_dialog:HTMLDialogElement = computer_maintenance.querySelector(".computer_maintenance_container .bottom .reserve_service_modal") as HTMLDialogElement // Gets The Computer Maintenance Dialog
+
+    const computer_cleaning:HTMLFormElement = all_services.querySelector(".computer_cleaning") as HTMLFormElement // Gets The Computer Cleaning Form
+    const continue_computer_cleaning:HTMLButtonElement = computer_cleaning.querySelector(".computer_cleaning_container .bottom .continue") as HTMLButtonElement // Gets The Computer Cleaning Continue To Payment Button
     const computer_cleaning_dialog:HTMLDialogElement = computer_cleaning.querySelector(".computer_cleaning_container .bottom .reserve_service_modal") as HTMLDialogElement // Gets The Computer Cleaning Dialog
 
     // Functions
@@ -613,10 +615,10 @@ document.addEventListener("DOMContentLoaded", function():void {
             })
         }
 
-        // Problems Container
-        if(event.target instanceof HTMLInputElement && (event.target as HTMLInputElement).closest(".problems_container")) {
-            const problems_container:HTMLDivElement = event.target.closest(".problems_container") as HTMLDivElement // Gets The Problems Container
-            const all_checkboxes:NodeListOf<HTMLInputElement> = problems_container.querySelectorAll<HTMLInputElement>("input[type='checkbox']") // Gets All Checkboxes
+        // Last Cleaning Container
+        if(event.target instanceof HTMLInputElement && (event.target as HTMLInputElement).closest(".last_cleaning_container")) {
+            const last_cleaning_container:HTMLDivElement = event.target.closest(".last_cleaning_container") as HTMLDivElement // Gets The Last Cleaning Container
+            const all_checkboxes:NodeListOf<HTMLInputElement> = last_cleaning_container.querySelectorAll<HTMLInputElement>("input[type='checkbox']") // Gets All Checkboxes
 
             all_checkboxes.forEach(function(one_checkbox) {
                 if(one_checkbox.checked && one_checkbox !== event.target) one_checkbox.checked = false // Unchecks The Checkbox
@@ -664,4 +666,10 @@ document.addEventListener("DOMContentLoaded", function():void {
     // Initialization
 
     initializeContactSectionValidity(computer_building_dialog.querySelector(".contact_section") as HTMLDivElement) // Initializes The Contact Section Validity
+    initializeContactSectionValidity(computer_maintenance_dialog.querySelector(".contact_section") as HTMLDivElement) // Initializes The Contact Section Validity
+    initializeContactSectionValidity(computer_cleaning_dialog.querySelector(".contact_section") as HTMLDivElement) // Initializes The Contact Section Validity
+
+    initializeAttachmentUpload(computer_building_dialog.querySelector(".reserve_service .computer_preferences_section .textarea_container .attachment_container") as HTMLDivElement) // Initializes The Attachment Upload
+    initializeAttachmentUpload(computer_maintenance_dialog.querySelector(".reserve_service .computer_info_section .textarea_container .attachment_container") as HTMLDivElement) // Initializes The Attachment Upload
+    initializeAttachmentUpload(computer_cleaning_dialog.querySelector(".reserve_service .computer_info_section .textarea_container .attachment_container") as HTMLDivElement) // Initializes The Attachment Upload
 })

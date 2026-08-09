@@ -10,6 +10,9 @@ node_modules/
 *.css
 *.css.map
 
+# Media
+content/uploads/
+
 # Logs
 errors/
 

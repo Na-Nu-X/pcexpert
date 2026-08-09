@@ -30,7 +30,7 @@
             ?array $computer_building,
             ?array $computer_maintenance,
             ?array $computer_cleaning
-        ):bool {
+        ):int|false {
             try {
                 $connection->beginTransaction();
 
@@ -58,13 +58,13 @@
                     $stmt = $connection->prepare($sql);
 
                     $stmt->bindValue(":order_id", $order_id, PDO::PARAM_INT);
-                    $stmt->bindValue(":first_name", $computer_building["first_name"], PDO::PARAM_STR);
-                    $stmt->bindValue(":last_name", $computer_building["last_name"], PDO::PARAM_STR);
-                    $stmt->bindValue(":email_address", $computer_building["email_address"], PDO::PARAM_STR);
-                    $stmt->bindValue(":phone_number", $computer_building["phone_number"], PDO::PARAM_STR);
-                    $stmt->bindValue(":address", $computer_building["address"], PDO::PARAM_STR);
-                    $stmt->bindValue(":city", $computer_building["city"], PDO::PARAM_STR);
-                    $stmt->bindValue(":postal_code", $computer_building["postal_code"], PDO::PARAM_INT);
+                    $stmt->bindValue(":first_name", $customer["first_name"], PDO::PARAM_STR);
+                    $stmt->bindValue(":last_name", $customer["last_name"], PDO::PARAM_STR);
+                    $stmt->bindValue(":email_address", $customer["email_address"], PDO::PARAM_STR);
+                    $stmt->bindValue(":phone_number", $customer["phone_number"], PDO::PARAM_STR);
+                    $stmt->bindValue(":address", $customer["address"], PDO::PARAM_STR);
+                    $stmt->bindValue(":city", $customer["city"], PDO::PARAM_STR);
+                    $stmt->bindValue(":postal_code", $customer["postal_code"], PDO::PARAM_INT);
 
                     $stmt->execute();
                 }
@@ -77,8 +77,8 @@
                     $stmt = $connection->prepare($sql);
 
                     $stmt->bindValue(":order_id", $order_id, PDO::PARAM_INT);
-                    $stmt->bindValue(":branch_id", $computer_building["branch_id"], PDO::PARAM_INT);
-                    $stmt->bindValue(":branch_name", $computer_building["branch_name"], PDO::PARAM_STR);
+                    $stmt->bindValue(":branch_id", $packeta["branch_id"], PDO::PARAM_INT);
+                    $stmt->bindValue(":branch_name", $packeta["branch_name"], PDO::PARAM_STR);
 
                     $stmt->execute();
                 }
@@ -119,27 +119,31 @@
                     if(!empty($computer_maintenance_id)) {
                         if(!empty($computer_maintenance["problems"])) {
                             foreach($computer_maintenance["problems"] as $one_problem) {
+                                $problem_text = is_array($one_problem) ? implode(", ", $one_problem) : $one_problem;
+
                                 $sql = "INSERT INTO computer_maintenance_problems (computer_maintenance_id, problem)
                                         VALUES (:computer_maintenance_id, :problem)";
-        
+
                                 $stmt = $connection->prepare($sql);
-        
+
                                 $stmt->bindValue(":computer_maintenance_id", $computer_maintenance_id, PDO::PARAM_INT);
-                                $stmt->bindValue(":problem", $one_problem, PDO::PARAM_STR);
-        
+                                $stmt->bindValue(":problem", $problem_text, PDO::PARAM_STR);
+
                                 $stmt->execute();
                             }
                         }
 
                         if(!empty($computer_maintenance["software_services"])) {
                             foreach($computer_maintenance["software_services"] as $one_software_service) {
+                                $software_service_text = is_array($one_software_service) ? implode(", ", $one_software_service) : $one_software_service;
+
                                 $sql = "INSERT INTO computer_maintenance_software_services (computer_maintenance_id, software_service)
                                         VALUES (:computer_maintenance_id, :software_service)";
 
                                 $stmt = $connection->prepare($sql);
 
                                 $stmt->bindValue(":computer_maintenance_id", $computer_maintenance_id, PDO::PARAM_INT);
-                                $stmt->bindValue(":software_service", $one_software_service, PDO::PARAM_STR);
+                                $stmt->bindValue(":software_service", $software_service_text, PDO::PARAM_STR);
 
                                 $stmt->execute();
                             }
@@ -164,7 +168,7 @@
 
                 $connection->commit();
 
-                return true;
+                return $order_id;
             } 
 
             catch(PDOException $error) {
@@ -174,6 +178,37 @@
 
                 error_log("Chyba pri vytváraní objednávky: " . $error->getMessage() . "\n", 3, "../errors/error.log");
 
+                return false;
+            }
+        }
+
+        /**
+         * Function For Store Order Attachments
+         * 
+         * @param PDO $connection - Connection To The Database
+         * @param int $order_id - Order ID
+         * @param string $file_name - File Name
+         * @param string $original_name - Original Name
+         * 
+         * @return int|false
+        **/
+
+        public function storeOrderAttachments(PDO $connection, int $order_id, string $file_name, string $original_name):bool {
+            $sql = "INSERT INTO order_attachments (order_id, file_name, original_name) 
+                    VALUES (:order_id, :file_name, :original_name)";
+
+            try {
+                $stmt = $connection->prepare($sql);
+
+                $stmt->bindValue(":order_id", $order_id, PDO::PARAM_INT);
+                $stmt->bindValue(":file_name", $file_name, PDO::PARAM_STR);
+                $stmt->bindValue(":original_name", $original_name, PDO::PARAM_STR);
+
+                return $stmt->execute();
+            } 
+            
+            catch(PDOException $e) {
+                error_log("Chyba pri ukladaní príloh k objednávke: " . $e->getMessage() . "\n", 3, "../errors/error.log");
                 return false;
             }
         }
@@ -233,45 +268,48 @@
         }
 
         /**
-         * Function For Get The User Information
+         * Function For Get All Order Information
          * 
          * @param PDO $connection - Connection To The Database
          * @param string|null $session_id - Session ID
-         * @param string $database_field - Database Field
          * 
-         * @return int|string|null
+         * @return array|null
         **/
-
-        public function getOrderInformation(PDO $connection, ?string $session_id, string $database_field):int|string|null {
-            // Defines The Allowed Fields
-            $allowed_fields = [
-                "service", 
-                "price_at_purchase", 
-                "first_name", 
-                "last_name", 
-                "status",
-                "stripe_intent_id"
-            ];
-    
-            if(!in_array($database_field, $allowed_fields)) {
-                error_log("Nepovolený prístup k stĺpcu: " . $database_field, 3, "../errors/error.log");
-                return null;
-            }
-
+        public function getOrderInformation(PDO $connection, ?string $session_id):?array {
             if($session_id === null) {
                 return null;
             }
 
-            $sql = "SELECT $database_field
-                    FROM orders
-                    WHERE stripe_intent_id = :session_id";
+            $sql = "SELECT 
+                    o.id, o.service, o.price_at_purchase, o.status, o.stripe_intent_id, o.shipping_method, o.message,
+                    c.first_name, c.last_name, c.email_address, c.phone_number, c.address, c.city, c.postal_code,
+                    p.branch_name,
+                    cb.max_price, cb.cpu, cb.gpu, cb.ram, cb.space, cb.disk_type,
+                    cm.device_type AS computer_maintenance_device_type,
+                    cc.device_type AS computer_cleaning_device_type, cc.last_cleaning, cc.thermal_paste_reapply,
+
+                    (SELECT string_agg(problem, ', ') 
+                    FROM computer_maintenance_problems 
+                    WHERE computer_maintenance_id = cm.id) AS problems,
+                    
+                    (SELECT string_agg(software_service, ', ') 
+                    FROM computer_maintenance_software_services 
+                    WHERE computer_maintenance_id = cm.id) AS software_services
+
+                    FROM orders o
+                    LEFT JOIN customer c ON o.id = c.order_id
+                    LEFT JOIN packeta p ON o.id = p.order_id
+                    LEFT JOIN computer_building cb ON o.id = cb.order_id
+                    LEFT JOIN computer_maintenance cm ON o.id = cm.order_id
+                    LEFT JOIN computer_cleaning cc ON o.id = cc.order_id
+                    WHERE o.stripe_intent_id = :session_id";
 
             try {
                 $stmt = $connection->prepare($sql);
                 $stmt->bindValue(":session_id", $session_id, PDO::PARAM_STR);
                 $stmt->execute();
 
-                $result = $stmt->fetchColumn();
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
                 if($result !== false) {
                     return $result;
@@ -279,9 +317,9 @@
             } 
 
             catch(PDOException $e) {
-                error_log("Chyba pri získavaní informácií používateľa: " . $e->getMessage() . "\n", 3, "../errors/error.log");
+                error_log("Chyba pri získavaní informácií objednávky: " . $e->getMessage() . "\n", 3, "../errors/error.log");
             }
-    
+
             return null;
         }
     }

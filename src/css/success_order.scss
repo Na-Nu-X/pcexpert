@@ -1,0 +1,78 @@
+@import "partials/variables";
+@import "partials/mixins";
+
+/************
+ Main Styles
+************/
+
+.success_order {
+    max-width: 800px;
+    background-color: $secondary-color;
+    box-shadow: none;
+
+    h2 {
+        text-align: center;
+        font-size: 1.8em;
+        margin-bottom: 10px;
+        color: $main-color;
+    }
+
+    .status,
+    .service {
+        text-align: center;
+        color: transparentize($main-color, 0.2);
+        font-size: 1.2em;
+    }
+
+    .service {
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid darken($secondary-color, 10%);
+        
+        span {
+            font-size: 0.6em;
+            vertical-align: super;
+            margin-left: 2px;
+        }
+    }
+
+    .title {
+        margin-bottom: 10px;
+        color: transparentize($main-color, 0.2);
+        font-size: 1.2em;
+        line-height: 1;
+    }
+
+    .service_details,
+    .delivery_details {
+        margin-bottom: 20px;
+        padding: 10px 20px;
+        background-color: darken($secondary-color, 3%);
+        border: 1px solid darken($secondary-color, 10%);
+        border-radius: $small-border-radius;
+
+        p {
+            margin-bottom: 10px;
+            color: $main-color;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            strong {
+                margin-right: 5px;
+            }
+        }
+    }
+
+    .delivery_details {
+        margin-bottom: 0px;
+    }
+
+    .back {
+        @include blue_button($width: 100%);
+        display: block;
+        margin-top: 50px;
+        padding: 15px 0px;
+    }
+}

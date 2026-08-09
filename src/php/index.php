@@ -127,6 +127,7 @@
         // reCAPTCHA V3
 
         $minScore = 0.5;
+
         if(!empty($responseData->success) and isset($responseData->score) and $responseData->score >= $minScore and isset($responseData->action) and $responseData->action === 'submit') {
             // Contact Form
 
@@ -538,7 +539,7 @@
 
     <main>
         <section class="all_services">
-            <form class="computer_building" action="create_checkout_session.php" method="POST">
+            <form class="computer_building" action="create_checkout_session.php" method="POST" enctype="multipart/form-data">
                 <div class="computer_building_container">
                     <img src="/content/images/computer_building.jpg" alt="Stavba počítača"> <!-- https://unsplash.com/photos/a-close-up-of-a-computer-motherboard-0Sdxy9Ev6oQ -->
     
@@ -662,7 +663,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="shipping_method_container dpd">
+                                        <!-- <div class="shipping_method_container dpd">
                                             <label>
                                                 <input class="shipping_method" type="radio" name="shipping_method" value="dpd"> 
                                                 DPD Pickup (Odberné miesto / Box)
@@ -685,7 +686,7 @@
                                                 <input class="shipping_method" type="radio" name="shipping_method" value="gls"> 
                                                 GLS Kuriér (Doručenie na adresu)
                                             </label>
-                                        </div>
+                                        </div> -->
                                     </div>
 
                                     <div class="buttons">
@@ -697,11 +698,12 @@
                                 <div class="section computer_preferences_section active">
                                     <h2>O počítači</h2>
             
-                                    <p>Prosím vyplnte všetky povinné informácie o preferenciach počítača a pokračujte k platbe.</p>
+                                    <p>Prosím vyplnte všetky povinné informácie o preferenciach počítača a pokračujte k platbe. Pokiaľ chcete počítač vyskladať z vašich už zakúpených komponentov, tak vyplnte odpovede podľa už vami zakúpených parametrov komponentov. Po spracovaní vás budeme kontaktovať pre viac informácií.</p>
 
                                     <div class="questions">
                                         <div class="question">
                                             <p class="title">Maximálna cena:</p>
+                                            <p class="description">Cena do ktorej hodnoty majú byť vybrané komponenty.</p>
                                             
                                             <div class="max_price_container">
                                                 <input class="max_price" type="range" name="max_price" value="1000" min="300" max="3000" step="50">
@@ -710,7 +712,8 @@
                                         </div>
     
                                         <div class="question">
-                                            <p class="title">Výrobca procesora:</p>
+                                            <p class="title">Procesor:</p>
+                                            <p class="description">Preferovaný výber výrobcu procesora.</p>
                                             
                                             <div class="cpu_manufacturer_container">
                                                 <input type="checkbox" name="cpu" id="amd_cpu" value="amd">
@@ -722,11 +725,12 @@
                                         </div>
     
                                         <div class="question">
-                                            <p class="title">Výrobca grafickej karty:</p>
+                                            <p class="title">Grafická karta:</p>
+                                            <p class="description">Preferovaný výber výrobcu grafickej karty.</p>
                                             
                                             <div class="gpu_manufacturer_container">
                                                 <input type="checkbox" name="gpu" id="nvidia" value="nvidia">
-                                                <label for="nvidia">Nvidia</label>
+                                                <label for="nvidia">NVIDIA</label>
         
                                                 <input type="checkbox" name="gpu" id="amd_gpu" value="amd">
                                                 <label for="amd_gpu">AMD</label>
@@ -734,7 +738,8 @@
                                         </div>
     
                                         <div class="question">
-                                            <p class="title">Kapacita pamäte RAM (GB):</p>
+                                            <p class="title">Kapacita RAM:</p>
+                                            <p class="description">Kapacita operačnej pamäte RAM v GB.</p>
                                             
                                             <div class="ram_container">
                                                 <input class="ram" type="range" min="0" max="5" step="1" value="1">
@@ -746,6 +751,7 @@
     
                                         <div class="question">
                                             <p class="title">Kapacita disku:</p>
+                                            <p class="description">Kapacita disku (prípadne hlavného disku) v GB.</p>
                                             
                                             <div class="space_container">
                                                 <input class="space" type="range" min="0" max="5" step="1" value="3">
@@ -757,6 +763,7 @@
     
                                         <div class="question">
                                             <p class="title">Typ disku:</p>
+                                            <p class="description">Typ disku (M.2 SSD, SSD alebo pevný disk).</p>
                                             
                                             <div class="disk_type_container">
                                                 <input type="checkbox" name="disk_type" id="m2" value="m2">
@@ -777,9 +784,9 @@
                                         <div class="attachment_container">
                                             <p class="attachment_report <?php echo $theme; ?>"><?php echo htmlspecialchars($attachment_message, ENT_QUOTES, "UTF-8"); ?></p>
                         
-                                            <label class="attachment" for="attachment"><i class="fa-solid fa-paperclip" title="priložiť prílohu..."></i></label>
+                                            <label class="attachment" for="computer_building_attachment"><i class="fa-solid fa-paperclip" title="priložiť prílohu..."></i></label>
                         
-                                            <input id="attachment" type="file" name="attachment[]" accept=".jpg, .jpeg, .png, .gif, .webp, .bmp, .tiff, .tif, .mp4, .mov, .avi, .mkv, .webm, .hevc, .pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .txt, .rtf, .odt, .ods, .odp" multiple>
+                                            <input class="attachment_input" id="computer_building_attachment" type="file" name="computer_building_attachment[]" accept=".jpg, .jpeg, .png, .gif, .webp, .bmp, .tiff, .tif, .mp4, .mov, .avi, .mkv, .webm, .hevc, .pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .txt, .rtf, .odt, .ods, .odp" multiple>
                                         </div>
                                     </div>
 
@@ -794,7 +801,7 @@
                 </div>
             </form>
 
-            <form class="computer_maintenance" action="create_checkout_session.php" method="POST">
+            <form class="computer_maintenance" action="create_checkout_session.php" method="POST" enctype="multipart/form-data">
                 <div class="computer_maintenance_container">
                     <img src="/content/images/computer_maintenance.jpg" alt="Údržba počítača"> <!-- https://unsplash.com/photos/person-holding-black-and-silver-dj-controller-sMKUYIasyDM -->
     
@@ -918,7 +925,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="shipping_method_container dpd">
+                                        <!-- <div class="shipping_method_container dpd">
                                             <label>
                                                 <input class="shipping_method" type="radio" name="shipping_method" value="dpd"> 
                                                 DPD Pickup (Odberné miesto / Box)
@@ -941,7 +948,7 @@
                                                 <input class="shipping_method" type="radio" name="shipping_method" value="gls"> 
                                                 GLS Kuriér (Doručenie na adresu)
                                             </label>
-                                        </div>
+                                        </div> -->
                                     </div>
 
                                     <div class="buttons">
@@ -1002,9 +1009,9 @@
                                         <div class="attachment_container">
                                             <p class="attachment_report <?php echo $theme; ?>"><?php echo htmlspecialchars($attachment_message, ENT_QUOTES, "UTF-8"); ?></p>
                         
-                                            <label class="attachment" for="attachment"><i class="fa-solid fa-paperclip" title="priložiť prílohu..."></i></label>
+                                            <label class="attachment" for="computer_maintenance_attachment"><i class="fa-solid fa-paperclip" title="priložiť prílohu..."></i></label>
                         
-                                            <input id="attachment" type="file" name="attachment[]" accept=".jpg, .jpeg, .png, .gif, .webp, .bmp, .tiff, .tif, .mp4, .mov, .avi, .mkv, .webm, .hevc, .pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .txt, .rtf, .odt, .ods, .odp" multiple>
+                                            <input class="attachment_input" id="computer_maintenance_attachment" type="file" name="computer_maintenance_attachment[]" accept=".jpg, .jpeg, .png, .gif, .webp, .bmp, .tiff, .tif, .mp4, .mov, .avi, .mkv, .webm, .hevc, .pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .txt, .rtf, .odt, .ods, .odp" multiple>
                                         </div>
                                     </div>
 
@@ -1019,7 +1026,7 @@
                 </div>
             </form>
 
-            <form class="computer_cleaning" action="create_checkout_session.php" method="POST">
+            <form class="computer_cleaning" action="create_checkout_session.php" method="POST" enctype="multipart/form-data">
                 <div class="computer_cleaning_container">
                     <img src="/content/images/computer_cleaning.jpg" alt="Čistenie počítača"> <!-- https://unsplash.com/photos/a-compact-computer-case-with-internal-components-visible-AZcrU0-8QzU -->
     
@@ -1143,7 +1150,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="shipping_method_container dpd">
+                                        <!-- <div class="shipping_method_container dpd">
                                             <label>
                                                 <input class="shipping_method" type="radio" name="shipping_method" value="dpd"> 
                                                 DPD Pickup (Odberné miesto / Box)
@@ -1166,7 +1173,7 @@
                                                 <input class="shipping_method" type="radio" name="shipping_method" value="gls"> 
                                                 GLS Kuriér (Doručenie na adresu)
                                             </label>
-                                        </div>
+                                        </div> -->
                                     </div>
 
                                     <div class="buttons">
@@ -1227,9 +1234,9 @@
                                         <div class="attachment_container">
                                             <p class="attachment_report <?php echo $theme; ?>"><?php echo htmlspecialchars($attachment_message, ENT_QUOTES, "UTF-8"); ?></p>
                         
-                                            <label class="attachment" for="attachment"><i class="fa-solid fa-paperclip" title="priložiť prílohu..."></i></label>
+                                            <label class="attachment" for="computer_cleaning_attachment"><i class="fa-solid fa-paperclip" title="priložiť prílohu..."></i></label>
                         
-                                            <input id="attachment" type="file" name="attachment[]" accept=".jpg, .jpeg, .png, .gif, .webp, .bmp, .tiff, .tif, .mp4, .mov, .avi, .mkv, .webm, .hevc, .pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .txt, .rtf, .odt, .ods, .odp" multiple>
+                                            <input class="attachment_input" id="computer_cleaning_attachment" type="file" name="computer_cleaning_attachment[]" accept=".jpg, .jpeg, .png, .gif, .webp, .bmp, .tiff, .tif, .mp4, .mov, .avi, .mkv, .webm, .hevc, .pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .txt, .rtf, .odt, .ods, .odp" multiple>
                                         </div>
                                     </div>
 
@@ -1642,7 +1649,7 @@
     
                         <label class="attachment" for="attachment"><i class="fa-solid fa-paperclip" title="priložiť prílohu..."></i></label>
     
-                        <input id="attachment" type="file" name="attachment[]" accept=".jpg, .jpeg, .png, .gif, .webp, .bmp, .tiff, .tif, .mp4, .mov, .avi, .mkv, .webm, .hevc, .pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .txt, .rtf, .odt, .ods, .odp" multiple>
+                        <input class="attachment_input" id="attachment" type="file" name="attachment[]" accept=".jpg, .jpeg, .png, .gif, .webp, .bmp, .tiff, .tif, .mp4, .mov, .avi, .mkv, .webm, .hevc, .pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .txt, .rtf, .odt, .ods, .odp" multiple>
                     </div>
                 </div>
 

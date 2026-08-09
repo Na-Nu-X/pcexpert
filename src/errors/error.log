@@ -66,3 +66,34 @@ LINE 3:                     WHERE session_id = $1
 Chyba pri získavaní informácií používateľa: SQLSTATE[42703]: Undefined column: 7 ERROR:  column "session_id" does not exist
 LINE 3:                     WHERE session_id = $1
                                   ^
+Chyba pri pripojovaní k databázy: SQLSTATE[08006] [7] connection to server at "127.0.0.1", port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Chyba pri pripojovaní k databázy: SQLSTATE[08006] [7] connection to server at "127.0.0.1", port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Chyba pri pripojovaní k databázy: SQLSTATE[08006] [7] connection to server at "127.0.0.1", port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Chyba pri pripojovaní k databázy: SQLSTATE[08006] [7] connection to server at "127.0.0.1", port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Chyba pri pripojovaní k databázy: SQLSTATE[08006] [7] connection to server at "127.0.0.1", port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Chyba pri pripojovaní k databázy: SQLSTATE[08006] [7] connection to server at "127.0.0.1", port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Chyba pri pripojovaní k databázy: SQLSTATE[08006] [7] connection to server at "127.0.0.1", port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Chyba pri pripojovaní k databázy: SQLSTATE[08006] [7] connection to server at "127.0.0.1", port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Chyba pri pripojovaní k databázy: SQLSTATE[08006] [7] connection to server at "127.0.0.1", port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Chyba pri pripojovaní k databázy: SQLSTATE[08006] [7] connection to server at "127.0.0.1", port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Chyba pri pripojovaní k databázy: SQLSTATE[08006] [7] connection to server at "127.0.0.1", port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+Chyba pri získavaní informácií používateľa: SQLSTATE[42703]: Undefined column: 7 ERROR:  column "first_name" does not exist
+LINE 1: SELECT first_name
+               ^
+Chyba pri vytváraní objednávky: SQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for type integer: ""
+CONTEXT:  unnamed portal parameter $2 = ''
+Chyba pri vytváraní objednávky: SQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for type integer: ""
+CONTEXT:  unnamed portal parameter $2 = ''
+Chyba pri vytváraní objednávky: SQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for type integer: ""
+CONTEXT:  unnamed portal parameter $2 = ''
