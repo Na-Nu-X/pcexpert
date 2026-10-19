@@ -19,7 +19,11 @@
     $connection = $database_object->connectionDB(); // Connects To The DB
 
     $session_id = $_GET["session_id"] ?? null; // Gets The Order Session ID
-    $order = $order_object->getOrderInformation($connection, $session_id) // Gets The Order Information
+    $order = $order_object->getOrderInformation($connection, $session_id); // Gets The Order Information
+
+    $attachments = json_decode($order["attachments"] ?? "[]", true); // Gets The Order Attachments
+    $image_extensions = ["jpg", "jpeg", "png", "gif", "webp", "bmp", "tiff", "tif"]; // Defines The Image Extensions
+    $video_extensions = ["mp4", "mov", "avi", "mkv", "webm", "hevc"]; // Defines The Video Extensions
 ?>
 
 <!DOCTYPE html>
@@ -121,6 +125,40 @@
                             <p><strong>Kapacita disku:</strong> <?php echo htmlspecialchars($order["space"], ENT_QUOTES, "UTF-8"); ?>GB</p>
                             <p><strong>Typ disku:</strong> <?php if($order["disk_type"] === "m2"): ?>M.2<?php elseif($order["disk_type"] === "ssd"): ?>SSD<?php elseif($order["disk_type"] === "hdd"): ?>HDD<?php endif; ?></p>
                             <p><strong>Dodatočná správa:</strong> <?php if($order["message"]): ?><?php echo htmlspecialchars($order["message"], ENT_QUOTES, "UTF-8"); ?><?php else: ?>Žiadna.<?php endif; ?></p>
+
+                            <?php if(!empty($attachments)): ?>
+                                <?php foreach($attachments as $one_attachment): ?>
+                                    <div class="attachment">
+                                        <?php if(in_array(strtolower(pathinfo($one_attachment["file_name"], PATHINFO_EXTENSION)), $image_extensions)): ?>
+                                            <img 
+                                                src="<?php echo '/content/uploads/attachments/' . htmlspecialchars($one_attachment['file_name'], ENT_QUOTES, "UTF-8"); ?>" 
+                                                title="<?php echo 'Príloha ' . htmlspecialchars($one_attachment['original_name'], ENT_QUOTES, "UTF-8"); ?>"
+                                                alt="<?php echo 'Príloha ' . htmlspecialchars($one_attachment['original_name'], ENT_QUOTES, "UTF-8"); ?>"
+                                            >
+
+                                        <?php elseif(in_array(strtolower(pathinfo($one_attachment["file_name"], PATHINFO_EXTENSION)), $video_extensions)): ?>
+                                            <video 
+                                                src="<?php echo '/content/uploads/attachments/' . htmlspecialchars($one_attachment['file_name'], ENT_QUOTES, "UTF-8"); ?>" 
+                                                title="<?php echo 'Príloha ' . htmlspecialchars($one_attachment['original_name'], ENT_QUOTES, "UTF-8"); ?>"
+                                                alt="<?php echo 'Príloha ' . htmlspecialchars($one_attachment['original_name'], ENT_QUOTES, "UTF-8"); ?>"
+                                                controls
+                                                muted
+                                            >
+                                            </video>
+
+                                        <?php else: ?>
+                                            <a 
+                                                href="<?php echo '/content/uploads/attachments/' . htmlspecialchars($one_attachment['file_name'], ENT_QUOTES, "UTF-8"); ?>" 
+                                                title="<?php echo 'Príloha ' . htmlspecialchars($one_attachment['original_name'], ENT_QUOTES, "UTF-8"); ?>"
+                                                alt="<?php echo 'Príloha ' . htmlspecialchars($one_attachment['original_name'], ENT_QUOTES, "UTF-8"); ?>"
+                                                target="_blank"
+                                            >
+
+                                        <?php endif; ?>
+                                    </div>
+
+                                <?php endforeach; ?>
+                            <?php endif; ?>
     
                         <?php elseif($order["service"] === "computer_maintenance"): ?>
                             <?php
@@ -164,12 +202,36 @@
                             <p><strong>Problémy:</strong> <?php if($problems_list): ?><?php echo htmlspecialchars(implode(", ", $problems_list), ENT_QUOTES, "UTF-8"); ?><?php else: ?>Neboli uvedené.<?php endif; ?></p>
                             <p><strong>Softvérové služby:</strong> <?php if($software_services_list): ?><?php echo htmlspecialchars(implode(", ", $software_services_list), ENT_QUOTES, "UTF-8"); ?><?php else: ?>Neboli uvedené.<?php endif; ?></p>
                             <p><strong>Popis problému:</strong> <?php echo htmlspecialchars($order["message"], ENT_QUOTES, "UTF-8"); ?></p>
+
+                            <?php if(!empty($attachments)): ?>
+                                <?php foreach($attachments as $one_attachment): ?>
+                                    <img 
+                                        class="attachment"
+                                        src="<?php echo '/content/uploads/attachments/' . htmlspecialchars($one_attachment['file_name'], ENT_QUOTES, "UTF-8"); ?>" 
+                                        title="<?php echo 'Príloha ' . htmlspecialchars($one_attachment['original_name'], ENT_QUOTES, "UTF-8"); ?>"
+                                        alt="<?php echo 'Príloha ' . htmlspecialchars($one_attachment['original_name'], ENT_QUOTES, "UTF-8"); ?>"
+                                    >
+
+                                <?php endforeach; ?>
+                            <?php endif; ?>
     
                         <?php elseif($order["service"] === "computer_cleaning"): ?>
                             <p><strong>Zariadenie:</strong> <?php if($order["computer_cleaning_device_type"] === "desktop_pc" || $order["computer_cleaning_device_type"] === "desktop_pc_2"): ?>Stolný počítač<?php elseif($order["computer_cleaning_device_type"] === "notebook"): ?>Notebook<?php endif; ?></p>
                             <p><strong>Posledné čistenie:</strong> <?php if($order["last_cleaning"] === "less_than_year"): ?>Maximálne pred 1 rokom<?php elseif($order["last_cleaning"] === "two_years_ago"): ?>Maximálne pred 2 rokomi<?php elseif($order["last_cleaning"] === "never"): ?>Viac ako 2 roky alebo nikdy<?php endif; ?></p>
                             <p><strong>Prepastovať grafickú kartu:</strong> <?php if($order["thermal_paste_reapply"] === true): ?>Áno<?php else: ?>Nie<?php endif; ?></p>
                             <p><strong>Viac informácií:</strong> <?php echo htmlspecialchars($order["message"], ENT_QUOTES, "UTF-8"); ?></p>
+
+                            <?php if(!empty($attachments)): ?>
+                                <?php foreach($attachments as $one_attachment): ?>
+                                    <img 
+                                        class="attachment"
+                                        src="<?php echo '/content/uploads/attachments/' . htmlspecialchars($one_attachment['file_name'], ENT_QUOTES, "UTF-8"); ?>" 
+                                        title="<?php echo 'Príloha ' . htmlspecialchars($one_attachment['original_name'], ENT_QUOTES, "UTF-8"); ?>"
+                                        alt="<?php echo 'Príloha ' . htmlspecialchars($one_attachment['original_name'], ENT_QUOTES, "UTF-8"); ?>"
+                                    >
+
+                                <?php endforeach; ?>
+                            <?php endif; ?>
     
                         <?php endif; ?>
                     </div>

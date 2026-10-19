@@ -544,7 +544,7 @@
                     <img src="/content/images/computer_building.jpg" alt="Stavba počítača"> <!-- https://unsplash.com/photos/a-close-up-of-a-computer-motherboard-0Sdxy9Ev6oQ -->
     
                     <p class="title">Stavba&nbsp;počítača</p>
-                    <p class="description">Nechajte si u nás zostaviť a nakonfigurovať počítač na mieru – rýchlo, profesionálne a za výhodnú cenu. Ak už máte vhodné komponenty a hľadáte spoľahlivých odborníkov na ich správnu montáž, sme tu pre vás. A ak si ešte nie ste istí výberom, radi vám pomôžeme vybrať tie najlepšie komponenty podľa vašich potrieb a zabezpečíme ich odborné zostavenie. S nami získate počítač, ktorý bude pripravený na použitie bez starostí!</p>
+                    <p class="description">Nechajte si zostaviť a nakonfigurovať počítač na mieru – rýchlo, profesionálne a za výhodnú cenu. Máte už nakúpené vlastné komponenty a hľadáte niekoho na odbornú montáž? Radi sa o to postaráme. Ak si s výberom zatiaľ neviete rady, poradíme vám tie najlepšie diely presne podľa vášho rozpočtu a požiadaviek. Získate tak vyladený stroj pripravený na okamžité použitie, úplne bez starostí.</p>
     
                     <div class="bottom">
                         <p class="price">50<span>€</span></p>
@@ -553,10 +553,10 @@
 
                         <dialog class="reserve_service_modal">
                             <div class="reserve_service">
-                                <div class="section contact_section">
+                                <div class="section contact_section active">
                                     <h2>Kontaktné údaje</h2>
     
-                                    <p>Prosím vyplnte všetky povinné kontaktné údaje.</p>
+                                    <p>Vyplňte, prosím, svoje kontaktné údaje, aby sme s vami mohli komunikovať ohľadom vašej objednávky.</p>
     
                                     <div class="name_container">
                                         <input 
@@ -614,7 +614,7 @@
                                 <div class="section delivery_section">
                                     <h2>Dodacie údaje</h2>
         
-                                    <p>Prosím vyplnte všetky povinné dodacie údaje a zvolte možnosť dopravy.</p>
+                                    <p>Zvoľte si preferovaný spôsob dopravy a zadajte adresu, na ktorú vám máme hotové zariadenie doručiť.</p>
 
                                     <div class="address_container">
                                         <input 
@@ -695,15 +695,15 @@
                                     </div>
                                 </div>
 
-                                <div class="section computer_preferences_section active">
+                                <div class="section computer_preferences_section">
                                     <h2>O počítači</h2>
             
-                                    <p>Prosím vyplnte všetky povinné informácie o preferenciach počítača a pokračujte k platbe. Pokiaľ chcete počítač vyskladať z vašich už zakúpených komponentov, tak vyplnte odpovede podľa už vami zakúpených parametrov komponentov. Po spracovaní vás budeme kontaktovať pre viac informácií.</p>
+                                    <p>Priblížte nám vašu predstavu o novom počítači. Ak už máte nejaké komponenty zakúpené, zadajte ich parametre nižšie. Ak ich máme vybrať my, vyplňte svoje preferencie a po spracovaní objednávky vás budeme kontaktovať s konkrétnym návrhom.</p>
 
                                     <div class="questions">
                                         <div class="question">
                                             <p class="title">Maximálna cena:</p>
-                                            <p class="description">Cena do ktorej hodnoty majú byť vybrané komponenty.</p>
+                                            <p class="description">Váš maximálny rozpočet na nákup samotných komponentov (bez ceny za prácu).</p>
                                             
                                             <div class="max_price_container">
                                                 <input class="max_price" type="range" name="max_price" value="1000" min="300" max="3000" step="50">
@@ -713,7 +713,7 @@
     
                                         <div class="question">
                                             <p class="title">Procesor:</p>
-                                            <p class="description">Preferovaný výber výrobcu procesora.</p>
+                                            <p class="description">Preferovaná značka procesora (ak máte obľúbeného výrobcu).</p>
                                             
                                             <div class="cpu_manufacturer_container">
                                                 <input type="checkbox" name="cpu" id="amd_cpu" value="amd">
@@ -726,7 +726,7 @@
     
                                         <div class="question">
                                             <p class="title">Grafická karta:</p>
-                                            <p class="description">Preferovaný výber výrobcu grafickej karty.</p>
+                                            <p class="description">Preferovaná značka grafickej karty.</p>
                                             
                                             <div class="gpu_manufacturer_container">
                                                 <input type="checkbox" name="gpu" id="nvidia" value="nvidia">
@@ -739,7 +739,7 @@
     
                                         <div class="question">
                                             <p class="title">Kapacita RAM:</p>
-                                            <p class="description">Kapacita operačnej pamäte RAM v GB.</p>
+                                            <p class="description">Požadovaná veľkosť operačnej pamäte v gigabajtoch (GB).</p>
                                             
                                             <div class="ram_container">
                                                 <input class="ram" type="range" min="0" max="5" step="1" value="1">
@@ -751,7 +751,7 @@
     
                                         <div class="question">
                                             <p class="title">Kapacita disku:</p>
-                                            <p class="description">Kapacita disku (prípadne hlavného disku) v GB.</p>
+                                            <p class="description">Požadovaná veľkosť úložiska pre váš systém, dáta a hry v GB.</p>
                                             
                                             <div class="space_container">
                                                 <input class="space" type="range" min="0" max="5" step="1" value="3">
@@ -763,7 +763,7 @@
     
                                         <div class="question">
                                             <p class="title">Typ disku:</p>
-                                            <p class="description">Typ disku (M.2 SSD, SSD alebo pevný disk).</p>
+                                            <p class="description">Preferovaná technológia úložiska (odporúčame rýchle M.2 NVMe SSD).</p>
                                             
                                             <div class="disk_type_container">
                                                 <input type="checkbox" name="disk_type" id="m2" value="m2">
@@ -806,7 +806,7 @@
                     <img src="/content/images/computer_maintenance.jpg" alt="Údržba počítača"> <!-- https://unsplash.com/photos/person-holding-black-and-silver-dj-controller-sMKUYIasyDM -->
     
                     <p class="title">Údržba&nbsp;počítača</p>
-                    <p class="description">Ak vás trápi hardvérový problém, nefunkčné alebo poškodené komponenty, sme tu, aby sme vám pomohli. Diagnostikujeme váš počítač, navrhneme najlepšie riešenie a postaráme sa o opravu alebo výmenu nefunkčných komponentov. Okrem toho vám radi poradíme s upgradom – či už ide o zrýchlenie systému, rozšírenie kapacity alebo zvýšenie výkonu staršieho alebo nového počítača, pomôžeme vám z neho vyťažiť maximum!</p>
+                    <p class="description">Trápi vás pomalý systém, podozrivý hluk alebo úplne nefunkčný počítač? Sme tu pre vás. Zariadenie odborne diagnostikujeme, navrhneme najlepšie riešenie a postaráme sa o opravu či výmenu chybných dielov. Radi vám poradíme aj s prípadným upgradom – či už ide o zrýchlenie, zväčšenie úložiska alebo zvýšenie herného výkonu. Pomôžeme vám z vášho stroja opäť vyťažiť maximum!</p>
     
                     <div class="bottom">
                         <p class="price">30<span>€</span></p>
@@ -815,10 +815,10 @@
 
                         <dialog class="reserve_service_modal">
                             <div class="reserve_service">
-                                <div class="section contact_section">
+                                <div class="section contact_section active">
                                     <h2>Kontaktné údaje</h2>
     
-                                    <p>Prosím vyplnte všetky povinné kontaktné údaje.</p>
+                                    <p>Vyplňte, prosím, svoje kontaktné údaje, aby sme s vami mohli komunikovať ohľadom vašej objednávky.</p>
     
                                     <div class="name_container">
                                         <input 
@@ -876,7 +876,7 @@
                                 <div class="section delivery_section">
                                     <h2>Dodacie údaje</h2>
         
-                                    <p>Prosím vyplnte všetky povinné dodacie údaje a zvolte možnosť dopravy.</p>
+                                    <p>Zvoľte si preferovaný spôsob dopravy a zadajte adresu, na ktorú vám máme hotové zariadenie doručiť.</p>
 
                                     <div class="address_container">
                                         <input 
@@ -957,14 +957,14 @@
                                     </div>
                                 </div>
 
-                                <div class="section computer_info_section active">
-                                    <h2>O údržbe</h2>
+                                <div class="section computer_info_section">
+                                    <h2>Detaily údržby</h2>
             
-                                    <p>Prosím vyplnte všetky povinné informácie o údržbe počítača a pokračujte k platbe.</p>
+                                    <p>Prosím, popíšte nám aktuálny stav vášho zariadenia. Tieto informácie nám pomôžu rýchlejšie diagnostikovať problém a lepšie sa pripraviť na samotnú opravu.</p>
 
                                     <div class="questions">
                                         <div class="question">
-                                            <p class="title">O aký typ zariadenia ide:</p>
+                                            <p class="title">Typ zariadenia:</p>
                                             
                                             <div class="device_type_container">
                                                 <input type="checkbox" name="device_type" id="desktop_pc" value="desktop_pc">
@@ -976,7 +976,8 @@
                                         </div>
     
                                         <div class="question">
-                                            <p class="title">Problémy zariadenia:</p>
+                                            <p class="title">Aké problémy evidujete?</p>
+                                            <p class="description">Zaškrtnite všetky problémy, ktoré ste na zariadení spozorovali.</p>
                                             
                                             <div class="problems_container">
                                                 <input type="checkbox" name="problems[]" id="overheating" value="overheating">
@@ -991,7 +992,7 @@
                                         </div>
     
                                         <div class="question">
-                                            <p class="title">Údržba softvéru:</p>
+                                            <p class="title">Máte záujem aj o softvérové služby?</p>
                                             
                                             <div class="software_services_container">
                                                 <input type="checkbox" name="software_services[]" id="optimization" value="optimization">
@@ -1031,7 +1032,7 @@
                     <img src="/content/images/computer_cleaning.jpg" alt="Čistenie počítača"> <!-- https://unsplash.com/photos/a-compact-computer-case-with-internal-components-visible-AZcrU0-8QzU -->
     
                     <p class="title">Čistenie&nbsp;počítača</p>
-                    <p class="description">Ak váš počítač alebo notebook spomaľuje nahromadený prach a nečistoty, postaráme sa o jeho dôkladné vyčistenie. Odborne vyčistíme vnútro zariadenia, odstránime prach a nečistoty a zabezpečíme optimálne chladenie výmenou teplovodivej pasty na procesore či grafickej karte, čím výrazne znížime prevádzkové teploty. S nami váš počítač opäť získa maximálny výkon, stabilitu a dlhšiu životnosť!</p>
+                    <p class="description">Trápi váš počítač alebo notebook vysoký hluk ventilátorov a prehrievanie? Postaráme sa o jeho profesionálne hĺbkové vyčistenie. Odborne zbavíme vnútro zariadenia nahromadeného prachu a v prípade záujmu vymeníme teplovodivú pastu na procesore aj grafickej karte. Tým radikálne znížime prevádzkové teploty, vďaka čomu váš stroj opäť získa maximálny výkon, tichý chod a dlhšiu životnosť!</p>
     
                     <div class="bottom">
                         <p class="price">20<span>€</span></p>
@@ -1040,10 +1041,10 @@
 
                         <dialog class="reserve_service_modal">
                             <div class="reserve_service">
-                                <div class="section contact_section">
+                                <div class="section contact_section active">
                                     <h2>Kontaktné údaje</h2>
     
-                                    <p>Prosím vyplnte všetky povinné kontaktné údaje.</p>
+                                    <p>Vyplňte, prosím, svoje kontaktné údaje, aby sme s vami mohli komunikovať ohľadom vašej objednávky.</p>
     
                                     <div class="name_container">
                                         <input 
@@ -1101,7 +1102,7 @@
                                 <div class="section delivery_section">
                                     <h2>Dodacie údaje</h2>
         
-                                    <p>Prosím vyplnte všetky povinné dodacie údaje a zvolte možnosť dopravy.</p>
+                                    <p>Zvoľte si preferovaný spôsob dopravy a zadajte adresu, na ktorú vám máme hotové zariadenie doručiť.</p>
 
                                     <div class="address_container">
                                         <input 
@@ -1182,14 +1183,14 @@
                                     </div>
                                 </div>
 
-                                <div class="section computer_info_section active">
-                                    <h2>O čistení</h2>
+                                <div class="section computer_info_section">
+                                    <h2>Detaily čistenia</h2>
             
-                                    <p>Prosím vyplnte všetky povinné informácie o čistení počítača a pokračujte k platbe.</p>
+                                    <p>Vyplňte, prosím, krátky formulár nižšie. Tieto informácie nám pomôžu lepšie odhadnúť aktuálny stav vášho zariadenia a zvoliť ten najlepší postup pri jeho údržbe.</p>
 
                                     <div class="questions">
                                         <div class="question">
-                                            <p class="title">O aký typ zariadenia ide:</p>
+                                            <p class="title">Typ zariadenia:</p>
                                             
                                             <div class="device_type_container">
                                                 <input type="checkbox" name="device_type" id="desktop_pc_2" value="desktop_pc_2">
@@ -1201,22 +1202,23 @@
                                         </div>
     
                                         <div class="question">
-                                            <p class="title">Kedy bolo zariadenie naposledy čistené:</p>
+                                            <p class="title">Kedy bolo zariadenie naposledy čistené?</p>
                                             
                                             <div class="last_cleaning_container">
                                                 <input type="checkbox" name="last_cleaning" id="less_than_year" value="less_than_year">
-                                                <label for="less_than_year">Maximálne 1 rok</label>
+                                                <label for="less_than_year">Pred menej ako rokom</label>
 
                                                 <input type="checkbox" name="last_cleaning" id="two_years_ago" value="two_years_ago">
-                                                <label for="two_years_ago">Maximálne 2 roky</label>
+                                                <label for="two_years_ago">Pred 1 až 2 rokmi</label>
 
                                                 <input type="checkbox" name="last_cleaning" id="never" value="never">
-                                                <label for="never">Viac ako 2 roky alebo nikdy</label>
+                                                <label for="never">Viac ako pred 2 rokmi (alebo nikdy)</label>
                                             </div>
                                         </div>
     
                                         <div class="question">
-                                            <p class="title">Prajete si prepastovať grafickú kartu a procesor:</p>
+                                            <p class="title">Máte záujem o výmenu teplovodivej pasty?</p>
+                                            <p class="description">Dôrazne odporúčame pre zníženie teplôt procesora a grafickej karty, najmä ak zariadenie nebolo dlhšie servisované.</p>
                                             
                                             <div class="thermal_paste_re-apply_container">
                                                 <input type="checkbox" name="thermal_paste_re-apply" id="yes" value="yes">

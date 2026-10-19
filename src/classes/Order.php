@@ -282,6 +282,14 @@
 
             $sql = "SELECT 
                     o.id, o.service, o.price_at_purchase, o.status, o.stripe_intent_id, o.shipping_method, o.message,
+                    
+                    (SELECT JSON_AGG(
+                        JSON_BUILD_OBJECT(
+                            'file_name', a.file_name, 
+                            'original_name', a.original_name
+                        )
+                    ) FROM order_attachments a WHERE a.order_id = o.id) AS attachments,
+
                     c.first_name, c.last_name, c.email_address, c.phone_number, c.address, c.city, c.postal_code,
                     p.branch_name,
                     cb.max_price, cb.cpu, cb.gpu, cb.ram, cb.space, cb.disk_type,
@@ -297,6 +305,7 @@
                     WHERE computer_maintenance_id = cm.id) AS software_services
 
                     FROM orders o
+                    LEFT JOIN order_attachments a ON o.id = a.order_id
                     LEFT JOIN customer c ON o.id = c.order_id
                     LEFT JOIN packeta p ON o.id = p.order_id
                     LEFT JOIN computer_building cb ON o.id = cb.order_id

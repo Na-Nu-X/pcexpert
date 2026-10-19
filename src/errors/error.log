@@ -97,3 +97,18 @@ Chyba pri vytváraní objednávky: SQLSTATE[22P02]: Invalid text representation:
 CONTEXT:  unnamed portal parameter $2 = ''
 Chyba pri vytváraní objednávky: SQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for type integer: ""
 CONTEXT:  unnamed portal parameter $2 = ''
+Chyba pri získavaní informácií objednávky: SQLSTATE[42601]: Syntax error: 7 ERROR:  syntax error at or near "c"
+LINE 11:                     c.first_name, c.last_name, c.email_addre...
+                             ^
+Chyba pri získavaní informácií objednávky: SQLSTATE[42601]: Syntax error: 7 ERROR:  syntax error at or near "c"
+LINE 11:                     c.first_name, c.last_name, c.email_addre...
+                             ^
+Chyba pri získavaní informácií objednávky: SQLSTATE[42601]: Syntax error: 7 ERROR:  syntax error at or near "c"
+LINE 11:                     c.first_name, c.last_name, c.email_addre...
+                             ^
+Chyba pri získavaní informácií objednávky: SQLSTATE[42601]: Syntax error: 7 ERROR:  syntax error at or near "c"
+LINE 11:                     c.first_name, c.last_name, c.email_addre...
+                             ^
+Chyba pri získavaní informácií objednávky: SQLSTATE[42601]: Syntax error: 7 ERROR:  syntax error at or near "c"
+LINE 11:                     c.first_name, c.last_name, c.email_addre...
+                             ^
