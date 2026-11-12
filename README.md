@@ -35,13 +35,12 @@
 - And add this line under other domains: `127.0.0.1 pcexpert.local`.
 - Or edit file in terminal if you don't have permissions with `sudo nano /etc/hosts`.
 
-#### 4. Database connection (MySQL)
+#### 4. Database connection (PostgreSQL) and environment variables
 
-- Go to **http://localhost/phpmyadmin/**.
-- Create a new database called **pc_expert**.
-- Go to the Import tab and upload your .sql file.
-- Check the credentials inside the **connectionDB()** function in **/opt/lampp/htdocs/pcexpert/src/assets/functions.php**.
-- In **phpMyAdmin** (under User accounts tab), create a new user matching those credentials and grant them privileges to the **pc_expert** database.
+- Create a PostgreSQL database called **pcexpert** and import your .sql dump into it.
+- Copy **.env.example** to **.env** in the project root: `cp .env.example .env`.
+- Fill in the **POSTGRES_*** values (host, port, database, user, password) and the other keys (mail, reCAPTCHA, Stripe).
+- **.env** is listed in **.gitignore** and must never be committed. Credentials are read from it by **Database::connectionDB()** in **src/classes/Database.php**.
 
 #### 5. Edit permissions
 

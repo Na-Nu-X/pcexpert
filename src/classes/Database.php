@@ -1,54 +1,56 @@
 <?php
     class Database {
         /**
+         * Function For Load The Environment Variables From The .env File (Only Once)
+         *
+         * @return void
+        **/
+
+        private function loadEnvironment():void {
+            if(isset($_ENV["POSTGRES_DB"])) return; // Already Loaded By The Page
+
+            require_once __DIR__ . "/../../vendor/autoload.php";
+
+            Dotenv\Dotenv::createImmutable(dirname(__DIR__, 2))->safeLoad();
+        }
+
+        /**
          * Function For Connect To Database
-         * 
+         *
+         * Credentials Are Read From The .env File (See .env.example)
+         *
          * @return PDO|false
         **/
 
         public function connectionDB() {
-            // MySQL
-
-            // $db_host = "127.0.0.1";
-            // $db_name = "pc_expert";
-            // $db_user = "pc_expert_admin";
-            // $db_password = "Ac7}l|szo98=pK-5-g?R";
-            
-            // $connection = "mysql:host=" . $db_host . ";dbname=" . $db_name . ";charset=utf8mb4";
-            
-            // try {
-            //     $db = new PDO($connection, $db_user, $db_password);
-            //     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                
-            //     return $db;
-            // }
-
-            // catch(PDOException $e) {
-            //     errorLogSave($connection, "Error While Connecting To Database. (" . $e->getMessage() . ")", "../errors/error.log");
-                
-            //     return false;
-            // }
+            $this->loadEnvironment();
 
             // PostgreSQL
 
-            $host = "127.0.0.1";
-            $port = "5433";
-            $dbname = "pcexpert";
-            $user = "postgres";
-            $password = "Patrik2008";
-            
+            $host = $_ENV["POSTGRES_HOST"] ?? "127.0.0.1";
+            $port = $_ENV["POSTGRES_PORT"] ?? "5432";
+            $dbname = $_ENV["POSTGRES_DB"] ?? "";
+            $user = $_ENV["POSTGRES_USER"] ?? "";
+            $password = $_ENV["POSTGRES_PASSWORD"] ?? "";
+
+            if($dbname === "" || $user === "") {
+                error_log("Chyba pri pripojovaní k databázy: Chýbajú premenné POSTGRES_DB / POSTGRES_USER v súbore .env.\n", 3, __DIR__ . "/../errors/error.log");
+
+                return false;
+            }
+
             $dsn = "pgsql:host=" . $host . ";port=" . $port . ";dbname=" . $dbname;
-            
+
             try {
                 $db = new PDO($dsn, $user, $password);
                 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                
+
                 return $db;
             }
-            
+
             catch(PDOException $error) {
-                error_log("Chyba pri pripojovaní k databázy: " . $error->getMessage() . "\n", 3, "../errors/error.log");
-                
+                error_log("Chyba pri pripojovaní k databázy: " . $error->getMessage() . "\n", 3, __DIR__ . "/../errors/error.log");
+
                 return false;
             }
         }

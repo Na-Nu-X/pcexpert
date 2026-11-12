@@ -29,6 +29,8 @@
     
     $connection = $database_object->connectionDB(); // Connects To The DB
 
+    $is_admin = isAdmin($connection); // Role Is Verified Against The Database On Every Request
+
     // Theme
 
     $theme = "light"; // Default Theme
@@ -44,6 +46,8 @@
     // Admin Form After Submitting
 
     if($_SERVER["REQUEST_METHOD"] === "POST" and isset($_POST["admin_form_submit"])) {
+        requireAdmin($connection, "Admin Form Submit (Roles / Deletions)"); // Only Administrators Can Perform This Action
+
         if(!isset($_POST["csrf_token"]) || $_POST["csrf_token"] !== $_SESSION["csrf_token"]) {
             errorLogSave($connection, "CSRF Token Verification Failed While Editing In Admin Page.", "../errors/error.log");
             die("CSRF Token nie je platný.");
@@ -79,6 +83,8 @@
     // Approve or Reject Reviews
 
     if($_SERVER["REQUEST_METHOD"] === "POST" and isset($_POST["approve_review"])) {
+        requireAdmin($connection, "Approve Review"); // Only Administrators Can Perform This Action
+
         if(!isset($_POST["csrf_token"]) || $_POST["csrf_token"] !== $_SESSION["csrf_token"]) {
             errorLogSave($connection, "CSRF Token Verification Failed While Approving A Review In Admin Page.", "../errors/error.log");
             die("CSRF Token nie je platný.");
@@ -94,6 +100,8 @@
     }
 
     if($_SERVER["REQUEST_METHOD"] === "POST" and isset($_POST["reject_review"])) {
+        requireAdmin($connection, "Reject Review"); // Only Administrators Can Perform This Action
+
         if(!isset($_POST["csrf_token"]) || $_POST["csrf_token"] !== $_SESSION["csrf_token"]) {
             errorLogSave($connection, "CSRF Token Verification Failed While Rejecting A Review In Admin Page.", "../errors/error.log");
             die("CSRF Token nie je platný.");
@@ -153,7 +161,7 @@
     </header>
 
     <main class="admin_page">
-        <?php if(isset($_SESSION["logged_in_user_id"]) and $user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "role") === "admin"): ?>
+        <?php if($is_admin): ?>
             <script src="/src/ts/dist/pages/admin/components/admin.js" type="module"></script>
 
             <?php

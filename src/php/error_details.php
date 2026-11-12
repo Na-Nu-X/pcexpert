@@ -7,13 +7,18 @@
     
     // PHP Code
 
+    require "../assets/functions.php";
     require "../classes/Database.php";
     require "../classes/Admin.php";
 
     $database_object = new Database(); // Initializes The Database Methods
     $admin_object = new Admin(); // Initializes The Admin Methods
     
+    session_start();
+
     $connection = $database_object->connectionDB(); // Connects To The DB
+
+    requireAdmin($connection, "Fragment error_details.php"); // Only Administrators Can Load This Fragment
 
     $error_id = intval($_POST["error_id"] ?? 0);
 ?>

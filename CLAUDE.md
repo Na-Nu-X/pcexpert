@@ -46,8 +46,9 @@ Each page is a self-contained script, with logic at the top and HTML below:
 
 ### Data layer (`src/classes/`)
 - These are stateless classes whose methods take the `PDO $connection` as their first argument, for example `$user_object->getUserInformation($connection, $id, "first_name")`. All queries use prepared statements.
-- `Database::connectionDB()` connects to **PostgreSQL** (`127.0.0.1:5433`, db `pcexpert`). The README's MySQL instructions are outdated, and the MySQL code is commented out.
-- `src/assets/functions.php` holds the global helpers `redirectURL()`, `isLoggedIn()`, `deleteSession()` and `errorLogSave()`. `errorLogSave()` writes both to the `errors` DB table and to a log file, and the admin panel reads the DB table.
+- `Database::connectionDB()` connects to **PostgreSQL** using the `POSTGRES_HOST/PORT/DB/USER/PASSWORD` values from `.env`, loading `.env` itself if the page hasn't (see `.env.example`). Never hard-code credentials.
+- `src/assets/functions.php` holds the global helpers `redirectURL()`, `isLoggedIn()`, `deleteSession()`, `errorLogSave()`, `redactSensitiveData()`, `isAdmin()` and `requireAdmin()`. `errorLogSave()` writes both to the `errors` DB table and to a log file, and the admin panel reads the DB table. Before storing `$_POST` it passes it through `redactSensitiveData()` (password, token, csrf, recaptcha, reset-code and similar keys); extend that pattern if you add new sensitive fields.
+- **Authorization:** every admin action and admin-only endpoint must call `requireAdmin($connection, "<action>")` before doing anything. It re-reads the role from the DB, logs the attempt and exits with 403. CSRF checks alone are not enough, because every visitor's session has a token. `admin.php` uses `$is_admin = isAdmin($connection)` for the view.
 
 ### Orders / Stripe flow
 1. Each service card in index.php is a `<form>` holding a `checkout_dialog.php` dialog. It POSTs to `create_checkout_session.php` with `pay`, `service` (`computer_building` | `computer_maintenance` | `computer_cleaning`), customer and shipping fields (Packeta), the service answers and up to 5 `<service>_attachment[]` files. The authoritative prices are hardcoded in `create_checkout_session.php`. Keep the display prices in `$all_services` in sync with them. Keep the form field names unchanged too, because the server reads them directly.
