@@ -72,7 +72,7 @@
         $request_method = $_SERVER["REQUEST_METHOD"] ?? "unknown";
         $user_agent = $_SERVER["HTTP_USER_AGENT"] ?? "unknown";
         $server_ip = $_SERVER["SERVER_ADDR"] ?? "unknown";
-        $post_data = json_encode($_POST) ?? "unknown";
+        $post_data = json_encode(redactSensitiveData($_POST), JSON_UNESCAPED_UNICODE) ?: "unknown"; // Passwords, Tokens And Codes Are Never Stored
 
         // Error Log Database
 
@@ -127,5 +127,66 @@
         }
 
         return false;
+    }
+
+    /**
+     * Function For Redact Sensitive Values (Passwords, Tokens, Codes, Secrets) Before Logging
+     * 
+     * @param array $data - Data (Usually $_POST)
+     * 
+     * @return array
+    **/
+
+    function redactSensitiveData(array $data):array {
+        $sensitive_pattern = "/pass|token|secret|csrf|recaptcha|reset_code|verification|auth|api_key|card|cvc|iban/i"; // Matches Every Sensitive Field Name
+
+        foreach($data as $key => $value) {
+            if(preg_match($sensitive_pattern, (string)$key)) $data[$key] = "[REDACTED]";
+            elseif(is_array($value)) $data[$key] = redactSensitiveData($value);
+        }
+
+        return $data;
+    }
+
+    /**
+     * Function For Check If The Logged In User Is An Administrator (Role Is Always Read From The Database)
+     * 
+     * @param PDO|false $connection - Connection To The Database
+     * 
+     * @return bool
+    **/
+
+    function isAdmin(PDO|false $connection):bool {
+        if(!$connection || !isLoggedIn() || empty($_SESSION["logged_in_user_id"])) return false;
+
+        try {
+            $stmt = $connection->prepare("SELECT role FROM users WHERE id = :id");
+            $stmt->bindValue(":id", (int)$_SESSION["logged_in_user_id"], PDO::PARAM_INT);
+            $stmt->execute();
+
+            return $stmt->fetchColumn() === "admin";
+        }
+
+        catch(PDOException $e) {
+            return false;
+        }
+    }
+
+    /**
+     * Function For Stop The Request With 403 Forbidden When The User Is Not An Administrator
+     * 
+     * @param PDO|false $connection - Connection To The Database
+     * @param string $action - Description Of The Attempted Action (Logged)
+     * 
+     * @return void
+    **/
+
+    function requireAdmin(PDO|false $connection, string $action):void {
+        if(isAdmin($connection)) return;
+
+        if($connection) errorLogSave($connection, "Unauthorized Admin Access Attempt: " . $action . ".", __DIR__ . "/../errors/error.log");
+
+        http_response_code(403);
+        exit("Prístup zamietnutý.");
     }
 ?>

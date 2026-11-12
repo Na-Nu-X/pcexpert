@@ -1,29 +1,74 @@
-// Colors
+/****************
+ Design Tokens
+ (Sass Side)
+****************/
 
-$main-color: #000; // Background
-$secondary-color: #fff; // Text
+// Breakpoints (Mobile First - Use With The up() And down() Mixins)
 
-$green-color: #52cf20; // Green
-$red-color: #df3535; // Red
-
-$light-blue-color: #f5faf9;
-$blue-color: #7CE5FA;
-$dark-blue-color: #5e97fa;
+$breakpoints: (
+    "sm": 480px,
+    "md": 768px,
+    "lg": 1024px,
+    "xl": 1280px
+);
 
 // Dimensions
 
 $main-width: 1200px;
+$narrow-width: 760px;
+$navigation-height: 68px;
 
 // Fonts
 
-$heading-font: "Bruno Ace", sans-serif;
-$main-font: Poppins, Arial, sans-serif;
-$copywrite-font: 'Courier New', Courier, monospace;
+$heading-font: "Plus Jakarta Sans", Inter, system-ui, sans-serif;
+$main-font: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+$mono-font: "JetBrains Mono", ui-monospace, "Courier New", monospace;
+$copywrite-font: $mono-font;
 
-$default-font-size: 15px;
+$default-font-size: 16px;
 
 // Borders
 
-$big-border-radius: 25px;
-$medium-border-radius: 10px;
-$small-border-radius: 5px;
+$big-border-radius: 24px;
+$medium-border-radius: 12px;
+$small-border-radius: 8px;
+
+// Palette (Raw Values - Prefer The CSS Custom Properties In Components)
+
+$palette: (
+    // Neutral Greys (Slate)
+    "grey-0": #ffffff,
+    "grey-50": #f6f7f9,
+    "grey-100": #eef1f5,
+    "grey-200": #e2e6ec,
+    "grey-300": #cbd2db,
+    "grey-400": #98a2b3,
+    "grey-500": #6b7586,
+    "grey-600": #4b5565,
+    "grey-700": #2b3445,
+    "grey-800": #1a2232,
+    "grey-850": #141b29,
+    "grey-900": #0e131d,
+    "grey-950": #090c13,
+
+    // Tech Blue
+    "blue-50": #eef4ff,
+    "blue-100": #dbe7ff,
+    "blue-300": #8db4ff,
+    "blue-400": #5b93fb,
+    "blue-500": #2f6ff0,
+    "blue-600": #1f5ad6,
+    "blue-700": #1a48ad,
+
+    // States
+    "green-500": #16a34a,
+    "green-400": #34d07a,
+    "red-500": #dc2626,
+    "red-400": #f87171,
+    "amber-500": #d97706,
+    "amber-400": #fbbf24
+);
+
+@function palette($name) {
+    @return map-get($palette, $name);
+}

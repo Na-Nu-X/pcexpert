@@ -9,12 +9,18 @@
 
     require "../assets/functions.php";
     require "../classes/Database.php";
+    require "../classes/User.php";
     require "../classes/Order.php";
 
     $database_object = new Database(); // Initializes The Database Methods
-    $order_object = new Order(); // Initializes The User Methods
+    $user_object = new User(); // Initializes The User Methods (Used By The Navigation)
+    $order_object = new Order(); // Initializes The Order Methods
 
     session_start();
+
+    // Theme
+
+    $theme = ($_COOKIE["theme"] ?? "light") === "dark" ? "dark" : "light";
 
     $connection = $database_object->connectionDB(); // Connects To The DB
 
@@ -39,7 +45,9 @@
     <link rel="stylesheet" href="/src/css/forms.css">
     <link rel="stylesheet" href="/src/css/success_order.css">
     
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins"> <!-- Poppins Font Style -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"> <!-- Inter & Plus Jakarta Sans Font Styles -->
 
     <script src="https://kit.fontawesome.com/069c0938a1.js" crossorigin="anonymous"></script> <!-- Icons -->
 
@@ -53,37 +61,11 @@
         <div class="loader"></div>
     </div>
     
-    <header>
-        <?php if(isset($_SESSION["green_report_message"]) and !empty($_SESSION["green_report_message"])): ?>
-            <p class="green_report_message"><?php echo $_SESSION["green_report_message"]; ?></p>
-            <?php $_SESSION["green_report_message"] = ""; ?>
+    <?php require "../assets/partials/flash_messages.php"; ?>
+    <?php require "../assets/partials/cookie_policy.php"; ?>
 
-        <?php endif; ?>
-
-        <?php if(isset($_SESSION["red_report_message"]) and !empty($_SESSION["red_report_message"])): ?>
-            <p class="red_report_message"><?php echo $_SESSION["red_report_message"]; ?></p>
-            <?php $_SESSION["red_report_message"] = ""; ?>
-
-        <?php endif; ?>
-
-        <nav class="navigation_bar">
-            <div class="navigation_container">
-                <button class="hamburger" (click)="toggleMenu()">
-                    <i class="fa-solid" [class.fa-bars]="!is_menu_open" [class.fa-xmark]="is_menu_open"></i> <!-- https://fontawesome.com/icons/bars / https://fontawesome.com/icons/magnifying-glass -->
-                </button>
-            
-                <ul [class.open]="is_menu_open">
-                    <li class="home"><a href="./domov">DOMOV</a></li>
-                </ul>
-            </div>
-        </nav>
-
-        <div class="cookie_policy">
-            <img src="/content/images/cookie.png" alt="Cookie"> <!-- https://www.flaticon.com/free-icon/cookie_1047711 -->
-            <h2>Cookie Policy</h2>
-            <p>Táto&nbsp;stránka&nbsp;používa&nbsp;súbory&nbsp;cookies.</p>
-            <button class="accept_all">ROZUMIEM</button>
-        </div>
+    <header class="site_header">
+        <?php require "../assets/partials/navigation.php"; ?>
     </header>
 
     <main>
@@ -93,10 +75,10 @@
                     <h2>Ďakujeme za objednávku <?php echo htmlspecialchars($order["first_name"], ENT_QUOTES, "UTF-8") ?>!</h2>
 
                     <?php if($order["status"] === "PENDING"): ?>
-                        <h3 class="status">Čaká sa na platbu.</h3>
+                        <h3 class="status pending">Čaká sa na platbu.</h3>
 
                     <?php elseif($order["status"] === "PAID"): ?>
-                        <h3 class="status">Platba prebehla úspešne!</h3>
+                        <h3 class="status success">Platba prebehla úspešne!</h3>
 
                     <?php elseif($order["status"] === "PREPARING"): ?>
                         <h3 class="status">Spracovávame objednávku.</h3>
@@ -105,10 +87,10 @@
                         <h3 class="status">Objednávka je na ceste!</h3>
 
                     <?php elseif($order["status"] === "COMPLETED"): ?>
-                        <h3 class="status">Objednávka bola doručená!</h3>
+                        <h3 class="status success">Objednávka bola doručená!</h3>
 
                     <?php elseif($order["status"] === "CANCELLED"): ?>
-                        <h3 class="status" style="color: #df3535;">Objednávka bola zrušená.</h3>
+                        <h3 class="status cancelled">Objednávka bola zrušená.</h3>
 
                     <?php endif; ?>
 
@@ -260,7 +242,7 @@
         </section>
     </main>
 
-    <footer class="<?php echo $theme; ?>">
+    <footer>
         <?php require "../assets/footer.php"; ?>
     </footer>
 </body>

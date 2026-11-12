@@ -1,8 +1,47 @@
 @import "./variables";
 
+/******************
+ Responsive Mixins
+******************/
+
+// Min Width Media Query (Mobile First) - @include up("md") { ... }
+
+@mixin up($breakpoint) {
+    @media (min-width: map-get($breakpoints, $breakpoint)) {
+        @content;
+    }
+}
+
+// Max Width Media Query - @include down("md") { ... }
+
+@mixin down($breakpoint) {
+    @media (max-width: map-get($breakpoints, $breakpoint) - 0.02px) {
+        @content;
+    }
+}
+
+// Hover Only On Devices That Support It (Prevents Sticky Hover On Touch)
+
+@mixin hover {
+    @media (hover: hover) {
+        &:hover {
+            @content;
+        }
+    }
+}
+
 /***************
- General Mixins
+ Layout Mixins
 ***************/
+
+// Centered Page Container
+
+@mixin container($width: var(--container-width)) {
+    width: 100%;
+    max-width: calc(#{$width} + var(--gutter) * 2);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+}
 
 // Center Positioning
 
@@ -20,190 +59,59 @@
     justify-content: center;
 }
 
-// Profile Picture
+/****************
+ Surface Mixins
+****************/
 
-@mixin profile_picture($width: 40px, $height: 40px) {
-    width: $width;
-    height: $height;
-    padding: 2px;
-    border: 1px solid $secondary-color;
-    border-radius: 50%;
+// Card
+
+@mixin card($padding: var(--space-6), $radius: var(--radius-lg)) {
+    padding: $padding;
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: $radius;
+    box-shadow: var(--shadow-sm);
 }
 
-// Blue Button
+// Interactive Card (Lifts On Hover)
 
-@mixin blue_button($width: 150px, $border-radius: $small-border-radius) {
-    all: unset;
-    width: $width;
-    padding: 10px 0px;
-    text-align: center;
-    font-weight: 600;
-    background-color: $dark-blue-color;
-    color: $secondary-color;
-    border: 1px solid $light-blue-color;
-    border-radius: $border-radius;
-    transition: transform 0.2s ease, background-color 0.2s ease;
+@mixin card_interactive {
+    transition: transform var(--duration) var(--ease), box-shadow var(--duration) var(--ease), border-color var(--duration) var(--ease);
 
-    &:hover,
-    &:focus-visible {
-        transform: translateY(-2px);
-        background-color: lighten($dark-blue-color, 5%);
-        cursor: pointer;
-    }
-    
-    &:active {
-        transform: translateY(1px);
+    @include hover {
+        transform: translateY(-3px);
+        border-color: var(--color-primary-soft-border);
+        box-shadow: var(--shadow-lg);
     }
 }
 
-// Light Blue Button
+/*************
+ Text Mixins
+*************/
 
-@mixin light_blue_button($width: 150px, $border-radius: $small-border-radius) {
-    all: unset;
-    width: $width;
-    padding: 10px 0px;
-    text-align: center;
-    font-weight: 600;
-    background-color: $light-blue-color;
-    color: $dark-blue-color;
-    border: 1px solid $dark-blue-color;
-    border-radius: $border-radius;
-    transition: transform 0.2s ease, background-color 0.2s ease;
-    
-    &:hover {
-        transform: translateY(-2px);
-        background-color: $light-blue-color;
-        cursor: pointer;
-    }
-    
-    &:active {
-        transform: translateY(1px);
-    }
+// Heading
+
+@mixin heading($size: var(--text-3xl)) {
+    font-family: var(--font-heading);
+    font-size: $size;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
 }
 
-// Form Input
+// Small Uppercase Label Above Headings
 
-@mixin form_input {
-    width: 100%;
-    padding: 10px 15px;
-    background-color: darken($secondary-color, 3%);
-    color: transparentize($main-color, 0.4);
-    border: 1px solid darken($secondary-color, 10%);
-    border-radius: $small-border-radius;
-    font-family: inherit;
-    outline: none;
-    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-
-    &::placeholder {
-        color: darken($secondary-color, 40%);
-    }
-
-    &:focus-visible {
-        background-color: $secondary-color;
-        border-color: $blue-color;
-        box-shadow: 0 0 0 3px transparentize($blue-color, 0.8);
-    }
-
-    &:-webkit-autofill {
-        -webkit-text-fill-color: transparentize($main-color, 0.4);
-        transition: width 0.3s ease, background-color 9999s ease;
-
-        &:hover,
-        &:focus {
-            -webkit-text-fill-color: transparentize($main-color, 0.4);
-            transition: width 0.3s ease, background-color 9999s ease;
-        }
-    }
-}
-
-// Form Textarea
-
-@mixin form_textarea {
-    display: block;
-    width: 90%;
-    height: 100px;
-    margin: 0px auto;
-    padding: 5px 10px;
-    background: none;
-    color: $secondary-color;
-    border: 1px solid $secondary-color;
-    border-radius: $small-border-radius;
-    outline: none;
-    resize: none;
-    transition: width 0.3s ease;
-
-    &::placeholder {
-        color: darken($secondary-color, 40%);
-    }
-}
-
-// Form Report Message
-
-@mixin form_report($bottom: 100px) {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 0.9em;
-
-    &.valid {
-        color: $green-color;
-    }
-
-    &.invalid {
-        color: $red-color;
-    }
-}
-
-// Icons
-
-@mixin icon($color: darken($secondary-color, 20%), $hover_color: darken($secondary-color, 10%)) {
-    color: $color;
-    transition: top 0.3s ease, right 0.3s ease, bottom 0.3s ease, left 0.3s ease;
-
-    &:hover {
-        color: $hover_color;
-        cursor: pointer;
-        transition: color 0.3s ease, top 0.3s ease, right 0.3s ease, bottom 0.3s ease, left 0.3s ease;
-    }
-}
-
-// Scrollbar
-
-@mixin scrollbar($direction: "vertical") {
-    // Vertical Scrollbar
-    @if $direction == "vertical" {
-        overflow-x: hidden;
-        overflow-y: auto;
-
-        &::-webkit-scrollbar {
-            width: 5px;
-        }
-    }
-
-    // Horizontal Scrollbar
-    @else if $direction == "horizontal" {
-        overflow-x: auto;
-        overflow-y: hidden;
-
-        &::-webkit-scrollbar {
-            height: 5px;
-        }
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background-color: $blue-color;
-        border-radius: 2.5px;
-
-        &:hover {
-            background-color: darken($blue-color, 20%);
-            cursor: pointer;
-        }
-    }
-
-    &::-webkit-scrollbar-track {
-        background-color: lighten($blue-color, 20%);
-        border-radius: 2.5px;
-    }
+@mixin eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-primary);
 }
 
 // Crop Text
@@ -214,11 +122,313 @@
     text-overflow: ellipsis;
 }
 
+// Clamp Text To N Lines
+
+@mixin line_clamp($lines: 3) {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+// Visually Hidden (Still Readable By Screen Readers)
+
+@mixin visually_hidden {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/***************
+ Button Mixins
+***************/
+
+// Button Base ($variant: primary | secondary | ghost | danger, $size: sm | md | lg)
+
+@mixin button($variant: primary, $size: md) {
+    all: unset;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    font-family: var(--font-main);
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    border: 1px solid transparent;
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    user-select: none;
+    transition: background-color var(--duration-fast) var(--ease), color var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease), transform var(--duration-fast) var(--ease);
+
+    @if $size == sm {
+        min-height: 36px;
+        padding: 0 var(--space-4);
+        font-size: var(--text-sm);
+    }
+
+    @else if $size == lg {
+        min-height: 52px;
+        padding: 0 var(--space-8);
+        font-size: var(--text-base);
+    }
+
+    @else {
+        min-height: 44px;
+        padding: 0 var(--space-6);
+        font-size: var(--text-sm);
+    }
+
+    @include button_variant($variant);
+
+    &:active:not(:disabled) {
+        transform: translateY(1px);
+    }
+
+    &:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 3px var(--color-focus-ring);
+    }
+
+    &:disabled,
+    &[aria-disabled="true"] {
+        opacity: 0.45;
+        cursor: not-allowed;
+        box-shadow: none;
+        transform: none;
+    }
+}
+
+// Button Colors
+
+@mixin button_variant($variant) {
+    @if $variant == primary {
+        background-color: var(--color-primary);
+        color: var(--color-on-primary);
+        box-shadow: var(--shadow-primary);
+
+        @include hover {
+            &:not(:disabled) {
+                background-color: var(--color-primary-hover);
+            }
+        }
+    }
+
+    @else if $variant == secondary {
+        box-shadow: none;
+        background-color: var(--color-surface);
+        color: var(--color-text);
+        border-color: var(--color-border-strong);
+
+        @include hover {
+            &:not(:disabled) {
+                border-color: var(--color-primary);
+                color: var(--color-primary);
+            }
+        }
+    }
+
+    @else if $variant == ghost {
+        box-shadow: none;
+        background-color: transparent;
+        color: var(--color-text-muted);
+
+        @include hover {
+            &:not(:disabled) {
+                background-color: var(--color-surface-muted);
+                color: var(--color-text);
+            }
+        }
+    }
+
+    @else if $variant == danger {
+        box-shadow: none;
+        background-color: var(--color-danger-soft);
+        color: var(--color-danger);
+        border-color: transparent;
+
+        @include hover {
+            &:not(:disabled) {
+                background-color: var(--color-danger);
+                color: var(--color-text-inverse);
+            }
+        }
+    }
+}
+
+// Icon Only Round Button
+
+@mixin icon_button($size: 40px) {
+    @include button(ghost, sm);
+    width: $size;
+    height: $size;
+    min-height: $size;
+    padding: 0;
+    border-radius: 50%;
+}
+
+/*************
+ Form Mixins
+*************/
+
+// Form Input
+
+@mixin form_input {
+    width: 100%;
+    min-height: 46px;
+    padding: var(--space-3) var(--space-4);
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    font-family: inherit;
+    font-size: var(--text-base); // 16px Prevents iOS Zoom On Focus
+    outline: none;
+    transition: border-color var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease), background-color var(--duration-fast) var(--ease);
+
+    &::placeholder {
+        color: var(--color-text-subtle);
+    }
+
+    @include hover {
+        border-color: var(--color-text-subtle);
+    }
+
+    &:focus-visible,
+    &:focus {
+        border-color: var(--color-primary);
+        box-shadow: 0 0 0 3px var(--color-focus-ring);
+    }
+
+    &:-webkit-autofill {
+        -webkit-text-fill-color: var(--color-text);
+        transition: background-color 9999s ease;
+
+        &:hover,
+        &:focus {
+            -webkit-text-fill-color: var(--color-text);
+            transition: background-color 9999s ease;
+        }
+    }
+}
+
+// Form Textarea
+
+@mixin form_textarea {
+    @include form_input;
+    display: block;
+    min-height: 120px;
+    resize: vertical;
+}
+
+// Form Label
+
+@mixin form_label {
+    display: block;
+    margin-bottom: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+// Form Report Message
+
+@mixin form_report($bottom: 100px) {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: var(--text-sm);
+
+    &.valid {
+        color: var(--color-success);
+    }
+
+    &.invalid {
+        color: var(--color-danger);
+    }
+}
+
+/*************
+ Misc Mixins
+*************/
+
+// Profile Picture
+
+@mixin profile_picture($width: 40px, $height: 40px) {
+    width: $width;
+    height: $height;
+    object-fit: cover;
+    border: 2px solid var(--color-surface);
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px var(--color-border-strong);
+}
+
+// Icons
+
+@mixin icon($color: var(--color-text-subtle), $hover_color: var(--color-text)) {
+    color: $color;
+    transition: color var(--duration-fast) var(--ease);
+
+    @include hover {
+        color: $hover_color;
+        cursor: pointer;
+    }
+}
+
+// Scrollbar
+
+@mixin scrollbar($direction: "vertical") {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border-strong) transparent;
+
+    // Vertical Scrollbar
+    @if $direction == "vertical" {
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+            width: 8px;
+        }
+    }
+
+    // Horizontal Scrollbar
+    @else if $direction == "horizontal" {
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        &::-webkit-scrollbar {
+            height: 8px;
+        }
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--color-border-strong);
+        border-radius: var(--radius-pill);
+
+        &:hover {
+            background-color: var(--color-text-subtle);
+        }
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+}
+
 // Focus
 
 @mixin focus {
     &:focus-visible {
-        outline: 2px solid $red-color !important;
+        outline: 2px solid var(--color-primary) !important;
         outline-offset: 2px !important;
     }
 }

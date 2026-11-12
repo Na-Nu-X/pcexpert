@@ -274,7 +274,9 @@
     <link rel="stylesheet" href="/src/css/styles.css">
     <link rel="stylesheet" href="/src/css/forms.css">
     
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins"> <!-- Poppins Font Style -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"> <!-- Inter & Plus Jakarta Sans Font Styles -->
 
     <script src="https://kit.fontawesome.com/069c0938a1.js" crossorigin="anonymous"></script> <!-- Icons -->
 
@@ -288,43 +290,17 @@
         <div class="loader"></div>
     </div>
 
-    <header>
-        <?php if(isset($_SESSION["green_report_message"]) and !empty($_SESSION["green_report_message"])): ?>
-            <p class="green_report_message"><?php echo $_SESSION["green_report_message"]; ?></p>
-            <?php $_SESSION["green_report_message"] = ""; ?>
+    <?php require "../assets/partials/flash_messages.php"; ?>
+    <?php require "../assets/partials/cookie_policy.php"; ?>
 
-        <?php endif; ?>
-
-        <?php if(isset($_SESSION["red_report_message"]) and !empty($_SESSION["red_report_message"])): ?>
-            <p class="red_report_message"><?php echo $_SESSION["red_report_message"]; ?></p>
-            <?php $_SESSION["red_report_message"] = ""; ?>
-
-        <?php endif; ?>
-
-        <nav class="navigation_bar">
-            <div class="navigation_container">
-                <button class="hamburger" (click)="toggleMenu()">
-                    <i class="fa-solid" [class.fa-bars]="!is_menu_open" [class.fa-xmark]="is_menu_open"></i> <!-- https://fontawesome.com/icons/bars / https://fontawesome.com/icons/magnifying-glass -->
-                </button>
-            
-                <ul [class.open]="is_menu_open">
-                    <li class="home"><a href="./domov">DOMOV</a></li>
-                </ul>
-            </div>
-        </nav>
-
-        <div class="cookie_policy">
-            <img src="/content/images/cookie.png" alt="Cookie"> <!-- https://www.flaticon.com/free-icon/cookie_1047711 -->
-            <h2>Cookie Policy</h2>
-            <p>Táto&nbsp;stránka&nbsp;používa&nbsp;súbory&nbsp;cookies.</p>
-            <button class="accept_all">ROZUMIEM</button>
-        </div>
+    <header class="site_header">
+        <?php require "../assets/partials/navigation.php"; ?>
     </header>
 
     <main>
         <section class="edit_account">
             <a href="./domov" class="back_icon" title="Späť na domovskú stránku" aria-label="Späť na domovskú stránku">
-                <img src="/content/images/back.png" alt=""> <!-- https://www.flaticon.com/free-icon/back_2099190 -->
+                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Späť <!-- https://fontawesome.com/icons/arrow-left -->
             </a>
             
             <h2><a href="./moj-ucet">Môj&nbsp;účet</a></h2>
@@ -446,7 +422,7 @@
                     <p class="form_report valid"></p>
 
                     <article>
-                        <p class="dialogue_paragraph invalid" style="top: 470px;">
+                        <p class="dialogue_paragraph invalid">
                             <?php if(!empty($message)): ?>
                                 <?php
                                     echo $message; 
@@ -485,7 +461,7 @@
         </section>
     </main>
 
-    <footer class="<?php echo $theme; ?>">
+    <footer>
         <?php require "../assets/footer.php"; ?>
     </footer>
 </body>

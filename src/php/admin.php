@@ -29,6 +29,8 @@
     
     $connection = $database_object->connectionDB(); // Connects To The DB
 
+    $is_admin = isAdmin($connection); // Role Is Verified Against The Database On Every Request
+
     // Theme
 
     $theme = "light"; // Default Theme
@@ -44,6 +46,8 @@
     // Admin Form After Submitting
 
     if($_SERVER["REQUEST_METHOD"] === "POST" and isset($_POST["admin_form_submit"])) {
+        requireAdmin($connection, "Admin Form Submit (Roles / Deletions)"); // Only Administrators Can Perform This Action
+
         if(!isset($_POST["csrf_token"]) || $_POST["csrf_token"] !== $_SESSION["csrf_token"]) {
             errorLogSave($connection, "CSRF Token Verification Failed While Editing In Admin Page.", "../errors/error.log");
             die("CSRF Token nie je platný.");
@@ -67,7 +71,7 @@
 
         // Delete Error
 
-        foreach(getErrorLog($connection, 0, 100) as $one_error) {
+        foreach($admin_object->getErrorLog($connection, 0, 100) as $one_error) {
             if(isset($_POST["delete_error_log_checkbox_" . $one_error["error_id"]]) and $_POST["delete_error_log_checkbox_" . $one_error["error_id"]] === "yes") {
                 $admin_object->deleteErrorLogById($connection, $one_error["error_id"]);
             }
@@ -79,6 +83,8 @@
     // Approve or Reject Reviews
 
     if($_SERVER["REQUEST_METHOD"] === "POST" and isset($_POST["approve_review"])) {
+        requireAdmin($connection, "Approve Review"); // Only Administrators Can Perform This Action
+
         if(!isset($_POST["csrf_token"]) || $_POST["csrf_token"] !== $_SESSION["csrf_token"]) {
             errorLogSave($connection, "CSRF Token Verification Failed While Approving A Review In Admin Page.", "../errors/error.log");
             die("CSRF Token nie je platný.");
@@ -94,6 +100,8 @@
     }
 
     if($_SERVER["REQUEST_METHOD"] === "POST" and isset($_POST["reject_review"])) {
+        requireAdmin($connection, "Reject Review"); // Only Administrators Can Perform This Action
+
         if(!isset($_POST["csrf_token"]) || $_POST["csrf_token"] !== $_SESSION["csrf_token"]) {
             errorLogSave($connection, "CSRF Token Verification Failed While Rejecting A Review In Admin Page.", "../errors/error.log");
             die("CSRF Token nie je platný.");
@@ -121,7 +129,9 @@
     <link rel="stylesheet" href="/src/css/styles.css">
     <link rel="stylesheet" href="/src/css/admin.css">
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins"> <!-- Poppins Font Style -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"> <!-- Inter & Plus Jakarta Sans Font Styles -->
 
     <script src="/src/ts/dist/components/preloader.js" type="module"></script>
     <script src="/src/ts/dist/components/cookie_policy.js" type="module"></script>
@@ -135,350 +145,200 @@
         <div class="loader"></div>
     </div>
 
-    <header>
-        <?php if(isset($_SESSION["green_report_message"]) and !empty($_SESSION["green_report_message"])): ?>
-            <p class="green_report_message"><?php echo $_SESSION["green_report_message"]; ?></p>
-            <?php $_SESSION["green_report_message"] = ""; ?>
+    <?php require "../assets/partials/flash_messages.php"; ?>
+    <?php require "../assets/partials/cookie_policy.php"; ?>
 
-        <?php endif; ?>
-
-        <?php if(isset($_SESSION["red_report_message"]) and !empty($_SESSION["red_report_message"])): ?>
-            <p class="red_report_message"><?php echo $_SESSION["red_report_message"]; ?></p>
-            <?php $_SESSION["red_report_message"] = ""; ?>
-
-        <?php endif; ?>
-
-        <nav class="navigation_bar">
-            <div class="navigation_container">
-                <button class="hamburger" (click)="toggleMenu()">
-                    <i class="fa-solid" [class.fa-bars]="!is_menu_open" [class.fa-xmark]="is_menu_open"></i> <!-- https://fontawesome.com/icons/bars / https://fontawesome.com/icons/magnifying-glass -->
-                </button>
-            
-                <ul [class.open]="is_menu_open">
-                    <li class="home"><a href="../domov">DOMOV</a></li>
-                    <li class="scroll_pending_reviews"><a href="#">Kontrola recenzií</a></li>
-                    <li class="scroll_users"><a href="#">POUŽÍVATELIA</a></li>
-                    <li class="scroll_error_log"><a href="#">PROTOKOLY CHÝB</a></li>
-                </ul>
-            </div>
-        </nav>
-
-        <div class="cookie_policy">
-            <img src="/content/images/cookie.png" alt="Cookie"> <!-- https://www.flaticon.com/free-icon/cookie_1047711 -->
-            <h2>Cookie Policy</h2>
-            <p>Táto&nbsp;stránka&nbsp;používa&nbsp;súbory&nbsp;cookies.</p>
-            <button class="accept_all">ROZUMIEM</button>
-        </div>
+    <header class="site_header">
+        <?php
+            $navigation_links = [
+                ["label" => "Domov", "href" => "/domov"],
+                ["label" => "Recenzie", "href" => "#pending_reviews"],
+                ["label" => "Používatelia", "href" => "#users"],
+                ["label" => "Protokoly chýb", "href" => "#error_log"]
+            ];
+        ?>
+        <?php require "../assets/partials/navigation.php"; ?>
     </header>
 
-    <main class="<?php echo $theme; ?>" style="padding: 10px 20px;">
-        <?php if(isset($_SESSION["logged_in_user_id"]) and $user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "role") === "admin"): ?>
+    <main class="admin_page">
+        <?php if($is_admin): ?>
             <script src="/src/ts/dist/pages/admin/components/admin.js" type="module"></script>
-            
-            <section class="pending_reviews">
-                <h2>Kontrola&nbsp;recenzií</h2>
 
-                <?php if(empty($admin_object->getPendingReviews($connection))): ?>
-                    <p style="text-align: center; margin-bottom: 0px;">Nenašli sa žiadne recenzie na potvrdenie.</p>
+            <?php
+                $pending_reviews = $admin_object->getPendingReviews($connection, 0, 50) ?? [];
+                $pending_reviews_count = $admin_object->countPendingReviews($connection);
+                $all_users = $admin_object->getAllUsers($connection, $user_id) ?? [];
+                $users_count = $admin_object->countUsers($connection, $user_id);
+                $all_errors = $admin_object->getErrorLog($connection) ?? [];
+                $errors_count = $admin_object->countErrors($connection);
+            ?>
 
-                <?php else: ?>
-                    <div class="reviews <?php echo $theme; ?>">
-                        <?php foreach($admin_object->getPendingReviews($connection) as $one_review): ?>
-                            <div class="review">
-                                <?php if($one_review["user_id"] !== null): ?>
-                                    <div class="reviewer">
-                                        <img
-                                            class="profile_picture"
-                                            src="
-                                                <?php if(!empty($user_object->getUserInformation($connection, $one_review['user_id'], 'google_profile_picture_url')) and empty($user_object->getUserInformation($connection, $one_review['user_id'], 'profile_picture_name'))): ?>
-                                                    <?php echo $user_object->getUserInformation($connection, $one_review['user_id'], 'google_profile_picture_url'); ?>
+            <div class="container">
+                <div class="admin_header">
+                    <p class="eyebrow"><i class="fa-solid fa-shield-halved"></i> Administrácia</p> <!-- https://fontawesome.com/icons/shield-halved -->
+                    <h1>Prehľad</h1>
+                    <p>Schvaľujte recenzie, spravujte používateľov a sledujte systémové chyby.</p>
+                </div>
 
-                                                <?php else: ?>
-                                                    /content/uploads/<?php echo $one_review['user_id']; ?>/<?php echo $user_object->getUserInformation($connection, $one_review['user_id'], 'profile_picture_name'); ?>
+                <div class="admin_stats">
+                    <a class="stat_tile" href="#pending_reviews">
+                        <span class="stat_icon warning"><i class="fa-solid fa-star-half-stroke"></i></span> <!-- https://fontawesome.com/icons/star-half-stroke -->
+                        <span class="stat_text">
+                            <span class="stat_label">Recenzie na schválenie</span>
+                            <span class="stat_value"><?php echo $pending_reviews_count; ?></span>
+                        </span>
+                    </a>
 
-                                                <?php endif; ?>
-                                            "
-                                        >
+                    <a class="stat_tile" href="#users">
+                        <span class="stat_icon"><i class="fa-solid fa-users"></i></span> <!-- https://fontawesome.com/icons/users -->
+                        <span class="stat_text">
+                            <span class="stat_label">Používatelia</span>
+                            <span class="stat_value"><?php echo $users_count; ?></span>
+                        </span>
+                    </a>
 
-                                        <div class="user_info">
-                                            <p class="name">
-                                                <?php echo htmlspecialchars($user_object->getUserInformation($connection, $one_review["user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
-                                                <?php echo htmlspecialchars($user_object->getUserInformation($connection, $one_review["user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
-                                            </p>
+                    <a class="stat_tile" href="#error_log">
+                        <span class="stat_icon danger"><i class="fa-solid fa-bug"></i></span> <!-- https://fontawesome.com/icons/bug -->
+                        <span class="stat_text">
+                            <span class="stat_label">Protokoly chýb</span>
+                            <span class="stat_value"><?php echo $errors_count; ?></span>
+                        </span>
+                    </a>
+                </div>
 
-                                            <p class="date">
-                                                -
+                <!-- Pending Reviews -->
 
-                                                <?php echo htmlspecialchars(date("j.n.Y", strtotime($one_review["review_time"])), ENT_QUOTES, "UTF-8"); ?>
+                <section class="panel pending_reviews" id="pending_reviews">
+                    <div class="panel_header">
+                        <div>
+                            <h2>Kontrola recenzií</h2>
+                            <p>Nové recenzie sa na webe zobrazia až po schválení.</p>
+                        </div>
 
-                                                <?php if($one_review["edited"] === "yes"): ?>
-                                                    (upravená)
-
-                                                <?php endif; ?>
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    <div class="stars">
-                                        <?php for($i = 1; $i <= 5; $i++): ?>
-                                            <?php if($i <= $one_review["rating"]): ?>
-                                                <div class="star">
-                                                    <i class="fa-solid fa-star"></i> <!-- https://fontawesome.com/icons/star -->
-                                                </div>
-        
-                                            <?php else: ?>
-                                                <div class="star">
-                                                    <i class="fa-regular fa-star"></i> <!-- https://fontawesome.com/icons/star -->
-                                                </div>
-        
-                                            <?php endif; ?>
-                                            
-                                        <?php endfor; ?>
-                                    </div>
-
-                                    <p><?php echo htmlspecialchars($one_review["review"], ENT_QUOTES, "UTF-8"); ?></p>
-
-                                <?php else: ?>
-                                    <div class="reviewer">
-                                        <img class="profile_picture" src="/content/images/avatar.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_847969 -->
-
-                                        <div class="user_info">
-                                            <p class="name">Anonymný zákazník</p>
-
-                                            <p class="date">
-                                                -
-                                                
-                                                <?php echo htmlspecialchars(date("j.n.Y", strtotime($one_review["review_time"])), ENT_QUOTES, "UTF-8"); ?>
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    <div class="stars">
-                                        <?php for($i = 1; $i <= 5; $i++): ?>
-                                            <?php if($i <= $one_review["rating"]): ?>
-                                                <div class="star">
-                                                    <i class="fa-solid fa-star"></i> <!-- https://fontawesome.com/icons/star -->
-                                                </div>
-        
-                                            <?php else: ?>
-                                                <div class="star">
-                                                    <i class="fa-REGULAR fa-star"></i> <!-- https://fontawesome.com/icons/star -->
-                                                </div>
-        
-                                            <?php endif; ?>
-                                            
-                                        <?php endfor; ?>
-                                    </div>
-
-                                    <p><?php echo htmlspecialchars($one_review["review"], ENT_QUOTES, "UTF-8"); ?></p>
-
-                                <?php endif; ?>
-                            </div>
-
-                            <form class="review_confirmation" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-                                <input type="hidden" name="review_id" value="<?php echo $one_review['review_id']; ?>">
-
-                                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-
-                                <button class="approve_review <?php echo $theme; ?>" type="submit" name="approve_review">Potvrdiť</button>
-                                <button class="reject_review <?php echo $theme; ?>" type="submit" name="reject_review">Zahodiť</button>
-                            </form>
-
-                        <?php endforeach; ?>
+                        <span class="badge <?php echo $pending_reviews_count > 0 ? "warning" : "neutral"; ?>"><?php echo $pending_reviews_count; ?></span>
                     </div>
 
-                    <?php if($admin_object->countPendingReviews($connection) > 5): ?>
-                        <button class="show_more show_more_reviews" type="button" title="Zobraziť viac">Zobraziť viac</button>
-                        <button class="show_less show_less_reviews hidden" type="button" title="Zobraziť menej">Zobraziť menej</button>
-    
-                    <?php endif; ?>
-                <?php endif; ?>
-            </section>
-
-            <form class="admin_form <?php echo $theme; ?>" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-                <section class="users">
-                    <h2>Používatelia</h2>
-
-                    <?php if(empty($admin_object->getAllUsers($connection, $_SESSION["logged_in_user_id"]))): ?>
-                        <p style="text-align: center; margin-bottom: 0px;">Nenašli sa žiadny zaregistrovaný používatelia.</p>
+                    <?php if(empty($pending_reviews)): ?>
+                        <div class="empty_state">
+                            <span class="empty_state_icon"><i class="fa-solid fa-circle-check"></i></span> <!-- https://fontawesome.com/icons/circle-check -->
+                            <p>Všetky recenzie sú vybavené.</p>
+                        </div>
 
                     <?php else: ?>
-                        <div class="all_users" data-logged_in_user_id="<?php echo json_encode($user_id); ?>">
-                            <?php foreach($admin_object->getAllUsers($connection, $_SESSION["logged_in_user_id"]) as $one_user):  ?>
-                                <div class="user <?php echo $theme; ?>" data-role="<?php echo htmlspecialchars($one_user["role"], ENT_QUOTES, "UTF-8"); ?>">
-                                    <div class="basic_info">
-                                        <?php if(!empty($one_user["profile_picture_name"]) or !empty($one_user["google_profile_picture_url"])): ?>
-                                            <img
-                                                class="profile_picture"
-                                                src="
-                                                    <?php if(!empty($one_user['google_profile_picture_url']) and empty($one_user['profile_picture_name'])): ?>
-                                                        <?php echo $one_user['google_profile_picture_url']; ?>
-
-                                                    <?php else: ?>
-                                                        /content/uploads/<?php echo htmlspecialchars($one_user['id'], ENT_QUOTES, 'UTF-8'); ?>/<?php echo htmlspecialchars($one_user['profile_picture_name'], ENT_QUOTES, 'UTF-8'); ?>
-
-                                                    <?php endif; ?>
-                                                "
-                                            >
-
-                                        <?php else: ?>
-                                            <img class="profile_picture" src="/content/images/avatar.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_847969 -->
-
-                                        <?php endif; ?>
-
-                                        <?php if(!empty($one_user["google_id"])): ?>
-                                            <img class="google_profile_picture_frame" src="/content/images/google.png" alt="Google"> <!-- https://www.flaticon.com/free-icon/search_281764 -->
-
-                                        <?php endif; ?>
-
-                                        <div class="user_info">
-                                            <p class="name">
-                                                <?php echo htmlspecialchars($one_user["first_name"], ENT_QUOTES, "UTF-8"); ?>
-                                                <?php echo htmlspecialchars($one_user["last_name"], ENT_QUOTES, "UTF-8"); ?>
-                                            </p>
-
-                                            <span class="user_role"
-                                                <?php if($one_user["role"] === "admin"): ?>
-                                                    style="color: rgb(250, 50, 50);"
-
-                                                <?php endif; ?>
-
-                                                title="Zmeniť oprávnenia"
-                                            >
-                                                
-                                                <span class="user_role_value">
-                                                    <?php echo "- " . htmlspecialchars($one_user["role"], ENT_QUOTES, "UTF-8"); ?>
-                                                </span>
-                                                
-                                                <label for="user_role_checkbox_<?php echo htmlspecialchars($one_user["id"], ENT_QUOTES, "UTF-8"); ?>">
-                                                    <i style="color: rgb(150, 150, 150);" class="fa-solid fa-pen user_role_icon"></i> <!-- https://fontawesome.com/icons/pen?f=classic&s=solid -->
-                                                </label>
-
-                                                <input 
-                                                    class="user_role_checkbox"
-                                                    type="checkbox"
-                                                    name="user_role_checkbox_<?php echo htmlspecialchars($one_user["id"], ENT_QUOTES, "UTF-8"); ?>"
-                                                    id="user_role_checkbox_<?php echo htmlspecialchars($one_user["id"], ENT_QUOTES, "UTF-8"); ?>"
-                                                    value="user"
-                                                >
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                    <div class="other_info">
-                                        <div>
-                                            <h3>Kontaktné údaje</h3>
-
-                                            <p><strong>E-mail: </strong><?php echo htmlspecialchars($one_user["email_address"], ENT_QUOTES, "UTF-8"); ?></p>
-
-                                            <p><strong>Telefónne číslo: </strong>
-                                                <?php if(!empty($one_user["phone_number"])): ?>
-                                                    <?php echo htmlspecialchars($one_user["phone_number"], ENT_QUOTES, "UTF-8"); ?>
-
-                                                <?php else: ?>
-                                                    <?php echo "žiadne" ?>
-
-                                                <?php endif; ?>
-                                            </p>
-                                        </div>
-
-                                        <div>
-                                            <h3>Ostatné údaje</h3>
-
-                                            <p><strong>ID používateľa: </strong><?php echo htmlspecialchars($one_user["id"], ENT_QUOTES, "UTF-8"); ?></p>
-
-                                            <p><strong>Vytvorenie účtu: </strong><?php echo htmlspecialchars(date("j.n.Y", strtotime($one_user["creation_time"])), ENT_QUOTES, "UTF-8"); ?></p>
-                                        </div>
-                                    </div>
-                                    
-                                    <p class="form_report valid"></p>
-
-                                    <div class="delete_user_container">
-                                        <p>Chcete nenávratne odstrániť tento účet?</p>
-                                        
-                                        <label for="delete_user_checkbox_<?php echo htmlspecialchars($one_user['id'], ENT_QUOTES, 'UTF-8'); ?>">
-                                            <img class="delete_user" title="Odstrániť účet" src="/content/images/delete_account.png" alt="Odstrániť účet"> <!-- https://www.flaticon.com/free-icon/delete_11502978 -->
-                                        </label>
-
-                                        <input 
-                                            class="delete_user_checkbox"
-                                            type="checkbox"
-                                            name="delete_user_checkbox_<?php echo htmlspecialchars($one_user['id'], ENT_QUOTES, 'UTF-8'); ?>"
-                                            id="delete_user_checkbox_<?php echo htmlspecialchars($one_user['id'], ENT_QUOTES, 'UTF-8'); ?>"
-                                            value="yes"
-                                        >
-                                    </div>
-                                </div>
+                        <div class="review_grid">
+                            <?php foreach($pending_reviews as $one_review): ?>
+                                <?php require "../assets/partials/admin_review_card.php"; ?>
 
                             <?php endforeach; ?>
                         </div>
 
-                        <?php if($admin_object->countUsers($connection, $user_id) > 5): ?>
-                            <button class="show_more show_more_users" type="button" title="Zobraziť viac">Zobraziť viac</button>
-                            <button class="show_less show_less_users hidden" type="button" title="Zobraziť menej">Zobraziť menej</button>
-    
-                        <?php endif; ?>
                     <?php endif; ?>
                 </section>
 
-                <section class="error_log">
-                    <h2>Protokoly&nbsp;chýb</h2>
-                    
-                    <?php if(empty($admin_object->getErrorLog($connection))): ?>
-                        <p style="text-align: center; margin-bottom: 10px;">Nenašli sa žiadne chybné záznamy.</p>
+                <form class="admin_form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"], ENT_QUOTES, "UTF-8"); ?>" method="POST" data-admin-form>
+                    <!-- Users -->
 
-                    <?php else: ?>
-                        <div class="all_errors">
-                            <?php foreach($admin_object->getErrorLog($connection) as $one_error): ?>
-                                <div class="error" data-error_id="<?php echo htmlspecialchars($one_error['error_id'], ENT_QUOTES, 'UTF-8'); ?>">
-                                    <p>
-                                        <strong>[<?php echo htmlspecialchars($one_error["error_time"], ENT_QUOTES, "UTF-8"); ?>]</strong> - 
-                                        <?php echo htmlspecialchars($one_error["message"], ENT_QUOTES, "UTF-8"); ?>
-                                    </p>
+                    <section class="panel users" id="users">
+                        <div class="panel_header">
+                            <div>
+                                <h2>Používatelia</h2>
+                                <p>Zmeňte rolu alebo označte účty na odstránenie a zmeny uložte.</p>
+                            </div>
 
-                                    <div class="error_details"></div>
-
-                                    <button class="show_error_details" type="button" title="Podrobnosti">Podrobnosti</button>
-                                    <button class="hide_error_details hidden" type="button" title="Skryť">Skryť</button>
-
-                                    <label class="delete_error_log" for="delete_error_log_checkbox_<?php echo htmlspecialchars($one_error['error_id'], ENT_QUOTES, 'UTF-8'); ?>">Vymazať</label>
-                                    <label class="cancel_delete_error_log" for="delete_error_log_checkbox_<?php echo htmlspecialchars($one_error['error_id'], ENT_QUOTES, 'UTF-8'); ?>">Zrušiť</label>
-
-                                    <input 
-                                        class="delete_error_log_checkbox"
-                                        type="checkbox"
-                                        name="delete_error_log_checkbox_<?php echo htmlspecialchars($one_error['error_id'], ENT_QUOTES, 'UTF-8'); ?>"
-                                        id="delete_error_log_checkbox_<?php echo htmlspecialchars($one_error['error_id'], ENT_QUOTES, 'UTF-8'); ?>"
-                                        value="yes"
-                                    >
-                                </div>
-
-                            <?php endforeach; ?>
+                            <span class="badge neutral"><?php echo $users_count; ?></span>
                         </div>
 
-                        <?php if($admin_object->countErrors($connection) > 5): ?>
-                            <button style="margin-bottom: 10px;" class="show_more show_more_errors" type="button" title="Zobraziť viac">Zobraziť viac</button>
-                            <button style="margin-bottom: 10px;" class="show_less show_less_errors hidden" type="button" title="Zobraziť menej">Zobraziť menej</button>
+                        <?php if(empty($all_users)): ?>
+                            <div class="empty_state">
+                                <span class="empty_state_icon"><i class="fa-solid fa-user-plus"></i></span> <!-- https://fontawesome.com/icons/user-plus -->
+                                <p>Zatiaľ sa nezaregistroval žiadny ďalší používateľ.</p>
+                            </div>
 
+                        <?php else: ?>
+                            <div class="data_table users_table">
+                                <div class="data_table_head" aria-hidden="true">
+                                    <span>Používateľ</span>
+                                    <span>Kontakt</span>
+                                    <span>Registrovaný</span>
+                                    <span>Rola</span>
+                                    <span></span>
+                                </div>
+
+                                <div class="all_users" data-logged_in_user_id="<?php echo json_encode($user_id); ?>" data-list>
+                                    <?php foreach($all_users as $one_user): ?>
+                                        <?php require "../assets/partials/admin_user_row.php"; ?>
+
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+
+                            <?php if($users_count > count($all_users)): ?>
+                                <button class="btn btn_secondary btn_sm load_more" type="button" data-load-more="all_users.php" data-total="<?php echo $users_count; ?>"><i class="fa-solid fa-chevron-down"></i> Načítať ďalších</button>
+
+                            <?php endif; ?>
                         <?php endif; ?>
-                    <?php endif; ?>
-                </section>
+                    </section>
 
-                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+                    <!-- Error Log -->
 
-                <button class="admin_form_submit" type="submit" name="admin_form_submit">Uložiť</button>
-            </form>
+                    <section class="panel error_log" id="error_log">
+                        <div class="panel_header">
+                            <div>
+                                <h2>Protokoly chýb</h2>
+                                <p>Záznamy o chybách zachytených na webe, od najnovších.</p>
+                            </div>
+
+                            <span class="badge <?php echo $errors_count > 0 ? "danger" : "neutral"; ?>"><?php echo $errors_count; ?></span>
+                        </div>
+
+                        <?php if(empty($all_errors)): ?>
+                            <div class="empty_state">
+                                <span class="empty_state_icon"><i class="fa-solid fa-circle-check"></i></span> <!-- https://fontawesome.com/icons/circle-check -->
+                                <p>Nenašli sa žiadne chybové záznamy.</p>
+                            </div>
+
+                        <?php else: ?>
+                            <div class="data_table">
+                                <div class="all_errors" data-list>
+                                    <?php foreach($all_errors as $one_error): ?>
+                                        <?php require "../assets/partials/admin_error_row.php"; ?>
+
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+
+                            <?php if($errors_count > count($all_errors)): ?>
+                                <button class="btn btn_secondary btn_sm load_more" type="button" data-load-more="all_errors.php" data-total="<?php echo $errors_count; ?>"><i class="fa-solid fa-chevron-down"></i> Načítať ďalšie</button>
+
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    </section>
+
+                    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION["csrf_token"]; ?>">
+
+                    <!-- Save Bar -->
+
+                    <div class="admin_savebar">
+                        <p data-pending-changes>Žiadne neuložené zmeny</p>
+                        <button class="btn admin_form_submit" type="submit" name="admin_form_submit" disabled data-admin-save><i class="fa-solid fa-floppy-disk"></i> Uložiť zmeny</button> <!-- https://fontawesome.com/icons/floppy-disk -->
+                    </div>
+                </form>
+            </div>
 
         <?php else: ?>
-            <div class="no_admin">
-                <p style="margin-bottom: 0px;">K obsahu tejto stránky nemáte povolený prístup.</p>
-                <a href="./domov" title="Domov" target="_self">Späť na úvodnú stránku.</a>
+            <div class="container narrow">
+                <div class="empty_state no_admin">
+                    <span class="empty_state_icon danger"><i class="fa-solid fa-lock"></i></span> <!-- https://fontawesome.com/icons/lock -->
+                    <h1>Prístup zamietnutý</h1>
+                    <p>K obsahu tejto stránky nemáte povolený prístup.</p>
+                    <a class="btn" href="/domov"><i class="fa-solid fa-arrow-left"></i> Späť na úvodnú stránku</a>
+                </div>
             </div>
 
         <?php endif; ?>
     </main>
 
-    <footer class="<?php echo $theme; ?>">
+    <footer>
         <?php require "../assets/footer.php"; ?>
     </footer>
 </body>
