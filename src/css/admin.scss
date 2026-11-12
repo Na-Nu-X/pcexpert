@@ -1,408 +1,609 @@
 @import "partials/variables";
 @import "partials/mixins";
 
-/**************
- Header Styles
-**************/
+/*****************
+ Admin Page
+*****************/
 
-// Header
+.admin_page {
+    padding-block: var(--space-10) var(--space-8);
 
-header {
-    height: auto;
-    margin-bottom: 0px;
-    background: none;
-    border: none;
-    box-shadow: none;
+    .container {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-8);
+    }
 }
 
-/************
- Main Styles
-************/
+// Page Header
 
-main {
-    margin-top: 82px + 25px;
-    min-height: 100vh;
+.admin_header {
+    .eyebrow {
+        @include eyebrow;
+        margin-bottom: var(--space-2);
+    }
 
-    &.dark {
-        .no_admin {
-            a:link,
-            a:visited {
-                color: $secondary-color;
-            }
+    h1 {
+        @include heading(var(--text-3xl));
+    }
+
+    p:last-child {
+        margin-top: var(--space-2);
+    }
+}
+
+// Stat Tiles
+
+.admin_stats {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+
+    @include up("sm") {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.stat_tile {
+    @include card(var(--space-5));
+    @include card_interactive;
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    text-decoration: none;
+
+    .stat_icon {
+        @include flex_center;
+        flex-shrink: 0;
+        width: 48px;
+        height: 48px;
+        font-size: var(--text-lg);
+        color: var(--color-primary);
+        background-color: var(--color-primary-soft);
+        border-radius: var(--radius-md);
+
+        &.warning {
+            color: var(--color-warning);
+            background-color: var(--color-warning-soft);
+        }
+
+        &.danger {
+            color: var(--color-danger);
+            background-color: var(--color-danger-soft);
         }
     }
 
-    .pending_reviews,
-    .users,
-    .error_log {
-        .reviews,
-        .all_users,
-        .all_errors {
-            .review,
-            .user {
-                width: 70%;
-                margin: 0px auto 10px;
-                padding: 10px;
-                background-color: darken($secondary-color, 5%);
-                border: 1px solid $main-color;
-                border-radius: $small-border-radius;
-                cursor: pointer;
-                transition: background-color 0.3s ease, width 0.3s ease;
-            }
-        }
-
-        .show_more,
-        .show_less {
-            display: inline-block;
-            width: 100%;
-            margin-top: 5px;
-            font-size: 0.9em;
-            font-style: italic;
-            color: darken($secondary-color, 20%);
-            border: none;
-            background: none;
-    
-            &:hover {
-                text-decoration: underline;
-                cursor: pointer;
-            }
-
-            &.hidden {
-                display: none;
-            }
-        }
+    .stat_text {
+        display: flex;
+        flex-direction: column;
     }
 
-    .pending_reviews {
-        .reviews {
-            .review {
-                &:last-of-type {
-                    margin-bottom: 0px;
-                }
-    
-                .reviewer {
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                    margin-bottom: 10px;
-    
-                    .user_info {
-                        display: flex;
-                        gap: 5px;
-                        flex-wrap: wrap;
-    
-                        .date {
-                            font-style: italic;
-                            color: darken($secondary-color, 20%);
-                        }
-                    }
-                }
-    
-                p {
-                    margin-bottom: 0px;
-                }
-
-                .stars {
-                    display: flex;
-                    gap: 5px;
-                    margin-bottom: 10px;
-    
-                    .star {
-                        color: #FFEC00;
-                        font-size: 1.5em;
-    
-                        .fa-star {
-                            display: block;
-                        }
-                    }
-                }
-            }
-
-            &.light {
-                .review {
-                    &:hover {
-                        background-color: $secondary-color;
-                    }
-                }
-            
-                textarea {
-                    border: 1px solid $main-color;
-                }
-            }
-        
-            &.dark {
-                .review {
-                    background-color: lighten($main-color, 10%);
-                    border: 2px solid $secondary-color;
-        
-                    &:hover {
-                        background-color: lighten($main-color, 5%);
-                    }
-                }
-        
-                textarea {
-                    color: $secondary-color;
-                    background-color: lighten($main-color, 5%);
-                    border: 2px solid $secondary-color;
-                }
-            }
-    
-            .review_confirmation {
-                text-align: center;
-    
-                .approve_review,
-                .reject_review {
-                    width: 200px;
-                    height: 50px;
-                    margin: 10px 20px;
-                    border-radius: $big-border-radius;
-                    transition: letter-spacing 0.3s ease, background-color 0.3s ease;
-    
-                    &:hover {
-                        letter-spacing: 1px;
-                        cursor: pointer;
-                    }
-    
-                    &.light {
-                        border: 1px solid $main-color;
-                    }
-    
-                    &.dark {
-                        color: $secondary-color;
-                        border: 1px solid $secondary-color;
-                    }
-                }
-
-                .approve_review {
-                    background-color: $green-color;
-                    
-                    &:hover {
-                        background-color: lighten($green-color, 5%);
-                    }
-                }
-    
-                .reject_review {
-                    background-color: $red-color;
-                    
-                    &:hover {
-                        background-color: lighten($red-color, 5%);
-                    }
-                }
-            }
-        }
-    }
-    
-    .users {
-        .all_users {
-            .user {
-                position: relative;
-               
-    
-                &.light {
-                    &:hover {
-                        background-color: $secondary-color;
-                    }
-                }
-    
-                &.dark {
-                    background-color: lighten($main-color, 10%);
-                    border: 2px solid $secondary-color;
-    
-                    &:hover {
-                        background-color: lighten($main-color, 5%);
-                    }
-                }
-    
-                .basic_info {
-                    position: relative;
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                    z-index: 0;
-    
-                    .user_info {
-                        .user_role {
-                            font-style: italic;
-                            color: darken($secondary-color, 20%);
-    
-                            .user_role_checkbox {
-                                display: none;
-                            }
-                        }
-                    }
-                }
-    
-                .other_info {
-                    display: flex;
-                    justify-content: space-between;
-    
-                    div {
-                        h3 {
-                            text-align: center;
-                        }
-    
-                        p {
-                            text-align: center;
-                        }
-                    }
-                }
-    
-                .form_report {
-                    @include form_report;
-                }
-    
-                .delete_user_container {
-                    margin-top: 30px;
-                    text-align: center;
-    
-                    p {
-                        text-align: center;
-                        font-size: 0.9em;
-                    }
-    
-                    .delete_user {
-                        opacity: 0.8;
-                        transition: transform 0.3s ease, opacity 0.3s ease;
-    
-                        &:hover {
-                            transform: scale(1.1);
-                            cursor: pointer;
-                        }
-                    }
-    
-                    .delete_user_checkbox {
-                        display: none;
-                    }
-                }
-    
-                p {
-                    margin: 0px;
-                }
-            }
-        }
-    }
-    
-    .error_log {
-        .all_errors {
-            .error {
-                p {
-                    margin-bottom: 0px;
-                }
-    
-                .show_error_details, 
-                .hide_error_details, 
-                .delete_error_log, 
-                .cancel_delete_error_log {
-                    display: inline-block;
-                    width: auto;
-                    margin: 0px 10px 10px 0px;
-                    font-size: 0.9em;
-                    font-style: italic;
-                    color: darken($secondary-color, 20%);
-                    border: none;
-                    background: none;
-    
-                    &:hover {
-                        text-decoration: underline;
-                        cursor: pointer;
-                    }
-                }
-
-                .show_error_details, 
-                .hide_error_details, 
-                .delete_error_log {
-                    &.hidden {
-                        display: none;
-                    }
-                }
-    
-                .cancel_delete_error_log,
-                .delete_error_log_checkbox {
-                    display: none;
-                }
-            }
-        }
+    .stat_label {
+        font-size: var(--text-sm);
+        color: var(--color-text-muted);
     }
 
-    .admin_form,
-    .admin_form.light {
-        .admin_form_submit {
-            display: block;
-            width: 70%;
-            height: 50px;
-            margin: 0px auto 10px;
-            padding: 10px;
-            background-color: darken($secondary-color, 10%);
-            outline: none;
-            border: 1px solid $main-color;
-            border-radius: $small-border-radius;
-            transition: width 0.3s ease, letter-spacing 0.3s ease, background-color 0.3s ease;
+    .stat_value {
+        font-family: var(--font-heading);
+        font-size: var(--text-2xl);
+        font-weight: 800;
+        line-height: 1.2;
+        color: var(--color-text);
+    }
+}
 
-            &:hover {
-                width: 80%;
-                letter-spacing: 1px;
-                background-color: darken($secondary-color, 5%);
-            }
-        }
+// Panel
 
-        &.dark {
-            .admin_form_submit {
-                color: $secondary-color;
-                background-color: lighten($main-color, 5%);
-                border: 2px solid $secondary-color;
+.panel {
+    @include card(0, var(--radius-xl));
+    scroll-margin-top: calc(var(--navigation-height) + var(--space-4));
+    overflow: hidden;
 
-                &:hover {
-                    background-color: lighten($main-color, 10%);
-                }
-            }
-        }
+    & + & {
+        margin-top: var(--space-8);
     }
 
-    .no_admin {
-        text-align: center;
+    .panel_header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: var(--space-4);
+        padding: var(--space-5) var(--space-6);
+        border-bottom: 1px solid var(--color-border);
+
+        h2 {
+            font-size: var(--text-xl);
+        }
 
         p {
-            text-align: center;
+            margin-top: 2px;
+            font-size: var(--text-sm);
         }
+    }
 
-        a:link,
-        a:visited {
-            color: $main-color;
-            text-decoration: none;
-            font-style: italic;
-        }
+    .load_more {
+        display: flex;
+        margin: var(--space-4) auto var(--space-5);
 
-        a:hover,
-        a:active {
-            text-decoration: underline;
+        &.loading i {
+            animation: loader_spin 0.8s linear infinite;
         }
     }
 }
 
-/**************
- Media Queries
-**************/
+// Empty State
 
-@media only screen and (max-width: 600px) {
-    .pending_reviews {
-        .reviews {
-            .review_confirmation {
-                .approve_review, 
-                .reject_review {
-                    width: 180px !important;
-                    margin: 10px 5px !important;
-                }
-            }
+.empty_state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-12) var(--space-6);
+    text-align: center;
+
+    .empty_state_icon {
+        @include flex_center;
+        width: 56px;
+        height: 56px;
+        font-size: var(--text-xl);
+        color: var(--color-success);
+        background-color: var(--color-success-soft);
+        border-radius: 50%;
+
+        &.danger {
+            color: var(--color-danger);
+            background-color: var(--color-danger-soft);
         }
     }
 
-    .users {
-        .all_users {
-            .user {
-                .user .form_report {
-                    top: 205px;
-                }
-            }
+    &.no_admin {
+        @include card(var(--space-12) var(--space-6), var(--radius-xl));
+        margin-block: var(--space-10);
+
+        h1 {
+            font-size: var(--text-2xl);
+        }
+
+        .btn {
+            margin-top: var(--space-3);
+        }
+    }
+}
+
+// Shared Text Helpers
+
+.cell_text {
+    min-width: 0;
+}
+
+.primary_text {
+    @include crop_text;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-text);
+
+    a {
+        color: inherit;
+        text-decoration: none;
+
+        @include hover {
+            color: var(--color-primary);
+        }
+    }
+}
+
+.secondary_text {
+    @include crop_text;
+    font-size: var(--text-xs);
+    color: var(--color-text-subtle);
+
+    &.mono {
+        font-family: var(--font-mono);
+    }
+}
+
+/*****************
+ Pending Reviews
+*****************/
+
+.review_grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    padding: var(--space-6);
+
+    @include up("md") {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.review_card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding: var(--space-5);
+    background-color: var(--color-surface-muted);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+
+    .review_card_header {
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+
+        .profile_picture {
+            @include profile_picture(40px, 40px);
+            flex-shrink: 0;
+        }
+
+        .cell_text {
+            flex: 1;
+        }
+    }
+
+    .stars {
+        display: inline-flex;
+        gap: 2px;
+        flex-shrink: 0;
+        font-size: var(--text-xs);
+        color: var(--color-star);
+    }
+
+    .review_text {
+        flex: 1;
+        font-size: var(--text-sm);
+        line-height: 1.65;
+        color: var(--color-text);
+        word-break: break-word;
+    }
+
+    .review_confirmation {
+        display: flex;
+        justify-content: flex-end;
+        gap: var(--space-2);
+    }
+}
+
+/*****************
+ Data Table
+*****************/
+
+.data_table {
+    width: 100%;
+}
+
+.users_table {
+    --user-columns: minmax(200px, 1.6fr) minmax(200px, 1.6fr) 120px 170px 120px;
+}
+
+.data_table_head {
+    display: none;
+    grid-template-columns: var(--user-columns);
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-6);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-subtle);
+    background-color: var(--color-surface-muted);
+    border-bottom: 1px solid var(--color-border);
+
+    @include up("lg") {
+        display: grid;
+    }
+}
+
+.data_row {
+    position: relative;
+    padding: var(--space-4) var(--space-6);
+    border-bottom: 1px solid var(--color-border);
+    transition: background-color var(--duration-fast) var(--ease);
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    @include hover {
+        background-color: var(--color-surface-muted);
+    }
+
+    // Unsaved Change Indicator
+    &.changed::before,
+    &.marked_delete::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 3px;
+        background-color: var(--color-primary);
+    }
+
+    &.marked_delete {
+        background-color: var(--color-danger-soft);
+
+        &::before {
+            background-color: var(--color-danger);
+        }
+
+        .primary_text {
+            text-decoration: line-through;
+            text-decoration-color: var(--color-danger);
+        }
+    }
+}
+
+// User Row
+
+.user_row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+        "user actions"
+        "contact contact"
+        "date role";
+    align-items: center;
+    gap: var(--space-3) var(--space-4);
+
+    @include up("lg") {
+        grid-template-columns: var(--user-columns);
+        grid-template-areas: "user contact date role actions";
+    }
+
+    .cell_user {
+        grid-area: user;
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+        min-width: 0;
+    }
+
+    .cell_contact {
+        grid-area: contact;
+        min-width: 0;
+    }
+
+    .cell_date {
+        grid-area: date;
+    }
+
+    .cell_role {
+        grid-area: role;
+    }
+
+    .cell_actions {
+        grid-area: actions;
+        justify-self: end;
+    }
+
+    // Small Labels Only On Mobile (Desktop Uses The Table Head)
+    .cell_label {
+        display: block;
+        font-size: var(--text-xs);
+        font-weight: 600;
+        color: var(--color-text-subtle);
+
+        @include up("lg") {
+            @include visually_hidden;
+        }
+    }
+
+    .avatar {
+        position: relative;
+        flex-shrink: 0;
+
+        .profile_picture {
+            @include profile_picture(40px, 40px);
+        }
+
+        .avatar_badge {
+            position: absolute;
+            right: -2px;
+            bottom: -2px;
+            width: 16px;
+            height: 16px;
+            padding: 1px;
+            background-color: var(--color-surface);
+            border-radius: 50%;
+        }
+    }
+
+    &[data-role="admin"] .cell_user .primary_text::after {
+        content: "Admin";
+        margin-left: var(--space-2);
+        padding: 1px var(--space-2);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--color-danger);
+        background-color: var(--color-danger-soft);
+        border-radius: var(--radius-pill);
+        vertical-align: middle;
+    }
+}
+
+.role_select {
+    @include form_input;
+    min-height: 38px;
+    padding: var(--space-1) var(--space-8) var(--space-1) var(--space-3);
+    font-size: var(--text-sm);
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, var(--color-text-subtle) 50%), linear-gradient(135deg, var(--color-text-subtle) 50%, transparent 50%);
+    background-position: calc(100% - 16px) 50%, calc(100% - 11px) 50%;
+    background-size: 5px 5px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+// Delete Toggle (Checkbox Styled As A Button)
+
+.delete_toggle {
+    @include button(danger, sm);
+    position: relative;
+
+    input {
+        @include visually_hidden;
+    }
+
+    .when_on {
+        display: none;
+    }
+
+    &:has(input:checked) {
+        color: var(--color-text-inverse);
+        background-color: var(--color-danger);
+
+        .when_on {
+            display: inline;
+        }
+
+        .when_off {
+            display: none;
+        }
+    }
+
+    &:has(input:focus-visible) {
+        box-shadow: 0 0 0 3px var(--color-focus-ring);
+    }
+}
+
+// Error Row
+
+.error_row {
+    .error_summary {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        gap: var(--space-3) var(--space-4);
+
+        @include up("md") {
+            grid-template-columns: auto 1fr auto;
+        }
+    }
+
+    .error_icon {
+        @include flex_center;
+        width: 36px;
+        height: 36px;
+        color: var(--color-danger);
+        background-color: var(--color-danger-soft);
+        border-radius: var(--radius-md);
+    }
+
+    .primary_text {
+        white-space: normal;
+    }
+
+    .error_actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: var(--space-2);
+        grid-column: 1 / -1;
+
+        @include up("md") {
+            grid-column: auto;
+        }
+
+        [data-error-details-toggle] i {
+            transition: transform var(--duration-fast) var(--ease);
+        }
+
+        [aria-expanded="true"] i {
+            transform: rotate(180deg);
+        }
+
+        .loading i {
+            animation: loader_spin 0.8s linear infinite;
+        }
+    }
+
+    .error_details {
+        margin-top: var(--space-4);
+        padding: var(--space-4);
+        background-color: var(--color-surface-muted);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+    }
+}
+
+.details_list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3) var(--space-6);
+
+    @include up("md") {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .full {
+        grid-column: 1 / -1;
+    }
+
+    dt {
+        font-size: var(--text-xs);
+        font-weight: 600;
+        color: var(--color-text-subtle);
+    }
+
+    dd {
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        color: var(--color-text);
+        word-break: break-all;
+    }
+
+    pre {
+        @include scrollbar("horizontal");
+        margin-top: var(--space-1);
+        padding: var(--space-3);
+        white-space: pre;
+        background-color: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-sm);
+    }
+}
+
+/*****************
+ Save Bar
+*****************/
+
+.admin_savebar {
+    position: sticky;
+    bottom: var(--space-4);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+    padding: var(--space-3) var(--space-3) var(--space-3) var(--space-5);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    box-shadow: var(--shadow-lg);
+    z-index: 10;
+
+    p {
+        font-size: var(--text-sm);
+        font-weight: 500;
+    }
+
+    .has_changes & {
+        border-color: var(--color-primary);
+
+        p {
+            color: var(--color-primary);
+        }
+    }
+
+    @include down("sm") {
+        border-radius: var(--radius-lg);
+
+        .btn {
+            width: 100%;
         }
     }
 }

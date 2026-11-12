@@ -1,262 +1,154 @@
 "use strict"
 
+const PAGE_SIZE:number = 5 // Must Match The Default Limit In Admin::getAllUsers() / Admin::getErrorLog()
+
+// Function For Send A POST Request And Return The HTML Fragment
+async function postFragment(endpoint:string, data:Record<string, string>):Promise<string> {
+    const response:Response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(data).toString()
+    })
+
+    if(!response.ok) throw new Error(`Request to ${endpoint} failed with status ${response.status}.`)
+
+    return response.text()
+}
+
+// Function For Initialize The Load More Button ([data-load-more] Next To A [data-list])
+function initializeLoadMore(button:HTMLButtonElement, extra_data:Record<string, string>, on_load:() => void):void {
+    const endpoint:string = button.dataset["loadMore"] ?? "" // Gets The Fragment Endpoint
+    const total:number = Number(button.dataset["total"] ?? 0) // Gets The Total Count
+    const list:HTMLElement|null = button.closest(".panel")?.querySelector<HTMLElement>("[data-list]") ?? null // Gets The List
+
+    if(!endpoint || !list) return
+
+    // Load More Button Click Functionality
+    button.addEventListener("click", async function():Promise<void> {
+        const offset:number = list.querySelectorAll(":scope > .data_row").length // Already Loaded Rows
+
+        button.disabled = true
+        button.classList.add("loading")
+
+        try {
+            const html:string = await postFragment(endpoint, { ...extra_data, offset: String(offset) })
+
+            list.insertAdjacentHTML("beforeend", html) // Appends The Next Page
+            on_load()
+
+            const loaded:number = list.querySelectorAll(":scope > .data_row").length // Rows After Loading
+            button.hidden = loaded >= total || loaded - offset < PAGE_SIZE // Hides The Button When Everything Is Loaded
+        }
+
+        catch(error) {
+            console.error(error)
+        }
+
+        finally {
+            button.disabled = false
+            button.classList.remove("loading")
+        }
+    })
+}
+
 document.addEventListener("DOMContentLoaded", function():void {
-    // User Role
+    // Administration
 
     // Variables
 
-    const admin_form:HTMLFormElement = document.querySelector(".admin_form") as HTMLFormElement // Gets The Admin Form
-    const users:HTMLElement = admin_form.querySelector(".users") as HTMLElement // Gets The Users Section
-    const all_users:HTMLDivElement|null = users.querySelector(".all_users") as HTMLDivElement || null // Gets The All Users Container If Is Available
+    const admin_form:HTMLFormElement|null = document.querySelector<HTMLFormElement>("[data-admin-form]") // Gets The Admin Form
+    if(!admin_form) return
 
-    // Global Event Delegations
+    const save_button:HTMLButtonElement|null = admin_form.querySelector<HTMLButtonElement>("[data-admin-save]") // Gets The Save Button
+    const pending_changes:HTMLElement|null = admin_form.querySelector<HTMLElement>("[data-pending-changes]") // Gets The Pending Changes Label
+    const all_users:HTMLElement|null = admin_form.querySelector<HTMLElement>(".all_users") // Gets The Users List
 
-    // All Users Container Click Functionalities
-    if(all_users) {
-        all_users.addEventListener("click", function(event:PointerEvent):void {
-            // Change User Role
-            if((event.target as HTMLInputElement).classList.contains("user_role_checkbox")) {
-                const user_role_checkbox:HTMLInputElement = event.target as HTMLInputElement // Gets The User Role Checkbox
-                const user:HTMLDivElement = user_role_checkbox.closest(".user") as HTMLDivElement // Gets The User Container
-                const user_role_value:HTMLSpanElement = user.querySelector(".user_role_value") as HTMLSpanElement // Gets The User Role Value
-                const role:string|null = user.dataset["role"] || null // Gets The Role
-    
-                if(role === "user") {
-                    if(user_role_checkbox.checked) {
-                        user.dataset["role"] = "admin"
-                        user_role_checkbox.value = "admin"
-                        user_role_value.textContent = "- admin"
-                        user_role_value.style.color = "rgb(250, 50, 50)"
-                    }
-    
-                    else {
-                        user.dataset["role"] = "user"
-                        user_role_checkbox.value = "user"
-                        user_role_value.textContent = "- user"
-                        user_role_value.style.color = "rgb(150, 150, 150)"
-                    }
-                }
-    
-                else if(role === "admin") {
-                    if(user_role_checkbox.checked) {
-                        user.dataset["role"] = "user"
-                        user_role_checkbox.value = "user"
-                        user_role_value.textContent = "- user"
-                        user_role_value.style.color = "rgb(150, 150, 150)"
-                    }
-    
-                    else {
-                        user.dataset["role"] = "admin"
-                        user_role_checkbox.value = "admin"
-                        user_role_value.textContent = "- admin"
-                        user_role_value.style.color = "rgb(250, 50, 50)"
-                    }
-                }
-            }
-    
-            // Delete User
-            if((event.target as HTMLInputElement).classList.contains("delete_user_checkbox")) {
-                const delete_user_checkbox:HTMLInputElement = event.target as HTMLInputElement // Gets The User Role Checkbox
-                const user:HTMLDivElement = delete_user_checkbox.closest(".user") as HTMLDivElement // Gets The User Container
-                const delete_user:HTMLImageElement = user.querySelector(".delete_user_container .delete_user") as HTMLImageElement // Gets The Delete User Image
-                const form_report:HTMLParagraphElement = user.querySelector(".form_report") as HTMLParagraphElement // Gets The Form Report Paragraph
-    
-                if(!delete_user_checkbox.checked) {
-                    delete_user.style.opacity = "1"
-                    form_report.textContent = "Účet bude odstránený." // Shows The Form Report Message
-                    form_report.classList.add("invalid") // Adds Invalid Class To The Form Report Paragraph
-                }
-    
-                else {
-                    delete_user.style.opacity = "0.8"
-                    form_report.textContent = "" // Removes The Form Report Message
-                }
-            }
+    // Functions
+
+    // Function For Count The Unsaved Changes And Update The Save Bar
+    function updatePendingChanges():void {
+        let changes:number = 0
+
+        // Changed Roles
+        admin_form?.querySelectorAll<HTMLSelectElement>(".role_select").forEach(function(one_select:HTMLSelectElement):void {
+            const is_changed:boolean = one_select.value !== one_select.dataset["initial"]
+
+            one_select.closest(".data_row")?.classList.toggle("changed", is_changed)
+            if(is_changed) changes++
         })
-    
-        // Show More / Show Less Users
-    
-        // Variables
-    
-        const show_more_users:HTMLButtonElement = users.querySelector(".show_more_users") as HTMLButtonElement // Gets The Show More Users Button
-        const show_less_users:HTMLButtonElement = users.querySelector(".show_less_users") as HTMLButtonElement // Gets The Show Less Users Button
-    
-        const LIMIT:number = 5 // Defines The Limit Of Loaded Reviews
-        const logged_in_user_id:number|null = Number(all_users.dataset["logged_in_user_id"]) || null // Gets The Logged In User ID If Is Available
-        let offset:number = 0 // Stores The Offset
-    
-        // Events
-    
-        // Show More Users Button Click Functionality
-        show_more_users.addEventListener("click", async function():Promise<void> {
-            if(logged_in_user_id) {
-                offset += LIMIT // Increases The Offset
-    
-                // Sends The POST Request To Load Users
-                await fetch("all_users.php", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                    },
-                    body: `offset=${offset}&user_id=${encodeURIComponent(logged_in_user_id)}`
-                })
-                .then(response => response.text())
-                .then(data => {
-                    all_users.insertAdjacentHTML("beforeend", data)
-                    show_less_users.classList.remove("hidden") // Shows The Show Less Button
-                    show_more_users.classList.add("hidden") // Hides The Show More Button
-                })
-            }
+
+        // Rows Marked For Deletion
+        admin_form?.querySelectorAll<HTMLInputElement>(".delete_toggle input").forEach(function(one_checkbox:HTMLInputElement):void {
+            one_checkbox.closest(".data_row")?.classList.toggle("marked_delete", one_checkbox.checked)
+            if(one_checkbox.checked) changes++
         })
-    
-        // Show Less Users Button Click Functionality
-        show_less_users.addEventListener("click", async function():Promise<void> {
-            if(logged_in_user_id) {
-                offset = 0 // Sets The Offset To 0
-    
-                // Sends The POST Request To Load Users
-                await fetch("all_users.php", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                    },
-                    body: `offset=${offset}&user_id=${encodeURIComponent(logged_in_user_id)}`
-                })
-                .then(response => response.text())
-                .then(data => {
-                    all_users.innerHTML = data
-                    show_more_users.classList.remove("hidden") // Shows The Show More Button
-                    show_less_users.classList.add("hidden") // Hides The Show Less Button
-                })
-            }
-        })
+
+        if(save_button) save_button.disabled = changes === 0
+        if(pending_changes) pending_changes.textContent = changes === 0 ? "Žiadne neuložené zmeny" : `Neuložené zmeny: ${changes}`
+
+        admin_form?.classList.toggle("has_changes", changes > 0)
     }
 
-    // Show / Hide Error Details
+    // Function For Show Or Hide The Error Details (Loaded Once On First Open)
+    async function toggleErrorDetails(button:HTMLButtonElement):Promise<void> {
+        const row:HTMLElement|null = button.closest<HTMLElement>(".error_row") // Gets The Error Row
+        const details:HTMLElement|null = row?.querySelector<HTMLElement>("[data-error-details]") ?? null // Gets The Details Container
+        const error_id:string|undefined = row?.dataset["error_id"] // Gets The Error ID
 
-    // Variables
+        if(!row || !details || !error_id) return
 
-    const error_log:HTMLElement = admin_form.querySelector(".error_log") as HTMLElement // Gets The Error Log Section
-    const all_errors:HTMLDivElement|null = error_log.querySelector(".all_errors") as HTMLDivElement || null // Gets The All Errors Container If Is Available
+        const is_open:boolean = button.getAttribute("aria-expanded") === "true"
 
-    // Global Event Delegations
+        if(!is_open && details.childElementCount === 0) {
+            button.classList.add("loading")
 
-    // All Errors Container Click Functionalities
-    if(all_errors) {
-        all_errors.addEventListener("click", async function(event:PointerEvent):Promise<void> {
-            // Show Error Details
-            if((event.target as HTMLButtonElement).classList.contains("show_error_details")) {
-                const show_error_details:HTMLButtonElement = event.target as HTMLButtonElement // Gets The Show Error Details Button
-                const error:HTMLDivElement = show_error_details.closest(".error") as HTMLDivElement // Gets The Error Container
-                const hide_error_details:HTMLButtonElement = error.querySelector(".hide_error_details") as HTMLButtonElement // Gets The Hide Error Details Button
-                const error_details:HTMLDivElement = error.querySelector(".error_details") as HTMLDivElement // Gets The Error Details Container
-                const error_id:number|null = Number(error.dataset["error_id"]) || null // Gets The Error ID
-    
-                if(error_id) {
-                    const body:string = new URLSearchParams({ error_id: String(error_id) }).toString() // Stores The Error ID
-    
-                    // Sends The POST Request To Load The Error Details
-                    const response:Response = await fetch("error_details.php", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                        body
-                    })
-        
-                    const response_content:string = await response.text() // Gets The Response Content
-    
-                    error_details.innerHTML = response_content // Shows The Error Details
-                    hide_error_details.classList.remove("hidden") // Shows The Hide Error Details Button
-                    show_error_details.classList.add("hidden") // Hides The Show Error Details Button
-                }
+            try {
+                details.innerHTML = await postFragment("error_details.php", { error_id }) // Shows The Error Details
             }
-    
-            // Hide Error Details
-            if((event.target as HTMLButtonElement).classList.contains("hide_error_details")) {
-                const hide_error_details:HTMLButtonElement = event.target as HTMLButtonElement // Gets The Show Error Details Button
-                const error:HTMLDivElement = hide_error_details.closest(".error") as HTMLDivElement // Gets The Error Container
-                const show_error_details:HTMLButtonElement = error.querySelector(".show_error_details") as HTMLButtonElement // Gets The Hide Error Details Button
-                const error_details:HTMLDivElement = error.querySelector(".error_details") as HTMLDivElement // Gets The Error Details Container
-    
-                error_details.innerHTML = "" // Hides The Error Details
-                show_error_details.classList.remove("hidden") // Shows The Show Error Details Button
-                hide_error_details.classList.add("hidden") // Hides The Hide Error Details Button
+
+            catch(error) {
+                details.textContent = "Podrobnosti sa nepodarilo načítať."
+                console.error(error)
             }
-    
-            // Delete Error
-            if((event.target as HTMLButtonElement).classList.contains("delete_error_log_checkbox")) {
-                const delete_error_log_checkbox:HTMLInputElement = event.target as HTMLInputElement // Gets The Delete Error Log Checkbox
-                const error:HTMLDivElement = delete_error_log_checkbox.closest(".error") as HTMLDivElement // Gets The Error Container
-                const delete_error_log:HTMLLabelElement = error.querySelector(".delete_error_log") as HTMLLabelElement // Gets The Delete Error Log Label
-                const cancel_delete_error_log:HTMLLabelElement = error.querySelector(".cancel_delete_error_log") as HTMLLabelElement // Gets The Cancel Delete Error Log Label
-    
-                // Delete
-                if(delete_error_log_checkbox.checked) {
-                    delete_error_log.style.display = "none" // Hides The Delete Error Log Label
-                    cancel_delete_error_log.style.display = "inline-block" // Shows The Cancel Delete Error Log Label
-                }
-    
-                // Cancel Delete
-                else {
-                    cancel_delete_error_log.style.display = "none" // Hides The Cancel Delete Error Log Label
-                    delete_error_log.style.display = "inline-block" // Shows The Delete Error Log Label
-                }
+
+            finally {
+                button.classList.remove("loading")
             }
-    
-            // Show More / Show Less Errors
-    
-            // Variables
-    
-            const show_more_errors:HTMLButtonElement|null = error_log.querySelector(".show_more_errors") as HTMLButtonElement || null // Gets The Show More Errors Button If Is Available
-            const show_less_errors:HTMLButtonElement|null = error_log.querySelector(".show_less_errors") as HTMLButtonElement || null // Gets The Show Less Errors Button If Is Available
-    
-            const LIMIT:number = 5 // Defines The Limit Of Loaded Errors
-            let offset:number = 0 // Stores The Offset
-    
-            // Events
-    
-            // Show More Errors Button Click Functionality
-            if(show_more_errors) {
-                show_more_errors.addEventListener("click", async function():Promise<void> {
-                    offset += LIMIT // Increases The Offset
-        
-                    // Sends The POST Request To Load Errors
-                    await fetch("all_errors.php", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/x-www-form-urlencoded",
-                        },
-                        body: `offset=${offset}`
-                    })
-                    .then(response => response.text())
-                    .then(data => {
-                        all_errors.insertAdjacentHTML("beforeend", data)
-                        show_less_errors.classList.remove("hidden") // Shows The Show Less Button
-                        show_more_errors.classList.add("hidden") // Hides The Show More Button
-                    })
-                })
-            }
-        
-            // Show Less Errors Button Click Functionality
-            if(show_less_errors) {
-                show_less_errors.addEventListener("click", async function():Promise<void> {
-                    offset = 0 // Sets The Offset To 0
-        
-                    // Sends The POST Request To Load Errors
-                    await fetch("all_errors.php", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/x-www-form-urlencoded",
-                        },
-                        body: `offset=${offset}`
-                    })
-                    .then(response => response.text())
-                    .then(data => {
-                        all_errors.innerHTML = data
-                        show_more_errors.classList.remove("hidden") // Shows The Show More Button
-                        show_less_errors.classList.add("hidden") // Hides The Show Less Button
-                    })
-                })
-            }
-        })
+        }
+
+        details.hidden = is_open
+        button.setAttribute("aria-expanded", String(!is_open))
+        row.classList.toggle("expanded", !is_open)
     }
+
+    // Events
+
+    // Form Change Functionality (Roles And Delete Toggles, Also For Rows Loaded Later)
+    admin_form.addEventListener("change", updatePendingChanges)
+
+    // Error Details Click Functionality (Event Delegation)
+    admin_form.addEventListener("click", function(event:MouseEvent):void {
+        const button:HTMLButtonElement|null = event.target instanceof Element ? event.target.closest<HTMLButtonElement>("[data-error-details-toggle]") : null
+        if(button) void toggleErrorDetails(button)
+    })
+
+    // Submit Functionality (Confirms Permanent Deletions)
+    admin_form.addEventListener("submit", function(event:SubmitEvent):void {
+        const deletions:number = admin_form.querySelectorAll(".delete_toggle input:checked").length // Counts The Marked Rows
+
+        if(deletions > 0 && !window.confirm(`Naozaj chcete natrvalo odstrániť označené položky (${deletions})? Túto akciu nie je možné vrátiť.`)) {
+            event.preventDefault()
+        }
+    })
+
+    // Initialization
+
+    const logged_in_user_id:string = all_users?.dataset["logged_in_user_id"] ?? "" // Gets The Logged In User ID (Excluded From The List)
+
+    admin_form.querySelectorAll<HTMLButtonElement>("[data-load-more]").forEach(function(one_button:HTMLButtonElement):void {
+        const extra_data:Record<string, string> = one_button.dataset["loadMore"] === "all_users.php" ? { user_id: logged_in_user_id } : {}
+        initializeLoadMore(one_button, extra_data, updatePendingChanges) // Initializes The Load More Button
+    })
+
+    updatePendingChanges()
 })
