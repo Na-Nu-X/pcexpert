@@ -68,7 +68,8 @@ textarea {
     color: inherit;
 }
 
-[hidden] {
+[hidden],
+.hidden {
     display: none !important;
 }
 
@@ -857,18 +858,5 @@ footer {
         opacity: 0;
         visibility: hidden;
         transform: translate(-50%, -12px);
-    }
-}
-
-// Kept For Not Yet Migrated Stylesheets
-
-@keyframes fade_out_animation {
-    0% {
-        opacity: 1;
-        visibility: visible;
-    }
-
-    100% {
-        opacity: 0;
     }
 }

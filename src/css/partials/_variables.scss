@@ -72,20 +72,3 @@ $palette: (
 @function palette($name) {
     @return map-get($palette, $name);
 }
-
-/********************************
- Legacy Variables (Deprecated)
- Kept Until Every Stylesheet Is
- Migrated To The CSS Custom
- Properties In _theme.scss
-********************************/
-
-$main-color: palette("grey-900"); // Background
-$secondary-color: palette("grey-0"); // Text
-
-$green-color: palette("green-500"); // Green
-$red-color: palette("red-500"); // Red
-
-$light-blue-color: palette("grey-50");
-$blue-color: palette("blue-400");
-$dark-blue-color: palette("blue-500");

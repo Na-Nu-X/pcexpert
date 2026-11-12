@@ -646,29 +646,54 @@
             </div>
         </section>
 
-        <section class="main <?php echo $theme; ?>">
-            <div class="about_us <?php echo $theme; ?>" id="about_us">
-                <h2>O&nbsp;nás</h2>
-                <p>Sme tím nadšencov a odborníkov na počítačový hardvér, ktorí sa venujú profesionálnej stavbe, servisu a upgradu počítačov. Našim cieľom je poskytovať spoľahlivé a kvalitné služby, vďaka ktorým si môžete užívať bezproblémový a výkonný počítač, či už na prácu, hranie hier alebo kreatívnu tvorbu.<br>
+        <section class="about section" id="about_us">
+            <div class="container about_grid">
+                <div class="about_us">
+                    <p class="eyebrow"><i class="fa-solid fa-users"></i> O nás</p> <!-- https://fontawesome.com/icons/users -->
+                    <h2>Počítačom rozumieme</h2>
+                    <p>Sme tím nadšencov a odborníkov na počítačový hardvér, ktorí sa venujú profesionálnej stavbe, servisu a upgradu počítačov. Našim cieľom je poskytovať spoľahlivé a kvalitné služby, vďaka ktorým si môžete užívať bezproblémový a výkonný počítač, či už na prácu, hranie hier alebo kreatívnu tvorbu.<br>
                 Či už potrebujete nový počítač na mieru, odbornú diagnostiku, výmenu komponentov, čistenie alebo zrýchlenie vášho zariadenia, sme tu pre vás. Ku každému zákazníkovi pristupujeme individuálne a hľadáme riešenia, ktoré najlepšie vyhovujú jeho potrebám a rozpočtu.<br>
                 Dôverujte odborníkom a nechajte si poradiť od ľudí, ktorí počítačom skutočne rozumejú. S nami získate nielen profesionálnu službu, ale aj cenné rady, ktoré vám pomôžu naplno využiť potenciál vášho zariadenia.<br>
                 Kontaktujte nás ešte dnes a nechajte svoj počítač v rukách profesionálov!</p>
-            </div>
-            
-            <div class="faq">
-                <h2>Časté&nbsp;otázky&nbsp;(FAQ)</h2>
-                <h3>Ako dlho trvá zostavenie počítača?</h3>
-                <p>Závisí to podľa dostupnosti komponentov a zložitosti zostavy. Ak máte všetky komponenty pripravené, zostavenie zvyčajne trvá 1 – 2 dni. Ak vám pomáhame aj s výberom komponentov, môže to trvať niekoľko dní až týždeň.</p>
-                <h3>Ako to je s dopravou?</h3>
-                <p>Po vašom schválení a objednaní potrebných komponentov pre vaše zariadenie, alebo pri odoslaní vašich komponentov či zariadenia, cenu dopravy dopravnou spoločnosťou do 5 € hradíme my. Ak bude cena dopravy vyššia, rozdiel hradíte vy. O všetkých nákladoch vás budeme vopred informovať.</p>
-                <h3>Ako to je s detailnou dohodou ohľadom danej služby?</h3>
-                <p>Stačí nás kontaktovať, ideálne telefonicky, aby sme mohli rýchlo a efektívne prediskutovať vaše požiadavky. Či už ide o výber komponentov, údržbu, čistenie alebo inú službu, radi vám poradíme a spoločne nájdeme najlepšie riešenie. Po dohode zabezpečíme objednanie potrebných komponentov, dohodneme sa na termíne realizácie a spôsobe prevzatia vášho zariadenia.</p>
-                <h3>Ako to je s platbou?</h3>
-                <p>Pred objednaním komponentov na stavbu počítača alebo pred odovzdaním vášho zariadenia na údržbu či čistenie je platba za službu a zakúpené komponenty potrebná vopred. Po dokončení práce vám odovzdáme všetky faktúry, doklady o kúpe a originálne balenia komponentov.</p>
+
+                    <a class="btn btn_secondary" href="#contact"><i class="fa-regular fa-comment"></i> Napíšte nám</a> <!-- https://fontawesome.com/icons/comment -->
+                </div>
+
+                <div class="faq">
+                    <h3 class="faq_title">Časté otázky</h3>
+
+                        <details class="faq_item">
+                            <summary>Ako dlho trvá zostavenie počítača? <i class="fa-solid fa-plus" aria-hidden="true"></i></summary> <!-- https://fontawesome.com/icons/plus -->
+                            <p>Závisí to podľa dostupnosti komponentov a zložitosti zostavy. Ak máte všetky komponenty pripravené, zostavenie zvyčajne trvá 1 – 2 dni. Ak vám pomáhame aj s výberom komponentov, môže to trvať niekoľko dní až týždeň.</p>
+                        </details>
+
+                        <details class="faq_item">
+                            <summary>Ako to je s dopravou? <i class="fa-solid fa-plus" aria-hidden="true"></i></summary> <!-- https://fontawesome.com/icons/plus -->
+                            <p>Po vašom schválení a objednaní potrebných komponentov pre vaše zariadenie, alebo pri odoslaní vašich komponentov či zariadenia, cenu dopravy dopravnou spoločnosťou do 5 € hradíme my. Ak bude cena dopravy vyššia, rozdiel hradíte vy. O všetkých nákladoch vás budeme vopred informovať.</p>
+                        </details>
+
+                        <details class="faq_item">
+                            <summary>Ako to je s detailnou dohodou ohľadom danej služby? <i class="fa-solid fa-plus" aria-hidden="true"></i></summary> <!-- https://fontawesome.com/icons/plus -->
+                            <p>Stačí nás kontaktovať, ideálne telefonicky, aby sme mohli rýchlo a efektívne prediskutovať vaše požiadavky. Či už ide o výber komponentov, údržbu, čistenie alebo inú službu, radi vám poradíme a spoločne nájdeme najlepšie riešenie. Po dohode zabezpečíme objednanie potrebných komponentov, dohodneme sa na termíne realizácie a spôsobe prevzatia vášho zariadenia.</p>
+                        </details>
+
+                        <details class="faq_item">
+                            <summary>Ako to je s platbou? <i class="fa-solid fa-plus" aria-hidden="true"></i></summary> <!-- https://fontawesome.com/icons/plus -->
+                            <p>Pred objednaním komponentov na stavbu počítača alebo pred odovzdaním vášho zariadenia na údržbu či čistenie je platba za službu a zakúpené komponenty potrebná vopred. Po dokončení práce vám odovzdáme všetky faktúry, doklady o kúpe a originálne balenia komponentov.</p>
+                        </details>
+                </div>
             </div>
         </section>
 
-        <section class="reviews <?php echo $theme; ?>" id="reviews" data-logged_in_user_id="<?php echo json_encode($user_id); ?>">
+        <section class="reviews section" id="reviews" data-logged_in_user_id="<?php echo json_encode($user_id); ?>">
+            <div class="container">
+                <div class="section_heading">
+                    <p class="eyebrow"><i class="fa-solid fa-star"></i> Recenzie</p> <!-- https://fontawesome.com/icons/star -->
+                    <h2>Čo hovoria naši zákazníci</h2>
+                    <p><strong><?php echo number_format($average_rating, 1, ",", ""); ?>&nbsp;/&nbsp;5</strong> na základe <?php echo $reviews_count; ?>&nbsp;recenzií</p>
+                </div>
+
+                <div class="reviews_layout">
             <div class="user_review">
                 <?php if($review_object->getUserReview($connection, $user_id) !== null and $review_object->getUserReview($connection, $user_id) !== false): ?>
                     <div class="review">
@@ -837,106 +862,11 @@
                 <?php endif; ?>
             </div>
 
+            <div class="reviews_list">
             <?php if($review_object->countReviews($connection, $user_id) > 0): ?>
                 <div class="all_reviews">
                     <?php foreach($review_object->getAllReviews($connection, $user_id) as $one_review): ?>
-                        <div class="review">
-                            <?php if($one_review["user_id"] !== null): ?>
-                                <div class="reviewer">
-                                    <?php if(!empty($user_object->getUserInformation($connection, $one_review['user_id'], 'profile_picture_name')) or !empty($user_object->getUserInformation($connection, $one_review['user_id'], 'google_profile_picture_url'))): ?>
-                                        <img 
-                                            class="profile_picture" 
-                                            src="
-                                                <?php if(!empty($user_object->getUserInformation($connection, $one_review['user_id'], 'google_profile_picture_url')) and empty($user_object->getUserInformation($connection, $one_review['user_id'], 'profile_picture_name'))): ?>
-                                                    <?php echo $user_object->getUserInformation($connection, $user_id, 'google_profile_picture_url'); ?>
-
-                                                <?php else: ?>
-                                                    /content/uploads/<?php echo $user_id; ?>/<?php echo $user_object->getUserInformation($connection, $user_id, 'profile_picture_name'); ?>
-
-                                                <?php endif; ?>
-                                            "
-                                            alt="Môj účet"
-                                        >
-
-                                    <?php else: ?>
-                                        <img class="profile_picture" src="/content/images/avatar.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_847969 -->
-
-                                    <?php endif; ?>
-
-                                    <div class="user_info">
-                                        <p class="name">
-                                            <?php echo htmlspecialchars($user_object->getUserInformation($connection, $one_review["user_id"], "first_name"), ENT_QUOTES, "UTF-8"); ?>
-                                            <?php echo htmlspecialchars($user_object->getUserInformation($connection, $one_review["user_id"], "last_name"), ENT_QUOTES, "UTF-8"); ?>
-                                        </p>
-
-                                        <p class="date">
-                                            -
-
-                                            <?php echo htmlspecialchars(date("j.n.Y", strtotime($one_review["review_time"])), ENT_QUOTES, "UTF-8"); ?>
-
-                                            <?php if($one_review["edited"] === "yes"): ?>
-                                                (upravená)
-
-                                            <?php endif; ?>
-                                        </p>
-                                    </div>
-                                </div>
-                                
-                                <div class="stars">
-                                    <?php for($i = 1; $i <= 5; $i++): ?>
-                                        <?php if($i <= $one_review["rating"]): ?>
-                                            <div class="star">
-                                                <i class="fa-solid fa-star"></i> <!-- https://fontawesome.com/icons/star -->
-                                            </div>
-    
-                                        <?php else: ?>
-                                            <div class="star">
-                                                <i class="fa-regular fa-star"></i> <!-- https://fontawesome.com/icons/star -->
-                                            </div>
-    
-                                        <?php endif; ?>
-                                        
-                                    <?php endfor; ?>
-                                </div>
-
-                                <p><?php echo htmlspecialchars($one_review["review"], ENT_QUOTES, "UTF-8"); ?></p>
-
-                            <?php else: ?>
-                                <div class="reviewer">
-                                    <img class="profile_picture" src="/content/images/avatar.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_847969 -->
-
-                                    <div class="user_info">
-                                        <p class="name">Anonymný zákazník</p>
-
-                                        <p class="date">
-                                            -
-                                            
-                                            <?php echo htmlspecialchars(date("j.n.Y", strtotime($one_review["review_time"])), ENT_QUOTES, "UTF-8"); ?>
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div class="stars">
-                                    <?php for($i = 1; $i <= 5; $i++): ?>
-                                        <?php if($i <= $one_review["rating"]): ?>
-                                            <div class="star">
-                                                <i class="fa-solid fa-star"></i> <!-- https://fontawesome.com/icons/star -->
-                                            </div>
-    
-                                        <?php else: ?>
-                                            <div class="star">
-                                                <i class="fa-regular fa-star"></i> <!-- https://fontawesome.com/icons/star -->
-                                            </div>
-    
-                                        <?php endif; ?>
-                                        
-                                    <?php endfor; ?>
-                                </div>
-
-                                <p><?php echo htmlspecialchars($one_review["review"], ENT_QUOTES, "UTF-8"); ?></p>
-
-                            <?php endif; ?>
-                        </div>
+                        <?php require "../assets/partials/review_card.php"; ?>
 
                     <?php endforeach; ?>
                 </div>
@@ -950,9 +880,12 @@
                 </div>
 
             <?php endif; ?>
+            </div>
+                </div>
+            </div>
         </section>
 
-        <section class="contact <?php echo $theme; ?>" id="contact">
+        <section class="contact section" id="contact">
             <!-- reCAPTCHA V3 -->
             <script src="https://www.google.com/recaptcha/api.js?render=<?php echo htmlspecialchars($_ENV["RECAPTCHA_SITE_KEY"]); ?>&badge=inline"></script>
             
@@ -979,8 +912,25 @@
                 })
             </script>
 
-            <form class="contact_form <?php echo $theme; ?>" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data">
-                <h2>Kontakt</h2>
+            <div class="container contact_grid">
+                <div class="contact_info">
+                    <p class="eyebrow"><i class="fa-regular fa-envelope"></i> Kontakt</p> <!-- https://fontawesome.com/icons/envelope -->
+                    <h2>Máte otázku? Napíšte nám</h2>
+                    <p>Poradíme vám s výberom služby aj s konkrétnym problémom. Ozveme sa vám čo najskôr.</p>
+
+                    <ul class="contact_list">
+                        <li><span class="contact_icon"><i class="fa-regular fa-envelope"></i></span> <a href="mailto:behulpatrik@gmail.com">behulpatrik@gmail.com</a></li>
+                        <li><span class="contact_icon"><i class="fa-solid fa-phone"></i></span> <a href="tel:+421940322633">+421 940 322 633</a></li> <!-- https://fontawesome.com/icons/phone -->
+                        <li><span class="contact_icon"><i class="fa-solid fa-location-dot"></i></span> Mlynské nivy 5/A, 821 08 Bratislava</li> <!-- https://fontawesome.com/icons/location-dot -->
+                    </ul>
+
+                    <div class="map">
+                        <iframe title="Mapa - PC Expert, Bratislava" loading="lazy" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d170411.37760859914!2d16.950700206516654!3d48.135737106169756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476c89360aca6197%3A0x631f9b82fd884368!2sBratislava!5e0!3m2!1sen!2ssk!4v1784274678048!5m2!1sen!2ssk" allowfullscreen="yes" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+
+            <form class="contact_form" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data">
+                <h3>Poslať správu</h3>
 
                 <!-- <p>
                     V prípade akýchkoľvek otázok, či upozornení nás kontaktujte a my sa vám pokúsime v krátkom čase odpovedať. Budeme radi za akúkoľvek spätnú väzbu od Vás.
@@ -1039,7 +989,7 @@
                     <textarea type="textarea" name="message" placeholder="Zadajte vašu správu" max-length="250" required><?php echo htmlspecialchars($message, ENT_QUOTES, "UTF-8"); ?></textarea>
 
                     <div class="attachment_container">
-                        <p class="attachment_report <?php echo $theme; ?>"><?php echo htmlspecialchars($attachment_message, ENT_QUOTES, "UTF-8"); ?></p>
+                        <p class="attachment_report"><?php echo htmlspecialchars($attachment_message, ENT_QUOTES, "UTF-8"); ?></p>
     
                         <label class="attachment" for="attachment"><i class="fa-solid fa-paperclip" title="priložiť prílohu..."></i></label>
     
@@ -1056,11 +1006,9 @@
 
                 <div class="grecaptcha_badge_container"></div>
             </form>
+            </div>
         </section>
 
-        <div class="map">
-            <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d170411.37760859914!2d16.950700206516654!3d48.135737106169756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476c89360aca6197%3A0x631f9b82fd884368!2sBratislava!5e0!3m2!1sen!2ssk!4v1784274678048!5m2!1sen!2ssk" allowfullscreen="yes" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
     </main>
     
     <footer>

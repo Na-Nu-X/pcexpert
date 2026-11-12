@@ -2,7 +2,7 @@
     <div class="footer_brand">
         <h2>PC&nbsp;Expert</h2>
 
-        <p class="tagline">Stavba, údržba a&nbsp;čistenie počítačov na&nbsp;mieru. Rýchlo, profesionálne a&nbsp;s&nbsp;garanciou kvality.</p>
+        <p class="tagline">Stavba, údržba a&nbsp;čistenie počítačov na&nbsp;mieru v&nbsp;Bratislave. Objednávka online za pár minút.</p>
 
         <div class="address">
             <p>Mlynské nivy 5/A</p>

@@ -275,7 +275,7 @@
     <main>
         <section class="login">
             <a href="./domov" class="back_icon" title="Späť na domovskú stránku" aria-label="Späť na domovskú stránku">
-                <img src="/content/images/back.png" alt=""> <!-- https://www.flaticon.com/free-icon/back_2099190 -->
+                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Späť <!-- https://fontawesome.com/icons/arrow-left -->
             </a>
 
             <h2><a href="./prihlasenie">Prihlásenie</a></h2>
@@ -305,7 +305,7 @@
                 <p class="form_report valid"></p>
 
                 <article>
-                    <p class="dialogue_paragraph invalid" style="top: 122px;">
+                    <p class="dialogue_paragraph invalid">
                         <?php if(!empty($message)): ?>
                             <?php
                                 echo $message; 

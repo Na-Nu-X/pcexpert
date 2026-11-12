@@ -276,22 +276,6 @@
     border-radius: 50%;
 }
 
-// Legacy Blue Button (Kept For Not Yet Migrated Stylesheets)
-
-@mixin blue_button($width: auto, $border-radius: var(--radius-pill)) {
-    @include button(primary);
-    width: $width;
-    border-radius: $border-radius;
-}
-
-// Legacy Light Blue Button (Kept For Not Yet Migrated Stylesheets)
-
-@mixin light_blue_button($width: auto, $border-radius: var(--radius-pill)) {
-    @include button(secondary);
-    width: $width;
-    border-radius: $border-radius;
-}
-
 /*************
  Form Mixins
 *************/

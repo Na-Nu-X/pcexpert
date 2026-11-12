@@ -1,571 +1,545 @@
 @import "partials/variables";
 @import "partials/mixins";
 
-/**************
- Header Styles
-**************/
-
-// Header
-
-header {
-    height: auto;
-    margin-bottom: 0px;
-    background: none;
-    border: none;
-    box-shadow: none;
-}
-
-/************
- Main Styles
-************/
+/******************************************
+ Form Pages (Login, Registration, Account,
+ Review, Password Reset, Order, 404)
+******************************************/
 
 main {
-    @include flex_center($direction: column);
-    min-height: 100vh;
-    max-width: 100%;
-    width: 100%;
-    margin: 0;
-    background: linear-gradient(transparentize($main-color, 0.9), transparentize($main-color, 0.5)), url("/content/images/background.jpg"); // https://pixabay.com/sk/photos/cpu-procesor-%C4%8Dip-z%C3%A1kladn%C3%A9-dosky-4393376/
-    background-size: cover;
-    background-position: center center;
-    background-attachment: fixed;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: calc(100vh - var(--navigation-height));
+    padding: clamp(1.5rem, 1rem + 4vw, 4rem) var(--gutter);
+    isolation: isolate;
+
+    // Soft Glow Background (Same Language As The Homepage Hero)
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+            radial-gradient(50% 50% at 80% 0%, var(--color-primary-soft) 0%, transparent 70%),
+            radial-gradient(40% 40% at 10% 90%, var(--color-primary-soft) 0%, transparent 70%);
+        z-index: -1;
+    }
 }
 
-// Forms
+/***********
+ Auth Card
+***********/
 
-.registration, 
+.registration,
 .login,
 .edit_account,
 .edit_review,
 .password_reset,
 .success_order {
-    max-width: 500px;
+    @include card(clamp(1.5rem, 1rem + 2vw, 2.5rem), var(--radius-xl));
+    position: relative;
     width: 100%;
-    margin-top: 83px;
-    padding: 50px;
-    background-color: transparentize($main-color, 0.8);
-    backdrop-filter: blur(2.5px);
-    border: 1px solid darken($secondary-color, 20%);
-    border-radius: 30px;
-    box-shadow: 0px 0px 10px transparentize($main-color, 0.5);
+    max-width: 480px;
+    box-shadow: var(--shadow-lg);
+    animation: slide_up_animation var(--duration) var(--ease);
 
+    // Back Link
     .back_icon {
-        position: absolute;
-        top: 60px;
-        left: 60px;
-        transition: transform 0.3s ease;
-    
-        &:hover {
-            transform: scale(1.1);
-        }
-    
-        img {
-            display: block;
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-2);
+        margin-bottom: var(--space-4);
+        font-size: var(--text-sm);
+        font-weight: 500;
+        color: var(--color-text-muted);
+        text-decoration: none;
+
+        @include hover {
+            color: var(--color-primary);
         }
     }
 
-    h2 {
-        margin-bottom: 50px;
-        text-align: center;
-        font-size: 2em;
-        transition: letter-spacing 0.3s ease;
-
-        &:hover {
-            letter-spacing: 0.5px;
-            cursor: pointer;
-        }
+    > h2 {
+        margin-bottom: var(--space-6);
+        font-size: var(--text-3xl);
+        letter-spacing: -0.025em;
 
         a {
+            color: inherit;
             text-decoration: none;
-            color: $secondary-color;
         }
     }
 
     form {
         position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-4);
+
+        h3 {
+            margin-bottom: var(--space-1);
+            font-family: var(--font-main);
+            font-size: var(--text-sm);
+            font-weight: 600;
+            color: var(--color-text);
+        }
 
         .inputs {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-
-            input[type="text"],
-            input[type="email"] {
-                @include form_input;
-            }
-    
-            textarea {
-                @include form_textarea;
-            }
+            gap: var(--space-3);
 
             input[type="text"],
             input[type="email"],
-            textarea {
-                background: none;
-                border-top: none;
-                border-right: none;
-                border-left: none;
-                border-radius: 0px;
-                color: $secondary-color;
+            input[type="tel"],
+            input[type="password"] {
+                @include form_input;
+            }
 
-                &:focus-visible {
-                    background: none;
-                    box-shadow: none;
-                }
+            textarea {
+                @include form_textarea;
             }
         }
 
+        // Validation Messages (In The Normal Flow Instead Of Absolutely Positioned)
         .form_report,
         .dialogue_paragraph {
-            @include form_report;
+            position: static;
+            transform: none;
             width: 100%;
+            font-size: var(--text-sm);
             text-align: center;
+
+            &:empty {
+                display: none;
+            }
+
+            &.valid {
+                color: var(--color-success);
+            }
+
+            &.invalid {
+                color: var(--color-danger);
+            }
+        }
+
+        article:has(.dialogue_paragraph:empty) {
+            display: none;
         }
 
         button[type="submit"] {
-            @include blue_button($width: 100%, $border-radius: $big-border-radius);
-            margin: 50px auto 10px;
-            animation: fade_in_animation 0.3s ease-out;
+            @include button(primary, lg);
+            width: 100%;
+            margin-top: var(--space-2);
         }
 
-        .login_method {
-            a {
-                @include light_blue_button($width: 100%, $border-radius: $big-border-radius);
-                @include flex_center;
-                margin-bottom: 10px;
-                padding: 0px;
-                height: 45px;
+        // Google Login
+        .login_method a {
+            @include button(secondary, lg);
+            position: relative;
+            width: 100%;
 
-                &:nth-child(1) {
-                    animation: fade_in_animation 0.4s ease-out;
-                }
-    
-                &:nth-child(2) {
-                    animation: fade_in_animation 0.5s ease-out;
-                }
-
-                img {
-                    position: absolute;
-                    left: 10px;
-                }
+            img {
+                width: 20px;
+                height: 20px;
             }
-        }
-
-        .have_account, 
-        .forgot_password,
-        .delete_account_container,
-        .delete_review_container {
-            text-align: center;
-            font-size: 0.9em;
         }
 
         .have_account,
         .forgot_password,
         .delete_account_container,
         .delete_review_container {
+            font-size: var(--text-sm);
+            text-align: center;
+
             p {
-                color: $secondary-color;
-                text-align: center;
+                color: var(--color-text-muted);
+            }
 
-                a:link,
-                a:visited {
-                    color: $secondary-color;
-                    text-decoration: none;
-                }
+            a {
+                font-weight: 600;
+                color: var(--color-primary);
+                text-decoration: none;
 
-                a:hover,
-                a:active {
+                @include hover {
                     text-decoration: underline;
                 }
             }
         }
+    }
 
-        .forgot_password {
-            p {
-                margin-bottom: 0px;
+    // Password Fields With Inline Icon Buttons
+
+    .password_container,
+    .password_check_container,
+    .current_password_container,
+    .new_password_container {
+        position: relative;
+
+        input {
+            -webkit-text-security: disc;
+            padding-right: 84px !important;
+        }
+
+        .generate_password,
+        .show_hide_password,
+        .copy_password,
+        .paste_password {
+            @include icon_button(32px);
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1;
+
+            i {
+                @include icon;
+            }
+        }
+
+        .show_hide_password {
+            right: 44px;
+        }
+
+        .copy_password,
+        .paste_password {
+            right: 8px;
+        }
+
+        // Generate Password Sits Inside The Input On The Left
+        .generate_password {
+            left: 8px;
+
+            & ~ input {
+                padding-left: 44px !important;
             }
         }
     }
 
-    .login_form,
-    .registration_form,
-    .edit_account_form,
-    .password_reset_form {
-        .password_container, 
-        .password_check_container, 
-        .current_password_container, 
-        .new_password_container {
-            position: relative;
-
-            input {
-                -webkit-text-security: disc;
-                padding-right: 55px !important;
-            }
-
-            .generate_password,
-            .show_hide_password,
-            .copy_password, 
-            .paste_password {
-                i {
-                    @include icon;
-                }
-            }
-
-            .generate_password {
-                all: unset;
-                position: absolute;
-                top: 50%;
-                left: 0px;
-                transform: translateY(-50%);
-                transition: left 0.3s ease;
-            
-                &:hover {
-                    cursor: pointer;
-                }
-            }
-
-            .show_hide_password {
-                all: unset;
-                position: absolute;
-                top: 50%;
-                right: 20px;
-                transform: translateY(-50%);
-            
-                &:hover {
-                    cursor: pointer;
-                }
-            }
-
-            .copy_password, 
-            .paste_password {
-                all: unset;
-                position: absolute;
-                top: 50%;
-                right: 0px;
-                transform: translateY(-50%);
-            
-                &:hover {
-                    cursor: pointer;
-                }
-            }
+    // Only The Show / Hide Button -> Keep It At The Right Edge
+    .password_container:not(:has(.copy_password)),
+    .current_password_container,
+    .new_password_container:not(:has(.copy_password)) {
+        .show_hide_password {
+            right: 8px;
         }
 
-        .phone_number_container {
-            position: relative;
+        input {
+            padding-right: 48px !important;
+        }
+    }
 
-            .phone_number_icon {
-                img {
-                    visibility: hidden;
-                    position: absolute;
-                    top: 50%;
-                    right: 20px;
-                    transform: translateY(-50%);
-                    opacity: 0.8;
-                }
-            }
+    // Phone Number With Country Flag
 
-            .phone_number {
-                padding-right: 55px !important;
-            }
+    .phone_number_container {
+        position: relative;
+
+        .phone_number_icon img {
+            visibility: hidden;
+            position: absolute;
+            top: 50%;
+            right: 14px;
+            width: 22px;
+            transform: translateY(-50%);
         }
 
-        .agree {
-            text-align: center;
-            margin: 35px auto 0px;
-            padding-left: 5px;
-            width: 90%;
-            height: 100%;
-        
-            input {
-                display: none;
-        
-                &:checked + label::before {
-                    content: "";
-                    position: absolute;
-                    top: 3px;
-                    left: 0px;
-                    width: 14px;
-                    height: 14px;
-                    outline: 1px solid $green-color !important;
-                    background: transparentize($secondary-color, 0.8);
-                }
-        
-                &:checked + label::after {
-                    content: "";
-                    position: absolute;
-                    top: 3px;
-                    left: 0px;
-                    width: 14px;
-                    height: 14px;
-                    background-image: url("/content/images/check.png"); // https://www.flaticon.com/free-icon/check_16750043
-                    background-size: contain;
-                    transform: scale(1.5);
-                    opacity: 1;
-                    transition: transform 0.3s ease, opacity 0.3s ease;
-                }
-                
-                &:not(:checked) + label::after {
-                    content: "";
-                    position: absolute;
-                    top: 3px;
-                    left: 0px;
-                    width: 14px;
-                    height: 14px;
-                    background-image: url("/content/images/check.png"); // https://www.flaticon.com/free-icon/check_16750043
-                    background-size: contain;
-                    transform: scale(0);
-                    opacity: 0;
-                    transition: transform 0.2s ease, opacity 0.2s ease;
-                }
+        .phone_number {
+            padding-right: 48px !important;
+        }
+    }
+
+    // Checkboxes (Terms, Newsletter, Remember Me)
+
+    .agree {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-2);
+
+        br {
+            display: none;
+        }
+
+        input {
+            @include visually_hidden;
+        }
+
+        label {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-3);
+            font-size: var(--text-sm);
+            color: var(--color-text-muted);
+            cursor: pointer;
+            user-select: none;
+
+            &::before {
+                content: "";
+                flex-shrink: 0;
+                width: 18px;
+                height: 18px;
+                background-color: var(--color-surface);
+                border: 1.5px solid var(--color-border-strong);
+                border-radius: 5px;
+                transition: background-color var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease);
             }
-        
-            input + label {
-                position: relative;
-                padding-left: 30px;
-                display: inline-block;
-                color: darken($secondary-color, 20%);
-                cursor: pointer;
-            }
-        
-            input + label::before {
+
+            &::after {
                 content: "";
                 position: absolute;
-                top: 3px;
-                left: 0px;
-                width: 14px;
-                height: 14px;
-                outline: 1px solid darken($secondary-color, 20%);
-                background: transparentize($secondary-color, 0.8);
-                transition: outline 0.3s ease;
+                left: 6px;
+                top: 50%;
+                width: 5px;
+                height: 9px;
+                border: solid var(--color-on-primary);
+                border-width: 0 2px 2px 0;
+                transform: translateY(-60%) rotate(45deg) scale(0);
+                transition: transform var(--duration-fast) var(--ease);
             }
-        
-            label {
-                margin-left: 0px;
-                font-size: 0.9em;
-                color: $secondary-color;
-                user-select: none;
-                transition: letter-spacing 0.3s ease;
-        
-                &:hover {
-                    letter-spacing: 0.5px;
+
+            &.invalid {
+                color: var(--color-danger);
+
+                &::before {
+                    border-color: var(--color-danger);
                 }
             }
-        
-            .terms + .terms_label::before {
-                outline: 1px solid $red-color;
-            
-                &:checked + .terms_label::before {
-                    outline: 1px solid $green-color;
-                }
+
+            &:focus-visible {
+                outline: 2px solid var(--color-primary);
+                outline-offset: 2px;
+                border-radius: var(--radius-sm);
+            }
+        }
+
+        input:checked + label {
+            color: var(--color-text);
+
+            &::before {
+                background-color: var(--color-primary);
+                border-color: var(--color-primary);
+            }
+
+            &::after {
+                transform: translateY(-60%) rotate(45deg) scale(1);
             }
         }
     }
 
-    .edit_account_form {
-        .profile_picture_container {
-            text-align: center;
-
-            .profile_picture {
-                transition: transform 0.3s ease;
-
-                &:hover {
-                    transform: scale(1.1);
-                    cursor: pointer;
-                }
-
-                .google_profile_picture_frame {
-                    position: absolute;
-                    left: 130px;
-                    top: 30px;
-                    width: 40px;
-                    height: 40px;
-                    z-index: -10;
-                }
-            }
-
-            input[type="file"] {
-                display: none;
-            }
-
-            .delete_profile_picture {
-                width: 40px;
-                height: 40px;
-                margin-left: 5px;
-                padding: 2px;
-                border: 1px solid darken($secondary-color, 20%);
-                border-radius: 50%;
-                opacity: 0.8;
-                transition: transform 0.3s ease, opacity 0.3s ease;
-            }
-
-            #delete_profile_picture {
-                display: none;
-            }
-        }
-
-        h3 {
-            color: $secondary-color;
-            text-align: center;
-        }
-
-        .delete_account_container {
-            .delete_account {
-                opacity: 0.8;
-                transition: transform 0.3s ease, opacity 0.3s ease;
-            
-                &:hover {
-                    transform: scale(1.1);
-                    cursor: pointer;
-                }
-            }
-            
-            #delete_account {
-                display: none;
-            }
-
-        }
-    }
-
-    .edit_review_form {
-        .review_container {
-            text-align: center;
-            margin-bottom: 30px;
-
-            .user {
-                @include flex_center;
-                gap: 10px;
-                margin-bottom: 30px;
-
-                .name {
-                    margin-bottom: 0px;
-                    color: $secondary-color;
-                }
-            }
-
-            .stars {
-                display: flex;
-                justify-content: center;
-                gap: 5px;
-
-                .star {
-                    color: #FFEC00;
-                    font-size: 1.5em;
-                    transition: transform 0.3s ease;
-                
-                    &:hover {
-                        transform: scale(1.1);
-                        cursor: pointer;
-                    }
-
-                    .fa-star {
-                        display: block;
-                    }
-                }
-            }
-        }
-
-        .delete_review_container {
-            .delete_review {
-                width: 40px;
-                height: 40px;
-                margin-left: 5px;
-                padding: 2px;
-                border: 1px solid darken($secondary-color, 20%);
-                border-radius: 50%;
-                opacity: 0.8;
-                transition: transform 0.3s ease, opacity 0.3s ease;
-
-                &:hover {
-                    transform: scale(1.1);
-                    cursor: pointer;
-                }
-            }
-
-            #delete_review {
-                display: none;
-            }
-        }
-    }
+    // Empty States
 
     .no_logged_in,
-    .no_review {
-        p {
-            color: $secondary-color;
-            text-align: center;
-
-            a:link,
-            a:visited {
-                color: $secondary-color;
-                text-decoration: none;
-            }
-
-            a:hover,
-            a:active {
-                text-decoration: underline;
-            }
-        }
-    }
-
-    .no_logged_in {
-        p a:link,
-        p a:visited {
-            font-style: italic;
-        }
-    }
-
+    .no_review,
     .code_expired {
+        text-align: center;
+
         p {
-            color: $secondary-color;
-            text-align: center;
+            color: var(--color-text-muted);
+        }
+
+        a {
+            font-weight: 600;
+            color: var(--color-primary);
         }
     }
 }
 
-// Error Page
+/****************
+ Edit Account
+****************/
 
-.error_404 {
-    text-align: center;
-    color: $secondary-color;
+.edit_account_form {
+    .profile_picture_container {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-3);
+        padding-bottom: var(--space-4);
+        border-bottom: 1px solid var(--color-border);
 
-    img {
-        transition: transform 0.3s ease;
+        h3 {
+            flex-basis: 100%;
+            text-align: center;
+        }
 
-        &:hover {
-            transform: scale(1.1);
+        label {
+            position: relative;
             cursor: pointer;
         }
-    }
 
-    h2 {
-        font-size: 2em;
-    }
+        .profile_picture {
+            @include profile_picture(88px, 88px);
+            transition: transform var(--duration-fast) var(--ease);
 
-    a:link,
-    a:visited {
-        color: $secondary-color;
-        text-decoration: none;
-    }
+            @include hover {
+                transform: scale(1.04);
+            }
+        }
 
-    a:hover,
-    a:active {
-        text-decoration: underline;
-        cursor: pointer;
-    }
-}
+        .google_profile_picture_frame {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: auto;
+            top: auto;
+            width: 24px;
+            height: 24px;
+            padding: 2px;
+            background-color: var(--color-surface);
+            border-radius: 50%;
+            z-index: 1;
+        }
 
-// Success Order
+        .delete_profile_picture {
+            width: 36px;
+            height: 36px;
+            padding: 8px;
+            background-color: var(--color-danger-soft);
+            border-radius: 50%;
+            opacity: 0.8;
+            transition: opacity var(--duration-fast) var(--ease);
+        }
 
-.success_order {
-    h2 {
-        color: $secondary-color;
-
-        &:hover {
-            letter-spacing: 0px;
+        input[type="file"],
+        #delete_profile_picture {
+            @include visually_hidden;
         }
     }
 
-    p {
-        color: $secondary-color;
+    .delete_account_container {
+        padding-top: var(--space-4);
+        border-top: 1px solid var(--color-border);
+
+        label {
+            display: inline-flex;
+            margin-top: var(--space-2);
+            cursor: pointer;
+        }
+
+        .delete_account {
+            width: 40px;
+            height: 40px;
+            padding: 8px;
+            background-color: var(--color-danger-soft);
+            border-radius: 50%;
+            opacity: 0.8;
+            transition: transform var(--duration-fast) var(--ease), opacity var(--duration-fast) var(--ease);
+
+            @include hover {
+                transform: scale(1.06);
+            }
+        }
+
+        #delete_account {
+            @include visually_hidden;
+        }
+    }
+}
+
+/****************
+ Edit Review
+****************/
+
+.edit_review_form {
+    .review_container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-4);
+
+        .user {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+
+            .name {
+                font-weight: 600;
+                color: var(--color-text);
+            }
+        }
+
+        .stars {
+            display: flex;
+            gap: var(--space-2);
+
+            .star {
+                font-size: var(--text-2xl);
+                color: var(--color-star);
+                cursor: pointer;
+                transition: transform var(--duration-fast) var(--ease);
+
+                @include hover {
+                    transform: scale(1.12);
+                }
+            }
+        }
+    }
+
+    .delete_review_container {
+        label {
+            display: inline-flex;
+            margin-top: var(--space-2);
+            cursor: pointer;
+        }
+
+        .delete_review {
+            width: 40px;
+            height: 40px;
+            padding: 9px;
+            background-color: var(--color-danger-soft);
+            border-radius: 50%;
+            opacity: 0.8;
+        }
+
+        #delete_review {
+            @include visually_hidden;
+        }
+    }
+}
+
+/****************
+ Error 404
+****************/
+
+.error_404 {
+    @include card(clamp(2rem, 1rem + 4vw, 3.5rem), var(--radius-xl));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+    width: 100%;
+    max-width: 520px;
+    margin-block: auto;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+
+    img {
+        width: 96px;
+        height: 96px;
+    }
+
+    .error_code {
+        font-family: var(--font-heading);
+        font-size: clamp(3.5rem, 2rem + 6vw, 5.5rem);
+        font-weight: 800;
+        line-height: 1;
+        letter-spacing: -0.04em;
+        background: linear-gradient(120deg, var(--color-primary), var(--color-primary-active));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    h2 {
+        font-size: var(--text-xl);
+    }
+
+    a {
+        @include button(primary);
+        margin-top: var(--space-2);
     }
 }
 
@@ -574,41 +548,5 @@ main {
 **************/
 
 footer {
-    margin-top: 0px;
-    border: none;
-    box-shadow: none;
-}
-
-/**************
- Media Queries
-**************/
-
-@media only screen and (max-width: 800px) {
-    .registration, 
-    .login,
-    .edit_account,
-    .edit_review,
-    .password_reset {
-        form {
-            input[type="text"],
-            input[type="email"],
-            button[type="submit"] {
-                width: 100%;
-            }
-        }
-
-        .login_form,
-        .registration_form,
-        .edit_account_form,
-        .password_reset_form {
-            .password_container, 
-            .password_check_container, 
-            .current_password_container, 
-            .new_password_container {
-                .generate_password {
-                    left: -20px;
-                }
-            }
-        }
-    }
+    margin-top: 0;
 }

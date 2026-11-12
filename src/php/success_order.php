@@ -9,12 +9,18 @@
 
     require "../assets/functions.php";
     require "../classes/Database.php";
+    require "../classes/User.php";
     require "../classes/Order.php";
 
     $database_object = new Database(); // Initializes The Database Methods
-    $order_object = new Order(); // Initializes The User Methods
+    $user_object = new User(); // Initializes The User Methods (Used By The Navigation)
+    $order_object = new Order(); // Initializes The Order Methods
 
     session_start();
+
+    // Theme
+
+    $theme = ($_COOKIE["theme"] ?? "light") === "dark" ? "dark" : "light";
 
     $connection = $database_object->connectionDB(); // Connects To The DB
 
@@ -69,10 +75,10 @@
                     <h2>Ďakujeme za objednávku <?php echo htmlspecialchars($order["first_name"], ENT_QUOTES, "UTF-8") ?>!</h2>
 
                     <?php if($order["status"] === "PENDING"): ?>
-                        <h3 class="status">Čaká sa na platbu.</h3>
+                        <h3 class="status pending">Čaká sa na platbu.</h3>
 
                     <?php elseif($order["status"] === "PAID"): ?>
-                        <h3 class="status">Platba prebehla úspešne!</h3>
+                        <h3 class="status success">Platba prebehla úspešne!</h3>
 
                     <?php elseif($order["status"] === "PREPARING"): ?>
                         <h3 class="status">Spracovávame objednávku.</h3>
@@ -81,10 +87,10 @@
                         <h3 class="status">Objednávka je na ceste!</h3>
 
                     <?php elseif($order["status"] === "COMPLETED"): ?>
-                        <h3 class="status">Objednávka bola doručená!</h3>
+                        <h3 class="status success">Objednávka bola doručená!</h3>
 
                     <?php elseif($order["status"] === "CANCELLED"): ?>
-                        <h3 class="status" style="color: #df3535;">Objednávka bola zrušená.</h3>
+                        <h3 class="status cancelled">Objednávka bola zrušená.</h3>
 
                     <?php endif; ?>
 

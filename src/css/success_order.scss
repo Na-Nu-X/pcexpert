@@ -1,89 +1,121 @@
 @import "partials/variables";
 @import "partials/mixins";
 
-/************
- Main Styles
-************/
+/******************
+ Order Confirmation
+******************/
 
 .success_order {
-    max-width: 800px;
-    background-color: $secondary-color;
-    box-shadow: none;
+    max-width: 720px;
 
-    h2 {
+    > h2 {
+        margin-bottom: var(--space-3);
+        font-size: var(--text-2xl);
         text-align: center;
-        font-size: 1.8em;
-        margin-bottom: 10px;
-        color: $main-color;
     }
 
-    .status,
-    .service {
-        text-align: center;
-        color: transparentize($main-color, 0.2);
-        font-size: 1.2em;
-    }
+    // Order Status Pill
+    .status {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+        width: fit-content;
+        margin: 0 auto var(--space-6);
+        padding: var(--space-2) var(--space-4);
+        font-family: var(--font-main);
+        font-size: var(--text-sm);
+        font-weight: 600;
+        color: var(--color-primary);
+        background-color: var(--color-primary-soft);
+        border-radius: var(--radius-pill);
 
-    .service {
-        margin-bottom: 20px;
-        padding-bottom: 20px;
-        border-bottom: 1px solid darken($secondary-color, 10%);
-        
-        span {
-            font-size: 0.6em;
-            vertical-align: super;
-            margin-left: 2px;
+        &::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            background-color: currentColor;
+            border-radius: 50%;
+        }
+
+        &.pending {
+            color: var(--color-warning);
+            background-color: var(--color-warning-soft);
+        }
+
+        &.success {
+            color: var(--color-success);
+            background-color: var(--color-success-soft);
+        }
+
+        &.cancelled {
+            color: var(--color-danger);
+            background-color: var(--color-danger-soft);
         }
     }
 
+    // Service + Price
+    .service {
+        display: flex;
+        justify-content: center;
+        gap: var(--space-2);
+        padding-bottom: var(--space-6);
+        margin-bottom: var(--space-6);
+        font-size: var(--text-xl);
+        border-bottom: 1px solid var(--color-border);
+    }
+
     .title {
-        margin-bottom: 10px;
-        color: transparentize($main-color, 0.2);
-        font-size: 1.2em;
-        line-height: 1;
+        margin-bottom: var(--space-3);
+        font-size: var(--text-xs);
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--color-text-subtle);
     }
 
     .service_details,
     .delivery_details {
-        margin-bottom: 20px;
-        padding: 10px 20px;
-        background-color: darken($secondary-color, 3%);
-        border: 1px solid darken($secondary-color, 10%);
-        border-radius: $small-border-radius;
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-2);
+        margin-bottom: var(--space-6);
+        padding: var(--space-5);
+        background-color: var(--color-surface-muted);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
 
         p {
-            margin-bottom: 10px;
-            color: $main-color;
-
-            &:last-child {
-                margin-bottom: 0;
-            }
+            font-size: var(--text-sm);
+            color: var(--color-text);
 
             strong {
-                margin-right: 5px;
+                margin-right: var(--space-1);
+                font-weight: 600;
+                color: var(--color-text-muted);
             }
         }
     }
 
-    .service_details {
-        .attachment {
-            width: 200px;
+    .service_details .attachment {
+        width: 180px;
+        overflow: hidden;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
 
-            img {
-                width: 100%;
-                height: 100%;
-            }
+        img,
+        video {
+            width: 100%;
+            height: auto;
         }
     }
 
     .delivery_details {
-        margin-bottom: 0px;
+        margin-bottom: 0;
     }
 
     .back {
-        @include blue_button($width: 100%);
-        display: block;
-        margin-top: 50px;
-        padding: 15px 0px;
+        @include button(primary, lg);
+        width: 100%;
+        margin-top: var(--space-8);
     }
 }

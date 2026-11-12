@@ -2,22 +2,10 @@
  Design Tokens
  (Sass Side)
 ****************/
-/********************************
- Legacy Variables (Deprecated)
- Kept Until Every Stylesheet Is
- Migrated To The CSS Custom
- Properties In _theme.scss
-********************************/
 /****************
  Design Tokens
  (Sass Side)
 ****************/
-/********************************
- Legacy Variables (Deprecated)
- Kept Until Every Stylesheet Is
- Migrated To The CSS Custom
- Properties In _theme.scss
-********************************/
 /******************
  Responsive Mixins
 ******************/
@@ -43,12 +31,6 @@
  Design Tokens
  (Sass Side)
 ****************/
-/********************************
- Legacy Variables (Deprecated)
- Kept Until Every Stylesheet Is
- Migrated To The CSS Custom
- Properties In _theme.scss
-********************************/
 /*************************************
  Theme (CSS Custom Properties)
  The Theme Is Switched Only By The
@@ -248,7 +230,8 @@ textarea {
   color: inherit;
 }
 
-[hidden] {
+[hidden],
+.hidden {
   display: none !important;
 }
 
@@ -1155,15 +1138,6 @@ footer .footer_bottom .copywrite {
     opacity: 0;
     visibility: hidden;
     transform: translate(-50%, -12px);
-  }
-}
-@keyframes fade_out_animation {
-  0% {
-    opacity: 1;
-    visibility: visible;
-  }
-  100% {
-    opacity: 0;
   }
 }
 

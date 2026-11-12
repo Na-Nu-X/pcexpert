@@ -8,9 +8,6 @@ export function applyTheme(theme:Theme):void {
 
     document.body.classList.replace(previous_theme, theme) || document.body.classList.add(theme) // Switches The Body Theme Class (Drives All CSS Custom Properties)
 
-    // Switches The Legacy Per Element Theme Classes (Kept Until Every Stylesheet Uses Only The Body Class)
-    document.querySelectorAll<HTMLElement>(`.${previous_theme}`).forEach(one_element => one_element.classList.replace(previous_theme, theme))
-
     document.cookie = `theme=${theme}; max-age=${THEME_COOKIE_MAX_AGE}; path=/; SameSite=Lax` // Creates The 90 Days Timed Cookie
 }
 

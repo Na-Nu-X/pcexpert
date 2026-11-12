@@ -130,17 +130,20 @@ document.addEventListener("DOMContentLoaded", function():void {
 
     // Registration Form Submit Button Click Functionality
     registration_form_submit.addEventListener("click", function():void {
-        if(!terms.checked) terms_label.style.color = "rgb(250, 50, 50)"
+        if(!terms.checked) terms_label.classList.add("invalid") // Highlights The Unchecked Terms
     })
 
     // Terms Input Functionality
     terms.addEventListener("change", function():void {
-        if(terms.checked) terms_label.style.color = "rgb(180, 180, 180)"
+        terms_label.classList.toggle("invalid", !terms.checked) // Removes The Highlight
     })
 
     // Terms Label Keydown Functionality
     terms_label.addEventListener("keydown", function(event:KeyboardEvent):void {
-        if(event.key === "Enter") terms.checked = !terms.checked // Inverts The Terms Input Check State
+        if(event.key === "Enter") {
+            terms.checked = !terms.checked // Inverts The Terms Input Check State
+            terms.dispatchEvent(new Event("change")) // Updates The Highlight
+        }
     })
 
     // News Label Keydown Functionality
