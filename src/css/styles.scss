@@ -266,55 +266,85 @@ select,
     }
 }
 
-// Header
+// Site Header (Sticky Navigation)
 
-header {
-    height: 100vh;
-    background: linear-gradient(rgba($main-color, 0.35), rgba($main-color, 0.7)), url("/content/images/background.jpg"); // https://pixabay.com/sk/photos/cpu-procesor-%C4%8Dip-z%C3%A1kladn%C3%A9-dosky-4393376/
-    background-size: cover;
-    background-position: center center;
+.site_header {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-header);
 }
 
-// Navigation Bar
-
 .navigation_bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+    position: relative;
     background-color: var(--color-header-glass);
-    backdrop-filter: saturate(180%) blur(12px);
-    -webkit-backdrop-filter: saturate(180%) blur(12px);
-    border-bottom: 1px solid var(--color-border);
-    z-index: var(--z-header);
-    transition: opacity var(--duration) var(--ease);
+    backdrop-filter: saturate(180%) blur(14px);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--duration) var(--ease), box-shadow var(--duration) var(--ease);
+
+    &.scrolled,
+    &.open {
+        border-bottom-color: var(--color-border);
+        box-shadow: var(--shadow-sm);
+    }
 
     .navigation_container {
         @include container;
         display: flex;
-        justify-content: space-between;
         align-items: center;
+        gap: var(--space-6);
+        height: var(--navigation-height);
     }
 
-    .hamburger {
-        @include icon_button(44px);
-        display: none;
-        font-size: var(--text-xl);
+    // Brand
+
+    .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-3);
+        flex-shrink: 0;
+        font-family: var(--font-heading);
+        font-size: var(--text-lg);
+        font-weight: 800;
+        letter-spacing: -0.02em;
         color: var(--color-text);
+        text-decoration: none;
+
+        .brand_mark {
+            @include flex_center;
+            width: 36px;
+            height: 36px;
+            font-size: var(--text-base);
+            color: var(--color-on-primary);
+            background: linear-gradient(135deg, var(--color-primary), var(--color-primary-active));
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-primary);
+        }
     }
 
-    ul {
+    // Links + Account (Collapsible On Mobile)
+
+    .navigation_menu {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        gap: var(--space-6);
+    }
+
+    .navigation_links {
         display: flex;
         align-items: center;
         gap: var(--space-1);
-        height: var(--navigation-height);
+        margin-inline: auto;
         list-style: none;
 
-        li a {
-            display: block;
+        a {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
             padding: var(--space-2) var(--space-4);
             font-size: var(--text-sm);
-            font-weight: 600;
+            font-weight: 500;
             color: var(--color-text-muted);
             text-decoration: none;
             border-radius: var(--radius-pill);
@@ -327,6 +357,138 @@ header {
 
             &.admin {
                 color: var(--color-danger);
+            }
+        }
+    }
+
+    .navigation_account {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+
+        .account_link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            max-width: 220px;
+            padding: var(--space-1) var(--space-3) var(--space-1) var(--space-1);
+            font-size: var(--text-sm);
+            font-weight: 600;
+            color: var(--color-text);
+            text-decoration: none;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-pill);
+            transition: border-color var(--duration-fast) var(--ease);
+
+            span {
+                @include crop_text;
+            }
+
+            .profile_picture {
+                @include profile_picture(30px, 30px);
+                flex-shrink: 0;
+            }
+
+            @include hover {
+                border-color: var(--color-primary);
+            }
+        }
+    }
+
+    // Theme Toggle + Hamburger
+
+    .navigation_actions {
+        display: flex;
+        align-items: center;
+        gap: var(--space-1);
+    }
+
+    .theme_toggle,
+    .hamburger {
+        @include icon_button(40px);
+        font-size: var(--text-base);
+        color: var(--color-text-muted);
+    }
+
+    .theme_toggle {
+        .fa-sun {
+            display: none;
+        }
+
+        &[data-theme="dark"] {
+            .fa-sun {
+                display: inline-block;
+            }
+
+            .fa-moon {
+                display: none;
+            }
+        }
+    }
+
+    .hamburger {
+        display: none;
+        font-size: var(--text-lg);
+        color: var(--color-text);
+    }
+
+    // Mobile Drawer
+
+    @include down("lg") {
+        .navigation_container {
+            justify-content: space-between;
+        }
+
+        .hamburger {
+            display: inline-flex;
+        }
+
+        .navigation_menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            display: none;
+            flex-direction: column;
+            align-items: stretch;
+            gap: var(--space-4);
+            max-height: calc(100dvh - var(--navigation-height));
+            padding: var(--space-4) var(--gutter) var(--space-6);
+            overflow-y: auto;
+            background-color: var(--color-surface);
+            border-bottom: 1px solid var(--color-border);
+            box-shadow: var(--shadow-lg);
+        }
+
+        &.open .navigation_menu {
+            display: flex;
+            animation: slide_up_animation var(--duration) var(--ease);
+        }
+
+        .navigation_links {
+            flex-direction: column;
+            align-items: stretch;
+            margin: 0;
+
+            a {
+                padding: var(--space-3) var(--space-4);
+                font-size: var(--text-base);
+                border-radius: var(--radius-md);
+            }
+        }
+
+        .navigation_account {
+            flex-wrap: wrap;
+            padding-top: var(--space-4);
+            border-top: 1px solid var(--color-border);
+
+            .btn {
+                flex: 1;
+            }
+
+            .account_link {
+                flex: 1 1 100%;
+                max-width: none;
             }
         }
     }
@@ -354,6 +516,13 @@ header {
     img {
         width: 20px;
         height: 20px;
+    }
+
+    pointer-events: none;
+
+    &.visible {
+        opacity: 1;
+        pointer-events: auto;
     }
 
     @include hover {
@@ -458,44 +627,8 @@ header {
     color: var(--color-danger);
 }
 
-// Account
-
-.account {
-    position: absolute;
-    top: calc(var(--navigation-height) + var(--space-4));
-    right: var(--gutter);
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    z-index: 100;
-
-    a {
-        color: var(--color-text-inverse);
-        font-size: var(--text-sm);
-        font-weight: 500;
-        text-decoration: none;
-
-        @include hover {
-            text-decoration: underline;
-        }
-    }
-
-    ul li {
-        list-style-type: none;
-    }
-}
-
 .profile_picture {
     @include profile_picture;
-}
-
-.google_profile_picture_frame {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 40px;
-    height: 40px;
-    z-index: -10;
 }
 
 /************
@@ -667,38 +800,6 @@ footer {
 **************/
 
 @include down("md") {
-    .navigation_bar {
-        .navigation_container {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .hamburger {
-            display: inline-flex;
-            margin-block: var(--space-3);
-        }
-
-        ul {
-            display: none;
-            flex-direction: column;
-            align-items: stretch;
-            gap: var(--space-1);
-            width: 100%;
-            height: auto;
-            padding-bottom: var(--space-4);
-
-            &.open {
-                display: flex;
-            }
-
-            li a {
-                padding: var(--space-3) var(--space-4);
-                font-size: var(--text-base);
-                border-radius: var(--radius-md);
-            }
-        }
-    }
-
     .cookie_policy {
         max-width: none;
     }

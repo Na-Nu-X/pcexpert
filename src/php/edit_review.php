@@ -117,26 +117,11 @@
         <div class="loader"></div>
     </div>
 
-    <header>
-        <nav class="navigation_bar">
-            <ul>
-                <li class="home">
-                    <a href="./domov">DOMOV</a>
-                </li>
+    <?php require "../assets/partials/flash_messages.php"; ?>
+    <?php require "../assets/partials/cookie_policy.php"; ?>
 
-                <button class="hamburger">
-                    <i class="fa-solid fa-bars"></i>
-                    <!-- <i class="fa-solid fa-xmark"></i> -->
-                </button>
-            </ul>
-        </nav>
-
-        <div class="cookie_policy">
-            <img src="/content/images/cookie.png" alt="Cookie"> <!-- https://www.flaticon.com/free-icon/cookie_1047711 -->
-            <h2>Cookie Policy</h2>
-            <p>Táto&nbsp;stránka&nbsp;používa&nbsp;súbory&nbsp;cookies.</p>
-            <button class="accept_all">ROZUMIEM</button>
-        </div>
+    <header class="site_header">
+        <?php require "../assets/partials/navigation.php"; ?>
     </header>
 
     <main>
@@ -258,7 +243,7 @@
         </section>
     </main>
 
-    <footer class="<?php echo $theme; ?>">
+    <footer>
         <?php require "../assets/footer.php"; ?>
     </footer>
 </body>

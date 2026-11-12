@@ -207,32 +207,11 @@
         <div class="loader"></div>
     </div>
     
-    <header>
-        <?php if(isset($_SESSION["red_report_message"]) and !empty($_SESSION["red_report_message"])): ?>
-            <p class="red_report_message"><?php echo $_SESSION["red_report_message"]; ?></p>
-            <?php $_SESSION["red_report_message"] = ""; ?>
+    <?php require "../assets/partials/flash_messages.php"; ?>
+    <?php require "../assets/partials/cookie_policy.php"; ?>
 
-        <?php endif; ?>
-
-        <nav class="navigation_bar">
-            <div class="navigation_container">
-                <button class="hamburger" (click)="toggleMenu()">
-                    <i class="fa-solid" [class.fa-bars]="!is_menu_open" [class.fa-xmark]="is_menu_open"></i> <!-- https://fontawesome.com/icons/bars / https://fontawesome.com/icons/magnifying-glass -->
-                </button>
-            
-                <ul [class.open]="is_menu_open">
-                    <li class="home"><a href="./domov">DOMOV</a></li>
-                    <li><a href="./prihlasenie">PRIHLÁSENIE</a></li>
-                </ul>
-            </div>
-        </nav>
-
-        <div class="cookie_policy">
-            <img src="/content/images/cookie.png" alt="Cookie"> <!-- https://www.flaticon.com/free-icon/cookie_1047711 -->
-            <h2>Cookie Policy</h2>
-            <p>Táto&nbsp;stránka&nbsp;používa&nbsp;súbory&nbsp;cookies.</p>
-            <button class="accept_all">ROZUMIEM</button>
-        </div>
+    <header class="site_header">
+        <?php require "../assets/partials/navigation.php"; ?>
     </header>
 
     <main>
@@ -354,7 +333,7 @@
         </section>
     </main>
 
-    <footer class="<?php echo $theme; ?>">
+    <footer>
         <?php require "../assets/footer.php"; ?>
     </footer>
 </body>

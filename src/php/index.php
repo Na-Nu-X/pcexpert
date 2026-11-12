@@ -378,6 +378,11 @@
         ]
     ];
 
+    // Rating (Used In The Hero)
+
+    $average_rating = (float)$review_object->getAverageRating($connection);
+    $reviews_count = (int)$review_object->countReviews($connection);
+
     // Checkout Prefill (Logged In User Data Or Previously Submitted Values)
 
     $checkout_prefill = [
@@ -432,7 +437,6 @@
 
     <script src="/src/ts/dist/components/preloader.js" type="module"></script>
     <script src="/src/ts/dist/components/cookie_policy.js" type="module"></script>
-    <script src="/src/ts/dist/components/theme_selection.js" type="module"></script>
     <script src="/src/ts/dist/components/move_up.js" type="module"></script>
     <script src="/src/ts/dist/components/navigation_bar.js" type="module"></script>
     <script src="/src/ts/dist/pages/homepage/components/all_services.js" type="module"></script>
@@ -457,148 +461,71 @@
         <div class="loader"></div>
     </div>
 
-    <header>
-        <?php if(isset($_SESSION["green_report_message"]) and !empty($_SESSION["green_report_message"])): ?>
-            <p class="green_report_message"><?php echo $_SESSION["green_report_message"]; ?></p>
-            <?php $_SESSION["green_report_message"] = ""; ?>
+    <?php require "../assets/partials/flash_messages.php"; ?>
+    <?php require "../assets/partials/cookie_policy.php"; ?>
 
-        <?php endif; ?>
+    <button class="move_up" type="button" title="Posunúť nahor" aria-label="Posunúť nahor"><i class="fa-solid fa-arrow-up"></i></button> <!-- https://fontawesome.com/icons/arrow-up -->
 
-        <?php if(isset($_SESSION["red_report_message"]) and !empty($_SESSION["red_report_message"])): ?>
-            <p class="red_report_message"><?php echo $_SESSION["red_report_message"]; ?></p>
-            <?php $_SESSION["red_report_message"] = ""; ?>
-
-        <?php endif; ?>
-
-        <nav class="navigation_bar">
-            <div class="navigation_container">
-                <button class="hamburger" (click)="toggleMenu()">
-                    <i class="fa-solid" [class.fa-bars]="!is_menu_open" [class.fa-xmark]="is_menu_open"></i> <!-- https://fontawesome.com/icons/bars / https://fontawesome.com/icons/magnifying-glass -->
-                </button>
-            
-                <ul [class.open]="is_menu_open">
-                    <li class="scroll_about_us"><a href="#">O NÁS</a></li>
-                    <li class="scroll_all_services"><a href="#">NAŠE SLUŽBY</a></li>
-                    <li class="scroll_contact"><a href="#">KONTAKT</a></li>
-
-                    <?php if(isset($_SESSION["logged_in_user_id"]) and $user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "role") === "admin"): ?>
-                        <li>
-                            <a class="admin" href="./administracia">ADMINISTRÁCIA</a>
-                        </li>
-
-                    <?php endif; ?>
-                </ul>
-            </div>
-        </nav>
-
-        <button class="move_up" title="Posunúť nahor" aria-label="Posunúť nahor">
-            <img src="/content/images/up-arrow.png" alt="Posunúť nahor"> <!-- https://www.flaticon.com/free-icon/up-arrow_271239 -->
-        </button>
-
-        <div class="cookie_policy">
-            <img src="/content/images/cookie.png" alt="Cookie"> <!-- https://www.flaticon.com/free-icon/cookie_1047711 -->
-            <h2>Cookie Policy</h2>
-            <p>Táto&nbsp;stránka&nbsp;používa&nbsp;súbory&nbsp;cookies.</p>
-            <button class="accept_all">ROZUMIEM</button>
-        </div>
-
-        <div class="theme_selection">
-            <button class="light_theme" title="Svetlé zobrazenie" aria-label="Svetlé zobrazenie"><img src="/content/images/sun.png" alt="Svetlé zobrazenie"></button> <!-- https://www.flaticon.com/free-icon/day-mode_11457488 -->
-            <button class="dark_theme" title="Tmavé zobrazenie" aria-label="Tmavé zobrazenie"><img src="/content/images/moon.png" alt="Tmavé zobrazenie"></button> <!-- https://www.flaticon.com/free-icon/moon_11735139 -->
-        </div>
-        
-        <?php if(isset($_SESSION["is_logged_in"]) and $_SESSION["is_logged_in"] === true): ?>
-            <div class="account">
-                <a href="./moj-ucet" title="Môj účet">
-                    <?php if(!empty($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "profile_picture_name")) or !empty($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'))): ?>
-                        <img 
-                            class="profile_picture" 
-                            src="
-                                <?php if(!empty($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url')) and empty($user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'profile_picture_name'))): ?>
-                                    <?php echo $user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'google_profile_picture_url'); ?>
-
-                                <?php else: ?>
-                                    /content/uploads/<?php echo $_SESSION['logged_in_user_id']; ?>/<?php echo $user_object->getUserInformation($connection, $_SESSION['logged_in_user_id'], 'profile_picture_name'); ?>
-
-                                <?php endif; ?>
-                            "
-                            alt="Môj účet"
-                        >
-
-                    <?php else: ?>
-                        <img class="profile_picture" src="/content/images/avatar.png" alt="Profilový obrázok"> <!-- https://www.flaticon.com/free-icon/user_847969 -->
-
-                    <?php endif; ?>
-                </a>
-
-                <a href="./moj-ucet" title="Môj účet">
-                    <?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "first_name") ?? "", ENT_QUOTES, "UTF-8") . " " . htmlspecialchars($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "last_name") ?? "", ENT_QUOTES, "UTF-8"); ?>
-                </a>
-
-                <a href="./logout.php" title="Odhlásiť sa z účtu <?php echo htmlspecialchars($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "first_name") ?? "", ENT_QUOTES, "UTF-8") . " " . htmlspecialchars($user_object->getUserInformation($connection, $_SESSION["logged_in_user_id"], "last_name") ?? "", ENT_QUOTES, "UTF-8"); ?>">Odhlásiť</a>
-            </div>
-
-        <?php else: ?>
-            <div class="account">
-                <ul>
-                    <li>
-                        <a href="./prihlasenie" title="Prihlásiť sa">
-                            <?php echo "Neprihlásený" ?>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-        <?php endif; ?>
-
-        <div class="header_box">
-            <h1><a href="./domov">PC&nbsp;Expert</a></h1>
-
-            <div class="buttons"> <!-- https://codepen.io/hilwat/pen/BeemVX -->
-                <a class="login_button" href="./prihlasenie" target="_self">Prihlásiť</a>
-                <a class="registration_button" href="./registracia" target="_self">Zaregistrovať</a>
-            </div>
-        </div>
-        
-        <div class="header_text">
-            <div class="user_rating" title="Na základe <?php echo htmlspecialchars($review_object->countReviews($connection), ENT_QUOTES, 'UTF-8'); ?> recenzií.">
-                <?php if($review_object->getAverageRating($connection)): ?>
-                    <p><?php echo htmlspecialchars($review_object->getAverageRating($connection), ENT_QUOTES, "UTF-8"); ?> / 5</p>
-
-                    <?php for($i = 1; $i <= 5; $i++): ?>
-                        <?php if($i <= round($review_object->getAverageRating($connection))): ?>
-                            <div class="star">
-                                <i class="fa-solid fa-star"></i> <!-- https://fontawesome.com/icons/star -->
-                            </div>
-
-                        <?php else: ?>
-                            <div class="star">
-                                <i class="fa-regular fa-star"></i> <!-- https://fontawesome.com/icons/star -->
-                            </div>
-
-                        <?php endif; ?>
-
-                    <?php endfor; ?>
-
-                <?php else: ?>
-                    <p>0 / 5</p>
-
-                    <?php for($i = 1; $i <= 5; $i++): ?>
-                        <div class="star">
-                            <i class="fa-regular fa-star"></i> <!-- https://fontawesome.com/icons/star -->
-                        </div>
-                    
-                    <?php endfor; ?>
-
-                <?php endif; ?>
-            </div>
-
-            <p>Vážime si, že využívate naše služby. Ďakujeme!</p>
-        </div>
+    <header class="site_header">
+        <?php $is_homepage = true; ?>
+        <?php require "../assets/partials/navigation.php"; ?>
     </header>
 
     <main>
-        <section class="all_services">
+        <section class="hero" id="top">
+            <div class="hero_container">
+                <div class="hero_content">
+                    <a class="hero_rating" href="#reviews" title="Na základe <?php echo $reviews_count; ?> recenzií">
+                        <span class="stars" aria-hidden="true">
+                            <?php for($i = 1; $i <= 5; $i++): ?>
+                                <i class="<?php echo $i <= round($average_rating) ? "fa-solid" : "fa-regular"; ?> fa-star"></i> <!-- https://fontawesome.com/icons/star -->
+
+                            <?php endfor; ?>
+                        </span>
+
+                        <span><strong><?php echo number_format($average_rating, 1, ",", ""); ?></strong>&nbsp;/&nbsp;5 · <?php echo $reviews_count; ?>&nbsp;recenzií</span>
+                    </a>
+
+                    <h1>Váš počítač <span class="highlight">v&nbsp;rukách expertov</span></h1>
+
+                    <p class="hero_lead">Stavba počítačov na mieru, odborná údržba a hĺbkové čistenie. Objednajte si službu online za pár minút a o zvyšok sa postaráme my.</p>
+
+                    <div class="hero_actions">
+                        <a class="btn btn_lg" href="#all_services">Vybrať službu <i class="fa-solid fa-arrow-right"></i></a> <!-- https://fontawesome.com/icons/arrow-right -->
+                        <a class="btn btn_lg btn_secondary" href="#contact"><i class="fa-regular fa-comment"></i> Kontaktovať nás</a> <!-- https://fontawesome.com/icons/comment -->
+                    </div>
+
+                    <ul class="hero_highlights">
+                        <li><i class="fa-solid fa-lock"></i> Bezpečná platba kartou</li> <!-- https://fontawesome.com/icons/lock -->
+                        <li><i class="fa-solid fa-box"></i> Doručenie cez Packeta</li> <!-- https://fontawesome.com/icons/box -->
+                        <li><i class="fa-solid fa-location-dot"></i> Bratislava</li> <!-- https://fontawesome.com/icons/location-dot -->
+                    </ul>
+                </div>
+
+                <div class="hero_visual" aria-hidden="true">
+                    <div class="hero_image">
+                        <img src="/content/images/background.jpg" alt=""> <!-- https://pixabay.com/sk/photos/cpu-procesor-%C4%8Dip-z%C3%A1kladn%C3%A9-dosky-4393376/ -->
+                    </div>
+
+                    <div class="hero_card hero_card_price">
+                        <span class="hero_card_icon"><i class="fa-solid fa-tag"></i></span> <!-- https://fontawesome.com/icons/tag -->
+
+                        <div>
+                            <p class="hero_card_label">Služby už od</p>
+                            <p class="hero_card_value"><?php echo min(array_column($all_services, "price")); ?>&nbsp;€</p>
+                        </div>
+                    </div>
+
+                    <div class="hero_card hero_card_services">
+                        <?php foreach($all_services as $one_service): ?>
+                            <p><i class="<?php echo $one_service["icon"]; ?>"></i> <?php echo $one_service["title"]; ?></p>
+
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="all_services" id="all_services">
             <?php foreach($all_services as $one_service): ?>
                 <form class="<?php echo $one_service["service"]; ?>" action="create_checkout_session.php" method="POST" enctype="multipart/form-data">
                     <div class="<?php echo $one_service["service"]; ?>_container">
@@ -622,7 +549,7 @@
         </section>
 
         <section class="main <?php echo $theme; ?>">
-            <div class="about_us <?php echo $theme; ?>">
+            <div class="about_us <?php echo $theme; ?>" id="about_us">
                 <h2>O&nbsp;nás</h2>
                 <p>Sme tím nadšencov a odborníkov na počítačový hardvér, ktorí sa venujú profesionálnej stavbe, servisu a upgradu počítačov. Našim cieľom je poskytovať spoľahlivé a kvalitné služby, vďaka ktorým si môžete užívať bezproblémový a výkonný počítač, či už na prácu, hranie hier alebo kreatívnu tvorbu.<br>
                 Či už potrebujete nový počítač na mieru, odbornú diagnostiku, výmenu komponentov, čistenie alebo zrýchlenie vášho zariadenia, sme tu pre vás. Ku každému zákazníkovi pristupujeme individuálne a hľadáme riešenia, ktoré najlepšie vyhovujú jeho potrebám a rozpočtu.<br>
@@ -643,7 +570,7 @@
             </div>
         </section>
 
-        <section class="reviews <?php echo $theme; ?>" data-logged_in_user_id="<?php echo json_encode($user_id); ?>">
+        <section class="reviews <?php echo $theme; ?>" id="reviews" data-logged_in_user_id="<?php echo json_encode($user_id); ?>">
             <div class="user_review">
                 <?php if($review_object->getUserReview($connection, $user_id) !== null and $review_object->getUserReview($connection, $user_id) !== false): ?>
                     <div class="review">
@@ -927,7 +854,7 @@
             <?php endif; ?>
         </section>
 
-        <section class="contact <?php echo $theme; ?>">
+        <section class="contact <?php echo $theme; ?>" id="contact">
             <!-- reCAPTCHA V3 -->
             <script src="https://www.google.com/recaptcha/api.js?render=<?php echo htmlspecialchars($_ENV["RECAPTCHA_SITE_KEY"]); ?>&badge=inline"></script>
             
@@ -1038,7 +965,7 @@
         </div>
     </main>
     
-    <footer class="<?php echo $theme; ?>">
+    <footer>
         <?php require "../assets/footer.php"; ?>
     </footer>
 </body>
