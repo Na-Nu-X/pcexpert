@@ -344,6 +344,14 @@
             "image" => "/content/images/computer_building.jpg", // https://unsplash.com/photos/a-close-up-of-a-computer-motherboard-0Sdxy9Ev6oQ
             "price" => 50,
             "description" => "Nechajte si zostaviť a nakonfigurovať počítač na mieru – rýchlo, profesionálne a za výhodnú cenu. Máte už nakúpené vlastné komponenty a hľadáte niekoho na odbornú montáž? Radi sa o to postaráme. Ak si s výberom zatiaľ neviete rady, poradíme vám tie najlepšie diely presne podľa vášho rozpočtu a požiadaviek. Získate tak vyladený stroj pripravený na okamžité použitie, úplne bez starostí.",
+            "summary" => "Zostavíme vám výkonný počítač presne podľa vášho rozpočtu a požiadaviek.",
+            "features" => [
+                "Výber komponentov podľa rozpočtu",
+                "Odborná montáž aj vlastných dielov",
+                "Pripravený na okamžité použitie"
+            ],
+            "price_note" => "za prácu, bez komponentov",
+            "badge" => "Na mieru", // Optional Card Badge (null Hides It)
             "details_title" => "O počítači",
             "details_description" => "Priblížte nám vašu predstavu. Po spracovaní objednávky vás budeme kontaktovať s konkrétnym návrhom zostavy.",
             "details_file" => "checkout_details_computer_building.php",
@@ -357,6 +365,14 @@
             "image" => "/content/images/computer_maintenance.jpg", // https://unsplash.com/photos/person-holding-black-and-silver-dj-controller-sMKUYIasyDM
             "price" => 30,
             "description" => "Trápi vás pomalý systém, podozrivý hluk alebo úplne nefunkčný počítač? Sme tu pre vás. Zariadenie odborne diagnostikujeme, navrhneme najlepšie riešenie a postaráme sa o opravu či výmenu chybných dielov. Radi vám poradíme aj s prípadným upgradom – či už ide o zrýchlenie, zväčšenie úložiska alebo zvýšenie herného výkonu. Pomôžeme vám z vášho stroja opäť vyťažiť maximum!",
+            "summary" => "Diagnostika, oprava a upgrade pomalého alebo nefunkčného počítača.",
+            "features" => [
+                "Diagnostika a odstránenie porúch",
+                "Výmena chybných dielov",
+                "Poradenstvo pri upgrade"
+            ],
+            "price_note" => "za diagnostiku a prácu",
+            "badge" => null,
             "details_title" => "Detaily údržby",
             "details_description" => "Popíšte nám aktuálny stav zariadenia, aby sme problém diagnostikovali rýchlejšie.",
             "details_file" => "checkout_details_computer_maintenance.php",
@@ -370,6 +386,14 @@
             "image" => "/content/images/computer_cleaning.jpg", // https://unsplash.com/photos/a-compact-computer-case-with-internal-components-visible-AZcrU0-8QzU
             "price" => 20,
             "description" => "Trápi váš počítač alebo notebook vysoký hluk ventilátorov a prehrievanie? Postaráme sa o jeho profesionálne hĺbkové vyčistenie. Odborne zbavíme vnútro zariadenia nahromadeného prachu a v prípade záujmu vymeníme teplovodivú pastu na procesore aj grafickej karte. Tým radikálne znížime prevádzkové teploty, vďaka čomu váš stroj opäť získa maximálny výkon, tichý chod a dlhšiu životnosť!",
+            "summary" => "Hĺbkové vyčistenie pre nižšie teploty, tichší chod a dlhšiu životnosť.",
+            "features" => [
+                "Odstránenie prachu z celého zariadenia",
+                "Výmena teplovodivej pasty",
+                "Nižšie teploty a tichší chod"
+            ],
+            "price_note" => "za kompletné čistenie",
+            "badge" => null,
             "details_title" => "Detaily čistenia",
             "details_description" => "Pár otázok, aby sme odhadli stav zariadenia a zvolili správny postup.",
             "details_file" => "checkout_details_computer_cleaning.php",
@@ -525,27 +549,101 @@
                 </div>
             </div>
         </section>
-        <section class="all_services" id="all_services">
-            <?php foreach($all_services as $one_service): ?>
-                <form class="<?php echo $one_service["service"]; ?>" action="create_checkout_session.php" method="POST" enctype="multipart/form-data">
-                    <div class="<?php echo $one_service["service"]; ?>_container">
-                        <img src="<?php echo $one_service["image"]; ?>" alt="<?php echo $one_service["title"]; ?>">
+        <section class="all_services section" id="all_services">
+            <div class="container">
+                <div class="section_heading">
+                    <p class="eyebrow"><i class="fa-solid fa-screwdriver-wrench"></i> Naše služby</p> <!-- https://fontawesome.com/icons/screwdriver-wrench -->
+                    <h2>S čím vám môžeme pomôcť?</h2>
+                    <p>Jasné ceny, objednávka online za pár minút a bezpečná platba kartou.</p>
+                </div>
 
-                        <p class="title"><?php echo $one_service["title"]; ?></p>
-                        <p class="description"><?php echo $one_service["description"]; ?></p>
-
-                        <div class="bottom">
-                            <p class="price"><?php echo $one_service["price"]; ?><span>€</span></p>
+                <div class="service_grid">
+                    <?php foreach($all_services as $one_service): ?>
+                        <form class="service_card <?php echo $one_service["service"]; ?>" action="create_checkout_session.php" method="POST" enctype="multipart/form-data">
                             <input type="hidden" name="service" value="<?php echo $one_service["service"]; ?>">
-                            <button class="continue" type="button" title="Objednať službu" aria-label="Objednať službu <?php echo $one_service["title"]; ?>" data-checkout-open><i class="fa-solid fa-basket-shopping"></i> Pokračovať</button> <!-- https://fontawesome.com/icons/basket-shopping -->
+
+                            <article class="service_card_inner" aria-labelledby="<?php echo $one_service["service"]; ?>_card_title">
+                                <div class="service_media">
+                                    <img src="<?php echo $one_service["image"]; ?>" alt="<?php echo $one_service["title"]; ?>" loading="lazy">
+
+                                    <?php if(!empty($one_service["badge"])): ?>
+                                        <span class="badge service_badge"><i class="fa-solid fa-star"></i> <?php echo $one_service["badge"]; ?></span> <!-- https://fontawesome.com/icons/star -->
+
+                                    <?php endif; ?>
+                                </div>
+
+                                <div class="service_body">
+                                    <div class="service_heading">
+                                        <span class="service_icon" aria-hidden="true"><i class="<?php echo $one_service["icon"]; ?>"></i></span>
+                                        <h3 id="<?php echo $one_service["service"]; ?>_card_title"><?php echo $one_service["title"]; ?></h3>
+                                    </div>
+
+                                    <p class="service_summary"><?php echo $one_service["summary"]; ?></p>
+
+                                    <ul class="service_features">
+                                        <?php foreach($one_service["features"] as $one_feature): ?>
+                                            <li><i class="fa-solid fa-check" aria-hidden="true"></i> <?php echo $one_feature; ?></li> <!-- https://fontawesome.com/icons/check -->
+
+                                        <?php endforeach; ?>
+                                    </ul>
+
+                                    <details class="service_more">
+                                        <summary>Viac o službe <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></summary> <!-- https://fontawesome.com/icons/chevron-down -->
+                                        <p><?php echo $one_service["description"]; ?></p>
+                                    </details>
+                                </div>
+
+                                <div class="service_footer">
+                                    <p class="service_price">
+                                        <strong><?php echo $one_service["price"]; ?>&nbsp;€</strong>
+                                        <span><?php echo $one_service["price_note"]; ?></span>
+                                    </p>
+
+                                    <button class="btn" type="button" aria-label="Objednať službu <?php echo $one_service["title"]; ?>" data-checkout-open>Objednať <i class="fa-solid fa-arrow-right"></i></button> <!-- https://fontawesome.com/icons/arrow-right -->
+                                </div>
+                            </article>
+
+                            <?php $checkout = $one_service; ?>
+                            <?php require "../assets/partials/checkout_dialog.php"; ?>
+                        </form>
+
+                    <?php endforeach; ?>
+                </div>
+
+                <ol class="order_process">
+                    <li>
+                        <span class="order_process_icon"><i class="fa-solid fa-hand-pointer"></i></span> <!-- https://fontawesome.com/icons/hand-pointer -->
+                        <div>
+                            <h3>Vyberte službu</h3>
+                            <p>Zvoľte, s čím potrebujete pomôcť.</p>
                         </div>
-                    </div>
+                    </li>
 
-                    <?php $checkout = $one_service; ?>
-                    <?php require "../assets/partials/checkout_dialog.php"; ?>
-                </form>
+                    <li>
+                        <span class="order_process_icon"><i class="fa-solid fa-pen-to-square"></i></span> <!-- https://fontawesome.com/icons/pen-to-square -->
+                        <div>
+                            <h3>Vyplňte detaily</h3>
+                            <p>Kontakt, doručenie a pár otázok.</p>
+                        </div>
+                    </li>
 
-            <?php endforeach; ?>
+                    <li>
+                        <span class="order_process_icon"><i class="fa-solid fa-credit-card"></i></span> <!-- https://fontawesome.com/icons/credit-card -->
+                        <div>
+                            <h3>Zaplaťte online</h3>
+                            <p>Bezpečne kartou cez Stripe.</p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <span class="order_process_icon"><i class="fa-solid fa-circle-check"></i></span> <!-- https://fontawesome.com/icons/circle-check -->
+                        <div>
+                            <h3>O zvyšok sa postaráme</h3>
+                            <p>Ozveme sa vám s ďalším postupom.</p>
+                        </div>
+                    </li>
+                </ol>
+            </div>
         </section>
 
         <section class="main <?php echo $theme; ?>">
