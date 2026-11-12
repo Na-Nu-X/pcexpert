@@ -189,8 +189,9 @@ main {
         .paste_password {
             @include icon_button(32px);
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
+            top: 0;
+            bottom: 0;
+            margin-block: auto; // Vertical Centering Without transform (The Button Mixin Uses transform For The Pressed State)
             z-index: 1;
 
             i {

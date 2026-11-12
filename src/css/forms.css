@@ -1568,8 +1568,9 @@ main::before {
   padding: 0;
   border-radius: 50%;
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 0;
+  bottom: 0;
+  margin-block: auto;
   z-index: 1;
 }
 .registration .password_container .generate_password i,
