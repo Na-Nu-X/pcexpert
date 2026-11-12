@@ -68,6 +68,14 @@ textarea {
     color: inherit;
 }
 
+[hidden] {
+    display: none !important;
+}
+
+body.modal_open {
+    overflow: hidden;
+}
+
 ::selection {
     background-color: var(--color-primary);
     color: var(--color-on-primary);

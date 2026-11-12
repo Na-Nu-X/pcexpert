@@ -578,6 +578,7 @@ main {
   min-height: 44px;
   padding: 0 var(--space-6);
   font-size: var(--text-sm);
+  box-shadow: none;
   background-color: var(--color-surface);
   color: var(--color-text);
   border-color: var(--color-border-strong);

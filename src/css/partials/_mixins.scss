@@ -224,6 +224,7 @@
     }
 
     @else if $variant == secondary {
+        box-shadow: none;
         background-color: var(--color-surface);
         color: var(--color-text);
         border-color: var(--color-border-strong);
@@ -237,6 +238,7 @@
     }
 
     @else if $variant == ghost {
+        box-shadow: none;
         background-color: transparent;
         color: var(--color-text-muted);
 
@@ -249,6 +251,7 @@
     }
 
     @else if $variant == danger {
+        box-shadow: none;
         background-color: var(--color-danger-soft);
         color: var(--color-danger);
         border-color: transparent;

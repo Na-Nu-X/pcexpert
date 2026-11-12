@@ -248,6 +248,14 @@ textarea {
   color: inherit;
 }
 
+[hidden] {
+  display: none !important;
+}
+
+body.modal_open {
+  overflow: hidden;
+}
+
 ::selection {
   background-color: var(--color-primary);
   color: var(--color-on-primary);
@@ -370,6 +378,7 @@ select:focus-visible,
   transform: none;
 }
 .btn.btn_secondary {
+  box-shadow: none;
   background-color: var(--color-surface);
   color: var(--color-text);
   border-color: var(--color-border-strong);
@@ -381,6 +390,7 @@ select:focus-visible,
   }
 }
 .btn.btn_ghost {
+  box-shadow: none;
   background-color: transparent;
   color: var(--color-text-muted);
 }
@@ -391,6 +401,7 @@ select:focus-visible,
   }
 }
 .btn.btn_danger {
+  box-shadow: none;
   background-color: var(--color-danger-soft);
   color: var(--color-danger);
   border-color: transparent;
@@ -555,6 +566,7 @@ header {
   min-height: 36px;
   padding: 0 var(--space-4);
   font-size: var(--text-sm);
+  box-shadow: none;
   background-color: transparent;
   color: var(--color-text-muted);
 }
