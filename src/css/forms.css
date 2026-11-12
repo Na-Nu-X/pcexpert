@@ -1,6 +1,44 @@
+/****************
+ Design Tokens
+ (Sass Side)
+****************/
+/********************************
+ Legacy Variables (Deprecated)
+ Kept Until Every Stylesheet Is
+ Migrated To The CSS Custom
+ Properties In _theme.scss
+********************************/
+/****************
+ Design Tokens
+ (Sass Side)
+****************/
+/********************************
+ Legacy Variables (Deprecated)
+ Kept Until Every Stylesheet Is
+ Migrated To The CSS Custom
+ Properties In _theme.scss
+********************************/
+/******************
+ Responsive Mixins
+******************/
 /***************
- General Mixins
+ Layout Mixins
 ***************/
+/****************
+ Surface Mixins
+****************/
+/*************
+ Text Mixins
+*************/
+/***************
+ Button Mixins
+***************/
+/*************
+ Form Mixins
+*************/
+/*************
+ Misc Mixins
+*************/
 /**************
  Header Styles
 **************/
@@ -24,7 +62,7 @@ main {
   max-width: 100%;
   width: 100%;
   margin: 0;
-  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5)), url("/content/images/background.jpg");
+  background: linear-gradient(rgba(14, 19, 29, 0.1), rgba(14, 19, 29, 0.5)), url("/content/images/background.jpg");
   background-size: cover;
   background-position: center center;
   background-attachment: fixed;
@@ -40,11 +78,11 @@ main {
   width: 100%;
   margin-top: 83px;
   padding: 50px;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(14, 19, 29, 0.2);
   backdrop-filter: blur(2.5px);
   border: 1px solid #cccccc;
   border-radius: 30px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 10px rgba(14, 19, 29, 0.5);
 }
 .registration .back_icon,
 .login .back_icon,
@@ -100,7 +138,7 @@ main {
 .password_reset h2 a,
 .success_order h2 a {
   text-decoration: none;
-  color: #fff;
+  color: #ffffff;
 }
 .registration form,
 .login form,
@@ -133,14 +171,16 @@ main {
 .success_order form .inputs input[type=text],
 .success_order form .inputs input[type=email] {
   width: 100%;
-  padding: 10px 15px;
-  background-color: rgb(97%, 97%, 97%);
-  color: rgba(0, 0, 0, 0.6);
-  border: 1px solid rgb(90%, 90%, 90%);
-  border-radius: 5px;
+  min-height: 46px;
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
   font-family: inherit;
+  font-size: var(--text-base);
   outline: none;
-  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease), background-color var(--duration-fast) var(--ease);
 }
 .registration form .inputs input[type=text]::placeholder,
 .registration form .inputs input[type=email]::placeholder,
@@ -154,23 +194,49 @@ main {
 .password_reset form .inputs input[type=email]::placeholder,
 .success_order form .inputs input[type=text]::placeholder,
 .success_order form .inputs input[type=email]::placeholder {
-  color: #999999;
+  color: var(--color-text-subtle);
 }
-.registration form .inputs input[type=text]:focus-visible,
+@media (hover: hover) {
+  .registration form .inputs input[type=text]:hover,
+  .registration form .inputs input[type=email]:hover,
+  .login form .inputs input[type=text]:hover,
+  .login form .inputs input[type=email]:hover,
+  .edit_account form .inputs input[type=text]:hover,
+  .edit_account form .inputs input[type=email]:hover,
+  .edit_review form .inputs input[type=text]:hover,
+  .edit_review form .inputs input[type=email]:hover,
+  .password_reset form .inputs input[type=text]:hover,
+  .password_reset form .inputs input[type=email]:hover,
+  .success_order form .inputs input[type=text]:hover,
+  .success_order form .inputs input[type=email]:hover {
+    border-color: var(--color-text-subtle);
+  }
+}
+.registration form .inputs input[type=text]:focus-visible, .registration form .inputs input[type=text]:focus,
 .registration form .inputs input[type=email]:focus-visible,
+.registration form .inputs input[type=email]:focus,
 .login form .inputs input[type=text]:focus-visible,
+.login form .inputs input[type=text]:focus,
 .login form .inputs input[type=email]:focus-visible,
+.login form .inputs input[type=email]:focus,
 .edit_account form .inputs input[type=text]:focus-visible,
+.edit_account form .inputs input[type=text]:focus,
 .edit_account form .inputs input[type=email]:focus-visible,
+.edit_account form .inputs input[type=email]:focus,
 .edit_review form .inputs input[type=text]:focus-visible,
+.edit_review form .inputs input[type=text]:focus,
 .edit_review form .inputs input[type=email]:focus-visible,
+.edit_review form .inputs input[type=email]:focus,
 .password_reset form .inputs input[type=text]:focus-visible,
+.password_reset form .inputs input[type=text]:focus,
 .password_reset form .inputs input[type=email]:focus-visible,
+.password_reset form .inputs input[type=email]:focus,
 .success_order form .inputs input[type=text]:focus-visible,
-.success_order form .inputs input[type=email]:focus-visible {
-  background-color: #fff;
-  border-color: #7CE5FA;
-  box-shadow: 0 0 0 3px rgba(124, 229, 250, 0.2);
+.success_order form .inputs input[type=text]:focus,
+.success_order form .inputs input[type=email]:focus-visible,
+.success_order form .inputs input[type=email]:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
 }
 .registration form .inputs input[type=text]:-webkit-autofill,
 .registration form .inputs input[type=email]:-webkit-autofill,
@@ -184,8 +250,8 @@ main {
 .password_reset form .inputs input[type=email]:-webkit-autofill,
 .success_order form .inputs input[type=text]:-webkit-autofill,
 .success_order form .inputs input[type=email]:-webkit-autofill {
-  -webkit-text-fill-color: rgba(0, 0, 0, 0.6);
-  transition: width 0.3s ease, background-color 9999s ease;
+  -webkit-text-fill-color: var(--color-text);
+  transition: background-color 9999s ease;
 }
 .registration form .inputs input[type=text]:-webkit-autofill:hover, .registration form .inputs input[type=text]:-webkit-autofill:focus,
 .registration form .inputs input[type=email]:-webkit-autofill:hover,
@@ -210,8 +276,81 @@ main {
 .success_order form .inputs input[type=text]:-webkit-autofill:focus,
 .success_order form .inputs input[type=email]:-webkit-autofill:hover,
 .success_order form .inputs input[type=email]:-webkit-autofill:focus {
-  -webkit-text-fill-color: rgba(0, 0, 0, 0.6);
-  transition: width 0.3s ease, background-color 9999s ease;
+  -webkit-text-fill-color: var(--color-text);
+  transition: background-color 9999s ease;
+}
+.registration form .inputs textarea,
+.login form .inputs textarea,
+.edit_account form .inputs textarea,
+.edit_review form .inputs textarea,
+.password_reset form .inputs textarea,
+.success_order form .inputs textarea {
+  width: 100%;
+  min-height: 46px;
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: var(--text-base);
+  outline: none;
+  transition: border-color var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease), background-color var(--duration-fast) var(--ease);
+}
+.registration form .inputs textarea::placeholder,
+.login form .inputs textarea::placeholder,
+.edit_account form .inputs textarea::placeholder,
+.edit_review form .inputs textarea::placeholder,
+.password_reset form .inputs textarea::placeholder,
+.success_order form .inputs textarea::placeholder {
+  color: var(--color-text-subtle);
+}
+@media (hover: hover) {
+  .registration form .inputs textarea:hover,
+  .login form .inputs textarea:hover,
+  .edit_account form .inputs textarea:hover,
+  .edit_review form .inputs textarea:hover,
+  .password_reset form .inputs textarea:hover,
+  .success_order form .inputs textarea:hover {
+    border-color: var(--color-text-subtle);
+  }
+}
+.registration form .inputs textarea:focus-visible, .registration form .inputs textarea:focus,
+.login form .inputs textarea:focus-visible,
+.login form .inputs textarea:focus,
+.edit_account form .inputs textarea:focus-visible,
+.edit_account form .inputs textarea:focus,
+.edit_review form .inputs textarea:focus-visible,
+.edit_review form .inputs textarea:focus,
+.password_reset form .inputs textarea:focus-visible,
+.password_reset form .inputs textarea:focus,
+.success_order form .inputs textarea:focus-visible,
+.success_order form .inputs textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+.registration form .inputs textarea:-webkit-autofill,
+.login form .inputs textarea:-webkit-autofill,
+.edit_account form .inputs textarea:-webkit-autofill,
+.edit_review form .inputs textarea:-webkit-autofill,
+.password_reset form .inputs textarea:-webkit-autofill,
+.success_order form .inputs textarea:-webkit-autofill {
+  -webkit-text-fill-color: var(--color-text);
+  transition: background-color 9999s ease;
+}
+.registration form .inputs textarea:-webkit-autofill:hover, .registration form .inputs textarea:-webkit-autofill:focus,
+.login form .inputs textarea:-webkit-autofill:hover,
+.login form .inputs textarea:-webkit-autofill:focus,
+.edit_account form .inputs textarea:-webkit-autofill:hover,
+.edit_account form .inputs textarea:-webkit-autofill:focus,
+.edit_review form .inputs textarea:-webkit-autofill:hover,
+.edit_review form .inputs textarea:-webkit-autofill:focus,
+.password_reset form .inputs textarea:-webkit-autofill:hover,
+.password_reset form .inputs textarea:-webkit-autofill:focus,
+.success_order form .inputs textarea:-webkit-autofill:hover,
+.success_order form .inputs textarea:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--color-text);
+  transition: background-color 9999s ease;
 }
 .registration form .inputs textarea,
 .login form .inputs textarea,
@@ -220,25 +359,8 @@ main {
 .password_reset form .inputs textarea,
 .success_order form .inputs textarea {
   display: block;
-  width: 90%;
-  height: 100px;
-  margin: 0px auto;
-  padding: 5px 10px;
-  background: none;
-  color: #fff;
-  border: 1px solid #fff;
-  border-radius: 5px;
-  outline: none;
-  resize: none;
-  transition: width 0.3s ease;
-}
-.registration form .inputs textarea::placeholder,
-.login form .inputs textarea::placeholder,
-.edit_account form .inputs textarea::placeholder,
-.edit_review form .inputs textarea::placeholder,
-.password_reset form .inputs textarea::placeholder,
-.success_order form .inputs textarea::placeholder {
-  color: #999999;
+  min-height: 120px;
+  resize: vertical;
 }
 .registration form .inputs input[type=text],
 .registration form .inputs input[type=email],
@@ -263,7 +385,7 @@ main {
   border-right: none;
   border-left: none;
   border-radius: 0px;
-  color: #fff;
+  color: #ffffff;
 }
 .registration form .inputs input[type=text]:focus-visible,
 .registration form .inputs input[type=email]:focus-visible,
@@ -301,7 +423,7 @@ main {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 0.9em;
+  font-size: var(--text-sm);
 }
 .registration form .form_report.valid,
 .registration form .dialogue_paragraph.valid,
@@ -315,7 +437,7 @@ main {
 .password_reset form .dialogue_paragraph.valid,
 .success_order form .form_report.valid,
 .success_order form .dialogue_paragraph.valid {
-  color: #52cf20;
+  color: var(--color-success);
 }
 .registration form .form_report.invalid,
 .registration form .dialogue_paragraph.invalid,
@@ -329,7 +451,7 @@ main {
 .password_reset form .dialogue_paragraph.invalid,
 .success_order form .form_report.invalid,
 .success_order form .dialogue_paragraph.invalid {
-  color: #df3535;
+  color: var(--color-danger);
 }
 .registration form .form_report,
 .registration form .dialogue_paragraph,
@@ -353,38 +475,71 @@ main {
 .password_reset form button[type=submit],
 .success_order form button[type=submit] {
   all: unset;
-  width: 100%;
-  padding: 10px 0px;
-  text-align: center;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-main);
   font-weight: 600;
-  background-color: #5e97fa;
-  color: #fff;
-  border: 1px solid #f5faf9;
-  border-radius: 25px;
-  transition: transform 0.2s ease, background-color 0.2s ease;
-}
-.registration form button[type=submit]:hover, .registration form button[type=submit]:focus-visible,
-.login form button[type=submit]:hover,
-.login form button[type=submit]:focus-visible,
-.edit_account form button[type=submit]:hover,
-.edit_account form button[type=submit]:focus-visible,
-.edit_review form button[type=submit]:hover,
-.edit_review form button[type=submit]:focus-visible,
-.password_reset form button[type=submit]:hover,
-.password_reset form button[type=submit]:focus-visible,
-.success_order form button[type=submit]:hover,
-.success_order form button[type=submit]:focus-visible {
-  transform: translateY(-2px);
-  background-color: rgb(46.5615402788%, 65.4807465155%, 98.3404205056%);
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
   cursor: pointer;
+  user-select: none;
+  transition: background-color var(--duration-fast) var(--ease), color var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease), transform var(--duration-fast) var(--ease);
+  min-height: 44px;
+  padding: 0 var(--space-6);
+  font-size: var(--text-sm);
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  box-shadow: var(--shadow-primary);
 }
-.registration form button[type=submit]:active,
-.login form button[type=submit]:active,
-.edit_account form button[type=submit]:active,
-.edit_review form button[type=submit]:active,
-.password_reset form button[type=submit]:active,
-.success_order form button[type=submit]:active {
+@media (hover: hover) {
+  .registration form button[type=submit]:hover:not(:disabled),
+  .login form button[type=submit]:hover:not(:disabled),
+  .edit_account form button[type=submit]:hover:not(:disabled),
+  .edit_review form button[type=submit]:hover:not(:disabled),
+  .password_reset form button[type=submit]:hover:not(:disabled),
+  .success_order form button[type=submit]:hover:not(:disabled) {
+    background-color: var(--color-primary-hover);
+  }
+}
+.registration form button[type=submit]:active:not(:disabled),
+.login form button[type=submit]:active:not(:disabled),
+.edit_account form button[type=submit]:active:not(:disabled),
+.edit_review form button[type=submit]:active:not(:disabled),
+.password_reset form button[type=submit]:active:not(:disabled),
+.success_order form button[type=submit]:active:not(:disabled) {
   transform: translateY(1px);
+}
+.registration form button[type=submit]:focus-visible,
+.login form button[type=submit]:focus-visible,
+.edit_account form button[type=submit]:focus-visible,
+.edit_review form button[type=submit]:focus-visible,
+.password_reset form button[type=submit]:focus-visible,
+.success_order form button[type=submit]:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+.registration form button[type=submit]:disabled, .registration form button[type=submit][aria-disabled=true],
+.login form button[type=submit]:disabled,
+.login form button[type=submit][aria-disabled=true],
+.edit_account form button[type=submit]:disabled,
+.edit_account form button[type=submit][aria-disabled=true],
+.edit_review form button[type=submit]:disabled,
+.edit_review form button[type=submit][aria-disabled=true],
+.password_reset form button[type=submit]:disabled,
+.password_reset form button[type=submit][aria-disabled=true],
+.success_order form button[type=submit]:disabled,
+.success_order form button[type=submit][aria-disabled=true] {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
 }
 .registration form button[type=submit],
 .login form button[type=submit],
@@ -392,6 +547,8 @@ main {
 .edit_review form button[type=submit],
 .password_reset form button[type=submit],
 .success_order form button[type=submit] {
+  width: 100%;
+  border-radius: 24px;
   margin: 50px auto 10px;
   animation: fade_in_animation 0.3s ease-out;
 }
@@ -402,33 +559,72 @@ main {
 .password_reset form .login_method a,
 .success_order form .login_method a {
   all: unset;
-  width: 100%;
-  padding: 10px 0px;
-  text-align: center;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-main);
   font-weight: 600;
-  background-color: #f5faf9;
-  color: #5e97fa;
-  border: 1px solid #5e97fa;
-  border-radius: 25px;
-  transition: transform 0.2s ease, background-color 0.2s ease;
-}
-.registration form .login_method a:hover,
-.login form .login_method a:hover,
-.edit_account form .login_method a:hover,
-.edit_review form .login_method a:hover,
-.password_reset form .login_method a:hover,
-.success_order form .login_method a:hover {
-  transform: translateY(-2px);
-  background-color: #f5faf9;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
   cursor: pointer;
+  user-select: none;
+  transition: background-color var(--duration-fast) var(--ease), color var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease), transform var(--duration-fast) var(--ease);
+  min-height: 44px;
+  padding: 0 var(--space-6);
+  font-size: var(--text-sm);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  border-color: var(--color-border-strong);
 }
-.registration form .login_method a:active,
-.login form .login_method a:active,
-.edit_account form .login_method a:active,
-.edit_review form .login_method a:active,
-.password_reset form .login_method a:active,
-.success_order form .login_method a:active {
+@media (hover: hover) {
+  .registration form .login_method a:hover:not(:disabled),
+  .login form .login_method a:hover:not(:disabled),
+  .edit_account form .login_method a:hover:not(:disabled),
+  .edit_review form .login_method a:hover:not(:disabled),
+  .password_reset form .login_method a:hover:not(:disabled),
+  .success_order form .login_method a:hover:not(:disabled) {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+}
+.registration form .login_method a:active:not(:disabled),
+.login form .login_method a:active:not(:disabled),
+.edit_account form .login_method a:active:not(:disabled),
+.edit_review form .login_method a:active:not(:disabled),
+.password_reset form .login_method a:active:not(:disabled),
+.success_order form .login_method a:active:not(:disabled) {
   transform: translateY(1px);
+}
+.registration form .login_method a:focus-visible,
+.login form .login_method a:focus-visible,
+.edit_account form .login_method a:focus-visible,
+.edit_review form .login_method a:focus-visible,
+.password_reset form .login_method a:focus-visible,
+.success_order form .login_method a:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+.registration form .login_method a:disabled, .registration form .login_method a[aria-disabled=true],
+.login form .login_method a:disabled,
+.login form .login_method a[aria-disabled=true],
+.edit_account form .login_method a:disabled,
+.edit_account form .login_method a[aria-disabled=true],
+.edit_review form .login_method a:disabled,
+.edit_review form .login_method a[aria-disabled=true],
+.password_reset form .login_method a:disabled,
+.password_reset form .login_method a[aria-disabled=true],
+.success_order form .login_method a:disabled,
+.success_order form .login_method a[aria-disabled=true] {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
 }
 .registration form .login_method a,
 .login form .login_method a,
@@ -436,6 +632,8 @@ main {
 .edit_review form .login_method a,
 .password_reset form .login_method a,
 .success_order form .login_method a {
+  width: 100%;
+  border-radius: 24px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -520,7 +718,7 @@ main {
 .success_order form .forgot_password p,
 .success_order form .delete_account_container p,
 .success_order form .delete_review_container p {
-  color: #fff;
+  color: #ffffff;
   text-align: center;
 }
 .registration form .have_account p a:link,
@@ -571,7 +769,7 @@ main {
 .success_order form .delete_account_container p a:visited,
 .success_order form .delete_review_container p a:link,
 .success_order form .delete_review_container p a:visited {
-  color: #fff;
+  color: #ffffff;
   text-decoration: none;
 }
 .registration form .have_account p a:hover,
@@ -1213,396 +1411,397 @@ main {
 .success_order .password_reset_form .new_password_container .show_hide_password i,
 .success_order .password_reset_form .new_password_container .copy_password i,
 .success_order .password_reset_form .new_password_container .paste_password i {
-  color: #cccccc;
-  transition: top 0.3s ease, right 0.3s ease, bottom 0.3s ease, left 0.3s ease;
+  color: var(--color-text-subtle);
+  transition: color var(--duration-fast) var(--ease);
 }
-.registration .login_form .password_container .generate_password i:hover,
-.registration .login_form .password_container .show_hide_password i:hover,
-.registration .login_form .password_container .copy_password i:hover,
-.registration .login_form .password_container .paste_password i:hover,
-.registration .login_form .password_check_container .generate_password i:hover,
-.registration .login_form .password_check_container .show_hide_password i:hover,
-.registration .login_form .password_check_container .copy_password i:hover,
-.registration .login_form .password_check_container .paste_password i:hover,
-.registration .login_form .current_password_container .generate_password i:hover,
-.registration .login_form .current_password_container .show_hide_password i:hover,
-.registration .login_form .current_password_container .copy_password i:hover,
-.registration .login_form .current_password_container .paste_password i:hover,
-.registration .login_form .new_password_container .generate_password i:hover,
-.registration .login_form .new_password_container .show_hide_password i:hover,
-.registration .login_form .new_password_container .copy_password i:hover,
-.registration .login_form .new_password_container .paste_password i:hover,
-.registration .registration_form .password_container .generate_password i:hover,
-.registration .registration_form .password_container .show_hide_password i:hover,
-.registration .registration_form .password_container .copy_password i:hover,
-.registration .registration_form .password_container .paste_password i:hover,
-.registration .registration_form .password_check_container .generate_password i:hover,
-.registration .registration_form .password_check_container .show_hide_password i:hover,
-.registration .registration_form .password_check_container .copy_password i:hover,
-.registration .registration_form .password_check_container .paste_password i:hover,
-.registration .registration_form .current_password_container .generate_password i:hover,
-.registration .registration_form .current_password_container .show_hide_password i:hover,
-.registration .registration_form .current_password_container .copy_password i:hover,
-.registration .registration_form .current_password_container .paste_password i:hover,
-.registration .registration_form .new_password_container .generate_password i:hover,
-.registration .registration_form .new_password_container .show_hide_password i:hover,
-.registration .registration_form .new_password_container .copy_password i:hover,
-.registration .registration_form .new_password_container .paste_password i:hover,
-.registration .edit_account_form .password_container .generate_password i:hover,
-.registration .edit_account_form .password_container .show_hide_password i:hover,
-.registration .edit_account_form .password_container .copy_password i:hover,
-.registration .edit_account_form .password_container .paste_password i:hover,
-.registration .edit_account_form .password_check_container .generate_password i:hover,
-.registration .edit_account_form .password_check_container .show_hide_password i:hover,
-.registration .edit_account_form .password_check_container .copy_password i:hover,
-.registration .edit_account_form .password_check_container .paste_password i:hover,
-.registration .edit_account_form .current_password_container .generate_password i:hover,
-.registration .edit_account_form .current_password_container .show_hide_password i:hover,
-.registration .edit_account_form .current_password_container .copy_password i:hover,
-.registration .edit_account_form .current_password_container .paste_password i:hover,
-.registration .edit_account_form .new_password_container .generate_password i:hover,
-.registration .edit_account_form .new_password_container .show_hide_password i:hover,
-.registration .edit_account_form .new_password_container .copy_password i:hover,
-.registration .edit_account_form .new_password_container .paste_password i:hover,
-.registration .password_reset_form .password_container .generate_password i:hover,
-.registration .password_reset_form .password_container .show_hide_password i:hover,
-.registration .password_reset_form .password_container .copy_password i:hover,
-.registration .password_reset_form .password_container .paste_password i:hover,
-.registration .password_reset_form .password_check_container .generate_password i:hover,
-.registration .password_reset_form .password_check_container .show_hide_password i:hover,
-.registration .password_reset_form .password_check_container .copy_password i:hover,
-.registration .password_reset_form .password_check_container .paste_password i:hover,
-.registration .password_reset_form .current_password_container .generate_password i:hover,
-.registration .password_reset_form .current_password_container .show_hide_password i:hover,
-.registration .password_reset_form .current_password_container .copy_password i:hover,
-.registration .password_reset_form .current_password_container .paste_password i:hover,
-.registration .password_reset_form .new_password_container .generate_password i:hover,
-.registration .password_reset_form .new_password_container .show_hide_password i:hover,
-.registration .password_reset_form .new_password_container .copy_password i:hover,
-.registration .password_reset_form .new_password_container .paste_password i:hover,
-.login .login_form .password_container .generate_password i:hover,
-.login .login_form .password_container .show_hide_password i:hover,
-.login .login_form .password_container .copy_password i:hover,
-.login .login_form .password_container .paste_password i:hover,
-.login .login_form .password_check_container .generate_password i:hover,
-.login .login_form .password_check_container .show_hide_password i:hover,
-.login .login_form .password_check_container .copy_password i:hover,
-.login .login_form .password_check_container .paste_password i:hover,
-.login .login_form .current_password_container .generate_password i:hover,
-.login .login_form .current_password_container .show_hide_password i:hover,
-.login .login_form .current_password_container .copy_password i:hover,
-.login .login_form .current_password_container .paste_password i:hover,
-.login .login_form .new_password_container .generate_password i:hover,
-.login .login_form .new_password_container .show_hide_password i:hover,
-.login .login_form .new_password_container .copy_password i:hover,
-.login .login_form .new_password_container .paste_password i:hover,
-.login .registration_form .password_container .generate_password i:hover,
-.login .registration_form .password_container .show_hide_password i:hover,
-.login .registration_form .password_container .copy_password i:hover,
-.login .registration_form .password_container .paste_password i:hover,
-.login .registration_form .password_check_container .generate_password i:hover,
-.login .registration_form .password_check_container .show_hide_password i:hover,
-.login .registration_form .password_check_container .copy_password i:hover,
-.login .registration_form .password_check_container .paste_password i:hover,
-.login .registration_form .current_password_container .generate_password i:hover,
-.login .registration_form .current_password_container .show_hide_password i:hover,
-.login .registration_form .current_password_container .copy_password i:hover,
-.login .registration_form .current_password_container .paste_password i:hover,
-.login .registration_form .new_password_container .generate_password i:hover,
-.login .registration_form .new_password_container .show_hide_password i:hover,
-.login .registration_form .new_password_container .copy_password i:hover,
-.login .registration_form .new_password_container .paste_password i:hover,
-.login .edit_account_form .password_container .generate_password i:hover,
-.login .edit_account_form .password_container .show_hide_password i:hover,
-.login .edit_account_form .password_container .copy_password i:hover,
-.login .edit_account_form .password_container .paste_password i:hover,
-.login .edit_account_form .password_check_container .generate_password i:hover,
-.login .edit_account_form .password_check_container .show_hide_password i:hover,
-.login .edit_account_form .password_check_container .copy_password i:hover,
-.login .edit_account_form .password_check_container .paste_password i:hover,
-.login .edit_account_form .current_password_container .generate_password i:hover,
-.login .edit_account_form .current_password_container .show_hide_password i:hover,
-.login .edit_account_form .current_password_container .copy_password i:hover,
-.login .edit_account_form .current_password_container .paste_password i:hover,
-.login .edit_account_form .new_password_container .generate_password i:hover,
-.login .edit_account_form .new_password_container .show_hide_password i:hover,
-.login .edit_account_form .new_password_container .copy_password i:hover,
-.login .edit_account_form .new_password_container .paste_password i:hover,
-.login .password_reset_form .password_container .generate_password i:hover,
-.login .password_reset_form .password_container .show_hide_password i:hover,
-.login .password_reset_form .password_container .copy_password i:hover,
-.login .password_reset_form .password_container .paste_password i:hover,
-.login .password_reset_form .password_check_container .generate_password i:hover,
-.login .password_reset_form .password_check_container .show_hide_password i:hover,
-.login .password_reset_form .password_check_container .copy_password i:hover,
-.login .password_reset_form .password_check_container .paste_password i:hover,
-.login .password_reset_form .current_password_container .generate_password i:hover,
-.login .password_reset_form .current_password_container .show_hide_password i:hover,
-.login .password_reset_form .current_password_container .copy_password i:hover,
-.login .password_reset_form .current_password_container .paste_password i:hover,
-.login .password_reset_form .new_password_container .generate_password i:hover,
-.login .password_reset_form .new_password_container .show_hide_password i:hover,
-.login .password_reset_form .new_password_container .copy_password i:hover,
-.login .password_reset_form .new_password_container .paste_password i:hover,
-.edit_account .login_form .password_container .generate_password i:hover,
-.edit_account .login_form .password_container .show_hide_password i:hover,
-.edit_account .login_form .password_container .copy_password i:hover,
-.edit_account .login_form .password_container .paste_password i:hover,
-.edit_account .login_form .password_check_container .generate_password i:hover,
-.edit_account .login_form .password_check_container .show_hide_password i:hover,
-.edit_account .login_form .password_check_container .copy_password i:hover,
-.edit_account .login_form .password_check_container .paste_password i:hover,
-.edit_account .login_form .current_password_container .generate_password i:hover,
-.edit_account .login_form .current_password_container .show_hide_password i:hover,
-.edit_account .login_form .current_password_container .copy_password i:hover,
-.edit_account .login_form .current_password_container .paste_password i:hover,
-.edit_account .login_form .new_password_container .generate_password i:hover,
-.edit_account .login_form .new_password_container .show_hide_password i:hover,
-.edit_account .login_form .new_password_container .copy_password i:hover,
-.edit_account .login_form .new_password_container .paste_password i:hover,
-.edit_account .registration_form .password_container .generate_password i:hover,
-.edit_account .registration_form .password_container .show_hide_password i:hover,
-.edit_account .registration_form .password_container .copy_password i:hover,
-.edit_account .registration_form .password_container .paste_password i:hover,
-.edit_account .registration_form .password_check_container .generate_password i:hover,
-.edit_account .registration_form .password_check_container .show_hide_password i:hover,
-.edit_account .registration_form .password_check_container .copy_password i:hover,
-.edit_account .registration_form .password_check_container .paste_password i:hover,
-.edit_account .registration_form .current_password_container .generate_password i:hover,
-.edit_account .registration_form .current_password_container .show_hide_password i:hover,
-.edit_account .registration_form .current_password_container .copy_password i:hover,
-.edit_account .registration_form .current_password_container .paste_password i:hover,
-.edit_account .registration_form .new_password_container .generate_password i:hover,
-.edit_account .registration_form .new_password_container .show_hide_password i:hover,
-.edit_account .registration_form .new_password_container .copy_password i:hover,
-.edit_account .registration_form .new_password_container .paste_password i:hover,
-.edit_account .edit_account_form .password_container .generate_password i:hover,
-.edit_account .edit_account_form .password_container .show_hide_password i:hover,
-.edit_account .edit_account_form .password_container .copy_password i:hover,
-.edit_account .edit_account_form .password_container .paste_password i:hover,
-.edit_account .edit_account_form .password_check_container .generate_password i:hover,
-.edit_account .edit_account_form .password_check_container .show_hide_password i:hover,
-.edit_account .edit_account_form .password_check_container .copy_password i:hover,
-.edit_account .edit_account_form .password_check_container .paste_password i:hover,
-.edit_account .edit_account_form .current_password_container .generate_password i:hover,
-.edit_account .edit_account_form .current_password_container .show_hide_password i:hover,
-.edit_account .edit_account_form .current_password_container .copy_password i:hover,
-.edit_account .edit_account_form .current_password_container .paste_password i:hover,
-.edit_account .edit_account_form .new_password_container .generate_password i:hover,
-.edit_account .edit_account_form .new_password_container .show_hide_password i:hover,
-.edit_account .edit_account_form .new_password_container .copy_password i:hover,
-.edit_account .edit_account_form .new_password_container .paste_password i:hover,
-.edit_account .password_reset_form .password_container .generate_password i:hover,
-.edit_account .password_reset_form .password_container .show_hide_password i:hover,
-.edit_account .password_reset_form .password_container .copy_password i:hover,
-.edit_account .password_reset_form .password_container .paste_password i:hover,
-.edit_account .password_reset_form .password_check_container .generate_password i:hover,
-.edit_account .password_reset_form .password_check_container .show_hide_password i:hover,
-.edit_account .password_reset_form .password_check_container .copy_password i:hover,
-.edit_account .password_reset_form .password_check_container .paste_password i:hover,
-.edit_account .password_reset_form .current_password_container .generate_password i:hover,
-.edit_account .password_reset_form .current_password_container .show_hide_password i:hover,
-.edit_account .password_reset_form .current_password_container .copy_password i:hover,
-.edit_account .password_reset_form .current_password_container .paste_password i:hover,
-.edit_account .password_reset_form .new_password_container .generate_password i:hover,
-.edit_account .password_reset_form .new_password_container .show_hide_password i:hover,
-.edit_account .password_reset_form .new_password_container .copy_password i:hover,
-.edit_account .password_reset_form .new_password_container .paste_password i:hover,
-.edit_review .login_form .password_container .generate_password i:hover,
-.edit_review .login_form .password_container .show_hide_password i:hover,
-.edit_review .login_form .password_container .copy_password i:hover,
-.edit_review .login_form .password_container .paste_password i:hover,
-.edit_review .login_form .password_check_container .generate_password i:hover,
-.edit_review .login_form .password_check_container .show_hide_password i:hover,
-.edit_review .login_form .password_check_container .copy_password i:hover,
-.edit_review .login_form .password_check_container .paste_password i:hover,
-.edit_review .login_form .current_password_container .generate_password i:hover,
-.edit_review .login_form .current_password_container .show_hide_password i:hover,
-.edit_review .login_form .current_password_container .copy_password i:hover,
-.edit_review .login_form .current_password_container .paste_password i:hover,
-.edit_review .login_form .new_password_container .generate_password i:hover,
-.edit_review .login_form .new_password_container .show_hide_password i:hover,
-.edit_review .login_form .new_password_container .copy_password i:hover,
-.edit_review .login_form .new_password_container .paste_password i:hover,
-.edit_review .registration_form .password_container .generate_password i:hover,
-.edit_review .registration_form .password_container .show_hide_password i:hover,
-.edit_review .registration_form .password_container .copy_password i:hover,
-.edit_review .registration_form .password_container .paste_password i:hover,
-.edit_review .registration_form .password_check_container .generate_password i:hover,
-.edit_review .registration_form .password_check_container .show_hide_password i:hover,
-.edit_review .registration_form .password_check_container .copy_password i:hover,
-.edit_review .registration_form .password_check_container .paste_password i:hover,
-.edit_review .registration_form .current_password_container .generate_password i:hover,
-.edit_review .registration_form .current_password_container .show_hide_password i:hover,
-.edit_review .registration_form .current_password_container .copy_password i:hover,
-.edit_review .registration_form .current_password_container .paste_password i:hover,
-.edit_review .registration_form .new_password_container .generate_password i:hover,
-.edit_review .registration_form .new_password_container .show_hide_password i:hover,
-.edit_review .registration_form .new_password_container .copy_password i:hover,
-.edit_review .registration_form .new_password_container .paste_password i:hover,
-.edit_review .edit_account_form .password_container .generate_password i:hover,
-.edit_review .edit_account_form .password_container .show_hide_password i:hover,
-.edit_review .edit_account_form .password_container .copy_password i:hover,
-.edit_review .edit_account_form .password_container .paste_password i:hover,
-.edit_review .edit_account_form .password_check_container .generate_password i:hover,
-.edit_review .edit_account_form .password_check_container .show_hide_password i:hover,
-.edit_review .edit_account_form .password_check_container .copy_password i:hover,
-.edit_review .edit_account_form .password_check_container .paste_password i:hover,
-.edit_review .edit_account_form .current_password_container .generate_password i:hover,
-.edit_review .edit_account_form .current_password_container .show_hide_password i:hover,
-.edit_review .edit_account_form .current_password_container .copy_password i:hover,
-.edit_review .edit_account_form .current_password_container .paste_password i:hover,
-.edit_review .edit_account_form .new_password_container .generate_password i:hover,
-.edit_review .edit_account_form .new_password_container .show_hide_password i:hover,
-.edit_review .edit_account_form .new_password_container .copy_password i:hover,
-.edit_review .edit_account_form .new_password_container .paste_password i:hover,
-.edit_review .password_reset_form .password_container .generate_password i:hover,
-.edit_review .password_reset_form .password_container .show_hide_password i:hover,
-.edit_review .password_reset_form .password_container .copy_password i:hover,
-.edit_review .password_reset_form .password_container .paste_password i:hover,
-.edit_review .password_reset_form .password_check_container .generate_password i:hover,
-.edit_review .password_reset_form .password_check_container .show_hide_password i:hover,
-.edit_review .password_reset_form .password_check_container .copy_password i:hover,
-.edit_review .password_reset_form .password_check_container .paste_password i:hover,
-.edit_review .password_reset_form .current_password_container .generate_password i:hover,
-.edit_review .password_reset_form .current_password_container .show_hide_password i:hover,
-.edit_review .password_reset_form .current_password_container .copy_password i:hover,
-.edit_review .password_reset_form .current_password_container .paste_password i:hover,
-.edit_review .password_reset_form .new_password_container .generate_password i:hover,
-.edit_review .password_reset_form .new_password_container .show_hide_password i:hover,
-.edit_review .password_reset_form .new_password_container .copy_password i:hover,
-.edit_review .password_reset_form .new_password_container .paste_password i:hover,
-.password_reset .login_form .password_container .generate_password i:hover,
-.password_reset .login_form .password_container .show_hide_password i:hover,
-.password_reset .login_form .password_container .copy_password i:hover,
-.password_reset .login_form .password_container .paste_password i:hover,
-.password_reset .login_form .password_check_container .generate_password i:hover,
-.password_reset .login_form .password_check_container .show_hide_password i:hover,
-.password_reset .login_form .password_check_container .copy_password i:hover,
-.password_reset .login_form .password_check_container .paste_password i:hover,
-.password_reset .login_form .current_password_container .generate_password i:hover,
-.password_reset .login_form .current_password_container .show_hide_password i:hover,
-.password_reset .login_form .current_password_container .copy_password i:hover,
-.password_reset .login_form .current_password_container .paste_password i:hover,
-.password_reset .login_form .new_password_container .generate_password i:hover,
-.password_reset .login_form .new_password_container .show_hide_password i:hover,
-.password_reset .login_form .new_password_container .copy_password i:hover,
-.password_reset .login_form .new_password_container .paste_password i:hover,
-.password_reset .registration_form .password_container .generate_password i:hover,
-.password_reset .registration_form .password_container .show_hide_password i:hover,
-.password_reset .registration_form .password_container .copy_password i:hover,
-.password_reset .registration_form .password_container .paste_password i:hover,
-.password_reset .registration_form .password_check_container .generate_password i:hover,
-.password_reset .registration_form .password_check_container .show_hide_password i:hover,
-.password_reset .registration_form .password_check_container .copy_password i:hover,
-.password_reset .registration_form .password_check_container .paste_password i:hover,
-.password_reset .registration_form .current_password_container .generate_password i:hover,
-.password_reset .registration_form .current_password_container .show_hide_password i:hover,
-.password_reset .registration_form .current_password_container .copy_password i:hover,
-.password_reset .registration_form .current_password_container .paste_password i:hover,
-.password_reset .registration_form .new_password_container .generate_password i:hover,
-.password_reset .registration_form .new_password_container .show_hide_password i:hover,
-.password_reset .registration_form .new_password_container .copy_password i:hover,
-.password_reset .registration_form .new_password_container .paste_password i:hover,
-.password_reset .edit_account_form .password_container .generate_password i:hover,
-.password_reset .edit_account_form .password_container .show_hide_password i:hover,
-.password_reset .edit_account_form .password_container .copy_password i:hover,
-.password_reset .edit_account_form .password_container .paste_password i:hover,
-.password_reset .edit_account_form .password_check_container .generate_password i:hover,
-.password_reset .edit_account_form .password_check_container .show_hide_password i:hover,
-.password_reset .edit_account_form .password_check_container .copy_password i:hover,
-.password_reset .edit_account_form .password_check_container .paste_password i:hover,
-.password_reset .edit_account_form .current_password_container .generate_password i:hover,
-.password_reset .edit_account_form .current_password_container .show_hide_password i:hover,
-.password_reset .edit_account_form .current_password_container .copy_password i:hover,
-.password_reset .edit_account_form .current_password_container .paste_password i:hover,
-.password_reset .edit_account_form .new_password_container .generate_password i:hover,
-.password_reset .edit_account_form .new_password_container .show_hide_password i:hover,
-.password_reset .edit_account_form .new_password_container .copy_password i:hover,
-.password_reset .edit_account_form .new_password_container .paste_password i:hover,
-.password_reset .password_reset_form .password_container .generate_password i:hover,
-.password_reset .password_reset_form .password_container .show_hide_password i:hover,
-.password_reset .password_reset_form .password_container .copy_password i:hover,
-.password_reset .password_reset_form .password_container .paste_password i:hover,
-.password_reset .password_reset_form .password_check_container .generate_password i:hover,
-.password_reset .password_reset_form .password_check_container .show_hide_password i:hover,
-.password_reset .password_reset_form .password_check_container .copy_password i:hover,
-.password_reset .password_reset_form .password_check_container .paste_password i:hover,
-.password_reset .password_reset_form .current_password_container .generate_password i:hover,
-.password_reset .password_reset_form .current_password_container .show_hide_password i:hover,
-.password_reset .password_reset_form .current_password_container .copy_password i:hover,
-.password_reset .password_reset_form .current_password_container .paste_password i:hover,
-.password_reset .password_reset_form .new_password_container .generate_password i:hover,
-.password_reset .password_reset_form .new_password_container .show_hide_password i:hover,
-.password_reset .password_reset_form .new_password_container .copy_password i:hover,
-.password_reset .password_reset_form .new_password_container .paste_password i:hover,
-.success_order .login_form .password_container .generate_password i:hover,
-.success_order .login_form .password_container .show_hide_password i:hover,
-.success_order .login_form .password_container .copy_password i:hover,
-.success_order .login_form .password_container .paste_password i:hover,
-.success_order .login_form .password_check_container .generate_password i:hover,
-.success_order .login_form .password_check_container .show_hide_password i:hover,
-.success_order .login_form .password_check_container .copy_password i:hover,
-.success_order .login_form .password_check_container .paste_password i:hover,
-.success_order .login_form .current_password_container .generate_password i:hover,
-.success_order .login_form .current_password_container .show_hide_password i:hover,
-.success_order .login_form .current_password_container .copy_password i:hover,
-.success_order .login_form .current_password_container .paste_password i:hover,
-.success_order .login_form .new_password_container .generate_password i:hover,
-.success_order .login_form .new_password_container .show_hide_password i:hover,
-.success_order .login_form .new_password_container .copy_password i:hover,
-.success_order .login_form .new_password_container .paste_password i:hover,
-.success_order .registration_form .password_container .generate_password i:hover,
-.success_order .registration_form .password_container .show_hide_password i:hover,
-.success_order .registration_form .password_container .copy_password i:hover,
-.success_order .registration_form .password_container .paste_password i:hover,
-.success_order .registration_form .password_check_container .generate_password i:hover,
-.success_order .registration_form .password_check_container .show_hide_password i:hover,
-.success_order .registration_form .password_check_container .copy_password i:hover,
-.success_order .registration_form .password_check_container .paste_password i:hover,
-.success_order .registration_form .current_password_container .generate_password i:hover,
-.success_order .registration_form .current_password_container .show_hide_password i:hover,
-.success_order .registration_form .current_password_container .copy_password i:hover,
-.success_order .registration_form .current_password_container .paste_password i:hover,
-.success_order .registration_form .new_password_container .generate_password i:hover,
-.success_order .registration_form .new_password_container .show_hide_password i:hover,
-.success_order .registration_form .new_password_container .copy_password i:hover,
-.success_order .registration_form .new_password_container .paste_password i:hover,
-.success_order .edit_account_form .password_container .generate_password i:hover,
-.success_order .edit_account_form .password_container .show_hide_password i:hover,
-.success_order .edit_account_form .password_container .copy_password i:hover,
-.success_order .edit_account_form .password_container .paste_password i:hover,
-.success_order .edit_account_form .password_check_container .generate_password i:hover,
-.success_order .edit_account_form .password_check_container .show_hide_password i:hover,
-.success_order .edit_account_form .password_check_container .copy_password i:hover,
-.success_order .edit_account_form .password_check_container .paste_password i:hover,
-.success_order .edit_account_form .current_password_container .generate_password i:hover,
-.success_order .edit_account_form .current_password_container .show_hide_password i:hover,
-.success_order .edit_account_form .current_password_container .copy_password i:hover,
-.success_order .edit_account_form .current_password_container .paste_password i:hover,
-.success_order .edit_account_form .new_password_container .generate_password i:hover,
-.success_order .edit_account_form .new_password_container .show_hide_password i:hover,
-.success_order .edit_account_form .new_password_container .copy_password i:hover,
-.success_order .edit_account_form .new_password_container .paste_password i:hover,
-.success_order .password_reset_form .password_container .generate_password i:hover,
-.success_order .password_reset_form .password_container .show_hide_password i:hover,
-.success_order .password_reset_form .password_container .copy_password i:hover,
-.success_order .password_reset_form .password_container .paste_password i:hover,
-.success_order .password_reset_form .password_check_container .generate_password i:hover,
-.success_order .password_reset_form .password_check_container .show_hide_password i:hover,
-.success_order .password_reset_form .password_check_container .copy_password i:hover,
-.success_order .password_reset_form .password_check_container .paste_password i:hover,
-.success_order .password_reset_form .current_password_container .generate_password i:hover,
-.success_order .password_reset_form .current_password_container .show_hide_password i:hover,
-.success_order .password_reset_form .current_password_container .copy_password i:hover,
-.success_order .password_reset_form .current_password_container .paste_password i:hover,
-.success_order .password_reset_form .new_password_container .generate_password i:hover,
-.success_order .password_reset_form .new_password_container .show_hide_password i:hover,
-.success_order .password_reset_form .new_password_container .copy_password i:hover,
-.success_order .password_reset_form .new_password_container .paste_password i:hover {
-  color: rgb(90%, 90%, 90%);
-  cursor: pointer;
-  transition: color 0.3s ease, top 0.3s ease, right 0.3s ease, bottom 0.3s ease, left 0.3s ease;
+@media (hover: hover) {
+  .registration .login_form .password_container .generate_password i:hover,
+  .registration .login_form .password_container .show_hide_password i:hover,
+  .registration .login_form .password_container .copy_password i:hover,
+  .registration .login_form .password_container .paste_password i:hover,
+  .registration .login_form .password_check_container .generate_password i:hover,
+  .registration .login_form .password_check_container .show_hide_password i:hover,
+  .registration .login_form .password_check_container .copy_password i:hover,
+  .registration .login_form .password_check_container .paste_password i:hover,
+  .registration .login_form .current_password_container .generate_password i:hover,
+  .registration .login_form .current_password_container .show_hide_password i:hover,
+  .registration .login_form .current_password_container .copy_password i:hover,
+  .registration .login_form .current_password_container .paste_password i:hover,
+  .registration .login_form .new_password_container .generate_password i:hover,
+  .registration .login_form .new_password_container .show_hide_password i:hover,
+  .registration .login_form .new_password_container .copy_password i:hover,
+  .registration .login_form .new_password_container .paste_password i:hover,
+  .registration .registration_form .password_container .generate_password i:hover,
+  .registration .registration_form .password_container .show_hide_password i:hover,
+  .registration .registration_form .password_container .copy_password i:hover,
+  .registration .registration_form .password_container .paste_password i:hover,
+  .registration .registration_form .password_check_container .generate_password i:hover,
+  .registration .registration_form .password_check_container .show_hide_password i:hover,
+  .registration .registration_form .password_check_container .copy_password i:hover,
+  .registration .registration_form .password_check_container .paste_password i:hover,
+  .registration .registration_form .current_password_container .generate_password i:hover,
+  .registration .registration_form .current_password_container .show_hide_password i:hover,
+  .registration .registration_form .current_password_container .copy_password i:hover,
+  .registration .registration_form .current_password_container .paste_password i:hover,
+  .registration .registration_form .new_password_container .generate_password i:hover,
+  .registration .registration_form .new_password_container .show_hide_password i:hover,
+  .registration .registration_form .new_password_container .copy_password i:hover,
+  .registration .registration_form .new_password_container .paste_password i:hover,
+  .registration .edit_account_form .password_container .generate_password i:hover,
+  .registration .edit_account_form .password_container .show_hide_password i:hover,
+  .registration .edit_account_form .password_container .copy_password i:hover,
+  .registration .edit_account_form .password_container .paste_password i:hover,
+  .registration .edit_account_form .password_check_container .generate_password i:hover,
+  .registration .edit_account_form .password_check_container .show_hide_password i:hover,
+  .registration .edit_account_form .password_check_container .copy_password i:hover,
+  .registration .edit_account_form .password_check_container .paste_password i:hover,
+  .registration .edit_account_form .current_password_container .generate_password i:hover,
+  .registration .edit_account_form .current_password_container .show_hide_password i:hover,
+  .registration .edit_account_form .current_password_container .copy_password i:hover,
+  .registration .edit_account_form .current_password_container .paste_password i:hover,
+  .registration .edit_account_form .new_password_container .generate_password i:hover,
+  .registration .edit_account_form .new_password_container .show_hide_password i:hover,
+  .registration .edit_account_form .new_password_container .copy_password i:hover,
+  .registration .edit_account_form .new_password_container .paste_password i:hover,
+  .registration .password_reset_form .password_container .generate_password i:hover,
+  .registration .password_reset_form .password_container .show_hide_password i:hover,
+  .registration .password_reset_form .password_container .copy_password i:hover,
+  .registration .password_reset_form .password_container .paste_password i:hover,
+  .registration .password_reset_form .password_check_container .generate_password i:hover,
+  .registration .password_reset_form .password_check_container .show_hide_password i:hover,
+  .registration .password_reset_form .password_check_container .copy_password i:hover,
+  .registration .password_reset_form .password_check_container .paste_password i:hover,
+  .registration .password_reset_form .current_password_container .generate_password i:hover,
+  .registration .password_reset_form .current_password_container .show_hide_password i:hover,
+  .registration .password_reset_form .current_password_container .copy_password i:hover,
+  .registration .password_reset_form .current_password_container .paste_password i:hover,
+  .registration .password_reset_form .new_password_container .generate_password i:hover,
+  .registration .password_reset_form .new_password_container .show_hide_password i:hover,
+  .registration .password_reset_form .new_password_container .copy_password i:hover,
+  .registration .password_reset_form .new_password_container .paste_password i:hover,
+  .login .login_form .password_container .generate_password i:hover,
+  .login .login_form .password_container .show_hide_password i:hover,
+  .login .login_form .password_container .copy_password i:hover,
+  .login .login_form .password_container .paste_password i:hover,
+  .login .login_form .password_check_container .generate_password i:hover,
+  .login .login_form .password_check_container .show_hide_password i:hover,
+  .login .login_form .password_check_container .copy_password i:hover,
+  .login .login_form .password_check_container .paste_password i:hover,
+  .login .login_form .current_password_container .generate_password i:hover,
+  .login .login_form .current_password_container .show_hide_password i:hover,
+  .login .login_form .current_password_container .copy_password i:hover,
+  .login .login_form .current_password_container .paste_password i:hover,
+  .login .login_form .new_password_container .generate_password i:hover,
+  .login .login_form .new_password_container .show_hide_password i:hover,
+  .login .login_form .new_password_container .copy_password i:hover,
+  .login .login_form .new_password_container .paste_password i:hover,
+  .login .registration_form .password_container .generate_password i:hover,
+  .login .registration_form .password_container .show_hide_password i:hover,
+  .login .registration_form .password_container .copy_password i:hover,
+  .login .registration_form .password_container .paste_password i:hover,
+  .login .registration_form .password_check_container .generate_password i:hover,
+  .login .registration_form .password_check_container .show_hide_password i:hover,
+  .login .registration_form .password_check_container .copy_password i:hover,
+  .login .registration_form .password_check_container .paste_password i:hover,
+  .login .registration_form .current_password_container .generate_password i:hover,
+  .login .registration_form .current_password_container .show_hide_password i:hover,
+  .login .registration_form .current_password_container .copy_password i:hover,
+  .login .registration_form .current_password_container .paste_password i:hover,
+  .login .registration_form .new_password_container .generate_password i:hover,
+  .login .registration_form .new_password_container .show_hide_password i:hover,
+  .login .registration_form .new_password_container .copy_password i:hover,
+  .login .registration_form .new_password_container .paste_password i:hover,
+  .login .edit_account_form .password_container .generate_password i:hover,
+  .login .edit_account_form .password_container .show_hide_password i:hover,
+  .login .edit_account_form .password_container .copy_password i:hover,
+  .login .edit_account_form .password_container .paste_password i:hover,
+  .login .edit_account_form .password_check_container .generate_password i:hover,
+  .login .edit_account_form .password_check_container .show_hide_password i:hover,
+  .login .edit_account_form .password_check_container .copy_password i:hover,
+  .login .edit_account_form .password_check_container .paste_password i:hover,
+  .login .edit_account_form .current_password_container .generate_password i:hover,
+  .login .edit_account_form .current_password_container .show_hide_password i:hover,
+  .login .edit_account_form .current_password_container .copy_password i:hover,
+  .login .edit_account_form .current_password_container .paste_password i:hover,
+  .login .edit_account_form .new_password_container .generate_password i:hover,
+  .login .edit_account_form .new_password_container .show_hide_password i:hover,
+  .login .edit_account_form .new_password_container .copy_password i:hover,
+  .login .edit_account_form .new_password_container .paste_password i:hover,
+  .login .password_reset_form .password_container .generate_password i:hover,
+  .login .password_reset_form .password_container .show_hide_password i:hover,
+  .login .password_reset_form .password_container .copy_password i:hover,
+  .login .password_reset_form .password_container .paste_password i:hover,
+  .login .password_reset_form .password_check_container .generate_password i:hover,
+  .login .password_reset_form .password_check_container .show_hide_password i:hover,
+  .login .password_reset_form .password_check_container .copy_password i:hover,
+  .login .password_reset_form .password_check_container .paste_password i:hover,
+  .login .password_reset_form .current_password_container .generate_password i:hover,
+  .login .password_reset_form .current_password_container .show_hide_password i:hover,
+  .login .password_reset_form .current_password_container .copy_password i:hover,
+  .login .password_reset_form .current_password_container .paste_password i:hover,
+  .login .password_reset_form .new_password_container .generate_password i:hover,
+  .login .password_reset_form .new_password_container .show_hide_password i:hover,
+  .login .password_reset_form .new_password_container .copy_password i:hover,
+  .login .password_reset_form .new_password_container .paste_password i:hover,
+  .edit_account .login_form .password_container .generate_password i:hover,
+  .edit_account .login_form .password_container .show_hide_password i:hover,
+  .edit_account .login_form .password_container .copy_password i:hover,
+  .edit_account .login_form .password_container .paste_password i:hover,
+  .edit_account .login_form .password_check_container .generate_password i:hover,
+  .edit_account .login_form .password_check_container .show_hide_password i:hover,
+  .edit_account .login_form .password_check_container .copy_password i:hover,
+  .edit_account .login_form .password_check_container .paste_password i:hover,
+  .edit_account .login_form .current_password_container .generate_password i:hover,
+  .edit_account .login_form .current_password_container .show_hide_password i:hover,
+  .edit_account .login_form .current_password_container .copy_password i:hover,
+  .edit_account .login_form .current_password_container .paste_password i:hover,
+  .edit_account .login_form .new_password_container .generate_password i:hover,
+  .edit_account .login_form .new_password_container .show_hide_password i:hover,
+  .edit_account .login_form .new_password_container .copy_password i:hover,
+  .edit_account .login_form .new_password_container .paste_password i:hover,
+  .edit_account .registration_form .password_container .generate_password i:hover,
+  .edit_account .registration_form .password_container .show_hide_password i:hover,
+  .edit_account .registration_form .password_container .copy_password i:hover,
+  .edit_account .registration_form .password_container .paste_password i:hover,
+  .edit_account .registration_form .password_check_container .generate_password i:hover,
+  .edit_account .registration_form .password_check_container .show_hide_password i:hover,
+  .edit_account .registration_form .password_check_container .copy_password i:hover,
+  .edit_account .registration_form .password_check_container .paste_password i:hover,
+  .edit_account .registration_form .current_password_container .generate_password i:hover,
+  .edit_account .registration_form .current_password_container .show_hide_password i:hover,
+  .edit_account .registration_form .current_password_container .copy_password i:hover,
+  .edit_account .registration_form .current_password_container .paste_password i:hover,
+  .edit_account .registration_form .new_password_container .generate_password i:hover,
+  .edit_account .registration_form .new_password_container .show_hide_password i:hover,
+  .edit_account .registration_form .new_password_container .copy_password i:hover,
+  .edit_account .registration_form .new_password_container .paste_password i:hover,
+  .edit_account .edit_account_form .password_container .generate_password i:hover,
+  .edit_account .edit_account_form .password_container .show_hide_password i:hover,
+  .edit_account .edit_account_form .password_container .copy_password i:hover,
+  .edit_account .edit_account_form .password_container .paste_password i:hover,
+  .edit_account .edit_account_form .password_check_container .generate_password i:hover,
+  .edit_account .edit_account_form .password_check_container .show_hide_password i:hover,
+  .edit_account .edit_account_form .password_check_container .copy_password i:hover,
+  .edit_account .edit_account_form .password_check_container .paste_password i:hover,
+  .edit_account .edit_account_form .current_password_container .generate_password i:hover,
+  .edit_account .edit_account_form .current_password_container .show_hide_password i:hover,
+  .edit_account .edit_account_form .current_password_container .copy_password i:hover,
+  .edit_account .edit_account_form .current_password_container .paste_password i:hover,
+  .edit_account .edit_account_form .new_password_container .generate_password i:hover,
+  .edit_account .edit_account_form .new_password_container .show_hide_password i:hover,
+  .edit_account .edit_account_form .new_password_container .copy_password i:hover,
+  .edit_account .edit_account_form .new_password_container .paste_password i:hover,
+  .edit_account .password_reset_form .password_container .generate_password i:hover,
+  .edit_account .password_reset_form .password_container .show_hide_password i:hover,
+  .edit_account .password_reset_form .password_container .copy_password i:hover,
+  .edit_account .password_reset_form .password_container .paste_password i:hover,
+  .edit_account .password_reset_form .password_check_container .generate_password i:hover,
+  .edit_account .password_reset_form .password_check_container .show_hide_password i:hover,
+  .edit_account .password_reset_form .password_check_container .copy_password i:hover,
+  .edit_account .password_reset_form .password_check_container .paste_password i:hover,
+  .edit_account .password_reset_form .current_password_container .generate_password i:hover,
+  .edit_account .password_reset_form .current_password_container .show_hide_password i:hover,
+  .edit_account .password_reset_form .current_password_container .copy_password i:hover,
+  .edit_account .password_reset_form .current_password_container .paste_password i:hover,
+  .edit_account .password_reset_form .new_password_container .generate_password i:hover,
+  .edit_account .password_reset_form .new_password_container .show_hide_password i:hover,
+  .edit_account .password_reset_form .new_password_container .copy_password i:hover,
+  .edit_account .password_reset_form .new_password_container .paste_password i:hover,
+  .edit_review .login_form .password_container .generate_password i:hover,
+  .edit_review .login_form .password_container .show_hide_password i:hover,
+  .edit_review .login_form .password_container .copy_password i:hover,
+  .edit_review .login_form .password_container .paste_password i:hover,
+  .edit_review .login_form .password_check_container .generate_password i:hover,
+  .edit_review .login_form .password_check_container .show_hide_password i:hover,
+  .edit_review .login_form .password_check_container .copy_password i:hover,
+  .edit_review .login_form .password_check_container .paste_password i:hover,
+  .edit_review .login_form .current_password_container .generate_password i:hover,
+  .edit_review .login_form .current_password_container .show_hide_password i:hover,
+  .edit_review .login_form .current_password_container .copy_password i:hover,
+  .edit_review .login_form .current_password_container .paste_password i:hover,
+  .edit_review .login_form .new_password_container .generate_password i:hover,
+  .edit_review .login_form .new_password_container .show_hide_password i:hover,
+  .edit_review .login_form .new_password_container .copy_password i:hover,
+  .edit_review .login_form .new_password_container .paste_password i:hover,
+  .edit_review .registration_form .password_container .generate_password i:hover,
+  .edit_review .registration_form .password_container .show_hide_password i:hover,
+  .edit_review .registration_form .password_container .copy_password i:hover,
+  .edit_review .registration_form .password_container .paste_password i:hover,
+  .edit_review .registration_form .password_check_container .generate_password i:hover,
+  .edit_review .registration_form .password_check_container .show_hide_password i:hover,
+  .edit_review .registration_form .password_check_container .copy_password i:hover,
+  .edit_review .registration_form .password_check_container .paste_password i:hover,
+  .edit_review .registration_form .current_password_container .generate_password i:hover,
+  .edit_review .registration_form .current_password_container .show_hide_password i:hover,
+  .edit_review .registration_form .current_password_container .copy_password i:hover,
+  .edit_review .registration_form .current_password_container .paste_password i:hover,
+  .edit_review .registration_form .new_password_container .generate_password i:hover,
+  .edit_review .registration_form .new_password_container .show_hide_password i:hover,
+  .edit_review .registration_form .new_password_container .copy_password i:hover,
+  .edit_review .registration_form .new_password_container .paste_password i:hover,
+  .edit_review .edit_account_form .password_container .generate_password i:hover,
+  .edit_review .edit_account_form .password_container .show_hide_password i:hover,
+  .edit_review .edit_account_form .password_container .copy_password i:hover,
+  .edit_review .edit_account_form .password_container .paste_password i:hover,
+  .edit_review .edit_account_form .password_check_container .generate_password i:hover,
+  .edit_review .edit_account_form .password_check_container .show_hide_password i:hover,
+  .edit_review .edit_account_form .password_check_container .copy_password i:hover,
+  .edit_review .edit_account_form .password_check_container .paste_password i:hover,
+  .edit_review .edit_account_form .current_password_container .generate_password i:hover,
+  .edit_review .edit_account_form .current_password_container .show_hide_password i:hover,
+  .edit_review .edit_account_form .current_password_container .copy_password i:hover,
+  .edit_review .edit_account_form .current_password_container .paste_password i:hover,
+  .edit_review .edit_account_form .new_password_container .generate_password i:hover,
+  .edit_review .edit_account_form .new_password_container .show_hide_password i:hover,
+  .edit_review .edit_account_form .new_password_container .copy_password i:hover,
+  .edit_review .edit_account_form .new_password_container .paste_password i:hover,
+  .edit_review .password_reset_form .password_container .generate_password i:hover,
+  .edit_review .password_reset_form .password_container .show_hide_password i:hover,
+  .edit_review .password_reset_form .password_container .copy_password i:hover,
+  .edit_review .password_reset_form .password_container .paste_password i:hover,
+  .edit_review .password_reset_form .password_check_container .generate_password i:hover,
+  .edit_review .password_reset_form .password_check_container .show_hide_password i:hover,
+  .edit_review .password_reset_form .password_check_container .copy_password i:hover,
+  .edit_review .password_reset_form .password_check_container .paste_password i:hover,
+  .edit_review .password_reset_form .current_password_container .generate_password i:hover,
+  .edit_review .password_reset_form .current_password_container .show_hide_password i:hover,
+  .edit_review .password_reset_form .current_password_container .copy_password i:hover,
+  .edit_review .password_reset_form .current_password_container .paste_password i:hover,
+  .edit_review .password_reset_form .new_password_container .generate_password i:hover,
+  .edit_review .password_reset_form .new_password_container .show_hide_password i:hover,
+  .edit_review .password_reset_form .new_password_container .copy_password i:hover,
+  .edit_review .password_reset_form .new_password_container .paste_password i:hover,
+  .password_reset .login_form .password_container .generate_password i:hover,
+  .password_reset .login_form .password_container .show_hide_password i:hover,
+  .password_reset .login_form .password_container .copy_password i:hover,
+  .password_reset .login_form .password_container .paste_password i:hover,
+  .password_reset .login_form .password_check_container .generate_password i:hover,
+  .password_reset .login_form .password_check_container .show_hide_password i:hover,
+  .password_reset .login_form .password_check_container .copy_password i:hover,
+  .password_reset .login_form .password_check_container .paste_password i:hover,
+  .password_reset .login_form .current_password_container .generate_password i:hover,
+  .password_reset .login_form .current_password_container .show_hide_password i:hover,
+  .password_reset .login_form .current_password_container .copy_password i:hover,
+  .password_reset .login_form .current_password_container .paste_password i:hover,
+  .password_reset .login_form .new_password_container .generate_password i:hover,
+  .password_reset .login_form .new_password_container .show_hide_password i:hover,
+  .password_reset .login_form .new_password_container .copy_password i:hover,
+  .password_reset .login_form .new_password_container .paste_password i:hover,
+  .password_reset .registration_form .password_container .generate_password i:hover,
+  .password_reset .registration_form .password_container .show_hide_password i:hover,
+  .password_reset .registration_form .password_container .copy_password i:hover,
+  .password_reset .registration_form .password_container .paste_password i:hover,
+  .password_reset .registration_form .password_check_container .generate_password i:hover,
+  .password_reset .registration_form .password_check_container .show_hide_password i:hover,
+  .password_reset .registration_form .password_check_container .copy_password i:hover,
+  .password_reset .registration_form .password_check_container .paste_password i:hover,
+  .password_reset .registration_form .current_password_container .generate_password i:hover,
+  .password_reset .registration_form .current_password_container .show_hide_password i:hover,
+  .password_reset .registration_form .current_password_container .copy_password i:hover,
+  .password_reset .registration_form .current_password_container .paste_password i:hover,
+  .password_reset .registration_form .new_password_container .generate_password i:hover,
+  .password_reset .registration_form .new_password_container .show_hide_password i:hover,
+  .password_reset .registration_form .new_password_container .copy_password i:hover,
+  .password_reset .registration_form .new_password_container .paste_password i:hover,
+  .password_reset .edit_account_form .password_container .generate_password i:hover,
+  .password_reset .edit_account_form .password_container .show_hide_password i:hover,
+  .password_reset .edit_account_form .password_container .copy_password i:hover,
+  .password_reset .edit_account_form .password_container .paste_password i:hover,
+  .password_reset .edit_account_form .password_check_container .generate_password i:hover,
+  .password_reset .edit_account_form .password_check_container .show_hide_password i:hover,
+  .password_reset .edit_account_form .password_check_container .copy_password i:hover,
+  .password_reset .edit_account_form .password_check_container .paste_password i:hover,
+  .password_reset .edit_account_form .current_password_container .generate_password i:hover,
+  .password_reset .edit_account_form .current_password_container .show_hide_password i:hover,
+  .password_reset .edit_account_form .current_password_container .copy_password i:hover,
+  .password_reset .edit_account_form .current_password_container .paste_password i:hover,
+  .password_reset .edit_account_form .new_password_container .generate_password i:hover,
+  .password_reset .edit_account_form .new_password_container .show_hide_password i:hover,
+  .password_reset .edit_account_form .new_password_container .copy_password i:hover,
+  .password_reset .edit_account_form .new_password_container .paste_password i:hover,
+  .password_reset .password_reset_form .password_container .generate_password i:hover,
+  .password_reset .password_reset_form .password_container .show_hide_password i:hover,
+  .password_reset .password_reset_form .password_container .copy_password i:hover,
+  .password_reset .password_reset_form .password_container .paste_password i:hover,
+  .password_reset .password_reset_form .password_check_container .generate_password i:hover,
+  .password_reset .password_reset_form .password_check_container .show_hide_password i:hover,
+  .password_reset .password_reset_form .password_check_container .copy_password i:hover,
+  .password_reset .password_reset_form .password_check_container .paste_password i:hover,
+  .password_reset .password_reset_form .current_password_container .generate_password i:hover,
+  .password_reset .password_reset_form .current_password_container .show_hide_password i:hover,
+  .password_reset .password_reset_form .current_password_container .copy_password i:hover,
+  .password_reset .password_reset_form .current_password_container .paste_password i:hover,
+  .password_reset .password_reset_form .new_password_container .generate_password i:hover,
+  .password_reset .password_reset_form .new_password_container .show_hide_password i:hover,
+  .password_reset .password_reset_form .new_password_container .copy_password i:hover,
+  .password_reset .password_reset_form .new_password_container .paste_password i:hover,
+  .success_order .login_form .password_container .generate_password i:hover,
+  .success_order .login_form .password_container .show_hide_password i:hover,
+  .success_order .login_form .password_container .copy_password i:hover,
+  .success_order .login_form .password_container .paste_password i:hover,
+  .success_order .login_form .password_check_container .generate_password i:hover,
+  .success_order .login_form .password_check_container .show_hide_password i:hover,
+  .success_order .login_form .password_check_container .copy_password i:hover,
+  .success_order .login_form .password_check_container .paste_password i:hover,
+  .success_order .login_form .current_password_container .generate_password i:hover,
+  .success_order .login_form .current_password_container .show_hide_password i:hover,
+  .success_order .login_form .current_password_container .copy_password i:hover,
+  .success_order .login_form .current_password_container .paste_password i:hover,
+  .success_order .login_form .new_password_container .generate_password i:hover,
+  .success_order .login_form .new_password_container .show_hide_password i:hover,
+  .success_order .login_form .new_password_container .copy_password i:hover,
+  .success_order .login_form .new_password_container .paste_password i:hover,
+  .success_order .registration_form .password_container .generate_password i:hover,
+  .success_order .registration_form .password_container .show_hide_password i:hover,
+  .success_order .registration_form .password_container .copy_password i:hover,
+  .success_order .registration_form .password_container .paste_password i:hover,
+  .success_order .registration_form .password_check_container .generate_password i:hover,
+  .success_order .registration_form .password_check_container .show_hide_password i:hover,
+  .success_order .registration_form .password_check_container .copy_password i:hover,
+  .success_order .registration_form .password_check_container .paste_password i:hover,
+  .success_order .registration_form .current_password_container .generate_password i:hover,
+  .success_order .registration_form .current_password_container .show_hide_password i:hover,
+  .success_order .registration_form .current_password_container .copy_password i:hover,
+  .success_order .registration_form .current_password_container .paste_password i:hover,
+  .success_order .registration_form .new_password_container .generate_password i:hover,
+  .success_order .registration_form .new_password_container .show_hide_password i:hover,
+  .success_order .registration_form .new_password_container .copy_password i:hover,
+  .success_order .registration_form .new_password_container .paste_password i:hover,
+  .success_order .edit_account_form .password_container .generate_password i:hover,
+  .success_order .edit_account_form .password_container .show_hide_password i:hover,
+  .success_order .edit_account_form .password_container .copy_password i:hover,
+  .success_order .edit_account_form .password_container .paste_password i:hover,
+  .success_order .edit_account_form .password_check_container .generate_password i:hover,
+  .success_order .edit_account_form .password_check_container .show_hide_password i:hover,
+  .success_order .edit_account_form .password_check_container .copy_password i:hover,
+  .success_order .edit_account_form .password_check_container .paste_password i:hover,
+  .success_order .edit_account_form .current_password_container .generate_password i:hover,
+  .success_order .edit_account_form .current_password_container .show_hide_password i:hover,
+  .success_order .edit_account_form .current_password_container .copy_password i:hover,
+  .success_order .edit_account_form .current_password_container .paste_password i:hover,
+  .success_order .edit_account_form .new_password_container .generate_password i:hover,
+  .success_order .edit_account_form .new_password_container .show_hide_password i:hover,
+  .success_order .edit_account_form .new_password_container .copy_password i:hover,
+  .success_order .edit_account_form .new_password_container .paste_password i:hover,
+  .success_order .password_reset_form .password_container .generate_password i:hover,
+  .success_order .password_reset_form .password_container .show_hide_password i:hover,
+  .success_order .password_reset_form .password_container .copy_password i:hover,
+  .success_order .password_reset_form .password_container .paste_password i:hover,
+  .success_order .password_reset_form .password_check_container .generate_password i:hover,
+  .success_order .password_reset_form .password_check_container .show_hide_password i:hover,
+  .success_order .password_reset_form .password_check_container .copy_password i:hover,
+  .success_order .password_reset_form .password_check_container .paste_password i:hover,
+  .success_order .password_reset_form .current_password_container .generate_password i:hover,
+  .success_order .password_reset_form .current_password_container .show_hide_password i:hover,
+  .success_order .password_reset_form .current_password_container .copy_password i:hover,
+  .success_order .password_reset_form .current_password_container .paste_password i:hover,
+  .success_order .password_reset_form .new_password_container .generate_password i:hover,
+  .success_order .password_reset_form .new_password_container .show_hide_password i:hover,
+  .success_order .password_reset_form .new_password_container .copy_password i:hover,
+  .success_order .password_reset_form .new_password_container .paste_password i:hover {
+    color: var(--color-text);
+    cursor: pointer;
+  }
 }
 .registration .login_form .password_container .generate_password,
 .registration .login_form .password_check_container .generate_password,
@@ -2566,7 +2765,7 @@ main {
   left: 0px;
   width: 14px;
   height: 14px;
-  outline: 1px solid #52cf20 !important;
+  outline: 1px solid #16a34a !important;
   background: rgba(255, 255, 255, 0.2);
 }
 .registration .login_form .agree input:checked + label::after,
@@ -2731,7 +2930,7 @@ main {
 .success_order .password_reset_form .agree label {
   margin-left: 0px;
   font-size: 0.9em;
-  color: #fff;
+  color: #ffffff;
   user-select: none;
   transition: letter-spacing 0.3s ease;
 }
@@ -2785,7 +2984,7 @@ main {
 .success_order .registration_form .agree .terms + .terms_label::before,
 .success_order .edit_account_form .agree .terms + .terms_label::before,
 .success_order .password_reset_form .agree .terms + .terms_label::before {
-  outline: 1px solid #df3535;
+  outline: 1px solid #dc2626;
 }
 .registration .login_form .agree .terms + .terms_label::before:checked + .terms_label::before,
 .registration .registration_form .agree .terms + .terms_label::before:checked + .terms_label::before,
@@ -2811,7 +3010,7 @@ main {
 .success_order .registration_form .agree .terms + .terms_label::before:checked + .terms_label::before,
 .success_order .edit_account_form .agree .terms + .terms_label::before:checked + .terms_label::before,
 .success_order .password_reset_form .agree .terms + .terms_label::before:checked + .terms_label::before {
-  outline: 1px solid #52cf20;
+  outline: 1px solid #16a34a;
 }
 .registration .edit_account_form .profile_picture_container,
 .login .edit_account_form .profile_picture_container,
@@ -2888,7 +3087,7 @@ main {
 .edit_review .edit_account_form h3,
 .password_reset .edit_account_form h3,
 .success_order .edit_account_form h3 {
-  color: #fff;
+  color: #ffffff;
   text-align: center;
 }
 .registration .edit_account_form .delete_account_container .delete_account,
@@ -2946,7 +3145,7 @@ main {
 .password_reset .edit_review_form .review_container .user .name,
 .success_order .edit_review_form .review_container .user .name {
   margin-bottom: 0px;
-  color: #fff;
+  color: #ffffff;
 }
 .registration .edit_review_form .review_container .stars,
 .login .edit_review_form .review_container .stars,
@@ -3029,7 +3228,7 @@ main {
 .password_reset .no_review p,
 .success_order .no_logged_in p,
 .success_order .no_review p {
-  color: #fff;
+  color: #ffffff;
   text-align: center;
 }
 .registration .no_logged_in p a:link,
@@ -3056,7 +3255,7 @@ main {
 .success_order .no_logged_in p a:visited,
 .success_order .no_review p a:link,
 .success_order .no_review p a:visited {
-  color: #fff;
+  color: #ffffff;
   text-decoration: none;
 }
 .registration .no_logged_in p a:hover,
@@ -3105,13 +3304,13 @@ main {
 .edit_review .code_expired p,
 .password_reset .code_expired p,
 .success_order .code_expired p {
-  color: #fff;
+  color: #ffffff;
   text-align: center;
 }
 
 .error_404 {
   text-align: center;
-  color: #fff;
+  color: #ffffff;
 }
 .error_404 img {
   transition: transform 0.3s ease;
@@ -3125,7 +3324,7 @@ main {
 }
 .error_404 a:link,
 .error_404 a:visited {
-  color: #fff;
+  color: #ffffff;
   text-decoration: none;
 }
 .error_404 a:hover,
@@ -3135,13 +3334,13 @@ main {
 }
 
 .success_order h2 {
-  color: #fff;
+  color: #ffffff;
 }
 .success_order h2:hover {
   letter-spacing: 0px;
 }
 .success_order p {
-  color: #fff;
+  color: #ffffff;
 }
 
 /**************
